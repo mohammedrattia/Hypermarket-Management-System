@@ -10,27 +10,15 @@ Label {
 .logo {
     -fx-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     -fx-font-weight: bold;
-    -fx-width: 200px;
-    -fx-padding-left: 10px;
-    -fx-padding-right: 10px;
-    -fx-margin-left: 10px;
-    -fx-margin-right: 10px;
-    -fx-display: flex;
-    -fx-align-items: center;
 }
 
 .test {
-
     -fx-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     -fx-background-color: rgb(222, 240, 223);
     -fx-font-weight: bold;
-    -fx-width: 200px;
-    -fx-padding-left: 10px;
-    -fx-margin-left: 10px;
-    -fx-display: flex;
-    -fx-align-items: center;
     -fx-max-width: 100px;
     -fx-max-height: 100px;
     -fx-min-width: 100px;
     -fx-min-height: 100px;
+    -fx-alignment: top-center;
 }
