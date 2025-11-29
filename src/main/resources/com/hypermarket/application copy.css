@@ -1,0 +1,24 @@
+VBox {
+  -fx-background-color: rgb(222, 240, 223);
+  -fx-opacity: 70;
+}
+
+Label {
+  -fx-text-fill: rgb(1, 15, 10);
+}
+
+.logo {
+  -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  -fx-font-weight: bold;
+}
+
+.test {
+  -fx-font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  -fx-background-color: rgb(222, 240, 223);
+  -fx-font-weight: bold;
+  -fx-max-width: 100px;
+  -fx-max-height: 100px;
+  -fx-min-width: 100px;
+  -fx-min-height: 100px;
+  -fx-alignment: top-center;
+}
