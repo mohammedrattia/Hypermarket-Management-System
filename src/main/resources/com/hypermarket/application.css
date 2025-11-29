@@ -1,24 +1,193 @@
-VBox {
-    -fx-background-color: rgb(222, 240, 223);
-    -fx-opacity: 70;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+
+.root {
+  -fx-font-family: "Poppins", "Segoe UI", "DejaVu Sans", sans-serif;
 }
 
-Label {
-    -fx-text-fill: rgb(1, 15, 10);
+.sidebar {
+  -fx-background-color: linear-gradient(to bottom, #e6faee98 50%, #64d68c 100%);
+  -fx-effect: innershadow(two-pass-box, rgba(0, 0, 0, 0.2), 5, 0, -4, 0);
+}
+
+.logo-container {
+  -fx-background-color: rgba(255, 255, 255, 0.1);
 }
 
 .logo {
-    -fx-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    -fx-font-weight: bold;
+  -fx-text-fill: black;
+  -fx-font-weight: bold;
 }
 
-.test {
-    -fx-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    -fx-background-color: rgb(222, 240, 223);
-    -fx-font-weight: bold;
-    -fx-max-width: 100px;
-    -fx-max-height: 100px;
-    -fx-min-width: 100px;
-    -fx-min-height: 100px;
-    -fx-alignment: top-center;
+.sidebar-separator {
+  -fx-background-color: rgb(229, 229, 229);
+}
+
+.menu-scroll,
+.menu-scroll .viewport,
+.menu-scroll .scroll-bar .menu-container,
+.menu-item {
+  -fx-background-color: transparent;
+}
+
+.menu-item {
+  -fx-text-fill: rgb(36, 36, 36);
+  -fx-padding: 12 20 12 20;
+  -fx-cursor: hand;
+}
+
+.menu-item:hover {
+  -fx-text-fill: rgb(0, 0, 0);
+  -fx-background-color: rgba(255, 255, 255, 0.15);
+  -fx-scale-x: 1.05;
+  -fx-scale-y: 1.05;
+}
+
+.submenu {
+  -fx-background-color: #64d68c1f;
+  -fx-background-radius: 8;
+  -fx-padding: 8 0 8 0;
+}
+
+.submenu-item {
+  -fx-text-fill: rgba(47, 47, 47, 0.9);
+  -fx-padding: 8 15 8 15;
+  -fx-cursor: hand;
+  -fx-background-radius: 6;
+  -fx-font-size: 13px;
+}
+
+.submenu-item:hover {
+  -fx-text-fill: rgb(0, 0, 0);
+  -fx-translate-x: 5;
+  -fx-font-weight: 700;
+}
+
+.top-bar {
+  -fx-background-color: white;
+}
+
+.search-field {
+  -fx-background-color: #f0f0f0;
+  -fx-background-radius: 25;
+  -fx-padding: 10 20 10 20;
+  -fx-border-radius: 25;
+  -fx-prompt-text-fill: #999999;
+}
+
+.search-field:focused {
+  -fx-border-color: #6dd394;
+  -fx-effect: dropshadow(gaussian, rgba(116, 227, 158, 0.3), 8, 0, 0, 0);
+}
+
+.notif-button {
+  -fx-text-fill: #5cc480;
+  -fx-background-color: transparent;
+  -fx-border-color: transparent;
+  -fx-cursor: hand;
+  -fx-padding: 9;
+  -fx-background-radius: 20%;
+}
+
+.notif-button:hover {
+  -fx-background-color: #f0f0f0;
+  -fx-scale-x: 1.1;
+  -fx-scale-y: 1.1;
+}
+
+.content-area {
+  -fx-background-color: rgb(243, 243, 243);
+}
+
+.hana-text {
+  -fx-text-fill: #333333;
+  -fx-font-weight: 800;
+}
+
+.confirm-btn,
+.cancel-btn,
+.edit-btn {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-background-radius: 12;
+  -fx-padding: 10 20 10 20;
+  -fx-cursor: hand;
+  -fx-min-width: 125px;
+  -fx-min-height: 45px;
+  -fx-pref-width: 125px;
+  -fx-pref-height: 45px;
+  -fx-font-size: 15px;
+}
+
+.confirm-btn {
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #10b981 0%,
+    #059669 100%
+  );
+  -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.3), 10, 0, 0, 4);
+}
+
+.confirm-btn:hover {
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #059669 0%,
+    #047857 100%
+  );
+  -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.6), 10, 0, 0, 4);
+  -fx-font-weight: bold;
+}
+
+.cancel-btn {
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #ef4444 0%,
+    #dc2626 100%
+  );
+  -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.3), 10, 0, 0, 4);
+}
+
+.cancel-btn:hover {
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #dc2626 0%,
+    #b91c1c 100%
+  );
+  -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.5), 15, 0, 0, 6);
+}
+
+.edit-btn {
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #ffae22 0%,
+    #f18e1e 100%
+  );
+  -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.3), 10, 0, 0, 4);
+}
+
+.edit-btn:hover {
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #f2a624 0%,
+    #ea891a 100%
+  );
+  -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.5), 15, 0, 0, 6);
+}
+
+.confirm-btn:pressed,
+.cancel-btn:pressed,
+.edit-btn:pressed {
+  -fx-translate-y: 2;
+  -fx-min-width: 125px;
+  -fx-min-height: 45px;
+  -fx-pref-width: 125px;
+  -fx-pref-height: 45px;
+  -fx-font-weight: bold;
+}
+
+.menu-item:hover .menu-text {
+  -fx-text-fill: #0b6b3c;
+  -fx-font-weight: 700;
+}
+.menu-text {
+  -fx-font-size: 16px;
 }
