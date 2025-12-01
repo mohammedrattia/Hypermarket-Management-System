@@ -13,4 +13,11 @@ module com.hypermarket {
 
     // Export to EVERYONE (Public access)
     exports com.hypermarket.ragab;
+
+        // making a testing package
+    // Open to EVERYONE (Reflection/FXML)
+    opens com.hypermarket.Test_Mada to javafx.fxml;
+
+    // Export to EVERYONE (Public access)
+    exports com.hypermarket.Test_Mada;
 }
