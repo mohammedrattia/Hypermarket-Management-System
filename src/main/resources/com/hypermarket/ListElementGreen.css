@@ -1,0 +1,49 @@
+/* ---------------------------------------------------
+   1. The Container (The Row Itself)
+   --------------------------------------------------- */
+.list-items-green {
+    /* "center" here aligns the children (labels/separators) vertically */
+    -fx-alignment: center;       
+    -fx-padding: 0;
+    
+    /* Matches the name in your FXML (Green Background) */
+    -fx-background-color: lightgreen; 
+    
+    /* Optional: visual spacing */
+    -fx-spacing: 0;
+}
+
+/* If you ever change the styleClass to "list-items-white" */
+.list-items-white {
+    -fx-alignment: center;
+    -fx-padding: 0;
+    -fx-background-color: white;
+}
+
+/* ---------------------------------------------------
+   2. The Labels (Text: #1, Delivered, etc.)
+   --------------------------------------------------- */
+.list-items {
+    /* Center text horizontally and vertically */
+    -fx-alignment: center;       
+    -fx-text-alignment: center;
+    
+    /* Make text readable */
+    -fx-font-size: 13px;
+    -fx-text-fill: black;
+    -fx-font-weight: normal;
+}
+
+/* ---------------------------------------------------
+   3. The Separators (Vertical Lines)
+   --------------------------------------------------- */
+.list-separators {
+    -fx-valignment: center;      /* Center the line vertically */
+}
+
+/* This specific part colors the actual line inside the separator */
+.list-separators .line {
+    -fx-border-color: #888888;   /* Dark Grey line */
+    -fx-border-width: 0 1 0 0;   /* Draw line only on the right side */
+    -fx-opacity: 0.5;            /* Make it slightly see-through */
+}
