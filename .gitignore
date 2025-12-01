@@ -1,4 +1,4 @@
 /target/
-/src/test/
 .classpath
+.project
 .settings/
