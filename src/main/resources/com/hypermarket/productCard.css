@@ -3,17 +3,24 @@
 	-fx-background-insets: 0, 0 0 4 0;
 	-fx-background-radius: 12, 10;
 	-fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.12), 14, 0, 0, 3);
+	-fx-padding: 6 0 10 0;
 }
 
-.productImage {
-    -fx-background-radius: 8;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 5, 0, 0, 0);
-	-fx-background-radius: 12;
-	-fx-border-radius: 12;
+.product-image {
+	-fx-background-image: url("tomato.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+	-fx-background-radius: 12 12 0 0;
+    -fx-background-insets: 0;
+    -fx-border-color: black;
+}
+
+.image-container {
+	-fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.12), 14, 0, 0, 3);
 }
 
 .product-information {
-    -fx-padding: 10 0 0 10;
+    -fx-padding: 10 10 5 20;
     -fx-spacing: 2;
 }
 
