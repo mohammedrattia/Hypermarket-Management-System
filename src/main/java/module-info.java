@@ -9,8 +9,8 @@ module com.hypermarket {
 
     // making a testing package
     // Open to EVERYONE (Reflection/FXML)
-    opens com.hypermarket.ragab to javafx.fxml;
+    // opens com.hypermarket.ragab to javafx.fxml;
 
     // Export to EVERYONE (Public access)
-    exports com.hypermarket.ragab;
+    // exports com.hypermarket.ragab;
 }
