@@ -1,58 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-25">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="optional" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="src" output="target/classes" path="src/main/java">
 		<attributes>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+	<classpathentry kind="lib" path="c:/Users/abdor/.m2/repository/org/openjfx/javafx-controls/13/javafx-controls-13.jar">
 		<attributes>
+			<attribute name="maven.artifactId" value="javafx-controls"/>
 			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="optional" value="true"/>
+			<attribute name="maven.scope" value="compile"/>
+			<attribute name="maven.version" value="13"/>
+			<attribute name="maven.groupId" value="org.openjfx"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+	<classpathentry kind="lib" path="c:/Users/abdor/.m2/repository/org/openjfx/javafx-controls/13/javafx-controls-13-win.jar">
 		<attributes>
-			<attribute name="test" value="true"/>
-			<attribute name="optional" value="true"/>
+			<attribute name="maven.artifactId" value="javafx-controls"/>
 			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.scope" value="compile"/>
+			<attribute name="maven.version" value="13"/>
+			<attribute name="maven.classifier" value="win"/>
+			<attribute name="module" value="true"/>
+			<attribute name="maven.groupId" value="org.openjfx"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
+	<classpathentry kind="lib" path="c:/Users/abdor/.m2/repository/org/openjfx/javafx-graphics/13/javafx-graphics-13.jar">
 		<attributes>
-			<attribute name="test" value="true"/>
+			<attribute name="maven.artifactId" value="javafx-graphics"/>
 			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="optional" value="true"/>
+			<attribute name="maven.scope" value="compile"/>
+			<attribute name="maven.version" value="13"/>
+			<attribute name="maven.groupId" value="org.openjfx"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+	<classpathentry kind="lib" path="c:/Users/abdor/.m2/repository/org/openjfx/javafx-graphics/13/javafx-graphics-13-win.jar">
 		<attributes>
+			<attribute name="maven.artifactId" value="javafx-graphics"/>
 			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.scope" value="compile"/>
+			<attribute name="maven.version" value="13"/>
+			<attribute name="maven.classifier" value="win"/>
+			<attribute name="module" value="true"/>
+			<attribute name="maven.groupId" value="org.openjfx"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11">
+	<classpathentry kind="lib" path="c:/Users/abdor/.m2/repository/org/openjfx/javafx-base/13/javafx-base-13.jar">
 		<attributes>
+			<attribute name="maven.artifactId" value="javafx-base"/>
 			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.scope" value="compile"/>
+			<attribute name="maven.version" value="13"/>
+			<attribute name="maven.groupId" value="org.openjfx"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
-	<classpathentry kind="src" path="target/generated-sources/annotations">
+	<classpathentry kind="lib" path="c:/Users/abdor/.m2/repository/org/openjfx/javafx-base/13/javafx-base-13-win.jar">
 		<attributes>
-			<attribute name="optional" value="true"/>
+			<attribute name="maven.artifactId" value="javafx-base"/>
 			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="ignore_optional_problems" value="true"/>
-			<attribute name="m2e-apt" value="true"/>
+			<attribute name="maven.scope" value="compile"/>
+			<attribute name="maven.version" value="13"/>
+			<attribute name="maven.classifier" value="win"/>
+			<attribute name="module" value="true"/>
+			<attribute name="maven.groupId" value="org.openjfx"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" output="target/test-classes" path="target/generated-test-sources/test-annotations">
+	<classpathentry kind="lib" path="c:/Users/abdor/.m2/repository/org/openjfx/javafx-fxml/13/javafx-fxml-13.jar">
 		<attributes>
-			<attribute name="optional" value="true"/>
+			<attribute name="maven.artifactId" value="javafx-fxml"/>
 			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="ignore_optional_problems" value="true"/>
-			<attribute name="m2e-apt" value="true"/>
-			<attribute name="test" value="true"/>
+			<attribute name="maven.scope" value="compile"/>
+			<attribute name="maven.version" value="13"/>
+			<attribute name="maven.groupId" value="org.openjfx"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="c:/Users/abdor/.m2/repository/org/openjfx/javafx-fxml/13/javafx-fxml-13-win.jar">
+		<attributes>
+			<attribute name="maven.artifactId" value="javafx-fxml"/>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.scope" value="compile"/>
+			<attribute name="maven.version" value="13"/>
+			<attribute name="maven.classifier" value="win"/>
+			<attribute name="module" value="true"/>
+			<attribute name="maven.groupId" value="org.openjfx"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="c:/Users/abdor/.m2/repository/org/kordamp/ikonli/ikonli-javafx/12.4.0/ikonli-javafx-12.4.0.jar">
+		<attributes>
+			<attribute name="maven.artifactId" value="ikonli-javafx"/>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.scope" value="compile"/>
+			<attribute name="maven.version" value="12.4.0"/>
+			<attribute name="maven.groupId" value="org.kordamp.ikonli"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="c:/Users/abdor/.m2/repository/org/kordamp/ikonli/ikonli-core/12.4.0/ikonli-core-12.4.0.jar">
+		<attributes>
+			<attribute name="maven.artifactId" value="ikonli-core"/>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.scope" value="compile"/>
+			<attribute name="maven.version" value="12.4.0"/>
+			<attribute name="maven.groupId" value="org.kordamp.ikonli"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="c:/Users/abdor/.m2/repository/org/kordamp/ikonli/ikonli-fontawesome5-pack/12.4.0/ikonli-fontawesome5-pack-12.4.0.jar">
+		<attributes>
+			<attribute name="maven.artifactId" value="ikonli-fontawesome5-pack"/>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.scope" value="compile"/>
+			<attribute name="maven.version" value="12.4.0"/>
+			<attribute name="maven.groupId" value="org.kordamp.ikonli"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
