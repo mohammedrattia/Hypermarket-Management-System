@@ -1,62 +1,24 @@
-/* ---------------------------------------------------
-   1. The Main Containers (Rows)
-   --------------------------------------------------- */
 
-/* The Header Row */
-.list-labels {
-    -fx-background-color: white;
-    -fx-alignment: center;       /* Centers the items vertically inside the row */
-    -fx-padding: 0;
-}
-
-/* The Green Data Row */
 .list-items-green {
-    -fx-background-color: #90EE90; /* Light Green */
+    -fx-background-color: #90EE90;
     -fx-alignment: center;
 }
 
-/* The White Data Row */
-.list-items-white {
-    -fx-background-color: white;
-    -fx-alignment: center;
-}
-
-/* Hover Effect: Makes rows darken slightly when you move the mouse over them */
 .list-items-green:hover,
 .list-items-white:hover {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
     -fx-cursor: hand;
 }
 
-/* ---------------------------------------------------
-   2. The Text Labels (Content)
-   --------------------------------------------------- */
-
-/* HEADER TEXT: Handles both 'MainListLabels' and 'main-list-labels' 
-   (You had both spellings in your FXML) */
-.MainListLabels, 
-.main-list-labels {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #333333;
-    -fx-alignment: center;       /* Centers text horizontally and vertically */
-    -fx-text-alignment: center;
-    -fx-max-width: infinity;     /* Allows label to stretch */
-}
-
-/* DATA TEXT: The values inside the rows (#1, Delivered, etc.) */
 .list-items {
     -fx-font-size: 13px;
     -fx-text-fill: #000000;
     -fx-alignment: center;
     -fx-text-alignment: center;
-    -fx-max-width: infinity;     /* Allows label to stretch */
+    -fx-max-width: infinity;    
 }
 
-/* ---------------------------------------------------
-   3. The Separators (Vertical Lines)
-   --------------------------------------------------- */
 .list-separators .line {
-    -fx-border-color: #DDDDDD;   /* Light gray line color */
-    -fx-border-width: 0 1 0 0;   /* Only show the right-side border */
+    -fx-border-color: #DDDDDD;
+    -fx-border-width: 0 1 0 0;   
 }
