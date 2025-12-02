@@ -1,0 +1,23 @@
+.kpi-card {
+  -fx-background-color: #00942313;
+  -fx-background-radius: 12;
+  -fx-border-radius: 12;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 2);
+}
+
+.kpi-value {
+  -fx-text-fill: #212f3d;
+  -fx-font-weight: bold;
+}
+
+.kpi-label {
+  -fx-text-fill: #464d4e;
+}
+
+.kpi-trend-icon-positive {
+  -fx-icon-color: #27ae60;
+}
+.kpi-trend-positive {
+  -fx-text-fill: #27ae60;
+  -fx-font-weight: bold;
+}
