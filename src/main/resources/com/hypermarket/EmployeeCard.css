@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+
+.root {
+  -fx-font-family: "Poppins", "Segoe UI", "DejaVu Sans", sans-serif;
+}
+
+.employee-card {
+  -fx-background-color: #10b981, #ffffff;
+  -fx-background-insets: 0, 0 0 4 0;
+  -fx-background-radius: 12, 10;
+  -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.12), 14, 0, 0, 3);
+}
+
+.employee-name {
+  -fx-text-fill: #2c3e50;
+}
+
+.employee-title {
+  -fx-text-fill: #686e6e;
+}
+
+.card-separator {
+  -fx-background-color: #ecf0f1;
+}
+
+.employee-detail {
+  -fx-text-fill: #283645;
+}
+
+.detail-icon {
+  -fx-icon-color: #10b981;
+}

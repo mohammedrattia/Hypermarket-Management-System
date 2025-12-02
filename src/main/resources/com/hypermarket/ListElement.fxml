@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox id="listItemsGreen" prefHeight="54.0" prefWidth="558.0" style="-fx-background-color: LIGHTGREEN;" styleClass="list-items-green" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label id="listItems" alignment="CENTER" prefHeight="79.0" prefWidth="134.0" styleClass="list-items" text="#1" />
+      <Separator id="listSeparators" orientation="VERTICAL" prefHeight="50.0" prefWidth="0.0" style="-fx-background-color: LIGHTGREEN;" styleClass="list-separators" />
+      <Label id="listItems" alignment="CENTER" prefHeight="111.0" prefWidth="128.0" styleClass="list-items" text="Deliverd" />
+      <Separator id="listSeparators" orientation="VERTICAL" prefHeight="50.0" prefWidth="0.0" style="-fx-background-color: LIGHTGREEN;" styleClass="list-separators" />
+      <Label id="listItems" alignment="CENTER" prefHeight="74.0" prefWidth="130.0" styleClass="list-items" text="1/12/2025" />
+      <Separator id="listSeparators" orientation="VERTICAL" prefHeight="50.0" prefWidth="0.0" style="-fx-background-color: LIGHTGREEN;" styleClass="list-separators" />
+      <Label id="listItems" alignment="CENTER" prefHeight="74.0" prefWidth="153.0" styleClass="list-items" text="\$100" />
+   </children>
+</HBox>
