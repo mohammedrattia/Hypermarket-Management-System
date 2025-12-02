@@ -16,7 +16,8 @@ public class TableViewController<T> implements Initializable {
 
 	private Class<T> type;
 	private ObservableList<T> tableRows;
-	// private ObservableList<MenuItem> menuItems;
+	private FilteredList<T> filteredData;
+	private String filterOnProperty;
 
 	@FXML
 	private TableView<T> tableView;
@@ -30,21 +31,22 @@ public class TableViewController<T> implements Initializable {
 	@FXML
 	private TextField filterValueField;
 
-	public TableViewController(Class<T> type, ObservableList<T> teamMembers) {
+	public TableViewController(Class<T> type, ObservableList<T> teamMembers, String filterOnProperty) {
 		this.type = type;
 		this.tableRows = teamMembers;
 	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		filteredData = new FilteredList<>(tableRows, p -> true);
 		initializeTableView();
 		filterValueField.textProperty().addListener((observable, oldValue, newValue) -> {
-			addFilter(newValue);
+			Search.addFilter(filteredData, newValue, filterOnProperty);
 		});
 	}
 
 	private void initializeTableView() {
-		tableView.setItems(tableRows);
+		tableView.setItems(filteredData);
 
 		Field[] fields = type.getDeclaredFields();
 
@@ -79,9 +81,4 @@ public class TableViewController<T> implements Initializable {
 			}
 		});
 	}
-
-	public void addFilter() {
-
-	}
-
 }
