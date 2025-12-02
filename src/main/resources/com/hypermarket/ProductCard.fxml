@@ -30,7 +30,7 @@
             </HBox>
             <Separator prefWidth="200.0" />
             <Label id="productPriceCard" prefHeight="32.0" prefWidth="348.0" styleClass="product-price-card" text="Price: 15 $" />
-            <Label id="productQuantityCard" prefHeight="26.0" prefWidth="348.0" styleClass="product-quantity-card" text="quantity: 100kg" />
+            <Label id="productQuantityCard" prefHeight="26.0" prefWidth="348.0" styleClass="product-quantity-card" text="Quantity: 100" />
             <Label id="expDateProduct" prefHeight="26.0" prefWidth="325.0" styleClass="exp-date-product" text="Expiration Date: 2025 / 12 / 01" />
          </children>
       </VBox>
