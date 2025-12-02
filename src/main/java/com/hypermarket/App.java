@@ -35,7 +35,7 @@ public class App extends Application {
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         TableViewController<Person> controller = new TableViewController<Person>(Person.class,
-                FXCollections.observableArrayList(members));
+                FXCollections.observableArrayList(members), "name");
         fxmlLoader.setController(controller);
 
         return fxmlLoader.load();
