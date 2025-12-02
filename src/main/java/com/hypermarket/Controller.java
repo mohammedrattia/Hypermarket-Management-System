@@ -20,10 +20,10 @@ public class Controller implements Initializable{
     @Override
     public void initialize(URL url,ResourceBundle rb){
     	ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-    			new PieChart.Data("D.VA",13),
-    			new PieChart.Data("Mercy",22),
-    			new PieChart.Data("Tracer",15),
-    			new PieChart.Data("Widowmaker",10));
+    			new PieChart.Data("SilkSong",40),
+    			new PieChart.Data("EX33CO",70),
+    			new PieChart.Data("NPC",15),
+    			new PieChart.Data("NPC",10));
     	pieChart.setData(pieChartData);
     }
     
