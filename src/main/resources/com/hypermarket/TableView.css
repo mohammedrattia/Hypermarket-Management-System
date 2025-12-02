@@ -1,7 +1,7 @@
-/* #tableColumn1 {
-    visibility: hidden;
-    -fx-border: black;
-} */
+.list-container {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8;
+}
 
 .table-view {
     -fx-border-color: #a0a0a0;
@@ -12,30 +12,48 @@
     -fx-max-height: 300;
     -fx-fit-to-height: true;
     -fx-fixed-cell-size: 40px;
-    -fx-effect: dropshadow(guassian, rgpa(0, 0, 0, 0.1), 10, 0, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 2);
 }
 
 .table-view .column-header-background {
     -fx-background-color: white;
-    /* Clean white header */
-    -fx-border-color: blue;
-    /* Light gray divider */
+    -fx-border-color: #10b981;
     -fx-border-width: 0 0 1 0;
-    /* Line only at the bottom */
 }
 
 .table-view .column-header {
     -fx-background-color: transparent;
     -fx-size: 45px;
-    /* Taller, modern header height */
     -fx-border-color: transparent;
 }
 
 .table-view .column-header .label {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-text-fill: blue;
-    /* Dark gray text */
+    -fx-text-fill: #10b981;
     -fx-alignment: CENTER;
-    /* Center the header text */
+}
+
+.toolbar {
+    -fx-padding: 5 5 10 5;
+}
+
+.button {
+    -fx-border-color: #a0a0a0;
+    -fx-border-width: 1;
+    -fx-background-color: white;
+}
+
+.table-row-cell {
+    -fx-text-alignment: CENTER;
+}
+
+.table-row-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.separation-region {
+    -fx-min-width: 2;
+    -fx-max-width: 50;
 }
