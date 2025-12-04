@@ -1,0 +1,56 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+
+.root {
+  -fx-font-family: "Poppins", "Segoe UI", "DejaVu Sans", sans-serif;
+} */
+
+
+.default-color0.chart-pie { 
+    -fx-pie-color: #2E7D32; 
+    -fx-background-color: #2E7D32;
+}
+
+.default-color1.chart-pie { 
+    -fx-pie-color: #4CAF50; 
+    -fx-background-color: #4CAF50; 
+}
+
+.default-color2.chart-pie { 
+    -fx-pie-color: #81C784; 
+    -fx-background-color: #81C784; 
+}
+
+.default-color3.chart-pie { 
+    -fx-pie-color: #C8E6C9; 
+    -fx-background-color: #C8E6C9; 
+}
+
+
+.default-color4.chart-pie { 
+    -fx-pie-color: #AED581; 
+    -fx-background-color: #AED581; 
+}
+
+.chart {
+    -fx-background-color: transparent;
+}
+
+.chart-content {
+    /* -fx-padding: 10px; */
+}
+
+.chart-legend {
+    -fx-background-color: transparent;
+}
+.chart-legend-item {
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+.chart-title {
+    -fx-text-fill: #092f12; 
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    /* -fx-padding: 10px; */
+}

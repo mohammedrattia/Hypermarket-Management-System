@@ -1,9 +1,12 @@
-package com.hypermarket.ragab;
+package com.hypermarket.Test_Mada;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,7 +21,14 @@ public class Test extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("test"));
-        stage.setScene(scene);
+        Group root = new Group();
+        Scene back = new Scene(root,Color.NAVAJOWHITE);
+
+        stage.setTitle("Mada's program");
+        stage.setScene(back);
+        Image icon = new Image("Grok.jpg");
+        stage.getIcons().add(icon);
+        // stage.setScene(scene);
         stage.show();
     }
 

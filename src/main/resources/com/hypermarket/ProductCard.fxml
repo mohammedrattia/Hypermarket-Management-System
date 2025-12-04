@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="productCard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="172.0" prefWidth="517.0" styleClass="product-card" stylesheets="productCard@css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <StackPane id="image-container" prefHeight="176.0" prefWidth="182.0" styleClass="image-container">
+         <children>
+            <ImageView id="productImage" fitHeight="159.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" styleClass="product-image">
+               <image>
+                  <Image url="@Juice.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <Separator orientation="VERTICAL" prefHeight="152.0" prefWidth="11.0" />
+      <VBox id="productInformation" prefHeight="162.0" prefWidth="336.0" styleClass="product-information">
+         <children>
+            <HBox prefHeight="13.0" prefWidth="295.0">
+               <children>
+                  <Label id="productNameCard" prefHeight="40.0" prefWidth="215.0" styleClass="product-name-card" text="Name: Juice" />
+                  <Label id="productIDCard" prefHeight="50.0" prefWidth="68.0" styleClass="product-id-card" text="ID:100" />
+               </children>
+            </HBox>
+            <Separator prefWidth="200.0" />
+            <Label id="productPriceCard" prefHeight="32.0" prefWidth="348.0" styleClass="product-price-card" text="Price: 15 $" />
+            <Label id="productQuantityCard" prefHeight="26.0" prefWidth="348.0" styleClass="product-quantity-card" text="Quantity: 100" />
+            <Label id="expDateProduct" prefHeight="26.0" prefWidth="325.0" styleClass="exp-date-product" text="Expiration Date: 2025 / 12 / 01" />
+         </children>
+      </VBox>
+   </children>
+</HBox>
