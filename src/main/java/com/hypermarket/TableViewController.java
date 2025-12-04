@@ -5,7 +5,6 @@ import java.util.*;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -31,17 +30,24 @@ public class TableViewController<T> implements Initializable {
 	@FXML
 	private TextField filterValueField;
 
+	@FXML
+	private TextField searchField;
+
 	public TableViewController(Class<T> type, ObservableList<T> teamMembers, String filterOnProperty) {
 		this.type = type;
 		this.tableRows = teamMembers;
+		this.filterOnProperty = filterOnProperty;
 	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		filteredData = new FilteredList<>(tableRows, p -> true);
 		initializeTableView();
-		filterValueField.textProperty().addListener((observable, oldValue, newValue) -> {
+		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 			Search.addFilter(filteredData, newValue, filterOnProperty);
+		});
+		filterValueField.textProperty().addListener((observable, oldValue, newValue) -> {
+			Search.addFilter(filteredData, newValue, filterButton.getValue());
 		});
 	}
 
@@ -50,16 +56,21 @@ public class TableViewController<T> implements Initializable {
 
 		Field[] fields = type.getDeclaredFields();
 
+		// handling select all button
 		CheckMenuItem allItem = new CheckMenuItem("Select All");
 		allItem.setSelected(true);
 		columnsCheckMenu.getItems().add(allItem);
 
 		for (Field field : fields) {
-			TableColumn<T, String> col = new TableColumn<>(field.getName());
-			col.setCellValueFactory(new PropertyValueFactory<>(field.getName()));
+			String fieldName = field.getName();
+
+			// generating columns
+			TableColumn<T, String> col = new TableColumn<>(fieldName);
+			col.setCellValueFactory(new PropertyValueFactory<>(fieldName));
 			tableView.getColumns().add(col);
 
-			CheckMenuItem item = new CheckMenuItem(field.getName());
+			// generate menu item for each column
+			CheckMenuItem item = new CheckMenuItem(fieldName);
 			item.setSelected(true);
 
 			columnsCheckMenu.getItems().add(item);
@@ -69,9 +80,10 @@ public class TableViewController<T> implements Initializable {
 					allItem.setSelected(false);
 			});
 
-			filterButton.getItems().add(field.getName());
+			filterButton.getItems().add(fieldName);
 		}
 
+		// handling select all button action
 		allItem.setOnAction(e -> {
 			for (TableColumn<T, ?> col : tableView.getColumns()) {
 				col.setVisible(allItem.isSelected());

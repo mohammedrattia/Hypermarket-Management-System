@@ -19,7 +19,7 @@
             <Region prefHeight="31.0" prefWidth="30.0" styleClass="separation-region" />
             <TextField fx:id="filterValueField" prefHeight="31.0" prefWidth="105.0" promptText="Filter Value" />
             <Region prefHeight="31.0" prefWidth="30.0" styleClass="separation-region" />
-            <TextField prefHeight="39.0" prefWidth="401.0" promptText="Search..." />
+            <TextField fx:id="searchField" prefHeight="39.0" prefWidth="401.0" promptText="Search..." />
             <Region prefHeight="31.0" prefWidth="30.0" styleClass="separation-region" />
             <MenuButton id="columnsMenuButton" fx:id="columnsCheckMenu" mnemonicParsing="false" prefHeight="29.0" prefWidth="108.0" text="Columns">
                <styleClass>
