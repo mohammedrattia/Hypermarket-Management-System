@@ -1,8 +1,8 @@
-package com.hypermarket;
+package com.hypermarket.service;
 
 import javafx.collections.transformation.FilteredList;
 
-public class Search {
+public class ListManipulation {
     // TODO: function that takes filteredData and filter it
     // based on newValue of a specific Property
     public static <T> FilteredList<T> addFilter(FilteredList<T> filteredData, String newValue,

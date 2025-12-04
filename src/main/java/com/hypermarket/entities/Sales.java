@@ -1,4 +1,4 @@
-package com.hypermarket;
+package com.hypermarket.entities;
 
 public class Sales {
 

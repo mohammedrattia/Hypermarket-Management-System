@@ -1,5 +1,6 @@
 package com.hypermarket.modules.components;
 
+import com.hypermarket.entities.*;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

@@ -1,5 +1,7 @@
 package com.hypermarket.modules.components;
 
+import com.hypermarket.service.*;
+
 import java.net.URL;
 import java.util.*;
 
@@ -44,10 +46,10 @@ public class TableViewController<T> implements Initializable {
 		filteredData = new FilteredList<>(tableRows, p -> true);
 		initializeTableView();
 		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-			Search.addFilter(filteredData, newValue, filterOnProperty);
+			ListManipulation.addFilter(filteredData, newValue, filterOnProperty);
 		});
 		filterValueField.textProperty().addListener((observable, oldValue, newValue) -> {
-			Search.addFilter(filteredData, newValue, filterButton.getValue());
+			ListManipulation.addFilter(filteredData, newValue, filterButton.getValue());
 		});
 	}
 

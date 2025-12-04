@@ -1,4 +1,4 @@
-package com.hypermarket;
+package com.hypermarket.entities;
 
 public class Product {
     private String name;
@@ -11,7 +11,8 @@ public class Product {
     private String imagePath;
     private int productID;
 
-    Product(String name, String category, double price, int quantity, String size, String duration, String imagePath, int productID, double offer) {
+    Product(String name, String category, double price, int quantity, String size, String duration, String imagePath,
+            int productID, double offer) {
         this.name = name;
         this.category = category;
         this.price = price;
@@ -23,13 +24,39 @@ public class Product {
         this.productID = productID;
     }
 
-    public String getName() { return name; }
-    public String getCategory() { return category; }
-    public double getPrice() { return price; }
-    public double getOffer() { return offer; }
-    public int getQuantity() { return quantity; }
-    public String getSize() { return size; }
-    public String getDuration() { return duration; }
-    public String getImagePath() { return imagePath; }
-    public int getProductID() { return productID; }
+    public String getName() {
+        return name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public double getOffer() {
+        return offer;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public int getProductID() {
+        return productID;
+    }
 }
