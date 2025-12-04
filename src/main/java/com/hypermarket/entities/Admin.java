@@ -1,5 +1,5 @@
 package com.hypermarket;
 
-public class Employee {
+public class Admin {
 
 }

@@ -1,4 +1,7 @@
-package com.hypermarket;
+package com.hypermarket.app;
+
+import com.hypermarket.modules.components.*;
+import com.hypermarket.entities.*;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -16,10 +19,10 @@ import java.util.List;
 public class App extends Application {
 
     private static Scene scene;
-    public static List<Person> members = List.of(
-            new Person(1, "Reed"),
-            new Person(2, "Michaelson"),
-            new Person(2, "Dean"));
+    public static List<User> members = List.of(
+            new User("1", "Reed"),
+            new User("2", "Michaelson"),
+            new User("2", "Dean"));
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -34,7 +37,7 @@ public class App extends Application {
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        TableViewController<Person> controller = new TableViewController<Person>(Person.class,
+        TableViewController<User> controller = new TableViewController<User>(User.class,
                 FXCollections.observableArrayList(members), "name");
         fxmlLoader.setController(controller);
 

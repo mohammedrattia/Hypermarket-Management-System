@@ -1,4 +1,4 @@
-package com.hypermarket;
+package com.hypermarket.modules.components;
 
 import java.net.URL;
 import java.util.*;
