@@ -9,6 +9,7 @@ public class Search {
             String filterOnProperty) {
         System.out.println("hellooooooo the function is here ");
         System.out.println(((Object) filteredData.get(0)).toString());
+        System.out.println(filterOnProperty);
         return filteredData;
     }
 }

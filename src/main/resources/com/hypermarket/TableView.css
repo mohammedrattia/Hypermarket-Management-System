@@ -34,6 +34,18 @@
     -fx-alignment: CENTER;
 }
 
+.table-view .filler {
+    -fx-background-color: transparent;
+    -fx-min-height: 45px;
+    -fx-max-height: 45px;
+    -fx-border-color: #10b981;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view:row-selection {
+    -fx-fill: red;
+}
+
 .toolbar {
     -fx-padding: 5 5 10 5;
 }
@@ -44,13 +56,10 @@
     -fx-background-color: white;
 }
 
-.table-row-cell {
+.cell {
     -fx-text-alignment: CENTER;
-}
-
-.table-row-cell:empty {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
+    -fx-alignment: CENTER;
+    -fx-text-fill: blue;
 }
 
 .separation-region {
