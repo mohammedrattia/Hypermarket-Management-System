@@ -1,0 +1,30 @@
+.product-name{
+    -fx-background-color: LIGHTGREEN;
+    -fx-font-size: 24px;
+}
+
+.info-separator {
+    /* 1. Reset: Allow it to be wide (Horizontal) */
+    -fx-padding: 5 0 5 0; /* Add a little vertical breathing room */
+    
+    /* 2. Control the Width */
+    /* Your VBox is 400px wide. Setting this to 350px leaves space on sides. */
+    -fx-max-width: 280; 
+    -fx-pref-height: 3;  /* Keep the component short vertically */
+}
+
+/* 3. The Color (Target the line inside) */
+.info-separator .line {
+    -fx-border-color: lightgray; /* The requested color */
+    -fx-border-width: 1 0 0 0;   /* Draw line on Top only */
+    -fx-background-color: transparent;
+}
+
+.green-overlay {
+    /* Red=46, Green=125, Blue=50 (Your Dark Green) */
+    /* Alpha=0.3 (30% visible, 70% see-through) */
+    -fx-background-color: rgba(46, 125, 50, 0.3);
+    
+    /* Optional: If you want rounded corners to match the image */
+    /* -fx-background-radius: 10; */
+}

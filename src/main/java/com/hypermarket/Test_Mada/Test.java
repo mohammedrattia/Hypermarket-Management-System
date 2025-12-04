@@ -20,9 +20,9 @@ public class Test extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("test"));
+        scene = new Scene(loadFXML("ztest"));
         Group root = new Group();
-        Scene back = new Scene(root,Color.NAVAJOWHITE);
+        Scene back = new Scene(root, Color.NAVAJOWHITE);
 
         stage.setTitle("Mada's program");
         stage.setScene(back);

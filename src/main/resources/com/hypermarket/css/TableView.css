@@ -1,0 +1,68 @@
+.list-container {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8;
+}
+
+.table-view {
+    -fx-border-color: #a0a0a0;
+    -fx-border-width: 1;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 8;
+    -fx-min-height: 300;
+    -fx-max-height: 300;
+    -fx-fit-to-height: true;
+    -fx-fixed-cell-size: 40px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 2);
+}
+
+.table-view .column-header-background {
+    -fx-background-color: white;
+    -fx-border-color: #10b981;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-size: 45px;
+    -fx-border-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #10b981;
+    -fx-alignment: CENTER;
+}
+
+.table-view .filler {
+    -fx-background-color: transparent;
+    -fx-min-height: 45px;
+    -fx-max-height: 45px;
+    -fx-border-color: #10b981;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view:row-selection {
+    -fx-fill: red;
+}
+
+.toolbar {
+    -fx-padding: 5 5 10 5;
+}
+
+.button {
+    -fx-border-color: #a0a0a0;
+    -fx-border-width: 1;
+    -fx-background-color: white;
+}
+
+.cell {
+    -fx-text-alignment: CENTER;
+    -fx-alignment: CENTER;
+    -fx-text-fill: blue;
+}
+
+.separation-region {
+    -fx-min-width: 2;
+    -fx-max-width: 50;
+}
