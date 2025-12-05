@@ -26,7 +26,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("/com/hypermarket/view/admin/AdminDashboard"));
+        scene = new Scene(loadFXML("/com/hypermarket/view/components/TableView"));
         stage.setScene(scene);
         stage.show();
     }

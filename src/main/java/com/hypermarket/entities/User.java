@@ -1,42 +1,43 @@
 package com.hypermarket.entities;
 
-import javafx.beans.property.*;
-
 public class User {
 
-    private StringProperty firstName;
-    private StringProperty lastName;
+    private String fName;
+    private String lName;
+    private int age;
 
-    public void setFirstName(String value) {
-        firstNameProperty().set(value);
+    public User(String fName, String lName, int age) {
+        this.fName = fName;
+        this.lName = lName;
+        this.age = age;
     }
 
-    public String getFirstName() {
-        return firstNameProperty().get();
+    public String getFName() {
+        return fName;
     }
 
-    public StringProperty firstNameProperty() {
-        if (firstName == null)
-            firstName = new SimpleStringProperty(this, "firstName");
-        return firstName;
+    public String getLName() {
+        return lName;
     }
 
-    public void setLastName(String value) {
-        lastNameProperty().set(value);
+    public int getAge() {
+        return age;
     }
 
-    public String getLastName() {
-        return lastNameProperty().get();
+    public void setFName(String fName) {
+        this.fName = fName;
     }
 
-    public StringProperty lastNameProperty() {
-        if (lastName == null)
-            lastName = new SimpleStringProperty(this, "lastName");
-        return lastName;
+    public void setLName(String lName) {
+        this.lName = lName;
     }
 
-    public User(String firstName, String lastName) {
-        setFirstName(firstName);
-        setLastName(lastName);
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return fName + " " + lName;
     }
 }

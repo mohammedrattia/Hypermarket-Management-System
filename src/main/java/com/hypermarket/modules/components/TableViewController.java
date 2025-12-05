@@ -7,6 +7,7 @@ import java.util.*;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -27,10 +28,13 @@ public class TableViewController<T> implements Initializable {
 	private MenuButton columnsCheckMenu;
 
 	@FXML
+	private CheckMenuItem allItems;
+
+	@FXML
 	private ChoiceBox<String> filterButton;
 
 	@FXML
-	private TextField filterValueField;
+	private ChoiceBox<String> filterChoice;
 
 	@FXML
 	private TextField searchField;
@@ -43,56 +47,99 @@ public class TableViewController<T> implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+
 		filteredData = new FilteredList<>(tableRows, p -> true);
-		initializeTableView();
+		SortedList<T> sortedData = new SortedList<>(filteredData);
+		sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+		tableView.setItems(sortedData);
+
+		initSelectAllMenuItem();
+		initTableView();
+		initListeners();
+
+	}
+
+	private void initListeners() {
 		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-			ListManipulation.addFilter(filteredData, newValue, filterOnProperty);
+			ListManipulation.updateFilter(filteredData, newValue, filterOnProperty, type);
 		});
-		filterValueField.textProperty().addListener((observable, oldValue, newValue) -> {
-			ListManipulation.addFilter(filteredData, newValue, filterButton.getValue());
+		filterChoice.valueProperty().addListener((observable, oldValue, newValue) -> {
+			ListManipulation.updateFilter(filteredData, newValue, filterButton.getValue(),
+					type);
+		});
+		filterButton.valueProperty().addListener((observable, oldValue, newValue) -> {
+			updateFilterChoices(filterButton.getValue());
 		});
 	}
 
-	private void initializeTableView() {
-		tableView.setItems(filteredData);
+	private void initTableView() {
 
 		Field[] fields = type.getDeclaredFields();
 
-		// handling select all button
-		CheckMenuItem allItem = new CheckMenuItem("Select All");
-		allItem.setSelected(true);
-		columnsCheckMenu.getItems().add(allItem);
-
 		for (Field field : fields) {
 			String fieldName = field.getName();
+			TableColumn<T, Object> col = addColumn(fieldName);
 
-			// generating columns
-			TableColumn<T, String> col = new TableColumn<>(fieldName);
-			col.setCellValueFactory(new PropertyValueFactory<>(fieldName));
-			tableView.getColumns().add(col);
-
-			// generate menu item for each column
-			CheckMenuItem item = new CheckMenuItem(fieldName);
-			item.setSelected(true);
-
-			columnsCheckMenu.getItems().add(item);
-			item.setOnAction(e -> {
-				col.setVisible(item.isSelected());
-				if (!item.isSelected())
-					allItem.setSelected(false);
-			});
+			addColumnsMenuItem(col, fieldName);
 
 			filterButton.getItems().add(fieldName);
 		}
+	}
 
-		// handling select all button action
-		allItem.setOnAction(e -> {
+	private void addColumnsMenuItem(TableColumn<T, Object> col, String fieldName) {
+		CheckMenuItem item = new CheckMenuItem(fieldName);
+		item.setSelected(true);
+
+		columnsCheckMenu.getItems().add(item);
+		item.setOnAction(e -> {
+			col.setVisible(item.isSelected());
+			if (!item.isSelected())
+				allItems.setSelected(false);
+		});
+	}
+
+	private TableColumn<T, Object> addColumn(String fieldName) {
+		TableColumn<T, Object> col = new TableColumn<>(fieldName);
+		col.setCellValueFactory(new PropertyValueFactory<>(fieldName));
+		tableView.getColumns().add(col);
+		return col;
+	}
+
+	private void initSelectAllMenuItem() {
+		allItems.setSelected(true);
+		columnsCheckMenu.getItems().add(allItems);
+		allItems.setOnAction(e -> {
 			for (TableColumn<T, ?> col : tableView.getColumns()) {
-				col.setVisible(allItem.isSelected());
+				col.setVisible(allItems.isSelected());
 			}
 			for (MenuItem colItem : columnsCheckMenu.getItems()) {
-				((CheckMenuItem) colItem).setSelected(allItem.isSelected());
+				((CheckMenuItem) colItem).setSelected(allItems.isSelected());
 			}
 		});
+	}
+
+	private void updateFilterChoices(String property) {
+
+		filterChoice.getItems().clear();
+		Field field;
+		try {
+			field = type.getDeclaredField(filterButton.getValue());
+			field.setAccessible(true);
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+			return;
+		}
+
+		for (T obj : tableRows) {
+			Object choice;
+			try {
+				choice = field.get(obj);
+				boolean alreadyExist = filterChoice.getItems().contains(String.valueOf(choice));
+				if (!alreadyExist)
+					filterChoice.getItems().add(String.valueOf(choice));
+			} catch (IllegalAccessException | IllegalArgumentException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
