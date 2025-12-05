@@ -7,6 +7,11 @@ module com.hypermarket {
 
     exports com.hypermarket.app;
 
+    opens com.hypermarket.modules.components to javafx.fxml;
+    opens com.hypermarket.entities to javafx.fxml, javafx.base;
+    opens com.hypermarket.data to javafx.fxml;
+    opens com.hypermarket.service to javafx.fxml;
+
     // making a testing package
     // Open to EVERYONE (Reflection/FXML)
     opens com.hypermarket.Test_Mada to javafx.fxml;

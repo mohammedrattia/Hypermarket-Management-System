@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
@@ -10,22 +11,25 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="listContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="776.0" styleClass="list-container" stylesheets="@TableView.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<VBox id="listContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="776.0" styleClass="list-container" stylesheets="@../../css/TableView.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox id="toolbar" prefHeight="46.0" prefWidth="776.0" styleClass="toolbar">
          <children>
             <Label prefHeight="27.0" prefWidth="60.0" text="Filter:" />
-            <ChoiceBox fx:id="filterButton" prefWidth="150.0" styleClass="button" />
+            <ChoiceBox fx:id="filterButton" prefHeight="29.0" prefWidth="66.0" styleClass="button" />
             <Region prefHeight="31.0" prefWidth="30.0" styleClass="separation-region" />
-            <TextField fx:id="filterValueField" prefHeight="31.0" prefWidth="105.0" promptText="Filter Value" />
+            <ChoiceBox fx:id="filterChoice" prefWidth="150.0" styleClass="button" />
             <Region prefHeight="31.0" prefWidth="30.0" styleClass="separation-region" />
-            <TextField fx:id="searchField" prefHeight="39.0" prefWidth="401.0" promptText="Search..." />
+            <TextField fx:id="searchField" prefHeight="31.0" prefWidth="416.0" promptText="Search..." />
             <Region prefHeight="31.0" prefWidth="30.0" styleClass="separation-region" />
             <MenuButton id="columnsMenuButton" fx:id="columnsCheckMenu" mnemonicParsing="false" prefHeight="29.0" prefWidth="108.0" text="Columns">
                <styleClass>
                   <String fx:value="columns-menu-button" />
                   <String fx:value="button" />
                </styleClass>
+               <items>
+                  <CheckMenuItem fx:id="allItems" mnemonicParsing="false" text="Select All" />
+               </items>
             </MenuButton>
          </children>
       </HBox>

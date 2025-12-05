@@ -19,14 +19,14 @@ import java.util.List;
 public class App extends Application {
 
     private static Scene scene;
-    public static List<User> members = List.of(
-            new User("1", "Reed"),
-            new User("2", "Michaelson"),
-            new User("2", "Dean"));
+    private static List<User> members = List.of(
+            new User("1", "Reed", 34),
+            new User("2", "Michaelson", 54),
+            new User("2", "Dean", 45));
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("../view/components/TableView"));
+        scene = new Scene(loadFXML("/com/hypermarket/view/components/TableView"));
         stage.setScene(scene);
         stage.show();
     }
