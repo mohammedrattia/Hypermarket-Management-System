@@ -39,52 +39,6 @@ public class DataStore {
         }
     }
 
-    public void loadAllDataBad() {
-        for (String listKey : lists.keySet()) {
-            lists.get(listKey).clear();
-            ArrayList<String> records = FileManager.readFile(listKey);
-
-            switch (listKey) {
-                case "users":
-                    for (String record : records) {
-                        users.add(new User(record.trim()));
-                        // if (record.toLowerCase().contains(",admin,"))
-                        // users.add(new AdministeredObject(record.trim()));
-                        // else if (record.toLowerCase().contains(",sales,"))
-                        // users.add(new Sales(record.trim()));
-                        // else if (record.toLowerCase().contains(",inventory,"))
-                        // users.add(new Inventory(record.trim()));
-                        // else if (record.toLowerCase().contains(",marketing,"))
-                        // users.add(new Marketing(record.trim()));
-                    }
-                    break;
-                case "products":
-                    for (String record : records)
-                        products.add(new Product(record.trim()));
-                    break;
-                case "orders":
-                    for (String record : records)
-                        // orders.add(new Order(record.trim()));
-                        break;
-                case "notifications":
-                    for (String record : records)
-                        // notifications.add(new Notification(record.trim()));
-                        break;
-                case "offers":
-                    for (String record : records)
-                        // offers.add(new Offer(record.trim()));
-                        break;
-                case "damageLogs":
-                    for (String record : records)
-                        // damageLogs.add(new DamageLog(record.trim()));
-                        break;
-                default:
-                    System.out.println("Unknown List Type!!");
-                    break;
-            }
-        }
-    }
-
     public void loadAllData() {
         loadData("products", products, (record) -> new Product(record));
         // loadData("orders", orders, (record) -> new Order(record));
