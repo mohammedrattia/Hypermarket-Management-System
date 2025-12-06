@@ -18,34 +18,34 @@ import java.io.IOException;
  */
 public class App extends Application {
 
-    private static Scene scene;
-    // public static List<User> members = List.of(
-    // new User("1", "Reed"),
-    // new User("2", "Michaelson"),
-    // new User("2", "Dean"));
+        private static Scene scene;
+        // public static List<User> members = List.of(
+        // new User("1", "Reed"),
+        // new User("2", "Michaelson"),
+        // new User("2", "Dean"));
 
-    @Override
-    public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("/com/hypermarket/view/components/TableView"));
-        stage.setScene(scene);
-        stage.show();
-    }
+        @Override
+        public void start(Stage stage) throws IOException {
+                scene = new Scene(loadFXML("/com/hypermarket/view/components/TableView"));
+                stage.setScene(scene);
+                stage.show();
+        }
 
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
+        static void setRoot(String fxml) throws IOException {
+                scene.setRoot(loadFXML(fxml));
+        }
 
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        // TableViewController<User> controller = new
-        // TableViewController<User>(User.class,
-        // FXCollections.observableArrayList(members), "name");
-        // fxmlLoader.setController(controller);
+        private static Parent loadFXML(String fxml) throws IOException {
+                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+                // TableViewController<User> controller = new
+                // TableViewController<User>(User.class,
+                // FXCollections.observableArrayList(members), "name");
+                // fxmlLoader.setController(controller);
 
-        return fxmlLoader.load();
-    }
+                return fxmlLoader.load();
+        }
 
-    public static void main(String[] args) {
-        launch();
-    }
+        public static void main(String[] args) {
+                launch();
+        }
 }

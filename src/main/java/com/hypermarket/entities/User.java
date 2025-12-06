@@ -1,55 +1,110 @@
 package com.hypermarket.entities;
 
 public class User {
-
+    private String role;
+    private int id;
     private String fName;
     private String lName;
-    private int age;
+    private String fullName;
+    private String phone;
+    private String email;
+    private String password;
+    private double salary;
 
-    public User(String record) {
-        parseString(record);
-    }
-
-    @Override
-    public String toString() {
-        return fName + "," + lName + "," + age;
-    }
-
-    private void parseString(String line) {
-        String[] values = line.split(",");
-        this.fName = values[0];
-        this.lName = values[1];
-        this.age = new Integer(values[2]);
-    }
-
-    public User(String fName, String lName, int age) {
+    public User(String role, int id, String fName, String lName, String phone, String email,
+            String password, double salary) {
+        this.role = role;
+        this.id = id;
         this.fName = fName;
         this.lName = lName;
-        this.age = age;
+        updateFullName();
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.salary = salary;
     }
 
-    public String getFName() {
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public int getID() {
+        return id;
+    }
+
+    public String getFname() {
         return fName;
     }
 
-    public String getLName() {
+    public void setFname(String fName) {
+        this.fName = fName;
+        updateFullName();
+    }
+
+    public String getLname() {
         return lName;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setFName(String fName) {
-        this.fName = fName;
-    }
-
-    public void setLName(String lName) {
+    public void setLname(String lName) {
         this.lName = lName;
+        updateFullName();
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public String getFullName() {
+        return fullName;
+    }
+
+    private void updateFullName() {
+        this.fullName = this.fName + " " + this.lName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public void updateInfo(String fName, String lName,
+            String phone, String email, String password,
+            String role, double salary) {
+
+        setFname(fName);
+        setLname(lName);
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.salary = salary;
     }
 
 }
