@@ -19,14 +19,14 @@ import java.util.List;
 public class App extends Application {
 
     private static Scene scene;
-    public static List<User> members = List.of(
-            new User("1", "Reed"),
-            new User("2", "Michaelson"),
-            new User("2", "Dean"));
+    // public static List<User> members = List.of(
+    // new User("1", "Reed"),
+    // new User("2", "Michaelson"),
+    // new User("2", "Dean"));
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("../view/components/TableView"));
+        scene = new Scene(loadFXML("../view/UpdateUserInfo"));
         stage.setScene(scene);
         stage.show();
     }
@@ -37,8 +37,7 @@ public class App extends Application {
 
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        TableViewController<User> controller = new TableViewController<User>(User.class,
-                FXCollections.observableArrayList(members), "name");
+        UpdateInfoController controller = new UpdateInfoController();
         fxmlLoader.setController(controller);
 
         return fxmlLoader.load();

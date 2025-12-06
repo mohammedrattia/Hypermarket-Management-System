@@ -1,0 +1,72 @@
+#mainBox {
+    -fx-spacing: 20;
+    -fx-alignment: center;
+    -fx-padding: 40;
+}
+
+#fnameBox {
+    -fx-spacing: 15;
+    -fx-alignment: center;
+}
+
+#lnameBox {
+    -fx-spacing: 15;
+    -fx-alignment: center;
+}
+
+#phoneBox {
+    -fx-spacing: 41;
+    -fx-alignment: center;
+}
+
+#emailBox {
+    -fx-spacing: 50;
+    -fx-alignment: center;
+}
+
+#passwordBox {
+    -fx-spacing: 5;
+    -fx-alignment: center;
+}
+
+
+.text-field,
+.password-field {
+    -fx-pref-width: 300;
+}
+
+#saveBtn {
+    -fx-pref-width: 200;
+    -fx-font-size: 16px;
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+#passwordBox1 {
+    -fx-spacing: -12;
+    -fx-alignment: center;
+}
+
+#labelsBox {
+    -fx-alignment: right;
+}
+
+.label {
+    -fx-max-height: 50;
+    -fx-min-height: 50;
+}
+
+#fieldsBox {
+    -fx-spacing: 20;
+    -fx-padding: 12 0 0 0;
+}
+
+.text-field {
+    -fx-max-height: 30;
+    -fx-min-height: 30;
+}
+
+#saveButtonBox {
+    -fx-alignment: center;
+}
