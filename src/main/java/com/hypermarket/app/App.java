@@ -1,17 +1,17 @@
 package com.hypermarket.app;
 
-import com.hypermarket.modules.components.*;
-import com.hypermarket.entities.*;
+// import com.hypermarket.modules.components.*;
+// import com.hypermarket.entities.*;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
+// import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
+// import java.util.List;
 
 /**
  * JavaFX App

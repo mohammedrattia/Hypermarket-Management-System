@@ -21,3 +21,11 @@
   -fx-text-fill: #27ae60;
   -fx-font-weight: bold;
 }
+
+.kpi-trend-icon-negative {
+  -fx-icon-color: #dc3838;
+}
+.kpi-trend-negative {
+  -fx-text-fill: #dc3838;
+  -fx-font-weight: bold;
+}
