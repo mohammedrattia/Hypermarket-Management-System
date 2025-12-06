@@ -8,11 +8,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class FileManager {
     private static String basePath = "data/";
     private static String fileExtension = ".txt";
+    public static String delimeter = ",";
+    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    public static final SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public static void writeFile(String filename, ArrayList<?> data) {
         File dataFolder = new File(basePath);

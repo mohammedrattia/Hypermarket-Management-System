@@ -2,9 +2,9 @@ package com.hypermarket.entities;
 
 import com.hypermarket.data.FileManager;
 
-public class Offer {
+public class Batch {
 
-    public Offer(String recordLine) {
+    public Batch(String recordLine) {
         parseString(recordLine);
     }
 
