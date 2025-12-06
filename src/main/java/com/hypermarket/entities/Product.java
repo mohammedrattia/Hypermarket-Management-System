@@ -11,7 +11,18 @@ public class Product {
     private String imagePath;
     private int productID;
 
-    Product(String name, String category, double price, int quantity, String size, String duration, String imagePath,
+    public Product(String record) {
+        parseString(record);
+    }
+
+    public Product(int productID, String name, double price) {
+        this.productID = productID;
+        this.name = name;
+        this.price = price;
+    }
+
+    public Product(String name, String category, double price, int quantity, String size, String duration,
+            String imagePath,
             int productID, double offer) {
         this.name = name;
         this.category = category;
@@ -58,5 +69,17 @@ public class Product {
 
     public int getProductID() {
         return productID;
+    }
+
+    @Override
+    public String toString() {
+        return productID + "," + name + "," + price;
+    }
+
+    private void parseString(String line) {
+        String[] values = line.split(",");
+        this.productID = new Integer(values[0]);
+        this.name = values[1];
+        this.price = new Double(values[2]);
     }
 }

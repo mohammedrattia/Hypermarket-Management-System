@@ -6,6 +6,22 @@ public class User {
     private String lName;
     private int age;
 
+    public User(String record) {
+        parseString(record);
+    }
+
+    @Override
+    public String toString() {
+        return fName + "," + lName + "," + age;
+    }
+
+    private void parseString(String line) {
+        String[] values = line.split(",");
+        this.fName = values[0];
+        this.lName = values[1];
+        this.age = new Integer(values[2]);
+    }
+
     public User(String fName, String lName, int age) {
         this.fName = fName;
         this.lName = lName;
@@ -36,8 +52,4 @@ public class User {
         this.age = age;
     }
 
-    @Override
-    public String toString() {
-        return fName + " " + lName;
-    }
 }
