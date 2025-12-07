@@ -10,10 +10,10 @@ public class Offer {
 
     @Override
     public String toString() {
-        // return this.attribute01 + FileManager.DELIMETER + this.attribute02 +
-        // FileManager.DELIMETER + FileManager.dateFormat.format(this.attribute03) +
-        // FileManager.DELIMETER + FileManager.dateTimeFormat.format(this.attribute04) +
-        // FileManager.DELIMETER + this.attribute05.toString() + ....;
+        // return this.attribute01 + FileManager.delimeter + this.attribute02 +
+        // FileManager.delimeter + FileManager.dateFormat.format(this.attribute03) +
+        // FileManager.delimeter + FileManager.dateTimeFormat.format(this.attribute04) +
+        // FileManager.delimeter + this.attribute05.toString() + ....;
         // attribute03 type is Date (it has date only and time is set to 00:00:00)
         // attribute04 type is Date (it has both date and time)
         // attribute05 type is Role (only for user to know his role)
