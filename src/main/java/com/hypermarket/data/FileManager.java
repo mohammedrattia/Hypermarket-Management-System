@@ -12,22 +12,22 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class FileManager {
-    private static String basePath = "data/";
-    private static String fileExtension = ".txt";
+    private static final String BASEPATH = "data/";
+    private static final String FILEEXTENSION = ".txt";
     public static final String DELIMETER = ";";
-    public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    public static final SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    public static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public static void writeFile(String filename, ArrayList<?> data) {
-        File dataFolder = new File(basePath);
+        File dataFolder = new File(BASEPATH);
         if (!dataFolder.exists()) {
             if (!dataFolder.mkdirs()) {
-                System.out.println("ERROR: Could not create directory: " + basePath);
+                System.out.println("ERROR: Could not create directory: " + BASEPATH);
                 return;
             }
         }
 
-        try (FileWriter fileFW = new FileWriter(basePath + filename + fileExtension);
+        try (FileWriter fileFW = new FileWriter(BASEPATH + filename + FILEEXTENSION);
                 BufferedWriter fileBW = new BufferedWriter(fileFW);
                 PrintWriter filePW = new PrintWriter(fileBW);) {
             for (Object object : data) {
@@ -45,7 +45,7 @@ public class FileManager {
     public static ArrayList<String> readFile(String filename) {
         ArrayList<String> records = new ArrayList<>();
         String line;
-        try (FileReader fileFR = new FileReader(basePath + filename + fileExtension);
+        try (FileReader fileFR = new FileReader(BASEPATH + filename + FILEEXTENSION);
                 BufferedReader fileBR = new BufferedReader(fileFR);) {
             while ((line = fileBR.readLine()) != null) {
                 records.add(line.trim());
