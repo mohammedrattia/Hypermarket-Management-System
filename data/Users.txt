@@ -1,2 +1,0 @@
-Abdallah,Admin,19
-John Doe,Customer,39

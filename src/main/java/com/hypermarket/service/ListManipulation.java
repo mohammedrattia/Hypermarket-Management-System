@@ -7,8 +7,6 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
 public class ListManipulation {
-    // TODO: function that takes filteredData and filter it
-    // based on newValue of a specific Property
     public static <T> void updateFilter(FilteredList<T> filteredData, String newValue,
             String filterOnProperty, Class<T> typeClass) {
 

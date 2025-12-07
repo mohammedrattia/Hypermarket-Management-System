@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class FileManager {
     private static String basePath = "data/";
     private static String fileExtension = ".txt";
-    public static String delimeter = ",";
+    public static final String DELIMETER = ";";
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     public static final SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 

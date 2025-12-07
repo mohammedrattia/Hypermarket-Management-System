@@ -107,7 +107,6 @@ public class TableViewController<T> implements Initializable {
 
 	private void initSelectAllMenuItem() {
 		allItems.setSelected(true);
-		columnsCheckMenu.getItems().add(allItems);
 		allItems.setOnAction(e -> {
 			for (TableColumn<T, ?> col : tableView.getColumns()) {
 				col.setVisible(allItems.isSelected());

@@ -4,21 +4,20 @@ import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 
 public class User {
-    private Role role;
-    private int id;
+    private int ID;
     private String fName;
     private String lName;
     private String fullName;
+    private Role role;
     private String phone;
     private String email;
     private String password;
     private double salary;
-    private int age;
 
     public User(String role, int id, String fName, String lName, String phone, String email,
             String password, double salary) {
         this.role = Role.valueOf(role.trim().toUpperCase());
-        this.id = DataStore.getDataStore().getUsers().get(DataStore.getDataStore().getUsers().size()-1).getID();
+        this.ID = DataStore.getDataStore().getUsers().get(DataStore.getDataStore().getUsers().size() - 1).getID();
         this.fName = fName;
         this.lName = lName;
         updateFullName();
@@ -34,27 +33,35 @@ public class User {
 
     @Override
     public String toString() {
-        // return this.attribute01 + FileManager.delimeter + this.attribute02 + FileManager.delimeter + FileManager.dateFormat.format(this.attribute03) + FileManager.delimeter + FileManager.dateTimeFormat.format(this.attribute04) + FileManager.delimeter + this.attribute05.toString() + ....;
-        // attribute03 type is Date (it has date only and time is set to 00:00:00)
-        // attribute04 type is Date (it has both date and time) 
-        // attribute05 type is Role (only for user to know his role) 
-        return "ُExample";
+        return this.ID + FileManager.DELIMETER
+                + this.fName + FileManager.DELIMETER
+                + this.lName + FileManager.DELIMETER
+                + this.role.toString() + FileManager.DELIMETER
+                + this.phone + FileManager.DELIMETER
+                + this.email + FileManager.DELIMETER
+                + this.password;
     }
 
     private void parseString(String line) {
-        String[] values = line.split(FileManager.delimeter);
-        // Look at the following examples and make the parseString Function
+        String[] values = line.split(FileManager.DELIMETER);
+
         try {
-            // this.attribute01 = values[0]; // Read String
-            // this.attribute02 = Integer(values[1]); // Convert String to Int    // attribute02 is int
-            // this.attribute03 = FileManager.dateFormat.parse(values[2]); // Read Date only    // attribute03 type is Date (it has date only and time is set to 00:00:00)
-            // this.attribute04 = FileManager.dateTimeFormat.parse(values[3]); // Read Date + Time    // attribute04 type is Date (it has both date and time) 
-            // this.attribute05 = Role.valueOf(values[4].toUpperCase().trim()); // Convert String to Role (must be UpperCase)    // attribute05 type is Role (only for user to know his role)
-        } 
-        catch (IllegalArgumentException e) {
-            System.err.println("Error Chosing Role: " + e.getMessage());
-        }
-        catch (Exception e) {
+            this.ID = Integer.parseInt(values[0]);
+            this.fName = values[1];
+            this.lName = values[2];
+            this.updateFullName();
+            this.role = Role.valueOf(values[3].toUpperCase().trim());
+            this.phone = values[4];
+            this.email = values[5];
+            this.password = values[6];
+
+        } catch (NumberFormatException e) {
+            System.err.println("Error parsing ID (not a number): " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error Choosing Role (enum not found): " + values[4]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("Error parsing data: Line is missing fields.");
+        } catch (Exception e) {
             System.err.println("Error parsing data: " + e.getMessage());
         }
     }
@@ -68,23 +75,23 @@ public class User {
     }
 
     public int getID() {
-        return id;
+        return ID;
     }
 
-    public String getFname() {
+    public String getFName() {
         return fName;
     }
 
-    public void setFname(String fName) {
+    public void setFName(String fName) {
         this.fName = fName;
         updateFullName();
     }
 
-    public String getLname() {
+    public String getLName() {
         return lName;
     }
 
-    public void setLname(String lName) {
+    public void setLName(String lName) {
         this.lName = lName;
         updateFullName();
     }
@@ -133,8 +140,8 @@ public class User {
             String phone, String email, String password,
             String role, double salary) {
 
-        setFname(fName);
-        setLname(lName);
+        setFName(fName);
+        setLName(lName);
         this.phone = phone;
         this.email = email;
         this.password = password;

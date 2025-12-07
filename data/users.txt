@@ -1,0 +1,4 @@
+1;Ahmed;Ali;ADMIN;01001234567;admin@system.com;123456
+2;Sarah;Connor;SALES;01122334455;sarah@gmail.com;111111
+3;John;Doe;MARKETING;01234567890;john.doe@work.com;666666
+4;Mona;Lisa;INVENTORY;01555556666;mona@gallery.com;012345

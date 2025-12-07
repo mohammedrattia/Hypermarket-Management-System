@@ -4,6 +4,7 @@ module com.hypermarket {
     requires transitive javafx.graphics;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.fontawesome5;
+    requires javafx.base;
 
     opens com.hypermarket.modules.components to javafx.fxml;
     opens com.hypermarket.modules.admin to javafx.fxml;

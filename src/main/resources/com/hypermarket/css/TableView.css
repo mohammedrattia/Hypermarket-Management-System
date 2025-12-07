@@ -59,7 +59,7 @@
 .cell {
     -fx-text-alignment: CENTER;
     -fx-alignment: CENTER;
-    -fx-text-fill: blue;
+    -fx-text-fill: #2a2a2a;
 }
 
 .separation-region {
