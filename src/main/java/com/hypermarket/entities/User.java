@@ -1,5 +1,7 @@
 package com.hypermarket.entities;
 
+import java.util.ArrayList;
+
 import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 
@@ -16,8 +18,19 @@ public class User {
 
     public User(String role, int id, String fName, String lName, String phone, String email,
             String password, double salary) {
-        this.role = Role.valueOf(role.trim().toUpperCase());
-        this.ID = DataStore.getDataStore().getUsers().get(DataStore.getDataStore().getUsers().size() - 1).getID();
+        try {
+            this.role = Role.valueOf(role.trim().toUpperCase());
+        } catch (Exception ex) {
+            this.role = Role.SALES;
+        }
+
+        ArrayList<User> users = DataStore.getDataStore().getUsers();
+        if (users.isEmpty()) {
+            this.ID = 1;
+        } else {
+            this.ID = users.get(users.size() - 1).getID() + 1;
+        }
+
         this.fName = fName;
         this.lName = lName;
         updateFullName();
@@ -39,7 +52,8 @@ public class User {
                 + this.role.toString() + FileManager.DELIMETER
                 + this.phone + FileManager.DELIMETER
                 + this.email + FileManager.DELIMETER
-                + this.password;
+                + this.password
+                + this.salary;
     }
 
     private void parseString(String line) {
@@ -54,6 +68,12 @@ public class User {
             this.phone = values[4];
             this.email = values[5];
             this.password = values[6];
+
+            if (values.length > 7) {
+                this.salary = Double.parseDouble(values[7]);
+            } else {
+                this.salary = 0.0;
+            }
 
         } catch (NumberFormatException e) {
             System.err.println("Error parsing ID (not a number): " + e.getMessage());

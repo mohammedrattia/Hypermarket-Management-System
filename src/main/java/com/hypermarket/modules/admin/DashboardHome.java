@@ -1,42 +1,35 @@
 package com.hypermarket.modules.admin;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.List;
 
+import com.hypermarket.data.DataStore;
+import com.hypermarket.entities.User;
 import com.hypermarket.modules.components.EmployeeCardController;
 import com.hypermarket.modules.components.KpiCardController;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class AdminDashboardController implements Initializable {
-    @FXML
-    private AnchorPane contentArea;
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        loadDashboardHome();
-    }
-
-    private void loadDashboardHome() {
-        contentArea.getChildren().clear();
-
+public class DashboardHome {
+    public Parent getView() {
         VBox mainLayout = new VBox(20);
         mainLayout.setPadding(new Insets(25));
 
+        DataStore db = DataStore.getDataStore();
+        List<User> users = db.getUsers();
+
+        int userCount = users.size();
+
         HBox kpiContainer = new HBox(30);
         kpiContainer.getChildren().addAll(
-                loadKpiCard("Total Sales", "$120,000", "15%", true),
-                loadKpiCard("Active Users", "45", "2", true),
+                loadKpiCard("Active Users", String.valueOf(userCount), "2", true),
+                loadKpiCard("Total Sales", "120,000", "2", true),
                 loadKpiCard("Low Stock", "10 Items", "5%", false));
 
         HBox bottomContainer = new HBox(5);
@@ -45,10 +38,12 @@ public class AdminDashboardController implements Initializable {
         VBox employeeList = new VBox(15);
         employeeList.setPadding(new Insets(10));
 
-        for (int i = 0; i < 5; i++) {
-            employeeList.getChildren()
-                    .add(loadEmployeeCard("Hana Mohamed", "Admin", 75000, "0100000000", "hana@gmail.com"));
+        for (int i = 0; i < users.size(); i++) {
+            User u = users.get(i);
+            employeeList.getChildren().add(loadEmployeeCard(u.getFullName(), u.getRole().toString(), u.getSalary(),
+                    u.getPhone(), u.getEmail()));
         }
+
         ScrollPane scrollPane = new ScrollPane(employeeList);
         scrollPane.setFitToWidth(true);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -57,16 +52,11 @@ public class AdminDashboardController implements Initializable {
 
         Parent pieChartNode = loadPieChartComponent();
         HBox.setHgrow(pieChartNode, Priority.ALWAYS);
-        bottomContainer.getChildren().addAll(pieChartNode, scrollPane);
 
+        bottomContainer.getChildren().addAll(pieChartNode, scrollPane);
         mainLayout.getChildren().addAll(kpiContainer, bottomContainer);
 
-        AnchorPane.setTopAnchor(mainLayout, 0.0);
-        AnchorPane.setBottomAnchor(mainLayout, 0.0);
-        AnchorPane.setLeftAnchor(mainLayout, 0.0);
-        AnchorPane.setRightAnchor(mainLayout, 0.0);
-
-        contentArea.getChildren().add(mainLayout);
+        return mainLayout;
     }
 
     private Parent loadKpiCard(String title, String value, String trend, boolean isPositive) {
