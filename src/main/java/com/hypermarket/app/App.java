@@ -65,7 +65,7 @@ public class App extends Application {
 
         private static void loadAdminScene(Stage stage) throws IOException {
                 FXMLLoader fxmlLoader = new FXMLLoader(
-                                App.class.getResource("/com/hypermarket/view/admin/AdminDashboard.fxml"));
+                                App.class.getResource("/com/hypermarket/view/admin/AdminView.fxml"));
 
                 scene = new Scene(fxmlLoader.load());
                 stage.setScene(scene);
