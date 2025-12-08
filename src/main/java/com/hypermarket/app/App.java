@@ -1,7 +1,7 @@
 package com.hypermarket.app;
 
-// import com.hypermarket.modules.components.*;
-// import com.hypermarket.entities.*;
+import com.hypermarket.modules.components.*;
+import com.hypermarket.entities.*;
 
 import javafx.application.Application;
 // import javafx.collections.FXCollections;
@@ -26,7 +26,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("../view/UpdateUserInfo"));
+        scene = new Scene(loadFXML("/com/hypermarket/view/UpdateUserInfo"));
         stage.setScene(scene);
         stage.show();
     }
