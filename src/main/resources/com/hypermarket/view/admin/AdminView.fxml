@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../../css/application.css"
-            xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" styleClass="root" fx:controller="com.hypermarket.modules.admin.AdminDashboardController">
+            xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" styleClass="root" fx:controller="com.hypermarket.modules.admin.AdminViewController">
 
       <children>
          <VBox fx:id="sidebar" prefWidth="250.0" styleClass="sidebar"
@@ -29,7 +29,7 @@
             <ImageView fx:id="userProfileImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                 <image><Image url="@../../images/cart.png"/></image>
               </ImageView>
-            <Label styleClass="logo" text=" Dashboard">
+            <Label styleClass="logo" text="HyperMarket">
               <font><Font name="System Bold" size="22.0"/></font>
             </Label>
           </children>
@@ -42,7 +42,7 @@
             <VBox prefWidth="250.0" styleClass="menu-container">
               <padding><Insets top="10.0" left="10.0" right="10.0" bottom="10.0"/></padding>
               <children>
-                <HBox fx:id="menuEmployeesItem" alignment="CENTER_LEFT" spacing="12" styleClass="menu-item" prefHeight="50.0" >
+                <HBox fx:id="menuDashboardItem" alignment="CENTER_LEFT" spacing="12" styleClass="menu-item" prefHeight="50.0" >
                   <FontIcon fx:id="reportsIcon" iconLiteral="fas-chart-pie" iconSize="18" styleClass="menu-icon"/>
                   <Label fx:id="menuDashboard" styleClass="menu-text" text=" Dashboard"/>
                 </HBox>
@@ -52,7 +52,7 @@
                   <Label fx:id="menuEmployees" styleClass="menu-text" text="View Employees"/>
                 </HBox>
 
-                <HBox fx:id="menuProductsItem" alignment="CENTER_LEFT" spacing="12" styleClass="menu-item" prefHeight="50.0" >
+                <HBox fx:id="menuAddEmployeesItem" alignment="CENTER_LEFT" spacing="12" styleClass="menu-item" prefHeight="50.0" >
                   <FontIcon iconLiteral="fas-user-plus" iconSize="18" styleClass="submenu-icon"/>
                   <Label fx:id="menuAddEmployees" styleClass="menu-text" text="Add Employee"/>
                 </HBox>
@@ -66,7 +66,7 @@
           <padding><Insets top="10.0" left="10.0" right="10.0" bottom="15.0"/></padding>
           <children>
             <Separator styleClass="sidebar-separator"/>
-            <HBox alignment="CENTER_LEFT" spacing="12" styleClass="menu-item">
+            <HBox fx:id="menuUpdateUserInfoItem" alignment="CENTER_LEFT" spacing="12" styleClass="menu-item">
               <FontIcon fx:id="settingsIcon" iconLiteral="fas-user-edit" iconSize="18" styleClass="menu-icon"/>
               <Label fx:id="menuUpdateUserInfo" styleClass="menu-text" text="Update User Info"/>
             </HBox>
@@ -87,6 +87,11 @@
               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <padding><Insets left="30.0" right="30.0"/></padding>
 
+          <Label fx:id="pageTitle" text="Dashboard" styleClass="page-title">
+            <font>
+              <Font name="System Bold" size="24.0"/>
+            </font>
+          </Label>
           <Region HBox.hgrow="ALWAYS"/>
 
           <Button fx:id="notificationButton" mnemonicParsing="false" styleClass="notif-button">
