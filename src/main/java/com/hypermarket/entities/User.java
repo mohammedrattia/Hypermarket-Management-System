@@ -66,12 +66,12 @@ public class User {
         }
     }
 
-    public String getRole() {
-        return role.toString();
+    public Role getRole() {
+        return role;
     }
 
-    public void setRole(String role) {
-        this.role = Role.valueOf(role.trim().toUpperCase());
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public int getID() {

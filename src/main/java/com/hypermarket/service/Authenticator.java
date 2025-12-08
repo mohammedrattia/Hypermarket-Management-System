@@ -4,12 +4,14 @@ import com.hypermarket.data.*;
 import com.hypermarket.entities.*;
 
 public class Authenticator {
-    public static void authenticate(String email, String password) {
+    public static void authenticate(String email, String password) throws Exception {
         for (User user : DataStore.getDataStore().getUsers()) {
-            if (user.getEmail() == email && user.getPassword() == password) {
+            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
                 Session.getInstance().setUser(user);
+                return;
             }
         }
+        throw new Exception("User Not Found.");
     }
 
     public static void logout() {

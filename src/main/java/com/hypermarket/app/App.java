@@ -4,6 +4,7 @@ package com.hypermarket.app;
 // import com.hypermarket.entities.*;
 
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,11 +12,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import com.hypermarket.data.*;
 import com.hypermarket.entities.*;
-import com.hypermarket.modules.components.*;
+import com.hypermarket.modules.login.LoginController;
+import com.hypermarket.service.Session;
 
 /**
  * JavaFX App
@@ -27,26 +28,67 @@ public class App extends Application {
         @Override
         public void start(Stage stage) throws IOException {
                 DataStore.getDataStore().loadAllData();
-                scene = new Scene(loadFXML("/com/hypermarket/view/components/TableView"));
+
+                FXMLLoader loginLoader = loadLoginScene(stage);
+
+                LoginController controller = loginLoader.getController();
+                controller.setOnLoginSuccess(() -> {
+                        User currentUser = Session.getInstance().getUser();
+                        try {
+                                switch (currentUser.getRole()) {
+                                        case Role.ADMIN:
+                                                loadAdminScene(stage);
+                                                break;
+                                        case Role.SALES:
+                                                loadSalesScene(stage);
+                                                break;
+                                        case Role.INVENTORY:
+                                                loadInventoryScene(stage);
+                                                break;
+                                        case Role.MARKETING:
+                                                loadMarketingScene(stage);
+                                                break;
+                                }
+                        } catch (IOException e) {
+                                e.printStackTrace();
+                        }
+                });
+
+        }
+
+        private static FXMLLoader loadLoginScene(Stage stage) throws IOException {
+                FXMLLoader fxmlLoader = new FXMLLoader(
+                                App.class.getResource("/com/hypermarket/view/login/Login"));
+                scene = new Scene(fxmlLoader.load());
+
+                stage.setScene(scene);
+                stage.show();
+                return fxmlLoader;
+        }
+
+        private static void loadAdminScene(Stage stage) throws IOException {
+                FXMLLoader fxmlLoader = new FXMLLoader(
+                                App.class.getResource("/com/hypermarket/view/admin/AdminDashboard.fxml"));
+
+                scene = new Scene(fxmlLoader.load());
                 stage.setScene(scene);
                 stage.show();
         }
 
-        static void setRoot(String fxml) throws IOException {
-                scene.setRoot(loadFXML(fxml));
+        private static void loadSalesScene(Stage stage) throws IOException {
+
         }
 
-        private static Parent loadFXML(String fxml) throws IOException {
-                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-                ArrayList<User> members = DataStore.getDataStore().getUsers();
-                TableViewController<User> controller = new TableViewController<User>(User.class,
-                                FXCollections.observableArrayList(members), "fullName");
-                fxmlLoader.setController(controller);
+        private static void loadInventoryScene(Stage stage) throws IOException {
 
-                return fxmlLoader.load();
+        }
+
+        private static void loadMarketingScene(Stage stage) throws IOException {
+
         }
 
         public static void main(String[] args) {
                 launch();
         }
+
 }
