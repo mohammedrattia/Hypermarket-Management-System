@@ -87,16 +87,7 @@
                     </children>
                 </HBox>
 
-                <HBox spacing="8.0" alignment="CENTER_LEFT">
-                    <children>
-                        <FontIcon iconLiteral="fas-calendar" iconSize="14" styleClass="detail-icon"/>
-                        <Label fx:id="joinedLabel" text="Joined: Jan 15, 2023" styleClass="employee-detail">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
-                    </children>
-                </HBox>
+                
             </children>
         </VBox>
     </children>
