@@ -58,7 +58,7 @@ public class App extends Application {
 
         private static FXMLLoader loadLoginScene(Stage stage) throws IOException {
                 FXMLLoader fxmlLoader = new FXMLLoader(
-                                App.class.getResource("/com/hypermarket/view/login/Login"));
+                                App.class.getResource("/com/hypermarket/view/login/Login.fxml"));
                 scene = new Scene(fxmlLoader.load());
 
                 stage.setScene(scene);
