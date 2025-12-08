@@ -2,9 +2,9 @@ package com.hypermarket.entities;
 
 import com.hypermarket.data.FileManager;
 
-public class Notification {
+public class Batch {
 
-    public Notification(String recordLine) {
+    public Batch(String recordLine) {
         parseString(recordLine);
     }
 

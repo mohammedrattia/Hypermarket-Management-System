@@ -1,11 +1,14 @@
 package com.hypermarket.entities;
 
+import com.hypermarket.data.DataStore;
+import com.hypermarket.data.FileManager;
+
 public class User {
-    private String role;
-    private int id;
+    private int ID;
     private String fName;
     private String lName;
     private String fullName;
+    private Role role;
     private String phone;
     private String email;
     private String password;
@@ -13,8 +16,8 @@ public class User {
 
     public User(String role, int id, String fName, String lName, String phone, String email,
             String password, double salary) {
-        this.role = role;
-        this.id = id;
+        this.role = Role.valueOf(role.trim().toUpperCase());
+        this.ID = DataStore.getDataStore().getUsers().get(DataStore.getDataStore().getUsers().size() - 1).getID();
         this.fName = fName;
         this.lName = lName;
         updateFullName();
@@ -24,32 +27,71 @@ public class User {
         this.salary = salary;
     }
 
-    public String getRole() {
+    public User(String recordLine) {
+        parseString(recordLine);
+    }
+
+    @Override
+    public String toString() {
+        return this.ID + FileManager.DELIMETER
+                + this.fName + FileManager.DELIMETER
+                + this.lName + FileManager.DELIMETER
+                + this.role.toString() + FileManager.DELIMETER
+                + this.phone + FileManager.DELIMETER
+                + this.email + FileManager.DELIMETER
+                + this.password;
+    }
+
+    private void parseString(String line) {
+        String[] values = line.split(FileManager.DELIMETER);
+
+        try {
+            this.ID = Integer.parseInt(values[0]);
+            this.fName = values[1];
+            this.lName = values[2];
+            this.updateFullName();
+            this.role = Role.valueOf(values[3].toUpperCase().trim());
+            this.phone = values[4];
+            this.email = values[5];
+            this.password = values[6];
+
+        } catch (NumberFormatException e) {
+            System.err.println("Error parsing ID (not a number): " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error Choosing Role (enum not found): " + values[4]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.err.println("Error parsing data: Line is missing fields.");
+        } catch (Exception e) {
+            System.err.println("Error parsing data: " + e.getMessage());
+        }
+    }
+
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
     public int getID() {
-        return id;
+        return ID;
     }
 
-    public String getFname() {
+    public String getFName() {
         return fName;
     }
 
-    public void setFname(String fName) {
+    public void setFName(String fName) {
         this.fName = fName;
         updateFullName();
     }
 
-    public String getLname() {
+    public String getLName() {
         return lName;
     }
 
-    public void setLname(String lName) {
+    public void setLName(String lName) {
         this.lName = lName;
         updateFullName();
     }
@@ -98,12 +140,12 @@ public class User {
             String phone, String email, String password,
             String role, double salary) {
 
-        setFname(fName);
-        setLname(lName);
+        setFName(fName);
+        setLName(lName);
         this.phone = phone;
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.role = Role.valueOf(role.trim().toUpperCase());
         this.salary = salary;
     }
 }

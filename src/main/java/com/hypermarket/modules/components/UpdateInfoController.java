@@ -48,8 +48,8 @@ public class UpdateInfoController implements Initializable {
             return;
         }
 
-        currentUser.setFname(fnameField.getText());
-        currentUser.setLname(lnameField.getText());
+        currentUser.setFName(fnameField.getText());
+        currentUser.setLName(lnameField.getText());
         currentUser.setPhone(phoneField.getText());
         currentUser.setEmail(emailField.getText());
         currentUser.setPassword(newPassField.getText());
