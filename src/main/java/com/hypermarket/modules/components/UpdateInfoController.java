@@ -3,6 +3,7 @@ package com.hypermarket.modules.components;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.User;
 
 import javafx.event.ActionEvent;
@@ -47,6 +48,10 @@ public class UpdateInfoController implements Initializable {
             System.out.println("Error: No user loaded!");
             return;
         }
+        if (!newPassField.getText().equals(confirmPassField.getText())) {
+            new Alert(Alert.AlertType.ERROR, "Passwords must match!").showAndWait();
+            return;
+        }
 
         currentUser.setFName(fnameField.getText());
         currentUser.setLName(lnameField.getText());
@@ -54,33 +59,42 @@ public class UpdateInfoController implements Initializable {
         currentUser.setEmail(emailField.getText());
         currentUser.setPassword(newPassField.getText());
         currentUser.setPassword(confirmPassField.getText());
-        if (confirmPassField != newPassField) {
-            System.out.println("Passwords must be identical!");
 
+        if (!newPassField.getText().isEmpty()) {
+            currentUser.setPassword(newPassField.getText());
         }
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("User info has been updated successfully.");
-        alert.showAndWait();
+        DataStore.getDataStore().saveAllData();
 
+        new Alert(Alert.AlertType.INFORMATION,
+                "User info updated successfully!").showAndWait();
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        // userImage.setImage(new Image("/com/hypermarket/images/tomato.jpg"));
+
+        currentUser = com.hypermarket.service.Session.getInstance().getUser();
+
+        if (currentUser != null) {
+            fnameField.setText(currentUser.getFName());
+            lnameField.setText(currentUser.getLName());
+            phoneField.setText(currentUser.getPhone());
+            emailField.setText(currentUser.getEmail());
+            confirmPassField.setText(currentUser.getPassword());
+            newPassField.setText(currentUser.getPassword());
+
+        }
         userImage.setFitWidth(150);
         userImage.setFitHeight(150);
         userImage.setPreserveRatio(false);
 
-        // Create a circular clip
         Circle clip = new Circle();
-        clip.setCenterX(75); // half of width
-        clip.setCenterY(75); // half of height
+        clip.setCenterX(75);
+        clip.setCenterY(75);
         clip.setRadius(75);
 
         userImage.setClip(clip);
 
-        // currentUser=new User();
     }
 
 }

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="mainBox" fx:id="mainBox" prefHeight="420.0" prefWidth="961.0" styleClass="main-box" stylesheets="@../css/UpdateUserInfo.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<VBox id="mainBox" fx:id="mainBox" fx:controller="com.hypermarket.modules.components.UpdateInfoController" prefHeight="420.0" prefWidth="961.0" styleClass="main-box" stylesheets="@../css/UpdateUserInfo.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
       
                <!-- First Name -->
       <HBox id="mainForm" fx:id="fnameBox" prefHeight="277.0" prefWidth="961.0" styleClass="main-Form">
