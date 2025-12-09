@@ -5,9 +5,9 @@ public class Inventory extends User {
         super(recordLine);
     }
 
-    public Inventory(String role, int id, String fName, String lName, String phone,
+    public Inventory(String role, int id, String fName, String lName, String image, String phone,
             String email, String password,
             double salary) {
-        super(role, id, fName, lName, phone, email, password, salary);
+        super(role, id, fName, lName, image, phone, email, password, salary);
     }
 }

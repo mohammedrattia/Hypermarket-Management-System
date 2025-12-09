@@ -20,90 +20,60 @@ public class AdminViewController implements Initializable {
 
     @FXML
     private Label menuDashboard;
+
     @FXML
     private Label menuEmployees;
 
     @FXML
     private Label menuAddEmployees;
+
     @FXML
     private Label menuUpdateUserInfo;
 
-    private final DashboardHome dashboardHome = new DashboardHome();
-    private final EmployeeGrid employeeGrid = new EmployeeGrid();
+    private DashboardHome dashboardHome;
+    private EmployeeGrid employeeGrid;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         showDashboard();
         setUpNavigation();
-        setActiveTab(menuDashboard);
+        updateTitleAndActiveTab(menuDashboard);
     }
 
     private void setUpNavigation() {
-        if (menuDashboard != null) {
-            menuDashboard.setOnMouseClicked(event -> {
-                setActiveTab(menuDashboard);
-                showDashboard();
-            });
-        }
+        menuDashboard.setOnMouseClicked(event -> {
+            showDashboard();
+        });
 
-        if (menuEmployees != null) {
-            menuEmployees.setOnMouseClicked(event -> {
-                setActiveTab(menuEmployees);
-                showEmployees();
-            });
-        }
+        menuEmployees.setOnMouseClicked(event -> {
+            showEmployees();
+        });
 
-        if (menuUpdateUserInfo != null) {
-            menuUpdateUserInfo.setOnMouseClicked(event -> {
-                setActiveTab(menuUpdateUserInfo);
-                showUpdateUserInfo();
-            });
-        }
-        if (menuAddEmployees != null) {
-            menuAddEmployees.setOnMouseClicked(event -> {
-                setActiveTab(menuAddEmployees);
-                showAddEmployee();
-            });
-        }
+        menuAddEmployees.setOnMouseClicked(event -> {
+            showAddEmployee();
+        });
 
+        menuUpdateUserInfo.setOnMouseClicked(event -> {
+            showUpdateUserInfo();
+        });
     }
 
     private void showDashboard() {
-        if (pageTitle != null)
-            pageTitle.setText("Dashboard");
-        setActiveTab(menuDashboard);
+        updateTitleAndActiveTab(menuDashboard);
+        if (dashboardHome == null)
+            dashboardHome = new DashboardHome();
         contentArea.getChildren().clear();
         contentArea.getChildren().add(dashboardHome.getView());
         fitToAnchor(contentArea.getChildren().get(0));
     }
 
     private void showEmployees() {
-        if (pageTitle != null)
-            pageTitle.setText("Employees List");
-        setActiveTab(menuEmployees);
+        updateTitleAndActiveTab(menuEmployees);
+        if (employeeGrid == null)
+            employeeGrid = new EmployeeGrid();
         contentArea.getChildren().clear();
         contentArea.getChildren().add(employeeGrid.getView());
         fitToAnchor(contentArea.getChildren().get(0));
-    }
-
-    private void fitToAnchor(javafx.scene.Node node) {
-        AnchorPane.setTopAnchor(node, 0.0);
-        AnchorPane.setBottomAnchor(node, 0.0);
-        AnchorPane.setLeftAnchor(node, 0.0);
-        AnchorPane.setRightAnchor(node, 0.0);
-    }
-
-    private void setActiveTab(Label activeBox) {
-        if (menuDashboard != null)
-            menuDashboard.getStyleClass().remove("active-label");
-        if (menuEmployees != null)
-            menuEmployees.getStyleClass().remove("active-label");
-        if (menuAddEmployees != null)
-            menuAddEmployees.getStyleClass().remove("active-label");
-        if (menuUpdateUserInfo != null)
-            menuUpdateUserInfo.getStyleClass().remove("active-label");
-
-        activeBox.getStyleClass().add("active-label");
     }
 
     private void showUpdateUserInfo() {
@@ -113,12 +83,7 @@ public class AdminViewController implements Initializable {
             contentArea.getChildren().clear();
             contentArea.getChildren().add(updateUserUI);
             fitToAnchor(updateUserUI);
-
-            if (pageTitle != null)
-                pageTitle.setText("Update User Info");
-
-            setActiveTab(menuUpdateUserInfo);
-
+            updateTitleAndActiveTab(menuUpdateUserInfo);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,14 +97,27 @@ public class AdminViewController implements Initializable {
             contentArea.getChildren().clear();
             contentArea.getChildren().add(addEmployeeUI);
             fitToAnchor(addEmployeeUI);
-
-            if (pageTitle != null)
-                pageTitle.setText("Add Employee");
-
-            setActiveTab(menuAddEmployees);
-
+            updateTitleAndActiveTab(menuAddEmployees);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    private void fitToAnchor(javafx.scene.Node node) {
+        AnchorPane.setTopAnchor(node, 0.0);
+        AnchorPane.setBottomAnchor(node, 0.0);
+        AnchorPane.setLeftAnchor(node, 0.0);
+        AnchorPane.setRightAnchor(node, 0.0);
+    }
+
+    private void updateTitleAndActiveTab(Label activeBox) {
+        menuDashboard.getStyleClass().remove("active-label");
+        menuEmployees.getStyleClass().remove("active-label");
+        menuAddEmployees.getStyleClass().remove("active-label");
+        menuUpdateUserInfo.getStyleClass().remove("active-label");
+
+        activeBox.getStyleClass().add("active-label");
+        pageTitle.setText(activeBox.getText());
     }
 }
