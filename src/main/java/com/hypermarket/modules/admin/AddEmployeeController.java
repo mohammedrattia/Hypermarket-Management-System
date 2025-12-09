@@ -1,4 +1,4 @@
-package com.hypermarket.modules.components;
+package com.hypermarket.modules.admin;
 
 import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.User;
@@ -16,30 +16,39 @@ import java.util.Optional;
 
 public class AddEmployeeController {
 
-    @FXML private ImageView userImage;
-    @FXML private Button uploadImageBtn;
-    @FXML private TextField fnameField;
-    @FXML private TextField lnameField;
-    @FXML private TextField phoneField;
-    @FXML private TextField emailField;
-    @FXML private PasswordField passwordField;
-    @FXML private PasswordField confirmPassField;
-    @FXML private ComboBox<String> roleComboBox;
-    @FXML private Button saveBtn;
+    @FXML
+    private ImageView userImage;
+    @FXML
+    private Button uploadImageBtn;
+    @FXML
+    private TextField fnameField;
+    @FXML
+    private TextField lnameField;
+    @FXML
+    private TextField phoneField;
+    @FXML
+    private TextField emailField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private PasswordField confirmPassField;
+    @FXML
+    private ComboBox<String> roleComboBox;
+    @FXML
+    private Button saveBtn;
 
-    private File selectedImageFile; 
+    private File selectedImageFile;
 
     private final DataStore dataStore = DataStore.getDataStore();
 
     @FXML
     public void initialize() {
         roleComboBox.getItems().addAll(
-            "Admin", 
-            "Inventory", 
-            "Sales", 
-            "Marketing"
-        );
-        
+                "Admin",
+                "Inventory",
+                "Sales",
+                "Marketing");
+
         roleComboBox.setPromptText("Select Role");
     }
 
@@ -47,8 +56,8 @@ public class AddEmployeeController {
     private void handleImageSelection(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Profile Image");
-        FileChooser.ExtensionFilter imageFilter =
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif");
+        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg",
+                "*.jpeg", "*.gif");
         fileChooser.getExtensionFilters().add(imageFilter);
 
         File file = fileChooser.showOpenDialog(uploadImageBtn.getScene().getWindow());
@@ -70,31 +79,31 @@ public class AddEmployeeController {
         if (!validateInput()) {
             return;
         }
-        
+
         Optional<String> selectedRole = Optional.ofNullable(roleComboBox.getValue());
-        
-        int placeholderID = getNextAvailableID(); 
-        
+
+        int placeholderID = getNextAvailableID();
+
         User newUser = new User(
-            selectedRole.get(),
-            placeholderID,
-            fnameField.getText().trim(),
-            lnameField.getText().trim(),
-            phoneField.getText().trim(),
-            emailField.getText().trim(),
-            passwordField.getText(),
-            0.0
-        );
+                selectedRole.get(),
+                placeholderID,
+                fnameField.getText().trim(),
+                lnameField.getText().trim(),
+                phoneField.getText().trim(),
+                emailField.getText().trim(),
+                passwordField.getText(),
+                0.0);
 
         dataStore.getUsers().add(newUser);
-        
-        dataStore.saveAllData(); 
 
-        System.out.println("New employee added and data saved to file: " + newUser.getFName() + " " + newUser.getLName());
-        
+        dataStore.saveAllData();
+
+        System.out
+                .println("New employee added and data saved to file: " + newUser.getFName() + " " + newUser.getLName());
+
         clearForm();
     }
-    
+
     private int getNextAvailableID() {
         if (dataStore.getUsers().isEmpty()) {
             return 1;
@@ -103,12 +112,12 @@ public class AddEmployeeController {
     }
 
     private boolean validateInput() {
-        if (fnameField.getText().trim().isEmpty() || 
-            lnameField.getText().trim().isEmpty() ||
-            emailField.getText().trim().isEmpty() ||
-            passwordField.getText().isEmpty() || 
-            confirmPassField.getText().isEmpty()) {
-            
+        if (fnameField.getText().trim().isEmpty() ||
+                lnameField.getText().trim().isEmpty() ||
+                emailField.getText().trim().isEmpty() ||
+                passwordField.getText().isEmpty() ||
+                confirmPassField.getText().isEmpty()) {
+
             System.err.println("Validation Error: Please fill in all required fields.");
             return false;
         }
@@ -117,7 +126,7 @@ public class AddEmployeeController {
             System.err.println("Validation Error: Passwords do not match.");
             return false;
         }
-        
+
         if (roleComboBox.getValue() == null) {
             System.err.println("Validation Error: Please select a Role.");
             return false;
