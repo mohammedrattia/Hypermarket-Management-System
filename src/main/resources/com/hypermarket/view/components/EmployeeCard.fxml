@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
@@ -9,85 +9,76 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox fx:id="employeeCard"
-      xmlns="http://javafx.com/javafx/13"
-      xmlns:fx="http://javafx.com/fxml/1"
-      styleClass="employee-card"
-      stylesheets="@../../css/EmployeeCard.css" fx:controller="com.hypermarket.modules.components.EmployeeCardController">
+<VBox fx:id="employeeCard" prefHeight="200.0" prefWidth="305.0" styleClass="employee-card" stylesheets="@../../css/EmployeeCard.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.components.EmployeeCardController">
 
     <padding>
-        <Insets top="15.0" right="15.0" bottom="15.0" left="15.0"/>
+        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
     </padding>
 
     <children>
-        <HBox spacing="15.0" alignment="CENTER_LEFT">
+        <HBox alignment="TOP_LEFT">
             <children>
-                <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../images/userBlack.png"/>
-                    </image>
-                </ImageView>
-
-                <VBox spacing="2.0">
+                 <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="274.0" spacing="15.0" HBox.hgrow="ALWAYS">
                     <children>
-                        <Label fx:id="nameLabel" text="Hana M. AbdelHamid" styleClass="employee-name">
-                            <font>
-                                <Font name="System Bold" size="16.0"/>
-                            </font>
-                        </Label>
-                        <Label fx:id="titleLabel" text="Fullstack Engineer" styleClass="employee-title">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
+                        <ImageView fitHeight="59.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../images/userBlack.png" />
+                            </image>
+                        </ImageView>
+
+                        <VBox prefHeight="60.0" prefWidth="180.0" spacing="2.0">
+                            <children>
+                                <Label fx:id="nameLabel" styleClass="employee-name" text="Hana M. AbdelHamid">
+                                    <font><Font name="System Bold" size="16.0" /></font>
+                                </Label>
+                                <Label fx:id="titleLabel" styleClass="employee-title" text="Fullstack Engineer">
+                                    <font><Font size="13.0" /></font>
+                                </Label>
+                            </children>
+                        </VBox>
                     </children>
-                </VBox>
+                </HBox>
+
+                <Button onAction="#handleShowDetails" style="-fx-background-color: transparent; -fx-cursor: hand;">
+                    <graphic>
+                        <FontIcon styleClass="expand-icon" iconLiteral="fas-expand" iconSize="19" />
+                    </graphic>
+                    <padding>
+                        <Insets right="-5" top="-5" /> </padding>
+                </Button>
             </children>
         </HBox>
 
-        <Separator styleClass="card-separator">
+        <Separator prefHeight="6.0" prefWidth="275.0" styleClass="card-separator">
             <VBox.margin>
-                <Insets top="12.0" bottom="12.0"/>
+                <Insets bottom="12.0" top="12.0" />
             </VBox.margin>
         </Separator>
 
         <VBox spacing="8.0">
             <children>
-                <HBox spacing="8.0" alignment="CENTER_LEFT">
+                <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="275.0" spacing="8.0">
                     <children>
-                        <FontIcon iconLiteral="fas-dollar-sign" iconSize="14" styleClass="detail-icon"/>
-                        <Label fx:id="salaryLabel" text="Salary: $75,000" styleClass="employee-detail">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
+                        <FontIcon iconLiteral="fas-dollar-sign" iconSize="14" styleClass="detail-icon" wrappingWidth="12.67498779296875" />
+                        <Label fx:id="salaryLabel" styleClass="employee-detail" text="Salary: $75,000" />
                     </children>
                 </HBox>
 
-                <HBox spacing="8.0" alignment="CENTER_LEFT">
+                <HBox alignment="CENTER_LEFT" spacing="8.0">
                     <children>
-                        <FontIcon iconLiteral="fas-phone" iconSize="14" styleClass="detail-icon"/>
-                        <Label fx:id="phoneLabel" text="Phone: +1 234 567 8900" styleClass="employee-detail">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
+                        <FontIcon iconLiteral="fas-phone" iconSize="14" styleClass="detail-icon" />
+                        <Label fx:id="phoneLabel" styleClass="employee-detail" text="Phone: +1 234 567 8900" />
                     </children>
                 </HBox>
 
-                <HBox spacing="8.0" alignment="CENTER_LEFT">
+                <HBox alignment="CENTER_LEFT" prefHeight="26.0" prefWidth="275.0" spacing="8.0">
                     <children>
-                        <FontIcon iconLiteral="fas-envelope" iconSize="14" styleClass="detail-icon"/>
-                        <Label fx:id="emailLabel" text="Email: hanamabdelhamid@company.com" styleClass="employee-detail">
-                            <font>
-                                <Font size="13.0"/>
-                            </font>
-                        </Label>
+                        <FontIcon iconLiteral="fas-envelope" iconSize="14" styleClass="detail-icon" />
+                        <Label fx:id="emailLabel" styleClass="employee-detail" text="Email: hana@company.com" />
                     </children>
                 </HBox>
-
-                
             </children>
         </VBox>
     </children>

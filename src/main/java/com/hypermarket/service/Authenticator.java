@@ -20,7 +20,8 @@ public class Authenticator {
 
     public static void changePassword(String oldPass, String newPass) throws Exception {
         User currentUser = Session.getInstance().getUser();
-        if (currentUser.getPassword() != oldPass) {
+
+        if (currentUser.getPassword().equals(oldPass)) {
             currentUser.setPassword(newPass);
         } else {
             throw new Exception("The old password is incorrect.");
@@ -32,6 +33,6 @@ public class Authenticator {
         if (currentUser == null) {
             throw new Exception("No session available.");
         }
-        currentUser.setPassword(newEmail);
+        currentUser.setEmail(newEmail);
     }
 }
