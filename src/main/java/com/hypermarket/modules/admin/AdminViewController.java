@@ -17,11 +17,13 @@ public class AdminViewController implements Initializable {
 
     @FXML
     private Label menuDashboard;
+
     @FXML
     private Label menuEmployees;
 
     @FXML
     private Label menuAddEmployees;
+
     @FXML
     private Label menuUpdateUserInfo;
 

@@ -89,6 +89,7 @@ public class AddEmployeeController {
                 placeholderID,
                 fnameField.getText().trim(),
                 lnameField.getText().trim(),
+                image,
                 phoneField.getText().trim(),
                 emailField.getText().trim(),
                 passwordField.getText(),

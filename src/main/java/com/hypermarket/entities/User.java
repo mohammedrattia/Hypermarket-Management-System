@@ -10,13 +10,14 @@ public class User {
     private String fName;
     private String lName;
     private String fullName;
+    private String image;
     private Role role;
     private String phone;
     private String email;
     private String password;
     private double salary;
 
-    public User(String role, int id, String fName, String lName, String phone, String email,
+    public User(String role, int id, String fName, String lName, String image, String phone, String email,
             String password, double salary) {
         try {
             this.role = Role.valueOf(role.trim().toUpperCase());
@@ -33,6 +34,7 @@ public class User {
 
         this.fName = fName;
         this.lName = lName;
+        this.image = image;
         updateFullName();
         this.email = email;
         this.phone = phone;
@@ -49,6 +51,7 @@ public class User {
         return this.ID + FileManager.DELIMETER
                 + this.fName + FileManager.DELIMETER
                 + this.lName + FileManager.DELIMETER
+                + this.image + FileManager.DELIMETER
                 + this.role.toString() + FileManager.DELIMETER
                 + this.phone + FileManager.DELIMETER
                 + this.email + FileManager.DELIMETER
@@ -64,13 +67,14 @@ public class User {
             this.fName = values[1];
             this.lName = values[2];
             this.updateFullName();
-            this.role = Role.valueOf(values[3].toUpperCase().trim());
-            this.phone = values[4];
-            this.email = values[5];
-            this.password = values[6];
+            this.image = values[3];
+            this.role = Role.valueOf(values[4].toUpperCase().trim());
+            this.phone = values[5];
+            this.email = values[6];
+            this.password = values[7];
 
             if (values.length > 7) {
-                this.salary = Double.parseDouble(values[7]);
+                this.salary = Double.parseDouble(values[8]);
             } else {
                 this.salary = 0.0;
             }
@@ -124,6 +128,14 @@ public class User {
         this.fullName = this.fName + " " + this.lName;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -156,16 +168,17 @@ public class User {
         this.salary = salary;
     }
 
-    public void updateInfo(String fName, String lName,
+    public void updateInfo(String fName, String lName, String image,
             String phone, String email, String password,
             String role, double salary) {
 
         setFName(fName);
         setLName(lName);
-        this.phone = phone;
-        this.email = email;
-        this.password = password;
-        this.role = Role.valueOf(role.trim().toUpperCase());
-        this.salary = salary;
+        setImage(image);
+        setPhone(phone);
+        setEmail(email);
+        setPassword(password);
+        setRole(Role.valueOf(role.trim().toUpperCase()));
+        setSalary(salary);
     }
 }

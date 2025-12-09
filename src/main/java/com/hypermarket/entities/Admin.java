@@ -9,32 +9,34 @@ public class Admin extends User {
         super(recordLine);
     }
 
-    public Admin(String role, int id, String fName, String lName, String phone, String email, String password,
+    public Admin(String role, int id, String fName, String lName, String image, String phone, String email,
+            String password,
             double salary) {
-        super(role, id, fName, lName, phone, email, password, salary);
+        super(role, id, fName, lName, image, phone, email, password, salary);
     }
 
-    public void addUser(String role, int id, String fName, String lName, String phone, String email, String password,
+    public void addUser(String role, int id, String fName, String lName, String image, String phone, String email,
+            String password,
             double salary) {
         User newUser;
         String normRole = role.trim().toUpperCase();
 
         switch (normRole) {
             case "ADMIN":
-                newUser = new Admin(normRole, 0, fName, lName, phone, email, password, salary);
+                newUser = new Admin(normRole, 0, fName, lName, image, phone, email, password, salary);
                 break;
             case "SALES":
-                newUser = new Sales(normRole, 0, fName, lName, phone, email, password, salary);
+                newUser = new Sales(normRole, 0, fName, lName, image, phone, email, password, salary);
                 break;
             case "MARKETING":
-                newUser = new Marketing(normRole, 0, fName, lName, phone, email, password, salary);
+                newUser = new Marketing(normRole, 0, fName, lName, image, phone, email, password, salary);
                 break;
             case "INVENTORY":
-                newUser = new Inventory(normRole, 0, fName, lName, phone, email, password, salary);
+                newUser = new Inventory(normRole, 0, fName, lName, image, phone, email, password, salary);
                 break;
             default:
                 System.out.println("Unknown role " + role + " creating generic user for fallback");
-                newUser = new User(normRole, 0, fName, lName, phone, email, password, salary);
+                newUser = new User(normRole, 0, fName, lName, image, phone, email, password, salary);
         }
 
         DataStore.getDataStore().getUsers().add(newUser);
@@ -49,6 +51,7 @@ public class Admin extends User {
             if (user.getID() == id) {
                 user.setFName(updatedInfo.getFName());
                 user.setLName(updatedInfo.getLName());
+                user.setImage(updatedInfo.getImage());
                 user.setPhone(updatedInfo.getPhone());
                 user.setEmail(updatedInfo.getEmail());
                 user.setPassword(updatedInfo.getPassword());
