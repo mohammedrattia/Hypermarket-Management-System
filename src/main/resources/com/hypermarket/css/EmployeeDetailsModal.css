@@ -1,0 +1,90 @@
+.modal-container {
+  -fx-background-color: white;
+  -fx-border-color: #e0e0e0;
+  -fx-border-width: 1;
+  -fx-background-radius: 12;
+}
+
+.modal-name {
+  -fx-text-fill: black;
+}
+.modal-role {
+  -fx-text-fill: #666666;
+}
+.modal-id {
+  -fx-text-fill: #999999;
+}
+.section-title {
+  -fx-text-fill: #00aaff;
+}
+
+.icon-secondary {
+  -fx-icon-color: #666666;
+}
+
+.icon-success {
+  -fx-icon-color: #28a745;
+}
+
+.icon-light {
+  -fx-icon-color: white;
+}
+
+.btn-update {
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #ffae22 0%,
+    #f18e1e 100%
+  );
+  -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.3), 10, 0, 0, 4);
+}
+.btn-update:hover {
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #f2a624 0%,
+    #ea891a 100%
+  );
+  -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.5), 15, 0, 0, 6);
+}
+
+.btn-update,
+.btn-delete {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-background-radius: 12;
+  -fx-padding: 10 20 10 20;
+  -fx-cursor: hand;
+  -fx-min-width: 125px;
+  -fx-min-height: 45px;
+  -fx-pref-width: 125px;
+  -fx-pref-height: 45px;
+  -fx-font-size: 15px;
+}
+
+.btn-delete {
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #ef4444 0%,
+    #dc2626 100%
+  );
+  -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.3), 10, 0, 0, 4);
+}
+
+.btn-delete:hover {
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #dc2626 0%,
+    #b91c1c 100%
+  );
+  -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.5), 15, 0, 0, 6);
+}
+
+.btn-update:pressed,
+.btn-delete:pressed {
+  -fx-translate-y: 2;
+  -fx-min-width: 125px;
+  -fx-min-height: 45px;
+  -fx-pref-width: 125px;
+  -fx-pref-height: 45px;
+  -fx-font-weight: bold;
+}

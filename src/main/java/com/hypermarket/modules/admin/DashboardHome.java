@@ -17,34 +17,24 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class DashboardHome {
+    private VBox employeeListContainer;
+    private HBox kpiContainer;
+
     public Parent getView() {
         VBox mainLayout = new VBox(20);
         mainLayout.setPadding(new Insets(25));
 
-        DataStore db = DataStore.getDataStore();
-        List<User> users = db.getUsers();
+        kpiContainer = new HBox(30);
 
-        int userCount = users.size();
+        employeeListContainer = new VBox(15);
+        employeeListContainer.setPadding(new Insets(10));
 
-        HBox kpiContainer = new HBox(30);
-        kpiContainer.getChildren().addAll(
-                loadKpiCard("Active Users", String.valueOf(userCount), "2", true),
-                loadKpiCard("Total Sales", "120,000", "2", true),
-                loadKpiCard("Low Stock", "10 Items", "5%", false));
+        refreshView();
 
         HBox bottomContainer = new HBox(5);
         VBox.setVgrow(bottomContainer, Priority.ALWAYS);
 
-        VBox employeeList = new VBox(15);
-        employeeList.setPadding(new Insets(10));
-
-        for (int i = 0; i < users.size(); i++) {
-            User u = users.get(i);
-            employeeList.getChildren().add(loadEmployeeCard(u.getFullName(), u.getRole().toString(), u.getSalary(),
-                    u.getPhone(), u.getEmail()));
-        }
-
-        ScrollPane scrollPane = new ScrollPane(employeeList);
+        ScrollPane scrollPane = new ScrollPane(employeeListContainer);
         scrollPane.setFitToWidth(true);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setPrefWidth(370);
@@ -57,6 +47,36 @@ public class DashboardHome {
         mainLayout.getChildren().addAll(kpiContainer, bottomContainer);
 
         return mainLayout;
+    }
+
+    private void refreshView() {
+        refreshKpis();
+        refreshList();
+    }
+
+    private void refreshKpis() {
+        kpiContainer.getChildren().clear();
+
+        DataStore db = DataStore.getDataStore();
+        List<User> users = db.getUsers();
+
+        int userCount = users.size();
+
+        kpiContainer.getChildren().addAll(
+                loadKpiCard("Active Users", String.valueOf(userCount), "2", true),
+                loadKpiCard("Total Sales", "120,000", "2", true),
+                loadKpiCard("Low Stock", "10 Items", "5%", false));
+    }
+
+    private void refreshList() {
+        employeeListContainer.getChildren().clear();
+
+        DataStore db = DataStore.getDataStore();
+        List<User> users = db.getUsers();
+        for (int i = 0; i < users.size(); i++) {
+            User u = users.get(i);
+            employeeListContainer.getChildren().add(loadEmployeeCard(u, this::refreshView));
+        }
     }
 
     private Parent loadKpiCard(String title, String value, String trend, boolean isPositive) {
@@ -86,14 +106,15 @@ public class DashboardHome {
         }
     }
 
-    private Parent loadEmployeeCard(String name, String title, double salary, String phone, String email) {
+    private Parent loadEmployeeCard(User user, Runnable onDelete) {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/com/hypermarket/view/components/EmployeeCard.fxml"));
             Parent node = loader.load();
 
             EmployeeCardController controller = loader.getController();
-            controller.setData(name, title, salary, phone, email);
+            controller.setData(user);
+            controller.setOnDeleteAction(onDelete);
 
             return node;
         } catch (IOException ex) {
