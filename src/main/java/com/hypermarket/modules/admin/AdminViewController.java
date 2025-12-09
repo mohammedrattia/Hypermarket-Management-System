@@ -59,6 +59,12 @@ public class AdminViewController implements Initializable {
                 showUpdateUserInfo();
             });
         }
+        if (menuAddEmployees != null) {
+            menuAddEmployees.setOnMouseClicked(event -> {
+                setActiveTab(menuAddEmployees);
+                showAddEmployee();
+            });
+        }
 
     }
 
@@ -121,7 +127,7 @@ public class AdminViewController implements Initializable {
     private void showAddEmployee() {
         try {
             Parent addEmployeeUI = FXMLLoader.load(
-                    getClass().getResource("/com/hypermarket/view/admin/AdminAddEmployee.fxml"));
+                    getClass().getResource("/com/hypermarket/view/AdminAddEmployee.fxml"));
 
             contentArea.getChildren().clear();
             contentArea.getChildren().add(addEmployeeUI);
@@ -136,5 +142,4 @@ public class AdminViewController implements Initializable {
             e.printStackTrace();
         }
     }
-
 }
