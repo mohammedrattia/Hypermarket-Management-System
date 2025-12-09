@@ -1,16 +1,26 @@
 package com.hypermarket.modules.components;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.User;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 
-public class UpdateInfoController {
+public class UpdateInfoController implements Initializable {
     private User currentUser;
+    @FXML
+    private ImageView userImage;
 
     @FXML
     private TextField emailField;
@@ -38,6 +48,10 @@ public class UpdateInfoController {
             System.out.println("Error: No user loaded!");
             return;
         }
+        if (!newPassField.getText().equals(confirmPassField.getText())) {
+            new Alert(Alert.AlertType.ERROR, "Passwords must match!").showAndWait();
+            return;
+        }
 
         currentUser.setFName(fnameField.getText());
         currentUser.setLName(lnameField.getText());
@@ -45,14 +59,42 @@ public class UpdateInfoController {
         currentUser.setEmail(emailField.getText());
         currentUser.setPassword(newPassField.getText());
         currentUser.setPassword(confirmPassField.getText());
-        if (confirmPassField != newPassField) {
-            System.out.println("Passwords must be identical!");
 
+        if (!newPassField.getText().isEmpty()) {
+            currentUser.setPassword(newPassField.getText());
         }
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("User info has been updated successfully.");
-        alert.showAndWait();
+        DataStore.getDataStore().saveAllData();
+
+        new Alert(Alert.AlertType.INFORMATION,
+                "User info updated successfully!").showAndWait();
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+
+        currentUser = com.hypermarket.service.Session.getInstance().getUser();
+
+        if (currentUser != null) {
+            fnameField.setText(currentUser.getFName());
+            lnameField.setText(currentUser.getLName());
+            phoneField.setText(currentUser.getPhone());
+            emailField.setText(currentUser.getEmail());
+            confirmPassField.setText(currentUser.getPassword());
+            newPassField.setText(currentUser.getPassword());
+
+        }
+        userImage.setFitWidth(150);
+        userImage.setFitHeight(150);
+        userImage.setPreserveRatio(false);
+
+        Circle clip = new Circle();
+        clip.setCenterX(75);
+        clip.setCenterY(75);
+        clip.setRadius(75);
+
+        userImage.setClip(clip);
 
     }
+
 }

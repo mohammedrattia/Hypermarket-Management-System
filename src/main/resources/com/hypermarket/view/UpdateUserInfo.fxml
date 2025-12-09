@@ -4,14 +4,54 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="mainBox" prefHeight="640.0" prefWidth="1000.0" stylesheets="@../css/UpdateUserInfo.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="yourpackage.UpdateInfoController">
+<VBox id="mainBox" fx:id="mainBox" fx:controller="com.hypermarket.modules.components.UpdateInfoController" prefHeight="420.0" prefWidth="961.0" styleClass="main-box" stylesheets="@../css/UpdateUserInfo.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
       
-            <!-- First Name -->
-      <HBox fx:id="fnameBox" prefHeight="301.0" prefWidth="920.0">
-      <VBox id="labelsBox" prefHeight="316.0" prefWidth="120.0">
+               <!-- First Name -->
+      <HBox id="mainForm" fx:id="fnameBox" prefHeight="277.0" prefWidth="961.0" styleClass="main-Form">
+      <VBox prefHeight="322.0" prefWidth="339.0">
+         <children>
+            <VBox id="ImageBox" prefHeight="186.0" prefWidth="339.0" styleClass="Image-Box">
+               <children>
+                  <ImageView id="userPicture" fx:id="userImage" fitHeight="118.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/tomato.jpg" />
+                     </image>
+                  </ImageView>
+                  <HBox id="changeImageButton" styleClass="change-button">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="120.0" styleClass="change-img" text="Change Image" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox id="readOnlyLabels" prefHeight="157.0" prefWidth="66.0" styleClass="labels-box">
+                     <children>
+                        <Label text="ID:" />
+                        <Label text="Role:" />
+                        <Label text="Salary:" />
+                     </children>
+                  </VBox>
+                  <VBox id="readOnlyFieldsBox" prefHeight="150.0" prefWidth="217.0" styleClass="fields-box">
+                     <children>
+                        <TextField editable="false" />
+                        <TextField editable="false" />
+                        <TextField editable="false" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Region prefHeight="332.0" prefWidth="93.0" />
+      <VBox id="labelsBox" alignment="BOTTOM_LEFT" prefHeight="358.0" prefWidth="132.0" styleClass="labels-box">
          <children>
                 <Label text="First Name:" />
                 <Label text="Last Name:" />
@@ -21,22 +61,22 @@
             <Label prefHeight="18.0" prefWidth="168.0" text="Confirm password:" />
          </children>
       </VBox>
-      <VBox id="fieldsBox" prefHeight="300.0" prefWidth="237.0">
+      <VBox id="fieldsBox" alignment="BOTTOM_LEFT" prefHeight="312.0" prefWidth="237.0" styleClass="fields-box">
          <children>
-                <TextField fx:id="fnameField" prefHeight="0.0" prefWidth="237.0" />
-                <TextField fx:id="lnameField" prefHeight="27.0" prefWidth="151.0" />
-                <TextField fx:id="phoneField" />
-                <TextField fx:id="emailField" />
-                <PasswordField fx:id="newPassField" minHeight="18.0" prefHeight="18.0" prefWidth="237.0" />
-            <PasswordField fx:id="confirmPassField" prefHeight="27.0" prefWidth="358.0" />
+                <TextField fx:id="fnameField" prefHeight="0.0" prefWidth="237.0" promptText="Enter your first name" />
+                <TextField fx:id="lnameField" prefHeight="27.0" prefWidth="151.0" promptText="Enter your last name" />
+                <TextField fx:id="phoneField" promptText="Enter your phone number" />
+                <TextField fx:id="emailField" promptText="Enter your Email" />
+                <PasswordField fx:id="newPassField" minHeight="18.0" prefHeight="18.0" prefWidth="237.0" promptText="Enter a strong password" />
+            <PasswordField fx:id="confirmPassField" prefHeight="27.0" prefWidth="358.0" promptText="Confirm your password" />
          </children>
       </VBox>
       </HBox>
-   <HBox id="saveButtonBox">
+   <HBox id="saveButtonBox" styleClass="save-box">
       <children>
       
-            <!-- Save Button -->
-            <Button fx:id="saveBtn" onAction="#handleSave" prefHeight="33.0" prefWidth="176.0" text="Save">
+               <!-- Save Button -->
+            <Button fx:id="saveBtn" onAction="#handleSave" prefHeight="33.0" prefWidth="176.0" styleClass="save-Btn" text="Save">
            
             </Button>
       </children>
