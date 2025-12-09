@@ -4,11 +4,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 public class AdminViewController implements Initializable {
+
     @FXML
     private AnchorPane contentArea;
 
@@ -73,11 +76,31 @@ public class AdminViewController implements Initializable {
         fitToAnchor(contentArea.getChildren().get(0));
     }
 
-    private void showAddEmployee() {
-
+    private void showUpdateUserInfo() {
+        try {
+            Parent updateUserUI = FXMLLoader.load(
+                    getClass().getResource("/com/hypermarket/view/UpdateUserInfo.fxml"));
+            contentArea.getChildren().clear();
+            contentArea.getChildren().add(updateUserUI);
+            fitToAnchor(updateUserUI);
+            updateTitleAndActiveTab(menuUpdateUserInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private void showUpdateUserInfo() {
+    private void showAddEmployee() {
+        try {
+            Parent addEmployeeUI = FXMLLoader.load(
+                    getClass().getResource("/com/hypermarket/view/admin/AdminAddEmployee.fxml"));
+
+            contentArea.getChildren().clear();
+            contentArea.getChildren().add(addEmployeeUI);
+            fitToAnchor(addEmployeeUI);
+            updateTitleAndActiveTab(menuAddEmployees);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
