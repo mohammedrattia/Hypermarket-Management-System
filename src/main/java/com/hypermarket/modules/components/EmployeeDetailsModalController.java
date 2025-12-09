@@ -63,6 +63,10 @@ public class EmployeeDetailsModalController {
 
         alert.showAndWait().ifPresent(res -> {
             if (res == ButtonType.OK) {
+                // TODO: replace this new admin with Session.getUser()
+                // if the current user isn't admin he can't delete and exception would occur
+                // no one have the employee view except admins anyway
+                // I didn't change it until I tell you @hana ...
                 Admin adminLogic = new Admin("ADMIN", 0, "temp", "temp", "temp", "0", "0", "0", 0);
 
                 adminLogic.deleteUser(currentUser.getID());
