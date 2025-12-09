@@ -45,6 +45,14 @@ public class AdminViewController implements Initializable {
         menuEmployees.setOnMouseClicked(event -> {
             showEmployees();
         });
+
+        menuAddEmployees.setOnMouseClicked(event -> {
+            showAddEmployee();
+        });
+
+        menuUpdateUserInfo.setOnMouseClicked(event -> {
+            showUpdateUserInfo();
+        });
     }
 
     private void showDashboard() {
@@ -63,6 +71,14 @@ public class AdminViewController implements Initializable {
         contentArea.getChildren().clear();
         contentArea.getChildren().add(employeeGrid.getView());
         fitToAnchor(contentArea.getChildren().get(0));
+    }
+
+    private void showAddEmployee() {
+
+    }
+
+    private void showUpdateUserInfo() {
+
     }
 
     private void fitToAnchor(javafx.scene.Node node) {
