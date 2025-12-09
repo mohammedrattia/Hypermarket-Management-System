@@ -63,7 +63,7 @@ public class EmployeeDetailsModalController {
 
         alert.showAndWait().ifPresent(res -> {
             if (res == ButtonType.OK) {
-                Admin adminLogic = new Admin("ADMIN", 0, "temp", "temp", "0", "0", "0", 0);
+                Admin adminLogic = new Admin("ADMIN", 0, "temp", "temp", "temp", "0", "0", "0", 0);
 
                 adminLogic.deleteUser(currentUser.getID());
 
