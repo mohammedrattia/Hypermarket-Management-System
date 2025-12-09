@@ -4,11 +4,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 public class AdminViewController implements Initializable {
+
     @FXML
     private AnchorPane contentArea;
 
@@ -49,6 +52,14 @@ public class AdminViewController implements Initializable {
                 showEmployees();
             });
         }
+
+        if (menuUpdateUserInfo != null) {
+            menuUpdateUserInfo.setOnMouseClicked(event -> {
+                setActiveTab(menuUpdateUserInfo);
+                showUpdateUserInfo();
+            });
+        }
+
     }
 
     private void showDashboard() {
@@ -88,4 +99,42 @@ public class AdminViewController implements Initializable {
 
         activeBox.getStyleClass().add("active-label");
     }
+
+    private void showUpdateUserInfo() {
+        try {
+            Parent updateUserUI = FXMLLoader.load(
+                    getClass().getResource("/com/hypermarket/view/UpdateUserInfo.fxml"));
+            contentArea.getChildren().clear();
+            contentArea.getChildren().add(updateUserUI);
+            fitToAnchor(updateUserUI);
+
+            if (pageTitle != null)
+                pageTitle.setText("Update User Info");
+
+            setActiveTab(menuUpdateUserInfo);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showAddEmployee() {
+        try {
+            Parent addEmployeeUI = FXMLLoader.load(
+                    getClass().getResource("/com/hypermarket/view/admin/AdminAddEmployee.fxml"));
+
+            contentArea.getChildren().clear();
+            contentArea.getChildren().add(addEmployeeUI);
+            fitToAnchor(addEmployeeUI);
+
+            if (pageTitle != null)
+                pageTitle.setText("Add Employee");
+
+            setActiveTab(menuAddEmployees);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
