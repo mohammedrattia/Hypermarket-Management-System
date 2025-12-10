@@ -9,3 +9,7 @@
 9;Nour;Eldin;user_009.png;SALES;01011223344;nour.el@sales.com;sellmore39500.0;0.0
 10;Tarek;Zaki;user_010.png;INVENTORY;01299887766;tarek.z@warehouse.com;warehouse143000.0;0.0
 11;safdfdf;dfdfd;image;INVENTORY;sfdff;400000;12;0.0
+12;first;last;image;INVENTORY;test@gmail.com;20000;123456;0.0
+13;first;last;image;INVENTORY;01234567890;test@gmail.com;123456;20000.0
+14;first;last;image;INVENTORY;01234567890;test@gmail.com;123456;35000.0
+15;ahmed;ali;image;MARKETING;1234567896;ssss@gmail.com;123456;800000.0

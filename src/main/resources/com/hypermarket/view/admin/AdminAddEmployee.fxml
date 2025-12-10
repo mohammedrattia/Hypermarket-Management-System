@@ -50,11 +50,11 @@
                   <Region prefHeight="0.0" prefWidth="300.0" />
                         <TextField fx:id="fnameField" minHeight="21.0" prefHeight="21.0" />
                         <TextField fx:id="lnameField" />
-                  <TextField />
-                        <TextField fx:id="phoneField" />
+                  <TextField fx:id="phoneField" />
+                        <TextField fx:id="emailField" />
                         <PasswordField fx:id="passwordField" />
                         <PasswordField fx:id="confirmPassField" />
-                        <TextField fx:id="emailField" />
+                        <TextField fx:id="salaryField" />
                         <ComboBox fx:id="roleComboBox" prefWidth="150.0" />
                     </children>
                 </VBox>

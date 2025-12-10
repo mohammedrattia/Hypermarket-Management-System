@@ -33,6 +33,8 @@ public class AddEmployeeController {
     @FXML
     private PasswordField confirmPassField;
     @FXML
+    private TextField salaryField;
+    @FXML
     private ComboBox<String> roleComboBox;
     @FXML
     private Button saveBtn;
@@ -93,7 +95,7 @@ public class AddEmployeeController {
                 phoneField.getText().trim(),
                 emailField.getText().trim(),
                 passwordField.getText(),
-                0.0);
+                new Double(salaryField.getText()));
 
         dataStore.getUsers().add(newUser);
 
@@ -141,6 +143,7 @@ public class AddEmployeeController {
         lnameField.clear();
         phoneField.clear();
         emailField.clear();
+        salaryField.clear();
         passwordField.clear();
         confirmPassField.clear();
         roleComboBox.getSelectionModel().clearSelection();
