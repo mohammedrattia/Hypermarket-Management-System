@@ -51,13 +51,13 @@ public class DataStore {
 
     public void loadAllData() {
         loadData("users", users, (record) -> {
-            if (record.toLowerCase().contains(",admin,"))
+            if (record.toLowerCase().contains(FileManager.DELIMETER + "admin" + FileManager.DELIMETER))
                 return new Admin(record.trim());
-            else if (record.toLowerCase().contains(",sales,"))
+            else if (record.toLowerCase().contains(FileManager.DELIMETER + "sales" + FileManager.DELIMETER))
                 return new Sales(record.trim());
-            else if (record.toLowerCase().contains(",inventory,"))
+            else if (record.toLowerCase().contains(FileManager.DELIMETER + "inventory" + FileManager.DELIMETER))
                 return new Inventory(record.trim());
-            else if (record.toLowerCase().contains(",marketing,"))
+            else if (record.toLowerCase().contains(FileManager.DELIMETER + "marketing" + FileManager.DELIMETER))
                 return new Marketing(record.trim());
             else
                 return new User(record.trim());

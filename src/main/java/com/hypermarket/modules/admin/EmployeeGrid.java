@@ -43,13 +43,13 @@ public class EmployeeGrid {
     private ChoiceBox<String> filterChoice;
     private ChoiceBox<String> sortButton;
 
-    private ObservableList<User> employeesData;
+    private ObservableList<User> employeesData = DataStore.getDataStore().getUsers();
     private FilteredList<User> filteredData;
     private SortedList<User> sortedData;
 
     public Parent getView() {
         // init the employee list
-        setEmployeeList(DataStore.getDataStore().getUsers());
+        setEmployeeList();
 
         // set columns constraints
         ColumnConstraints colConst = new ColumnConstraints();
@@ -121,8 +121,7 @@ public class EmployeeGrid {
         addSortAndFilterOtions();
     }
 
-    private void setEmployeeList(ObservableList<User> users) {
-        employeesData = FXCollections.observableList(users);
+    private void setEmployeeList() {
         filteredData = new FilteredList<>(employeesData, p -> true);
         sortedData = new SortedList<>(filteredData);
         sortedData.addListener((ListChangeListener<User>) change -> {

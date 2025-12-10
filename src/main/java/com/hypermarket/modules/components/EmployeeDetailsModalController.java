@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import com.hypermarket.entities.Admin;
 import com.hypermarket.entities.User;
+import com.hypermarket.service.Session;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -51,6 +52,7 @@ public class EmployeeDetailsModalController {
 
     @FXML
     private void handleUpdate() {
+        // TODO: complete update handle
         System.out.println("Updating for...(yala ya mohammed kamel)");
     }
 
@@ -63,13 +65,8 @@ public class EmployeeDetailsModalController {
 
         alert.showAndWait().ifPresent(res -> {
             if (res == ButtonType.OK) {
-                // TODO: replace this new admin with Session.getUser()
-                // if the current user isn't admin he can't delete and exception would occur
-                // no one have the employee view except admins anyway
-                // I didn't change it until I tell you @hana ...
-                Admin adminLogic = new Admin("ADMIN", 0, "temp", "temp", "temp", "0", "0", "0", 0);
 
-                adminLogic.deleteUser(currentUser.getID());
+                ((Admin) Session.getInstance().getUser()).deleteUser(currentUser.getID());
 
                 System.out.println("User " + currentUser.getID() + " deleted");
 
