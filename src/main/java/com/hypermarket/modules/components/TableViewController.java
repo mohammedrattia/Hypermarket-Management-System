@@ -56,7 +56,6 @@ public class TableViewController<T> implements Initializable {
 		initSelectAllMenuItem();
 		initTableView();
 		initListeners();
-
 	}
 
 	private void initListeners() {

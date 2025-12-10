@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+
+<HBox id="toolbar" prefHeight="46.0" prefWidth="776.0" styleClass="toolbar" stylesheets="@../../css/TableView.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label prefHeight="27.0" prefWidth="60.0" text="Filter:" />
+      <ChoiceBox fx:id="filterButton" prefHeight="29.0" prefWidth="101.0" styleClass="button" />
+      <Region prefHeight="31.0" prefWidth="10.0" styleClass="separation-region" />
+      <ChoiceBox fx:id="filterChoice" prefHeight="27.0" prefWidth="110.0" styleClass="button" />
+      <Region prefHeight="46.0" prefWidth="145.0" styleClass="separation-region" />
+      <TextField fx:id="searchField" prefHeight="31.0" prefWidth="375.0" promptText="Search..." />
+      <Region prefHeight="46.0" prefWidth="145.0" styleClass="separation-region" />
+      <Label prefHeight="27.0" prefWidth="60.0" text="Sort:" />
+      <ChoiceBox fx:id="sortButton" prefHeight="29.0" prefWidth="112.0" styleClass="button" />
+   </children>
+</HBox>

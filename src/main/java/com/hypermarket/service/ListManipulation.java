@@ -3,6 +3,8 @@ package com.hypermarket.service;
 import java.lang.reflect.Field;
 import java.util.Comparator;
 
+import com.hypermarket.entities.User;
+
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
