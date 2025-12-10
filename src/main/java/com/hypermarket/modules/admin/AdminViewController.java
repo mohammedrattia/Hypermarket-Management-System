@@ -92,7 +92,7 @@ public class AdminViewController implements Initializable {
     private void showAddEmployee() {
         try {
             Parent addEmployeeUI = FXMLLoader.load(
-                    getClass().getResource("/com/hypermarket/view/AdminAddEmployee.fxml"));
+                    getClass().getResource("/com/hypermarket/view/admin/AdminAddEmployee.fxml"));
 
             contentArea.getChildren().clear();
             contentArea.getChildren().add(addEmployeeUI);

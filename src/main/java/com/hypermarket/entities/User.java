@@ -55,7 +55,7 @@ public class User {
                 + this.role.toString() + FileManager.DELIMETER
                 + this.phone + FileManager.DELIMETER
                 + this.email + FileManager.DELIMETER
-                + this.password
+                + this.password + FileManager.DELIMETER
                 + this.salary;
     }
 

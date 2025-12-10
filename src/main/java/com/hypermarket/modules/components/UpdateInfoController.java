@@ -1,5 +1,7 @@
 package com.hypermarket.modules.components;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -18,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 
 public class UpdateInfoController implements Initializable {
     private User currentUser;
@@ -45,11 +48,17 @@ public class UpdateInfoController implements Initializable {
     private PasswordField newPassField;
 
     @FXML
+    private Button uploadImageBtn;
+
+    private File selectedImageFile;
+
+    @FXML
     private void handleSave(ActionEvent event) {
         if (currentUser == null) {
             System.out.println("Error: No user loaded!");
             return;
         }
+
         if (!newPassField.getText().equals(confirmPassField.getText())) {
             new Alert(Alert.AlertType.ERROR, "Passwords must match!").showAndWait();
             return;
@@ -59,17 +68,19 @@ public class UpdateInfoController implements Initializable {
         currentUser.setLName(lnameField.getText());
         currentUser.setPhone(phoneField.getText());
         currentUser.setEmail(emailField.getText());
-        currentUser.setPassword(newPassField.getText());
-        currentUser.setPassword(confirmPassField.getText());
 
-        if (!newPassField.getText().isEmpty()) {
+        // Only update password if user entered a new one
+        if (!newPassField.getText().trim().isEmpty()) {
             currentUser.setPassword(newPassField.getText());
         }
 
-        DataStore.getDataStore().saveAllData();
+        // Save selected image
+        if (selectedImageFile != null) {
+            currentUser.setImage(selectedImageFile.toURI().toString());
+        }
 
-        new Alert(Alert.AlertType.INFORMATION,
-                "User info updated successfully!").showAndWait();
+        DataStore.getDataStore().saveAllData();
+        new Alert(Alert.AlertType.INFORMATION, "User info updated successfully!").showAndWait();
     }
 
     @Override
@@ -117,6 +128,31 @@ public class UpdateInfoController implements Initializable {
 
         public Parent getView() {
             return view;
+        }
+    }
+
+    @FXML
+    private void handleImageSelection(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Profile Image");
+        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg",
+                "*.jpeg", "*.gif");
+        fileChooser.getExtensionFilters().add(imageFilter);
+
+        File file = fileChooser.showOpenDialog(uploadImageBtn.getScene().getWindow());
+
+        if (file != null) {
+            try {
+                this.selectedImageFile = file;
+                String imageUrl = file.toURI().toURL().toString();
+                Image image = new Image(imageUrl);
+
+                userImage.setImage(image);
+                currentUser.setImage(imageUrl);
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
