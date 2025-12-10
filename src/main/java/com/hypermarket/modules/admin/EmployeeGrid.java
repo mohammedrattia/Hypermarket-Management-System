@@ -121,7 +121,7 @@ public class EmployeeGrid {
         addSortAndFilterOtions();
     }
 
-    private void setEmployeeList(ArrayList<User> users) {
+    private void setEmployeeList(ObservableList<User> users) {
         employeesData = FXCollections.observableList(users);
         filteredData = new FilteredList<>(employeesData, p -> true);
         sortedData = new SortedList<>(filteredData);

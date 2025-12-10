@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 
+import javafx.collections.ObservableList;
+
 public class User {
     private int ID;
     private String fName;
@@ -25,7 +27,7 @@ public class User {
             this.role = Role.SALES;
         }
 
-        ArrayList<User> users = DataStore.getDataStore().getUsers();
+        ObservableList<User> users = DataStore.getDataStore().getUsers();
         if (users.isEmpty()) {
             this.ID = 1;
         } else {

@@ -13,3 +13,4 @@
 13;first;last;image;INVENTORY;01234567890;test@gmail.com;123456;20000.0
 14;first;last;image;INVENTORY;01234567890;test@gmail.com;123456;35000.0
 15;ahmed;ali;image;MARKETING;1234567896;ssss@gmail.com;123456;800000.0
+16;Ahmed;Alaa;image;MARKETING;01129012900;jack@wrestler.com;weareheros;676767.0

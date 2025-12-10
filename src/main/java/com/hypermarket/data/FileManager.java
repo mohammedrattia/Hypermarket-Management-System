@@ -11,6 +11,9 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class FileManager {
     private static final String BASEPATH = "data/";
     private static final String FILEEXTENSION = ".txt";
@@ -18,7 +21,7 @@ public class FileManager {
     public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     public static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public static void writeFile(String filename, ArrayList<?> data) {
+    public static void writeFile(String filename, ObservableList<?> data) {
         File dataFolder = new File(BASEPATH);
         if (!dataFolder.exists()) {
             if (!dataFolder.mkdirs()) {
@@ -42,8 +45,8 @@ public class FileManager {
         }
     }
 
-    public static ArrayList<String> readFile(String filename) {
-        ArrayList<String> records = new ArrayList<>();
+    public static ObservableList<String> readFile(String filename) {
+        ObservableList<String> records = FXCollections.observableArrayList();
         String line;
         try (FileReader fileFR = new FileReader(BASEPATH + filename + FILEEXTENSION);
                 BufferedReader fileBR = new BufferedReader(fileFR);) {
