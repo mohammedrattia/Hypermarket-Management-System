@@ -68,18 +68,24 @@ public class EmployeeGrid {
         scrollPane.setStyle("-fx-background-color: transparent;");
         scrollPane.setContent(grid);
 
-        // add the tool bar to the grid
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/hypermarket/view/components/FilterAndSearch.fxml"));
         try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/hypermarket/view/components/FilterAndSearch.fxml"));
             toolBar = loader.load();
+            configToolBar();
         } catch (IOException e) {
+            System.err.println("Failed to load FilterAndSearch.fxml");
+            e.printStackTrace();
+        } catch (IllegalStateException e) {
+            System.err.println("FilterAndSearch.fxml not found at specified path.");
             e.printStackTrace();
         }
-        configToolBar();
 
         allScene = new VBox();
-        allScene.getChildren().addAll(toolBar, scrollPane);
+        if (toolBar != null) {
+            allScene.getChildren().add(toolBar);
+        }
+        allScene.getChildren().add(scrollPane);
 
         refreshGrid();
 
