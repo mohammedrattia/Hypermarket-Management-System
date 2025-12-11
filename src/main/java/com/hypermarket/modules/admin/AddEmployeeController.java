@@ -1,20 +1,27 @@
 package com.hypermarket.modules.admin;
 
 import com.hypermarket.data.DataStore;
+import com.hypermarket.data.FileManager;
+import com.hypermarket.entities.Admin;
 import com.hypermarket.entities.User;
+import com.hypermarket.service.Session;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
 import java.io.File;
-import java.net.MalformedURLException;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class AddEmployeeController {
+public class AddEmployeeController implements Initializable {
 
     @FXML
     private ImageView userImage;
@@ -40,17 +47,20 @@ public class AddEmployeeController {
     private Button saveBtn;
 
     private File selectedImageFile;
+    private int placeholderID;
+    private String imageName;
 
     private final DataStore dataStore = DataStore.getDataStore();
 
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         roleComboBox.getItems().addAll(
                 "Admin",
                 "Inventory",
                 "Sales",
                 "Marketing");
-
+        placeholderID = getNextAvailableID();
+        imageName = "user_" + String.format("%03d", placeholderID) + ".png";
         roleComboBox.setPromptText("Select Role");
     }
 
@@ -58,21 +68,15 @@ public class AddEmployeeController {
     private void handleImageSelection(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Profile Image");
-        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg",
-                "*.jpeg", "*.gif");
+        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.png");
         fileChooser.getExtensionFilters().add(imageFilter);
 
         File file = fileChooser.showOpenDialog(uploadImageBtn.getScene().getWindow());
 
         if (file != null) {
-            try {
-                this.selectedImageFile = file;
-                String imageUrl = file.toURI().toURL().toString();
-                Image image = new Image(imageUrl);
-                userImage.setImage(image);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+            this.selectedImageFile = file;
+            Image newImage = new Image(selectedImageFile.toURI().toString());
+            userImage.setImage(newImage);
         }
     }
 
@@ -82,24 +86,25 @@ public class AddEmployeeController {
             return;
         }
 
-        Optional<String> selectedRole = Optional.ofNullable(roleComboBox.getValue());
-
-        int placeholderID = getNextAvailableID();
+        try {
+            File userImageFile = new File(FileManager.IMAGE_PATH + imageName);
+            FileManager.copyImage(selectedImageFile, userImageFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         User newUser = new User(
-                selectedRole.get(),
+                roleComboBox.getValue(),
                 placeholderID,
                 fnameField.getText().trim(),
                 lnameField.getText().trim(),
-                "image",
+                imageName,
                 phoneField.getText().trim(),
                 emailField.getText().trim(),
                 passwordField.getText(),
-                new Double(salaryField.getText()));
+                Double.valueOf(salaryField.getText()));
 
         dataStore.getUsers().add(newUser);
-
-        dataStore.saveAllData();
 
         System.out
                 .println("New employee added and data saved to file: " + newUser.getFName() + " " + newUser.getLName());
@@ -115,27 +120,49 @@ public class AddEmployeeController {
     }
 
     private boolean validateInput() {
+        StringBuilder alertText = new StringBuilder();
+
         if (fnameField.getText().trim().isEmpty() ||
                 lnameField.getText().trim().isEmpty() ||
                 emailField.getText().trim().isEmpty() ||
                 passwordField.getText().isEmpty() ||
                 confirmPassField.getText().isEmpty()) {
-
-            System.err.println("Validation Error: Please fill in all required fields.");
-            return false;
+            alertText.append("- Please fill in all required fields.\n");
         }
 
         if (!passwordField.getText().equals(confirmPassField.getText())) {
-            System.err.println("Validation Error: Passwords do not match.");
-            return false;
+            alertText.append("- Passwords do not match.\n");
         }
 
         if (roleComboBox.getValue() == null) {
-            System.err.println("Validation Error: Please select a Role.");
+            alertText.append("- Please select a Role.\n");
+        }
+
+        if (selectedImageFile == null) {
+            alertText.append("- Please select an image.\n");
+        }
+
+        try {
+            Double.parseDouble(salaryField.getText().trim());
+        } catch (NumberFormatException e) {
+            alertText.append("- Please enter a valid salary.");
+        }
+
+        if (!alertText.isEmpty()) {
+            makeAlert(alertText);
             return false;
         }
 
         return true;
+    }
+
+    private void makeAlert(StringBuilder alertText) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Validation Error");
+        alert.setHeaderText("Validation Error");
+        alert.setContentText(alertText.toString());
+
+        alert.showAndWait();
     }
 
     private void clearForm() {
@@ -150,4 +177,5 @@ public class AddEmployeeController {
         userImage.setImage(null);
         selectedImageFile = null;
     }
+
 }

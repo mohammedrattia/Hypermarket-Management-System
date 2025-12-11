@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="mainBox" fx:id="mainBox" fx:controller="com.hypermarket.modules.components.UpdateInfoController" prefHeight="420.0" prefWidth="961.0" styleClass="main-box" stylesheets="@../css/UpdateUserInfo.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<VBox id="mainBox" fx:id="mainBox" prefHeight="420.0" prefWidth="961.0" styleClass="main-box" stylesheets="@../../css/UpdateForm.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.admin.UpdateEmployee">
       
                <!-- First Name -->
       <HBox id="mainForm" fx:id="fnameBox" prefHeight="277.0" prefWidth="961.0" styleClass="main-Form">
@@ -25,7 +26,7 @@
                   </ImageView>
                   <HBox id="changeImageButton" styleClass="change-button">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="120.0" styleClass="change-img" text="Change Image" />
+                        <Button fx:id="uploadImageBtn" mnemonicParsing="false" onAction="#handleImageSelection" prefHeight="33.0" prefWidth="120.0" styleClass="change-img" text="Change Image" />
                      </children>
                   </HBox>
                </children>
@@ -41,9 +42,9 @@
                   </VBox>
                   <VBox id="readOnlyFieldsBox" prefHeight="150.0" prefWidth="217.0" styleClass="fields-box">
                      <children>
-                        <TextField editable="false" />
-                        <TextField editable="false" />
-                        <TextField editable="false" />
+                        <TextField fx:id="idField" editable="false" />
+                        <ComboBox prefHeight="33.0" prefWidth="120.0" />
+                        <TextField fx:id="salaryField" promptText="Enter salary" />
                      </children>
                   </VBox>
                </children>
@@ -63,12 +64,12 @@
       </VBox>
       <VBox id="fieldsBox" alignment="BOTTOM_LEFT" prefHeight="312.0" prefWidth="237.0" styleClass="fields-box">
          <children>
-                <TextField fx:id="fnameField" prefHeight="0.0" prefWidth="237.0" promptText="Enter your first name" />
-                <TextField fx:id="lnameField" prefHeight="27.0" prefWidth="151.0" promptText="Enter your last name" />
-                <TextField fx:id="phoneField" promptText="Enter your phone number" />
-                <TextField fx:id="emailField" promptText="Enter your Email" />
+                <TextField fx:id="fnameField" prefHeight="0.0" prefWidth="237.0" promptText="Enter first name" />
+                <TextField fx:id="lnameField" prefHeight="27.0" prefWidth="151.0" promptText="Enter last name" />
+                <TextField fx:id="phoneField" promptText="Enter phone number" />
+                <TextField fx:id="emailField" promptText="Enter Email" />
                 <PasswordField fx:id="newPassField" minHeight="18.0" prefHeight="18.0" prefWidth="237.0" promptText="Enter a strong password" />
-            <PasswordField fx:id="confirmPassField" prefHeight="27.0" prefWidth="358.0" promptText="Confirm your password" />
+            <PasswordField fx:id="confirmPassField" prefHeight="27.0" prefWidth="358.0" promptText="Confirm the password" />
          </children>
       </VBox>
       </HBox>

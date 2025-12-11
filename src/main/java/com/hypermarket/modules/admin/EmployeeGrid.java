@@ -2,16 +2,13 @@ package com.hypermarket.modules.admin;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.function.Consumer;
 
 import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.User;
 import com.hypermarket.modules.components.EmployeeCardController;
 import com.hypermarket.service.ListManipulation;
 
-import javafx.beans.Observable;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -19,9 +16,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
@@ -46,6 +41,12 @@ public class EmployeeGrid {
     private ObservableList<User> employeesData = DataStore.getDataStore().getUsers();
     private FilteredList<User> filteredData;
     private SortedList<User> sortedData;
+
+    private Consumer<User> onUpdateEmployeeClicked;
+
+    public void setOnUpdateEmployeeClicked(Consumer<User> onUpdateEmployeeClicked) {
+        this.onUpdateEmployeeClicked = onUpdateEmployeeClicked;
+    }
 
     public Parent getView() {
         // init the employee list
@@ -138,7 +139,7 @@ public class EmployeeGrid {
         for (User user : sortedData) {
             Parent card = loadEmployeeCard(user, () -> {
                 employeesData.remove(user);
-            });
+            }, onUpdateEmployeeClicked);
 
             if (card != null) {
                 grid.add(card, column++, row);
@@ -151,7 +152,7 @@ public class EmployeeGrid {
         }
     }
 
-    private Parent loadEmployeeCard(User user, Runnable onDelete) {
+    private Parent loadEmployeeCard(User user, Runnable onDelete, Consumer<User> onUpdateEmployeeClicked) {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/com/hypermarket/view/components/EmployeeCard.fxml"));
@@ -166,6 +167,7 @@ public class EmployeeGrid {
             controller.setData(user);
 
             controller.setOnDeleteAction(onDelete);
+            controller.setOnUpdateAction(onUpdateEmployeeClicked);
 
             return node;
         } catch (IOException ex) {

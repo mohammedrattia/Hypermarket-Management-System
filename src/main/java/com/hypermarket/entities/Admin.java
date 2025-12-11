@@ -1,7 +1,5 @@
 package com.hypermarket.entities;
 
-import java.util.ArrayList;
-
 import com.hypermarket.data.DataStore;
 
 import javafx.collections.ObservableList;

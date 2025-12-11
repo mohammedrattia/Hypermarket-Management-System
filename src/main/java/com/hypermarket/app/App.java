@@ -1,7 +1,7 @@
 package com.hypermarket.app;
 
-import com.hypermarket.modules.components.*;
 import com.hypermarket.entities.*;
+import com.hypermarket.modules.user.LoginController;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,8 +11,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import com.hypermarket.data.*;
-import com.hypermarket.entities.*;
-import com.hypermarket.modules.login.LoginController;
 import com.hypermarket.service.Session;
 
 /**
@@ -53,9 +51,15 @@ public class App extends Application {
 
         }
 
+        @Override
+        public void stop() throws Exception {
+                DataStore.getDataStore().saveAllData();
+                super.stop();
+        }
+
         private static FXMLLoader loadLoginScene(Stage stage) throws IOException {
                 FXMLLoader fxmlLoader = new FXMLLoader(
-                                App.class.getResource("/com/hypermarket/view/login/Login.fxml"));
+                                App.class.getResource("/com/hypermarket/view/user/Login.fxml"));
                 scene = new Scene(fxmlLoader.load());
 
                 stage.setScene(scene);

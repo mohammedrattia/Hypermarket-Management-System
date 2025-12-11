@@ -16,19 +16,12 @@
 }
 
 .labels-box {
-    -fx-alignment: BOTTOM_LEFT;
+    -fx-alignment: top-left;
 }
 
 .fields-box {
-    -fx-spacing: 12;
-    -fx-padding: 12 0 10 0;
-}
-
-.main-box {
-    -fx-spacing: 20;
-    -fx-alignment: center;
-    /* -fx-padding: 40; */
-    -fx-background-color: transparent;
+    -fx-spacing: 14;
+    -fx-padding: 10 0 10 0;
 }
 
 .main-Form {
@@ -80,15 +73,8 @@
 }
 
 .Image-Box {
-    -fx-alignment: left;
+    -fx-alignment: center;
     -fx-spacing: 10;
-
-
-}
-
-.change-button {
-    -fx-alignment: left;
-
 }
 
 .change-img {
