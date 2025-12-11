@@ -6,12 +6,10 @@ import com.hypermarket.modules.user.LoginController;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.ModuleLayer.Controller;
 
 import com.hypermarket.data.*;
 import com.hypermarket.service.Authenticator;
@@ -23,7 +21,6 @@ import com.hypermarket.service.Session;
 public class App extends Application {
 
         private static Scene scene;
-        private FXMLLoader loginLoader;
 
         @Override
         public void start(Stage stage) throws IOException {

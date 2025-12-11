@@ -3,7 +3,6 @@ package com.hypermarket.modules.components;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.Locale;
-import java.util.function.Consumer;
 
 import com.hypermarket.entities.User;
 
@@ -31,14 +30,9 @@ public class EmployeeCardController {
     private User currentUser;
 
     private Runnable onDeleteAction;
-    private Consumer<User> onUpdateAction;
 
     public void setOnDeleteAction(Runnable action) {
         this.onDeleteAction = action;
-    }
-
-    public void setOnUpdateAction(Consumer<User> onUpdateAction) {
-        this.onUpdateAction = onUpdateAction;
     }
 
     public void setData(User user) {
@@ -62,7 +56,6 @@ public class EmployeeCardController {
             controller.setUserData(this.currentUser);
 
             controller.setOnDeleteCallBack(this.onDeleteAction);
-            controller.setOnUpdateCallBack(this.onUpdateAction);
 
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
