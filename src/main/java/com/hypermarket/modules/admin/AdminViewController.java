@@ -33,6 +33,11 @@ public class AdminViewController implements Initializable {
     @FXML
     private Label menuUpdateUserInfo;
 
+    @FXML
+    private Label menuLogout;
+
+    Runnable onLogout;
+
     private DashboardHome dashboardHome;
     private EmployeeGrid employeeGrid;
 
@@ -41,6 +46,10 @@ public class AdminViewController implements Initializable {
         showDashboard();
         setUpNavigation();
         updateTitleAndActiveTab(menuDashboard);
+    }
+
+    public void setOnLogout(Runnable onLogout) {
+        this.onLogout = onLogout;
     }
 
     private void setUpNavigation() {
@@ -58,6 +67,10 @@ public class AdminViewController implements Initializable {
 
         menuUpdateUserInfo.setOnMouseClicked(event -> {
             showUpdateUserInfo();
+        });
+
+        menuLogout.setOnMouseClicked(event -> {
+            onLogout.run();
         });
     }
 
