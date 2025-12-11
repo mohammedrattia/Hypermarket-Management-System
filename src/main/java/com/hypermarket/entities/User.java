@@ -1,7 +1,5 @@
 package com.hypermarket.entities;
 
-import java.util.ArrayList;
-
 import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 

@@ -1,4 +1,4 @@
-package com.hypermarket.modules.login;
+package com.hypermarket.modules.user;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

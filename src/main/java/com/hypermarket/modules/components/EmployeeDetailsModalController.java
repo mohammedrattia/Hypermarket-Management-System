@@ -2,6 +2,7 @@ package com.hypermarket.modules.components;
 
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.function.Consumer;
 
 import com.hypermarket.entities.Admin;
 import com.hypermarket.entities.User;
@@ -30,9 +31,14 @@ public class EmployeeDetailsModalController {
     private User currentUser;
 
     private Runnable onDeleteCallBack;
+    private Consumer<User> onUpdateCallBack;
 
     public void setOnDeleteCallBack(Runnable callback) {
         this.onDeleteCallBack = callback;
+    }
+
+    public void setOnUpdateCallBack(Consumer<User> onUpdateCallBack) {
+        this.onUpdateCallBack = onUpdateCallBack;
     }
 
     public void setUserData(User user) {
@@ -52,8 +58,10 @@ public class EmployeeDetailsModalController {
 
     @FXML
     private void handleUpdate() {
-        // TODO: complete update handle
-        System.out.println("Updating for...(yala ya mohammed kamel)");
+        if (onUpdateCallBack != null) {
+            onUpdateCallBack.accept(currentUser);
+            closeModal();
+        }
     }
 
     @FXML

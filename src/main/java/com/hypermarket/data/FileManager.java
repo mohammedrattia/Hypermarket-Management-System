@@ -8,8 +8,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 public class FileManager {
     private static final String BASEPATH = "data/";
     private static final String FILEEXTENSION = ".txt";
+    public static final String IMAGE_PATH = "data/ProfileImages/";
     public static final String DELIMETER = ";";
     public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     public static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -61,5 +62,9 @@ public class FileManager {
             System.out.println(e.getMessage());
         }
         return records;
+    }
+
+    public static void copyImage(File source, File destination) throws IOException {
+        Files.copy(Paths.get(source.getPath()), Paths.get(destination.getPath()), StandardCopyOption.REPLACE_EXISTING);
     }
 }
