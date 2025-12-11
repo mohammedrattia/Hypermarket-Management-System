@@ -21,7 +21,7 @@
                <children>
                   <ImageView id="userPicture" fx:id="userImage" fitHeight="118.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/tomato.jpg" />
+                        <Image url="@../../images/userBlack.png" />
                      </image>
                   </ImageView>
                   <HBox id="changeImageButton" styleClass="change-button">
@@ -43,7 +43,7 @@
                   <VBox id="readOnlyFieldsBox" prefHeight="150.0" prefWidth="217.0" styleClass="fields-box">
                      <children>
                         <TextField fx:id="idField" editable="false" />
-                        <ComboBox prefHeight="33.0" prefWidth="120.0" />
+                        <ComboBox fx:id="roleComboBox" prefHeight="33.0" prefWidth="120.0" />
                         <TextField fx:id="salaryField" promptText="Enter salary" />
                      </children>
                   </VBox>

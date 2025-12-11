@@ -11,18 +11,18 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="637.0" prefWidth="900.0" styleClass="main-box" stylesheets="@../../css/AddEmployee.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.admin.AddEmployeeController">
+<VBox prefHeight="637.0" prefWidth="1096.0" styleClass="main-box" stylesheets="@../../css/AddEmployee.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.admin.AddEmployeeController">
 
     <children>
-        <HBox prefHeight="564.0" prefWidth="900.0" styleClass="main-Form">
+        <HBox prefHeight="557.0" prefWidth="1096.0" styleClass="main-Form">
             <children>
             <VBox>
                <children>
                   <VBox prefHeight="117.0" prefWidth="300.0" styleClass="Image-Box">
                      <children>
-                                  <ImageView fx:id="userImage" fitHeight="108.0" fitWidth="122.0" preserveRatio="false" styleClass="profile-preview">
+                                  <ImageView fx:id="userImage" fitHeight="108.0" fitWidth="122.0" preserveRatio="true" styleClass="profile-preview">
                            <image>
-                              <Image url="@../../images/tomato.jpg" />
+                              <Image url="@../../images/userBlack.png" />
                            </image>
                         </ImageView>
                                   <Button fx:id="uploadImageBtn" onAction="#handleImageSelection" prefHeight="31.0" prefWidth="105.0" styleClass="change-img" text="Select Image" />
@@ -31,7 +31,7 @@
                   <HBox>
                      <children>
             
-                                  <VBox prefHeight="401.0" prefWidth="132.0" styleClass="labels-box">
+                                  <VBox prefHeight="354.0" prefWidth="132.0" styleClass="labels-box">
                                 <children>
                                     <Label text="First Name:" />
                                     <Label text="Last Name:" />
@@ -53,7 +53,7 @@
                                     <PasswordField fx:id="passwordField" />
                                     <PasswordField fx:id="confirmPassField" />
                                     <TextField fx:id="salaryField" />
-                                    <ComboBox fx:id="roleComboBox" promptText="Select Role" prefWidth="150.0" />
+                                    <ComboBox fx:id="roleComboBox" prefWidth="150.0" promptText="Select Role" />
                                 </children>
                             </VBox>
                      </children>
@@ -63,7 +63,7 @@
 
             </children>
         </HBox>
-      <Region prefHeight="9.0" prefWidth="900.0" />
+      <Region maxWidth="9.0" minWidth="9.0" prefHeight="9.0" prefWidth="900.0" />
 
         <HBox styleClass="save-box">
             <children>

@@ -125,14 +125,15 @@ public class UpdateEmployee implements Initializable {
             user.setPassword(newPassField.getText());
         }
 
-        try {
-            File userImageFile = new File(FileManager.IMAGE_PATH + user.getImage());
-            FileManager.copyImage(selectedImageFile, userImageFile);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (selectedImageFile != null) {
+            try {
+                File userImageFile = new File(FileManager.IMAGE_PATH + user.getImage());
+                FileManager.copyImage(selectedImageFile, userImageFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
-        DataStore.getDataStore().saveAllData();
         new Alert(Alert.AlertType.INFORMATION, "User info updated successfully!").showAndWait();
 
         Stage stage = (Stage) saveBtn.getScene().getWindow();
