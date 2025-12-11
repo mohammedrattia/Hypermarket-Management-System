@@ -2,7 +2,6 @@ package com.hypermarket.modules.admin;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.function.Consumer;
 
 import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.User;
@@ -41,12 +40,6 @@ public class EmployeeGrid {
     private ObservableList<User> employeesData = DataStore.getDataStore().getUsers();
     private FilteredList<User> filteredData;
     private SortedList<User> sortedData;
-
-    private Consumer<User> onUpdateEmployeeClicked;
-
-    public void setOnUpdateEmployeeClicked(Consumer<User> onUpdateEmployeeClicked) {
-        this.onUpdateEmployeeClicked = onUpdateEmployeeClicked;
-    }
 
     public Parent getView() {
         // init the employee list
@@ -112,8 +105,6 @@ public class EmployeeGrid {
             ListManipulation.updateFilter(filteredData, newValue, "fullName", User.class);
         });
 
-        // TODO: handle the ascending only sort (maybe add checkbox to change from
-        // ascending to descending)
         sortButton = (ChoiceBox<String>) toolBar.getChildren().get(8);
         sortButton.valueProperty().addListener((observable, oldValue, newValue) -> {
             ListManipulation.updateSort(sortedData, true, sortButton.getValue(), User.class);
@@ -139,7 +130,7 @@ public class EmployeeGrid {
         for (User user : sortedData) {
             Parent card = loadEmployeeCard(user, () -> {
                 employeesData.remove(user);
-            }, onUpdateEmployeeClicked);
+            });
 
             if (card != null) {
                 grid.add(card, column++, row);
@@ -152,7 +143,7 @@ public class EmployeeGrid {
         }
     }
 
-    private Parent loadEmployeeCard(User user, Runnable onDelete, Consumer<User> onUpdateEmployeeClicked) {
+    private Parent loadEmployeeCard(User user, Runnable onDelete) {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/com/hypermarket/view/components/EmployeeCard.fxml"));
@@ -167,7 +158,6 @@ public class EmployeeGrid {
             controller.setData(user);
 
             controller.setOnDeleteAction(onDelete);
-            controller.setOnUpdateAction(onUpdateEmployeeClicked);
 
             return node;
         } catch (IOException ex) {

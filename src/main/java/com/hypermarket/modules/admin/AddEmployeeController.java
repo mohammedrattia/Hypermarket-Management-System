@@ -2,9 +2,7 @@ package com.hypermarket.modules.admin;
 
 import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
-import com.hypermarket.entities.Admin;
 import com.hypermarket.entities.User;
-import com.hypermarket.service.Session;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,13 +10,11 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AddEmployeeController implements Initializable {

@@ -1,10 +1,7 @@
 package com.hypermarket.modules.admin;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import com.hypermarket.entities.User;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -87,9 +84,6 @@ public class AdminViewController implements Initializable {
         updateTitleAndActiveTab(menuEmployees);
         if (employeeGrid == null)
             employeeGrid = new EmployeeGrid();
-        employeeGrid.setOnUpdateEmployeeClicked(user -> {
-            showUpdateEmployee(user);
-        });
         contentArea.getChildren().clear();
         contentArea.getChildren().add(employeeGrid.getView());
         fitToAnchor(contentArea.getChildren().get(0));
@@ -121,26 +115,6 @@ public class AdminViewController implements Initializable {
             e.printStackTrace();
         }
 
-    }
-
-    private void showUpdateEmployee(User user) {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/hypermarket/view/admin/UpdateEmployee.fxml"));
-            Parent root = loader.load();
-
-            UpdateEmployee controller = loader.getController();
-            controller.setUserData(user);
-
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(root);
-
-            fitToAnchor(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        updateTitleAndActiveTab(new Label("Update Employee"));
     }
 
     private void fitToAnchor(javafx.scene.Node node) {

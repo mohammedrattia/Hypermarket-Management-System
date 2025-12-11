@@ -78,8 +78,8 @@ public class Product {
 
     private void parseString(String line) {
         String[] values = line.split(",");
-        this.productID = new Integer(values[0]);
+        this.productID = Integer.valueOf(values[0]);
         this.name = values[1];
-        this.price = new Double(values[2]);
+        this.price = Double.valueOf(values[2]);
     }
 }
