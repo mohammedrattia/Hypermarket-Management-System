@@ -193,11 +193,15 @@ public class EmployeeGrid {
 
     private void addSortAndFilterOtions() {
 
-        Field[] fields = User.class.getDeclaredFields();
+        String[] fields = {
+                "ID",
+                "fName",
+                "lName",
+                "role",
+                "salary"
+        };
 
-        for (Field field : fields) {
-            String fieldName = field.getName();
-
+        for (String fieldName : fields) {
             sortButton.getItems().add(fieldName);
             filterButton.getItems().add(fieldName);
         }

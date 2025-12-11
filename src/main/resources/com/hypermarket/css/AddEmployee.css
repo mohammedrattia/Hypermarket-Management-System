@@ -27,7 +27,7 @@
 .main-Form {
     -fx-background-color: #fafafa;
     -fx-background-radius: 12;
-    -fx-padding: 30 30 30 30;
+    -fx-padding: 30 30 10 30;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 2);
     -fx-alignment: center;
 }

@@ -1,13 +1,21 @@
 package com.hypermarket.modules.admin;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.hypermarket.data.FileManager;
+import com.hypermarket.entities.User;
+import com.hypermarket.service.Session;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 public class AdminViewController implements Initializable {
@@ -33,6 +41,9 @@ public class AdminViewController implements Initializable {
     @FXML
     private Label menuLogout;
 
+    @FXML
+    private ImageView userImage;
+
     Runnable onLogout;
 
     private DashboardHome dashboardHome;
@@ -40,9 +51,20 @@ public class AdminViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        User currentUser = Session.getInstance().getUser();
         showDashboard();
         setUpNavigation();
         updateTitleAndActiveTab(menuDashboard);
+
+        try {
+            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            if (imageFile.exists()) {
+                Image image = new Image(imageFile.toURI().toURL().toString());
+                userImage.setImage(image);
+            }
+        } catch (MalformedURLException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     public void setOnLogout(Runnable onLogout) {
