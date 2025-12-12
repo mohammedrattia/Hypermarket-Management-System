@@ -11,56 +11,59 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="640.0" prefWidth="1000.0" styleClass="main-box" stylesheets="@../../css/AddEmployee.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.components.AddEmployeeController">
+<VBox prefHeight="637.0" prefWidth="1096.0" styleClass="main-box" stylesheets="@../../css/AddEmployee.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.admin.AddEmployeeController">
 
     <children>
-        <HBox prefHeight="535.0" prefWidth="1000.0" styleClass="main-Form">
+        <HBox prefHeight="557.0" prefWidth="1096.0" styleClass="main-Form">
             <children>
-
-                <VBox prefHeight="412.0" prefWidth="132.0" styleClass="labels-box">
-                    <children>
-                        <Label text="First Name:" />
-                        <Label text="Last Name:" />
-                        <Label text="Phone:" />
-                        <Label text="Email:" />
-                        <Label text="Password:" />
-                        <Label text="Confirm Password:" />
-                  <Label text="Salary:" />
-                        <Label text="Role:" />
-                    </children>
-                </VBox>
-
-                <VBox prefHeight="441.0" prefWidth="300.0" styleClass="fields-box">
-                    <children>
+            <VBox>
+               <children>
                   <VBox prefHeight="117.0" prefWidth="300.0" styleClass="Image-Box">
                      <children>
-                                  <ImageView fx:id="userImage" fitHeight="108.0" fitWidth="122.0" preserveRatio="false" styleClass="profile-preview">
+                                  <ImageView fx:id="userImage" fitHeight="108.0" fitWidth="122.0" preserveRatio="true" styleClass="profile-preview">
                            <image>
-                              <Image url="@../../images/tomato.jpg" />
+                              <Image url="@../../images/userBlack.png" />
                            </image>
                         </ImageView>
-                        <HBox styleClass="change-button">
-                           <children>
-                              <Region prefHeight="31.0" prefWidth="11.0" />
-                                        <Button fx:id="uploadImageBtn" onAction="#handleImageSelection" prefHeight="31.0" prefWidth="105.0" styleClass="change-img" text="Select Image" />
-                           </children>
-                        </HBox>
+                                  <Button fx:id="uploadImageBtn" onAction="#handleImageSelection" prefHeight="31.0" prefWidth="105.0" styleClass="change-img" text="Select Image" />
                      </children>
                   </VBox>
-                  <Region prefHeight="39.0" prefWidth="300.0" />
-                        <TextField fx:id="fnameField" minHeight="21.0" prefHeight="21.0" />
-                        <TextField fx:id="lnameField" />
-                  <TextField />
-                        <TextField fx:id="phoneField" />
-                        <TextField fx:id="emailField" />
-                        <PasswordField fx:id="passwordField" />
-                        <PasswordField fx:id="confirmPassField" />
-                        <ComboBox fx:id="roleComboBox" prefWidth="150.0" />
-                    </children>
-                </VBox>
+                  <HBox>
+                     <children>
+            
+                                  <VBox prefHeight="354.0" prefWidth="132.0" styleClass="labels-box">
+                                <children>
+                                    <Label text="First Name:" />
+                                    <Label text="Last Name:" />
+                                    <Label text="Phone:" />
+                                    <Label text="Email:" />
+                                    <Label text="Password:" />
+                                    <Label text="Confirm Password:" />
+                              <Label text="Salary:" />
+                                    <Label text="Role:" />
+                                </children>
+                            </VBox>
+            
+                                  <VBox prefHeight="455.0" prefWidth="300.0" styleClass="fields-box">
+                                <children>
+                                    <TextField fx:id="fnameField" minHeight="21.0" prefHeight="21.0" />
+                                    <TextField fx:id="lnameField" />
+                              <TextField fx:id="phoneField" />
+                                    <TextField fx:id="emailField" />
+                                    <PasswordField fx:id="passwordField" />
+                                    <PasswordField fx:id="confirmPassField" />
+                                    <TextField fx:id="salaryField" />
+                                    <ComboBox fx:id="roleComboBox" prefWidth="150.0" promptText="Select Role" />
+                                </children>
+                            </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
 
             </children>
         </HBox>
+      <Region maxWidth="9.0" minWidth="9.0" prefHeight="9.0" prefWidth="900.0" />
 
         <HBox styleClass="save-box">
             <children>

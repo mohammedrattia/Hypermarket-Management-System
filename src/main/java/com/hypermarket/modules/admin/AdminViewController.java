@@ -1,14 +1,25 @@
 package com.hypermarket.modules.admin;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.hypermarket.data.FileManager;
+import com.hypermarket.entities.User;
+import com.hypermarket.service.Session;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 public class AdminViewController implements Initializable {
+
     @FXML
     private AnchorPane contentArea;
 
@@ -27,48 +38,105 @@ public class AdminViewController implements Initializable {
     @FXML
     private Label menuUpdateUserInfo;
 
-    private final DashboardHome dashboardHome = new DashboardHome();
-    private final EmployeeGrid employeeGrid = new EmployeeGrid();
+    @FXML
+    private Label menuLogout;
+
+    @FXML
+    private ImageView userImage;
+
+    Runnable onLogout;
+
+    private DashboardHome dashboardHome;
+    private EmployeeGrid employeeGrid;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        User currentUser = Session.getInstance().getUser();
         showDashboard();
         setUpNavigation();
-        setActiveTab(menuDashboard);
+        updateTitleAndActiveTab(menuDashboard);
+
+        try {
+            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            if (imageFile.exists()) {
+                Image image = new Image(imageFile.toURI().toURL().toString());
+                userImage.setImage(image);
+            }
+        } catch (MalformedURLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void setOnLogout(Runnable onLogout) {
+        this.onLogout = onLogout;
     }
 
     private void setUpNavigation() {
-        if (menuDashboard != null) {
-            menuDashboard.setOnMouseClicked(event -> {
-                setActiveTab(menuDashboard);
-                showDashboard();
-            });
-        }
+        menuDashboard.setOnMouseClicked(event -> {
+            showDashboard();
+        });
 
-        if (menuEmployees != null) {
-            menuEmployees.setOnMouseClicked(event -> {
-                setActiveTab(menuEmployees);
-                showEmployees();
-            });
-        }
+        menuEmployees.setOnMouseClicked(event -> {
+            showEmployees();
+        });
+
+        menuAddEmployees.setOnMouseClicked(event -> {
+            showAddEmployee();
+        });
+
+        menuUpdateUserInfo.setOnMouseClicked(event -> {
+            showUpdateUserInfo();
+        });
+
+        menuLogout.setOnMouseClicked(event -> {
+            onLogout.run();
+        });
     }
 
     private void showDashboard() {
-        if (pageTitle != null)
-            pageTitle.setText("Dashboard");
-        setActiveTab(menuDashboard);
+        updateTitleAndActiveTab(menuDashboard);
+        if (dashboardHome == null)
+            dashboardHome = new DashboardHome();
         contentArea.getChildren().clear();
         contentArea.getChildren().add(dashboardHome.getView());
         fitToAnchor(contentArea.getChildren().get(0));
     }
 
     private void showEmployees() {
-        if (pageTitle != null)
-            pageTitle.setText("Employees List");
-        setActiveTab(menuEmployees);
+        updateTitleAndActiveTab(menuEmployees);
+        if (employeeGrid == null)
+            employeeGrid = new EmployeeGrid();
         contentArea.getChildren().clear();
         contentArea.getChildren().add(employeeGrid.getView());
         fitToAnchor(contentArea.getChildren().get(0));
+    }
+
+    private void showUpdateUserInfo() {
+        try {
+            Parent updateUserUI = FXMLLoader.load(
+                    getClass().getResource("/com/hypermarket/view/user/UpdateUserInfo.fxml"));
+            contentArea.getChildren().clear();
+            contentArea.getChildren().add(updateUserUI);
+            fitToAnchor(updateUserUI);
+            updateTitleAndActiveTab(menuUpdateUserInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showAddEmployee() {
+        try {
+            Parent addEmployeeUI = FXMLLoader.load(
+                    getClass().getResource("/com/hypermarket/view/admin/AdminAddEmployee.fxml"));
+
+            contentArea.getChildren().clear();
+            contentArea.getChildren().add(addEmployeeUI);
+            fitToAnchor(addEmployeeUI);
+            updateTitleAndActiveTab(menuAddEmployees);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void fitToAnchor(javafx.scene.Node node) {
@@ -78,16 +146,13 @@ public class AdminViewController implements Initializable {
         AnchorPane.setRightAnchor(node, 0.0);
     }
 
-    private void setActiveTab(Label activeBox) {
-        if (menuDashboard != null)
-            menuDashboard.getStyleClass().remove("active-label");
-        if (menuEmployees != null)
-            menuEmployees.getStyleClass().remove("active-label");
-        if (menuAddEmployees != null)
-            menuAddEmployees.getStyleClass().remove("active-label");
-        if (menuUpdateUserInfo != null)
-            menuUpdateUserInfo.getStyleClass().remove("active-label");
+    private void updateTitleAndActiveTab(Label activeBox) {
+        menuDashboard.getStyleClass().remove("active-label");
+        menuEmployees.getStyleClass().remove("active-label");
+        menuAddEmployees.getStyleClass().remove("active-label");
+        menuUpdateUserInfo.getStyleClass().remove("active-label");
 
         activeBox.getStyleClass().add("active-label");
+        pageTitle.setText(activeBox.getText());
     }
 }

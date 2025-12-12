@@ -1,23 +1,25 @@
 package com.hypermarket.data;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.hypermarket.entities.*;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class DataStore {
     private static DataStore dataStore;
 
-    private ArrayList<User> users = new ArrayList<User>();
-    private ArrayList<Product> products = new ArrayList<Product>();
-    private ArrayList<Batch> batches = new ArrayList<Batch>();
-    private ArrayList<Order> orders = new ArrayList<Order>();
-    private ArrayList<OrderItem> orderItems = new ArrayList<OrderItem>();
-    private ArrayList<Offer> offers = new ArrayList<Offer>();
-    private ArrayList<Report> reports = new ArrayList<Report>();
-    private ArrayList<DamageLog> damageLogs = new ArrayList<DamageLog>();
-    private ArrayList<Notification> notifications = new ArrayList<Notification>();
-    private HashMap<String, ArrayList<?>> lists = new HashMap<>();
+    private ObservableList<User> users = FXCollections.observableArrayList();
+    private ObservableList<Product> products = FXCollections.observableArrayList();
+    private ObservableList<Batch> batches = FXCollections.observableArrayList();
+    private ObservableList<Order> orders = FXCollections.observableArrayList();
+    private ObservableList<OrderItem> orderItems = FXCollections.observableArrayList();
+    private ObservableList<Offer> offers = FXCollections.observableArrayList();
+    private ObservableList<Report> reports = FXCollections.observableArrayList();
+    private ObservableList<DamageLog> damageLogs = FXCollections.observableArrayList();
+    private ObservableList<Notification> notifications = FXCollections.observableArrayList();
+    private HashMap<String, ObservableList<?>> lists = new HashMap<>();
 
     private DataStore() {
         lists.put("users", users);
@@ -47,13 +49,13 @@ public class DataStore {
 
     public void loadAllData() {
         loadData("users", users, (record) -> {
-            if (record.toLowerCase().contains(",admin,"))
+            if (record.toLowerCase().contains(FileManager.DELIMETER + "admin" + FileManager.DELIMETER))
                 return new Admin(record.trim());
-            else if (record.toLowerCase().contains(",sales,"))
+            else if (record.toLowerCase().contains(FileManager.DELIMETER + "sales" + FileManager.DELIMETER))
                 return new Sales(record.trim());
-            else if (record.toLowerCase().contains(",inventory,"))
+            else if (record.toLowerCase().contains(FileManager.DELIMETER + "inventory" + FileManager.DELIMETER))
                 return new Inventory(record.trim());
-            else if (record.toLowerCase().contains(",marketing,"))
+            else if (record.toLowerCase().contains(FileManager.DELIMETER + "marketing" + FileManager.DELIMETER))
                 return new Marketing(record.trim());
             else
                 return new User(record.trim());
@@ -69,8 +71,8 @@ public class DataStore {
 
     }
 
-    private <T> void loadData(String filename, ArrayList<T> list, Parser<T> parser) {
-        ArrayList<String> records = FileManager.readFile(filename);
+    private <T> void loadData(String filename, ObservableList<T> list, Parser<T> parser) {
+        ObservableList<String> records = FileManager.readFile(filename);
         if (records == null)
             return;
         list.clear();
@@ -82,39 +84,39 @@ public class DataStore {
     }
 
     // Get Reference Variable to the Original Lists
-    public ArrayList<User> getUsers() {
+    public ObservableList<User> getUsers() {
         return users;
     }
 
-    public ArrayList<Product> getProducts() {
+    public ObservableList<Product> getProducts() {
         return products;
     }
 
-    public ArrayList<Batch> getBatches() {
+    public ObservableList<Batch> getBatches() {
         return batches;
     }
 
-    public ArrayList<Order> getOrders() {
+    public ObservableList<Order> getOrders() {
         return orders;
     }
 
-    public ArrayList<OrderItem> getOrderItems() {
+    public ObservableList<OrderItem> getOrderItems() {
         return orderItems;
     }
 
-    public ArrayList<Offer> getOffers() {
+    public ObservableList<Offer> getOffers() {
         return offers;
     }
 
-    public ArrayList<Report> getReports() {
+    public ObservableList<Report> getReports() {
         return reports;
     }
 
-    public ArrayList<Notification> getNotifications() {
+    public ObservableList<Notification> getNotifications() {
         return notifications;
     }
 
-    public ArrayList<DamageLog> getDamageLogs() {
+    public ObservableList<DamageLog> getDamageLogs() {
         return damageLogs;
     }
 }

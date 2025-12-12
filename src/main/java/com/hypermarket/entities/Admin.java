@@ -1,8 +1,8 @@
 package com.hypermarket.entities;
 
-import java.util.ArrayList;
-
 import com.hypermarket.data.DataStore;
+
+import javafx.collections.ObservableList;
 
 public class Admin extends User {
     public Admin(String recordLine) {
@@ -45,7 +45,7 @@ public class Admin extends User {
     }
 
     public void updateUser(int id, User updatedInfo) {
-        ArrayList<User> users = DataStore.getDataStore().getUsers();
+        ObservableList<User> users = DataStore.getDataStore().getUsers();
 
         for (User user : users) {
             if (user.getID() == id) {
@@ -66,7 +66,7 @@ public class Admin extends User {
     }
 
     public void deleteUser(int id) {
-        ArrayList<User> users = DataStore.getDataStore().getUsers();
+        ObservableList<User> users = DataStore.getDataStore().getUsers();
         boolean removed = users.removeIf(user -> user.getID() == id);
 
         if (removed) {

@@ -1,9 +1,9 @@
 package com.hypermarket.entities;
 
-import java.util.ArrayList;
-
 import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
+
+import javafx.collections.ObservableList;
 
 public class User {
     private int ID;
@@ -25,7 +25,7 @@ public class User {
             this.role = Role.SALES;
         }
 
-        ArrayList<User> users = DataStore.getDataStore().getUsers();
+        ObservableList<User> users = DataStore.getDataStore().getUsers();
         if (users.isEmpty()) {
             this.ID = 1;
         } else {
@@ -55,7 +55,7 @@ public class User {
                 + this.role.toString() + FileManager.DELIMETER
                 + this.phone + FileManager.DELIMETER
                 + this.email + FileManager.DELIMETER
-                + this.password
+                + this.password + FileManager.DELIMETER
                 + this.salary;
     }
 
