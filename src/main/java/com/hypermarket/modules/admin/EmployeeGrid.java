@@ -37,6 +37,8 @@ public class EmployeeGrid {
     private ChoiceBox<String> filterChoice;
     private ChoiceBox<String> sortButton;
 
+    private ObservableList<User> originalOrder;
+
     private ObservableList<User> employeesData = DataStore.getDataStore().getUsers();
     private FilteredList<User> filteredData;
     private SortedList<User> sortedData;
@@ -96,7 +98,15 @@ public class EmployeeGrid {
 
         filterChoice = (ChoiceBox<String>) toolBar.getChildren().get(3);
         filterChoice.valueProperty().addListener((observable, oldValue, newValue) -> {
-            ListManipulation.updateFilter(filteredData, newValue, filterButton.getValue(),
+            if ("None".equals(filterButton.getValue())) {
+                filteredData.setPredicate(user -> true);
+                return;
+            }
+
+            ListManipulation.updateFilter(
+                    filteredData,
+                    newValue,
+                    filterButton.getValue(),
                     User.class);
         });
 
@@ -107,13 +117,27 @@ public class EmployeeGrid {
 
         sortButton = (ChoiceBox<String>) toolBar.getChildren().get(8);
         sortButton.valueProperty().addListener((observable, oldValue, newValue) -> {
-            ListManipulation.updateSort(sortedData, true, sortButton.getValue(), User.class);
+            if ("None".equals(newValue)) {
+                sortedData.setComparator(null);
+
+                employeesData.setAll(originalOrder);
+                return;
+            }
+
+            ListManipulation.updateSort(
+                    sortedData,
+                    true,
+                    newValue,
+                    User.class);
         });
 
         addSortAndFilterOtions();
     }
 
     private void setEmployeeList() {
+
+        originalOrder = javafx.collections.FXCollections.observableArrayList(employeesData);
+
         filteredData = new FilteredList<>(employeesData, p -> true);
         sortedData = new SortedList<>(filteredData);
         sortedData.addListener((ListChangeListener<User>) change -> {
@@ -169,6 +193,12 @@ public class EmployeeGrid {
     private void updateFilterChoices(String property) {
 
         filterChoice.getItems().clear();
+
+        if ("None".equals(property)) {
+            return;
+        }
+
+        filterChoice.getItems().clear();
         Field field;
         try {
             field = User.class.getDeclaredField(filterButton.getValue());
@@ -193,6 +223,9 @@ public class EmployeeGrid {
 
     private void addSortAndFilterOtions() {
 
+        sortButton.getItems().add("None");
+        filterButton.getItems().add("None");
+
         String[] fields = {
                 "ID",
                 "fName",
@@ -205,5 +238,7 @@ public class EmployeeGrid {
             sortButton.getItems().add(fieldName);
             filterButton.getItems().add(fieldName);
         }
+        sortButton.setValue("None");
+        filterButton.setValue("None");
     }
 }
