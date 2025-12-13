@@ -6,6 +6,7 @@ public class Product {
     private int productID;
     private String name;
     private String category;
+    private String description;
     private int quantity;
     private double price;
     private Offer offer;
@@ -17,10 +18,11 @@ public class Product {
         parseString(record);
     }
 
-    public Product(int productID, String name, String category, int quantity, double price, String size, int threshold) {
+    public Product(int productID, String name, String category, String description, int quantity, double price, String size, int threshold) {
         this.productID = productID;
         this.name = name;
         this.category = category;
+        this.description = description;
         this.quantity = quantity;
         this.price = price;
         this.size = size;
@@ -40,6 +42,10 @@ public class Product {
         return category;
     }
     
+    public String getDescription() {
+        return description;
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -77,9 +83,11 @@ public class Product {
         return productID + FileManager.DELIMETER + 
                name + FileManager.DELIMETER + 
                category + FileManager.DELIMETER +
+               description + FileManager.DELIMETER +
                quantity + FileManager.DELIMETER +
                price + FileManager.DELIMETER +
-               offer.toString() + FileManager.DELIMETER +
+               //! The offer thing needs to be fixed
+               (offer != null ? offer.toString() : "null") + FileManager.DELIMETER +
                size + FileManager.DELIMETER +
                threshold + FileManager.DELIMETER + 
                imageName;
@@ -91,13 +99,14 @@ public class Product {
             productID = Integer.valueOf(values[0]);
             name = values[1];
             category = values[2];
-            quantity = Integer.valueOf(values[3]);
-            price = Double.valueOf(values[4]);
+            description = values[3];
+            quantity = Integer.valueOf(values[4]);
+            price = Double.valueOf(values[5]);
             /**Habiba will handle this value:
-            offer = Offer.valueOf(values[5]);*/
-            size = values[6];
-            threshold = Integer.valueOf(values[7]);
-            imageName = values[8];
+            offer = Offer.valueOf(values[6]);*/
+            size = values[7];
+            threshold = Integer.valueOf(values[8]);
+            imageName = values[9];
         } catch (IllegalArgumentException e) {
             System.err.println("Error Entering Data: " + e.getMessage());
         } catch (Exception e) {

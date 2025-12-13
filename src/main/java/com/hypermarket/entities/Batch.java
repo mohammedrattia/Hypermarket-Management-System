@@ -49,6 +49,7 @@ public class Batch {
         try {
             batchID = Integer.valueOf(values[0]);
             product = ListManipulation.searchObjectWithID(DataStore.getDataStore().getProducts(), values[1]); 
+            quantity = Integer.valueOf(values[2]);
             deliveryDate = FileManager.dateTimeFormat.parse(values[3]);
             expiryDate = FileManager.dateFormat.parse(values[4]);
         } catch (IllegalArgumentException e) {
