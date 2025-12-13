@@ -14,6 +14,7 @@ module com.hypermarket {
     opens com.hypermarket.data to javafx.fxml;
     opens com.hypermarket.service to javafx.fxml;
     opens com.hypermarket.app to javafx.fxml;
+    opens com.hypermarket.modules.inventory to javafx.fxml;
 
     exports com.hypermarket.app;
 

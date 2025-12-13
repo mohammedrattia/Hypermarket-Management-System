@@ -1,2 +1,15 @@
-101,Laptop,999.99
-102,Mouse,15.5
+101;Fresh Apple;Fruits;5.0;0.0;100;1kg;15 Days;images/apple.png
+102;Orange Juice;Beverages;15.0;0.10;50;1L;6 Months;images/juice.png
+103;Full Cream Milk;Dairy;25.0;0.0;30;1L;10 Days;images/milk.png
+104;Cheddar Cheese;Dairy;45.0;0.0;20;500g;3 Months;images/cheese.png
+105;Toast Bread;Bakery;12.0;0.0;40;Pack;7 Days;images/toast.png
+106;Frozen Chicken;Meat;85.0;0.05;15;1.2kg;1 Year;images/chicken.png
+107;Basmati Rice;Grains;120.0;0.0;10;5kg;2 Years;images/rice.png
+108;Italian Pasta;Grains;12.5;0.0;100;400g;2 Years;images/pasta.png
+109;Red Eggs;Dairy;110.0;0.0;25;30 Pack;21 Days;images/eggs.png
+110;Tomato;Vegetables;8.0;0.0;80;1kg;10 Days;images/tomato.png
+111;Potato Chips;Snacks;5.0;0.0;200;Standard;6 Months;images/chips.png
+112;Chocolate Bar;Snacks;18.0;0.0;60;Large;1 Year;images/chocolate.png
+113;Soda Can;Beverages;7.0;0.0;150;330ml;1 Year;images/soda.png
+114;Yogurt;Dairy;6.0;0.0;45;150g;14 Days;images/yogurt.png
+115;Tuna Can;Canned;35.0;0.0;55;180g;3 Years;images/tuna.png

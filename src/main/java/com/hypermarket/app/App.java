@@ -110,7 +110,12 @@ public class App extends Application {
         }
 
         private static void loadInventoryScene(Stage stage) throws IOException {
+                FXMLLoader fxmlLoader = new FXMLLoader(
+                                App.class.getResource("/com/hypermarket/view/inventory/InventoryView.fxml"));
 
+                scene = new Scene(fxmlLoader.load());
+                stage.setScene(scene);
+                stage.show();    
         }
 
         private static void loadMarketingScene(Stage stage) throws IOException {
