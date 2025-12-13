@@ -35,7 +35,7 @@ public class ProductPageController {
         priceLabel.setText("Offer : $" + product.getOffer());
         quantityLabel.setText("Quantity : " + product.getQuantity());
         sizeLabel.setText("Size : " + product.getSize());
-        durationLabel.setText("Duration : " + product.getDuration());
+        // durationLabel.setText("Duration : " + product.getDuration());
         productID.setText("Product ID : " + product.getProductID());
     }
 }
