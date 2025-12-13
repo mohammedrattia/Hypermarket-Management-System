@@ -22,7 +22,7 @@
             <children>
                  <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="274.0" spacing="15.0" HBox.hgrow="ALWAYS">
                     <children>
-                        <ImageView fitHeight="59.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="userImage" fitHeight="59.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../images/userBlack.png" />
                             </image>
@@ -43,7 +43,7 @@
 
                 <Button onAction="#handleShowDetails" style="-fx-background-color: transparent; -fx-cursor: hand;">
                     <graphic>
-                        <FontIcon styleClass="expand-icon" iconLiteral="fas-expand" iconSize="19" />
+                        <FontIcon iconLiteral="fas-expand" iconSize="19" styleClass="expand-icon" />
                     </graphic>
                     <padding>
                         <Insets right="-5" top="-5" /> </padding>

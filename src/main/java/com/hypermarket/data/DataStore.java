@@ -1,11 +1,9 @@
 package com.hypermarket.data;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.hypermarket.entities.*;
 
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

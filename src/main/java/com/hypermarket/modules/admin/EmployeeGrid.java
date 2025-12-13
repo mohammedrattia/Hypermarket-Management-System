@@ -2,16 +2,12 @@ package com.hypermarket.modules.admin;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.User;
 import com.hypermarket.modules.components.EmployeeCardController;
 import com.hypermarket.service.ListManipulation;
 
-import javafx.beans.Observable;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -19,9 +15,7 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
@@ -42,6 +36,8 @@ public class EmployeeGrid {
     private ChoiceBox<String> filterButton;
     private ChoiceBox<String> filterChoice;
     private ChoiceBox<String> sortButton;
+
+    private ObservableList<User> originalOrder;
 
     private ObservableList<User> employeesData = DataStore.getDataStore().getUsers();
     private FilteredList<User> filteredData;
@@ -102,7 +98,15 @@ public class EmployeeGrid {
 
         filterChoice = (ChoiceBox<String>) toolBar.getChildren().get(3);
         filterChoice.valueProperty().addListener((observable, oldValue, newValue) -> {
-            ListManipulation.updateFilter(filteredData, newValue, filterButton.getValue(),
+            if ("None".equals(filterButton.getValue())) {
+                filteredData.setPredicate(user -> true);
+                return;
+            }
+
+            ListManipulation.updateFilter(
+                    filteredData,
+                    newValue,
+                    filterButton.getValue(),
                     User.class);
         });
 
@@ -111,17 +115,29 @@ public class EmployeeGrid {
             ListManipulation.updateFilter(filteredData, newValue, "fullName", User.class);
         });
 
-        // TODO: handle the ascending only sort (maybe add checkbox to change from
-        // ascending to descending)
         sortButton = (ChoiceBox<String>) toolBar.getChildren().get(8);
         sortButton.valueProperty().addListener((observable, oldValue, newValue) -> {
-            ListManipulation.updateSort(sortedData, true, sortButton.getValue(), User.class);
+            if ("None".equals(newValue)) {
+                sortedData.setComparator(null);
+
+                employeesData.setAll(originalOrder);
+                return;
+            }
+
+            ListManipulation.updateSort(
+                    sortedData,
+                    true,
+                    newValue,
+                    User.class);
         });
 
         addSortAndFilterOtions();
     }
 
     private void setEmployeeList() {
+
+        originalOrder = javafx.collections.FXCollections.observableArrayList(employeesData);
+
         filteredData = new FilteredList<>(employeesData, p -> true);
         sortedData = new SortedList<>(filteredData);
         sortedData.addListener((ListChangeListener<User>) change -> {
@@ -177,6 +193,12 @@ public class EmployeeGrid {
     private void updateFilterChoices(String property) {
 
         filterChoice.getItems().clear();
+
+        if ("None".equals(property)) {
+            return;
+        }
+
+        filterChoice.getItems().clear();
         Field field;
         try {
             field = User.class.getDeclaredField(filterButton.getValue());
@@ -201,13 +223,22 @@ public class EmployeeGrid {
 
     private void addSortAndFilterOtions() {
 
-        Field[] fields = User.class.getDeclaredFields();
+        sortButton.getItems().add("None");
+        filterButton.getItems().add("None");
 
-        for (Field field : fields) {
-            String fieldName = field.getName();
+        String[] fields = {
+                "ID",
+                "fName",
+                "lName",
+                "role",
+                "salary"
+        };
 
+        for (String fieldName : fields) {
             sortButton.getItems().add(fieldName);
             filterButton.getItems().add(fieldName);
         }
+        sortButton.setValue("None");
+        filterButton.setValue("None");
     }
 }

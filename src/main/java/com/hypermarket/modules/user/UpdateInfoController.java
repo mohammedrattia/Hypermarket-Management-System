@@ -1,12 +1,13 @@
-package com.hypermarket.modules.components;
+package com.hypermarket.modules.user;
 
 import java.io.File;
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.User;
+import com.hypermarket.service.Session;
+import com.hypermarket.data.*;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,11 +25,9 @@ import javafx.stage.FileChooser;
 
 public class UpdateInfoController implements Initializable {
     private User currentUser;
-    @FXML
-    private ImageView userImage;
 
     @FXML
-    private TextField emailField;
+    private ImageView userImage;
 
     @FXML
     private TextField fnameField;
@@ -37,20 +36,65 @@ public class UpdateInfoController implements Initializable {
     private TextField lnameField;
 
     @FXML
-    private PasswordField confirmPassField;
+    private TextField emailField;
 
     @FXML
     private TextField phoneField;
 
     @FXML
-    private Button saveBtn;
-    @FXML
     private PasswordField newPassField;
+
+    @FXML
+    private PasswordField confirmPassField;
+
+    @FXML
+    private TextField idField;
+
+    @FXML
+    private TextField roleField;
+
+    @FXML
+    private TextField salaryField;
+
+    @FXML
+    private Button saveBtn;
 
     @FXML
     private Button uploadImageBtn;
 
     private File selectedImageFile;
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+
+        currentUser = Session.getInstance().getUser();
+
+        if (currentUser != null) {
+            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            idField.setText(String.valueOf(currentUser.getID()));
+            fnameField.setText(currentUser.getFName());
+            lnameField.setText(currentUser.getLName());
+            userImage.setImage(new Image(imageFile.toURI().toString()));
+            phoneField.setText(currentUser.getPhone());
+            emailField.setText(currentUser.getEmail());
+            roleField.setText(currentUser.getRole().toString());
+            salaryField.setText(String.valueOf(currentUser.getSalary()));
+            confirmPassField.setText(currentUser.getPassword());
+            newPassField.setText(currentUser.getPassword());
+        }
+
+        userImage.setFitWidth(150);
+        userImage.setFitHeight(150);
+        userImage.setPreserveRatio(false);
+
+        Circle clip = new Circle();
+        clip.setCenterX(75);
+        clip.setCenterY(75);
+        clip.setRadius(75);
+
+        userImage.setClip(clip);
+
+    }
 
     @FXML
     private void handleSave(ActionEvent event) {
@@ -76,38 +120,16 @@ public class UpdateInfoController implements Initializable {
 
         // Save selected image
         if (selectedImageFile != null) {
-            currentUser.setImage(selectedImageFile.toURI().toString());
+            try {
+                File userImageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+                FileManager.copyImage(selectedImageFile, userImageFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         DataStore.getDataStore().saveAllData();
         new Alert(Alert.AlertType.INFORMATION, "User info updated successfully!").showAndWait();
-    }
-
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-
-        currentUser = com.hypermarket.service.Session.getInstance().getUser();
-
-        if (currentUser != null) {
-            fnameField.setText(currentUser.getFName());
-            lnameField.setText(currentUser.getLName());
-            phoneField.setText(currentUser.getPhone());
-            emailField.setText(currentUser.getEmail());
-            confirmPassField.setText(currentUser.getPassword());
-            newPassField.setText(currentUser.getPassword());
-
-        }
-        userImage.setFitWidth(150);
-        userImage.setFitHeight(150);
-        userImage.setPreserveRatio(false);
-
-        Circle clip = new Circle();
-        clip.setCenterX(75);
-        clip.setCenterY(75);
-        clip.setRadius(75);
-
-        userImage.setClip(clip);
-
     }
 
     public javafx.scene.Parent getView() {
@@ -135,24 +157,17 @@ public class UpdateInfoController implements Initializable {
     private void handleImageSelection(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Profile Image");
-        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg",
-                "*.jpeg", "*.gif");
+        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.png");
         fileChooser.getExtensionFilters().add(imageFilter);
 
         File file = fileChooser.showOpenDialog(uploadImageBtn.getScene().getWindow());
 
         if (file != null) {
-            try {
-                this.selectedImageFile = file;
-                String imageUrl = file.toURI().toURL().toString();
-                Image image = new Image(imageUrl);
+            this.selectedImageFile = file;
+            String imageUrl = file.toURI().toString();
+            Image image = new Image(imageUrl);
 
-                userImage.setImage(image);
-                currentUser.setImage(imageUrl);
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+            userImage.setImage(image);
         }
     }
 

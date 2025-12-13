@@ -1,13 +1,18 @@
 package com.hypermarket.modules.components;
 
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.Locale;
 
 import com.hypermarket.entities.Admin;
 import com.hypermarket.entities.User;
+import com.hypermarket.modules.admin.UpdateEmployee;
 import com.hypermarket.service.Session;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -52,8 +57,23 @@ public class EmployeeDetailsModalController {
 
     @FXML
     private void handleUpdate() {
-        // TODO: complete update handle
-        System.out.println("Updating for...(yala ya mohammed kamel)");
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/hypermarket/view/admin/UpdateEmployee.fxml"));
+            Parent root = loader.load();
+
+            UpdateEmployee controller = loader.getController();
+            controller.setUserData(currentUser);
+
+            Scene scene = modalNameLabel.getScene();
+            scene.setRoot(root);
+
+            Stage stage = (Stage) scene.getWindow();
+            stage.sizeToScene();
+            stage.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
