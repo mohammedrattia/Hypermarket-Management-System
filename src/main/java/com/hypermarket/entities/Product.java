@@ -71,21 +71,19 @@ public class Product {
         return productID;
     }
 
-
-
     public void parseString(String line) {
         String[] parts = line.split(";");
 
         try {
             this.productID = Integer.parseInt(parts[0]); // int
-            this.name = parts[1];                        // String
-            this.category = parts[2];                    // String
-            this.price = Double.parseDouble(parts[3]);   // double
-            this.offer = Double.parseDouble(parts[4]);   // double
-            this.quantity = Integer.parseInt(parts[5]);  // int
-            this.size = parts[6];                        // String
-            this.duration = parts[7];                    // String
-            this.imagePath = parts[8];                   // String
+            this.name = parts[1]; // String
+            this.category = parts[2]; // String
+            this.price = Double.parseDouble(parts[3]); // double
+            this.offer = Double.parseDouble(parts[4]); // double
+            this.quantity = Integer.parseInt(parts[5]); // int
+            this.size = parts[6]; // String
+            this.duration = parts[7]; // String
+            this.imagePath = parts[8]; // String
         } catch (Exception e) {
             System.err.println("Error parsing product: " + line);
             e.printStackTrace();
@@ -94,14 +92,34 @@ public class Product {
 
     @Override
     public String toString() {
-        return productID + ";" + 
-            name + ";" + 
-            category + ";" + 
-            price + ";" + 
-            offer + ";" + 
-            quantity + ";" + 
-            size + ";" + 
-            duration + ";" + 
-            imagePath;
+        return productID + ";" +
+                name + ";" +
+                category + ";" +
+                price + ";" +
+                offer + ";" +
+                quantity + ";" +
+                size + ";" +
+                duration + ";" +
+                imagePath;
+    }
+
+    public boolean isLowStock() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isLowStock'");
+    }
+
+    public int getTotalQuantity() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTotalQuantity'");
+    }
+
+    public boolean reduceStock(int quantity2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'reduceStock'");
+    }
+
+    public int getThreshold() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getThreshold'");
     }
 }
