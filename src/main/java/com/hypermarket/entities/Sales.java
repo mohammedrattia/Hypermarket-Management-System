@@ -17,7 +17,6 @@ public class Sales extends User {
 
     public Order MakeOrder() {
         Order newOrder = new Order(this);
-        DataStore.getDataStore().getOrders().add(newOrder);
         return newOrder;
     }
 }

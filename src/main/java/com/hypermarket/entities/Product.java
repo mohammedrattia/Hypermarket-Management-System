@@ -70,10 +70,6 @@ public class Product {
         return size;
     }
 
-    public int getThreshold() {
-        return threshold;
-    }
-
     public String getImageName() {
         return imageName;
     }
@@ -112,5 +108,25 @@ public class Product {
         } catch (Exception e) {
             System.err.println("Error Parsing Data: " + e.getMessage());
         }
+    }
+
+    public boolean isLowStock() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isLowStock'");
+    }
+
+    public int getTotalQuantity() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTotalQuantity'");
+    }
+
+    public boolean reduceStock(int quantity2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'reduceStock'");
+    }
+
+    public int getThreshold() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getThreshold'");
     }
 }

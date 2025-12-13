@@ -17,14 +17,9 @@ public class OrderItem {
     private double priceThatDate;
 
     public OrderItem(Product product, int quantity) {
-        List<OrderItem> orderItems = DataStore.getDataStore().getOrderItems();
-        if (orderItems.isEmpty())
-            this.orderItemID = 1;
-        else
-            this.orderItemID = orderItems.get(orderItems.size() - 1).getOrderItemID() + 1;
         this.product = product;
         this.quantity = quantity;
-        this.priceThatDate = new Double(product.getPrice());
+        this.priceThatDate = product.getPrice();
     }
 
     public OrderItem(String recordLine) {
@@ -42,11 +37,11 @@ public class OrderItem {
         String[] values = line.split(FileManager.DELIMETER);
         // Look at the following examples and make the parseString Function
         try {
-            orderItemID = new Integer(values[0]);
+            orderItemID = Integer.parseInt(values[0]);
             order = ListManipulation.searchObjectWithID(DataStore.getDataStore().getOrders(), values[1]);
             product = ListManipulation.searchObjectWithID(DataStore.getDataStore().getProducts(), values[2]);
-            quantity = new Integer(values[3]);
-            priceThatDate = new Double(values[4]);
+            quantity = Integer.parseInt(values[3]);
+            priceThatDate = Double.parseDouble(values[4]);
         } catch (IllegalArgumentException e) {
             System.err.println("Error Chosing Role: " + e.getMessage());
         } catch (Exception e) {
@@ -56,6 +51,10 @@ public class OrderItem {
 
     public int getOrderItemID() {
         return orderItemID;
+    }
+
+    public void setOrderItemID(int orderItemID) {
+        this.orderItemID = orderItemID;
     }
 
     public Order getOrder() {
