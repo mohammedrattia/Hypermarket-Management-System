@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hypermarket.modules.components.MarketingDashboardController"
+      spacing="20"
+      alignment="TOP_CENTER"
+      style="-fx-padding: 20; -fx-font-family: 'Arial'; -fx-background-color: #f4fff7;">
+
+    <!-- Title Centered -->
+    <Label text="Marketing Dashboard" styleClass="title" VBox.vgrow="NEVER"/>
+
+    <!-- Radio Buttons for Sections -->
+    <HBox spacing="30" alignment="CENTER">
+        <RadioButton fx:id="reportsRadio" text="Reports"/>
+        <RadioButton fx:id="offersRadio" text="Offers"/>
+    </HBox>
+
+    <!-- Reports Section -->
+    <VBox fx:id="reportsSection" spacing="10" style="-fx-padding: 10;">
+        <TextArea fx:id="inputReportArea" promptText="Write your report..." prefRowCount="3" styleClass="text-area"/>
+        <Button fx:id="generateReportBtn" text="Add Report" styleClass="button"/>
+        <ScrollPane fitToWidth="true" prefHeight="400">
+            <VBox fx:id="reportsContainer" spacing="12" style="-fx-padding: 10;"/>
+        </ScrollPane>
+    </VBox>
+
+    <!-- Offers Section (Hidden by Default) -->
+    <VBox fx:id="offersSection" spacing="10" style="-fx-padding: 10;" visible="false" managed="false">
+        <TextField fx:id="offerNameField" promptText="Offer name" styleClass="text-field"/>
+        <TextField fx:id="discountField" promptText="Discount %" styleClass="text-field"/>
+
+        <!-- DatePickers (Start and End Dates) side by side with adjusted size -->
+        <HBox fx:id="dateRange" spacing="10" alignment="CENTER">
+            <DatePicker fx:id="startDatePicker" promptText="Start Date" styleClass="date-picker" prefWidth="650"/>
+            <DatePicker fx:id="endDatePicker" promptText="End Date" styleClass="date-picker" prefWidth="650"/>
+        </HBox>
+
+        <!-- Radio Buttons for Offer Target -->
+        <HBox spacing="20" alignment="CENTER">
+            <RadioButton fx:id="rbAll" text="All Products"/>
+            <RadioButton fx:id="rbProduct" text="Specific Product"/>
+            <ComboBox fx:id="productCombo" promptText="Select Product" styleClass="combo-box"/>
+        </HBox>
+
+        <Button fx:id="addOfferBtn" text="Add Offer" styleClass="button"/>
+        <ScrollPane fitToWidth="true" prefHeight="400">
+            <VBox fx:id="offersContainer" spacing="12" style="-fx-padding: 10;"/>
+        </ScrollPane>
+    </VBox>
+
+</VBox>
