@@ -15,11 +15,14 @@ import javafx.collections.ObservableList;
 public class Inventory extends User {
     private ObservableList<Product> products;
     private ObservableList<DamageLog> damageLogs;
-    private ObservableList<DamageLog> returnLogs;
     private ObservableList<Notification> notifications;
 
     public Inventory(String recordLine) {
         super(recordLine);
+        DataStore ds = DataStore.getDataStore();
+        this.products = ds.getProducts();
+        this.damageLogs = ds.getDamageLogs();
+        this.notifications = ds.getNotifications(); 
     }
 
     public Inventory(String role, int id, String fName, String lName, String image, String phone,
@@ -78,16 +81,6 @@ public class Inventory extends User {
 
     public List<DamageLog> listDamageLogs() {
         return this.damageLogs;
-    }
-
-    public void addReturnLog(DamageLog returnings) {
-        if (returnings != null) {
-            this.returnLogs.add(returnings);
-        }
-    }
-
-    public List<DamageLog> listReturnLogs() {
-        return this.returnLogs;
     }
 
     public List<Product> checkLowStock() {

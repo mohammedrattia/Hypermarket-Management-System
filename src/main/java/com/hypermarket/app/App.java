@@ -2,6 +2,7 @@ package com.hypermarket.app;
 
 import com.hypermarket.entities.*;
 import com.hypermarket.modules.admin.AdminViewController;
+import com.hypermarket.modules.inventory.InventoryViewController;
 import com.hypermarket.modules.sales.SalesViewController;
 import com.hypermarket.modules.user.LoginController;
 
@@ -114,8 +115,18 @@ public class App extends Application {
                                 App.class.getResource("/com/hypermarket/view/inventory/InventoryView.fxml"));
 
                 scene = new Scene(fxmlLoader.load());
+                InventoryViewController controller = fxmlLoader.getController();
+                controller.setOnLogout(() -> {
+                        Authenticator.logout();
+                        try {
+                                loadLoginScene(stage);
+                        } catch (IOException e) {
+                                e.printStackTrace();
+                        }
+                });
+
                 stage.setScene(scene);
-                stage.show();    
+                stage.show(); 
         }
 
         private static void loadMarketingScene(Stage stage) throws IOException {
