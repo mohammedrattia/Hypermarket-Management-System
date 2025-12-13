@@ -1,4 +1,3 @@
-/* --- MAIN CARD CONTAINER --- */
 .order-item-card {
     -fx-background-color: white; /* Clean white background */
     -fx-padding: 8 15;           /* Vertical: 8px, Horizontal: 15px */
@@ -7,37 +6,30 @@
     -fx-cursor: hand;            /* Suggests it is clickable/selectable */
 }
 
-/* Hover Effect: Slightly greyer to show interaction */
 .order-item-card:hover {
     -fx-background-color: -fx-grey-50;
 }
 
-/* Selected State (If you implement selection logic later) */
 .order-item-card:selected {
     -fx-background-color: -fx-primary-100; /* Very light green */
     -fx-border-color: -fx-primary-300;
 }
 
-/* --- TEXT STYLES --- */
-
-/* 1. Item Name (Top Left) */
 .item-name {
-    -fx-text-fill: -fx-grey-800; /* Dark Grey/Black */
-    -fx-font-weight: 800;        /* Extra Bold */
+    -fx-text-fill: -fx-grey-800; 
+    -fx-font-weight: 800;      
     -fx-font-size: 14px;
 }
 
-/* 2. The small details (1.00 Units x $...) */
 .item-details-text {
-    -fx-text-fill: -fx-grey-500; /* Medium Grey */
-    -fx-font-weight: bold;       /* Semi-bold */
-    -fx-font-size: 11px;         /* Smaller text */
+    -fx-text-fill: -fx-grey-500; 
+    -fx-font-weight: bold;       
+    -fx-font-size: 11px;         
 }
 
-/* 3. Total Price (Far Right) */
 .item-total-price {
-    -fx-text-fill: -fx-grey-800; /* Match the name color */
-    -fx-font-weight: 800;        /* Extra Bold */
+    -fx-text-fill: -fx-grey-800;
+    -fx-font-weight: 800;       
     -fx-font-size: 14px;
     -fx-alignment: CENTER_RIGHT;
 }

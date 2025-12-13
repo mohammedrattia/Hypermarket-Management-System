@@ -252,7 +252,7 @@
 
 .input-label {
     -fx-text-fill: -fx-black;
-    -fx-font-weight: 800; /* Extra Bold */
+    -fx-font-weight: 800; 
     -fx-font-size: 14px;
 }
 
@@ -269,6 +269,6 @@
 }
 
 .input-field:focused {
-    -fx-border-color: -fx-primary-500; /* Green highlight when typing */
+    -fx-border-color: -fx-primary-500; 
     -fx-background-color: white;
 }
