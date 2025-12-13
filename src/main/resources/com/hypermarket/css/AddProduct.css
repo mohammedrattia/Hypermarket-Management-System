@@ -9,7 +9,7 @@
 }
 
 .input-field {
-    -fx-background-color: rgb(236, 255, 235);
+    -fx-background-color: rgb(245, 245, 245);
 }
 
 .BtnsSep {
@@ -56,7 +56,7 @@
 }
 
 .main-container {
-    -fx-background-color: rgb(235, 235, 235);
+    -fx-background-color: rgb(231, 231, 231);
 }
 
 .label-container {

@@ -1,5 +1,5 @@
 101;Fresh Apple;Fruits;5.0;0.0;100;1kg;15 Days;images/apple.png
-102;Orange Juice;Beverages;15.0;0.10;50;1L;6 Months;images/juice.png
+102;Orange Juice;Beverages;15.0;0.1;50;1L;6 Months;images/juice.png
 103;Full Cream Milk;Dairy;25.0;0.0;30;1L;10 Days;images/milk.png
 104;Cheddar Cheese;Dairy;45.0;0.0;20;500g;3 Months;images/cheese.png
 105;Toast Bread;Bakery;12.0;0.0;40;Pack;7 Days;images/toast.png

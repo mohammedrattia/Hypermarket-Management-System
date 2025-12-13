@@ -106,7 +106,7 @@ public class InventoryViewController implements Initializable {
     private void showUpdateUserInfo() {
         try {
             Parent updateUserUI = FXMLLoader.load(
-                    getClass().getResource("/com/hypermarket/view/UpdateUserInfo.fxml"));
+                    getClass().getResource("/com/hypermarket/view/user/UpdateUserInfo.fxml"));
             contentArea.getChildren().clear();
             contentArea.getChildren().add(updateUserUI);
             fitToAnchor(updateUserUI);

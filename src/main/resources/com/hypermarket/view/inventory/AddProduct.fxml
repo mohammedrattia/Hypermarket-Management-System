@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox fx:id="mainContainer" prefHeight="640.0" prefWidth="1030.0" styleClass="main-container" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.sales.MakeOrder">
+<HBox fx:id="mainContainer" prefHeight="640.0" prefWidth="1030.0" styleClass="main-container" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.inventory.AddProductController">
    <stylesheets>
       <URL value="@../../css/MakeOrder.css" />
       <URL value="@../../css/SalesThemes.css" />
@@ -20,7 +20,7 @@
    <children>
       <VBox fx:id="sideBarPanel" prefHeight="640.0" prefWidth="400.0" style="-fx-border-width: 1;" styleClass="sidebar-panel">
          <children>
-            <ImageView fx:id="ProductImage" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageField" />
+            <ImageView fx:id="productImageView" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" styleClass="ImageField" />
             <Separator prefHeight="31.0" prefWidth="400.0" />
             <HBox alignment="CENTER" prefHeight="225.0" prefWidth="400.0" styleClass="BtnsHbox">
                <children>
@@ -37,7 +37,7 @@
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button id="AddClearProductBtns" fx:id="ClearButton" mnemonicParsing="false" styleClass="clear-btn" text="Clear">
+                        <Button id="AddClearProductBtns" fx:id="clearBtn" mnemonicParsing="false" styleClass="clear-btn" text="Clear">
                   </Button>
                      </children>
                   </VBox>
@@ -50,19 +50,6 @@
             <VBox fx:id="itemProductsList" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="item-products-List" VBox.vgrow="ALWAYS">
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <VBox alignment="CENTER" styleClass="label-container">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <children>
-                              <Label minWidth="16.0" prefHeight="52.0" prefWidth="112.0" styleClass="input-label" text="Description" VBox.vgrow="ALWAYS" />
-                           </children>
-                        </VBox>
-                        <TextArea id="text-area" prefHeight="114.0" prefWidth="500.0" style="-fx-background-color: GREEN;" />
-                     </children>
-                  </HBox>
                   <HBox alignment="CENTER" prefHeight="60.0" prefWidth="630.0" VBox.vgrow="ALWAYS">
                      <children>
                         <VBox alignment="CENTER" styleClass="label-container">
@@ -70,7 +57,7 @@
                               <Label minWidth="16.0" prefHeight="52.0" prefWidth="164.0" styleClass="input-label" text="Name" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
-                        <TextField id="text-fields" fx:id="ProductNameField" minWidth="65.0" prefHeight="40.0" prefWidth="500.0" promptText="Enter Product Name" styleClass="input-field" />
+                        <TextField id="text-fields" fx:id="nameField" minWidth="65.0" prefHeight="40.0" prefWidth="500.0" promptText="Enter Product Name" styleClass="input-field" />
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -84,7 +71,7 @@
                               <Label minWidth="64.0" prefHeight="73.0" prefWidth="129.0" styleClass="input-label" text="Size" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
-                        <TextField id="text-fields" fx:id="ProductSizeField" minWidth="55.0" prefHeight="40.0" prefWidth="500.0" promptText="Enter Product Size" styleClass="input-field" />
+                        <TextField id="text-fields" fx:id="sizeField" minWidth="55.0" prefHeight="40.0" prefWidth="500.0" promptText="Enter Product Size" styleClass="input-field" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="60.0" prefWidth="630.0" VBox.vgrow="ALWAYS">
@@ -94,7 +81,7 @@
                               <Label minWidth="64.0" prefHeight="73.0" prefWidth="110.0" styleClass="input-label" text="Price" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
-                        <TextField id="text-fields" fx:id="ProductPriceField" minWidth="55.0" prefHeight="40.0" prefWidth="500.0" promptText="Enter Product Price" styleClass="input-field" />
+                        <TextField id="text-fields" fx:id="priceField" minWidth="55.0" prefHeight="40.0" prefWidth="500.0" promptText="Enter Product Price" styleClass="input-field" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="60.0" prefWidth="630.0" VBox.vgrow="ALWAYS">
@@ -104,7 +91,20 @@
                               <Label minWidth="64.0" prefHeight="73.0" prefWidth="106.0" styleClass="input-label" text="Category" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
-                        <TextField id="text-fields" fx:id="ProductCategoryField" minWidth="55.0" prefHeight="40.0" prefWidth="500.0" promptText="Enter Product Category" styleClass="input-field" />
+                        <TextField id="text-fields" fx:id="categoryField" minWidth="55.0" prefHeight="40.0" prefWidth="500.0" promptText="Enter Product Category" styleClass="input-field" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="CENTER" styleClass="label-container">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <children>
+                              <Label minWidth="16.0" prefHeight="52.0" prefWidth="112.0" styleClass="input-label" text="Description" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                        <TextArea id="text-area" fx:id="descriptionField" prefHeight="114.0" prefWidth="500.0" style="-fx-background-color: GREEN;" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
