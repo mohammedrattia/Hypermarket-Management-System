@@ -26,7 +26,7 @@
 
 .product-name-card {
     -fx-font-family: "Segoe UI", "Roboto", "Arial", sans-serif;
-    -fx-font-size: 22px;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-text-fill: #2d3436;
 }

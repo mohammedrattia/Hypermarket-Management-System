@@ -50,11 +50,28 @@
     -fx-padding: 5 5 10 5;
 }
 
-.button {
+.button,
+.choice-box,
+.text-field {
     -fx-border-color: #a0a0a0;
     -fx-border-width: 1;
     -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
 }
+
+.choice-box:hover,
+.text-field:hover {
+    -fx-background-color: white;
+    -fx-border-color: #10b981;
+}
+
+.choice-box:focused,
+.text-field:focused {
+    -fx-background-color: white;
+    -fx-border-color: #10b981;
+}
+
 
 .cell {
     -fx-text-alignment: CENTER;
@@ -65,4 +82,8 @@
 .separation-region {
     -fx-min-width: 2;
     -fx-max-width: 50;
+}
+
+.choice-box .menu-item:hover {
+    -fx-background-color: #10b981;
 }

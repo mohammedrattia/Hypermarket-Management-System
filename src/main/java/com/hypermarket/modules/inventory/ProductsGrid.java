@@ -1,11 +1,11 @@
-package com.hypermarket.modules.admin;
+package com.hypermarket.modules.inventory;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
 
 import com.hypermarket.data.DataStore;
-import com.hypermarket.entities.User;
-import com.hypermarket.modules.components.EmployeeCardController;
+import com.hypermarket.entities.Product;
+import com.hypermarket.modules.components.ProductCardController;
 import com.hypermarket.service.ListManipulation;
 
 import javafx.collections.ListChangeListener;
@@ -23,13 +23,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.geometry.Pos;
 
-public class EmployeeGrid {
+public class ProductsGrid {
 
     private ScrollPane scrollPane;
     private VBox allScene;
-    private GridPane grid;
+    private TilePane grid;
 
     private HBox toolBar;
     private TextField searchField;
@@ -37,28 +39,20 @@ public class EmployeeGrid {
     private ChoiceBox<String> filterChoice;
     private ChoiceBox<String> sortButton;
 
-    private ObservableList<User> originalOrder;
-
-    private ObservableList<User> employeesData = DataStore.getDataStore().getUsers();
-    private FilteredList<User> filteredData;
-    private SortedList<User> sortedData;
+    private ObservableList<Product> productsData = DataStore.getDataStore().getProducts();
+    private FilteredList<Product> filteredData;
+    private SortedList<Product> sortedData;
 
     public Parent getView() {
-        // init the employee list
-        setEmployeeList();
 
-        // set columns constraints
-        ColumnConstraints colConst = new ColumnConstraints();
-        colConst.setPercentWidth(33.33);
+        setProductList();
 
-        // make the grid of Employees
-        grid = new GridPane();
+        grid = new TilePane();
         grid.setHgap(20);
         grid.setVgap(20);
-        grid.setPadding(new Insets(30));
-        grid.getColumnConstraints().addAll(colConst, colConst, colConst);
+        grid.setPadding(new Insets(30, 10, 30, 10));
+        grid.setAlignment(Pos.TOP_CENTER);
 
-        // put the grid into scroll pane
         scrollPane = new ScrollPane();
         scrollPane.setFitToWidth(true);
         scrollPane.setStyle("-fx-background-color: transparent;");
@@ -71,9 +65,6 @@ public class EmployeeGrid {
             configToolBar();
         } catch (IOException e) {
             System.err.println("Failed to load FilterAndSearch.fxml");
-            e.printStackTrace();
-        } catch (IllegalStateException e) {
-            System.err.println("FilterAndSearch.fxml not found at specified path.");
             e.printStackTrace();
         }
 
@@ -90,7 +81,6 @@ public class EmployeeGrid {
 
     @SuppressWarnings("unchecked")
     private void configToolBar() {
-
         filterButton = (ChoiceBox<String>) toolBar.getChildren().get(1);
         filterButton.valueProperty().addListener((observable, oldValue, newValue) -> {
             updateFilterChoices(filterButton.getValue());
@@ -98,49 +88,27 @@ public class EmployeeGrid {
 
         filterChoice = (ChoiceBox<String>) toolBar.getChildren().get(3);
         filterChoice.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if ("None".equals(filterButton.getValue())) {
-                filteredData.setPredicate(user -> true);
-                return;
-            }
-
-            ListManipulation.updateFilter(
-                    filteredData,
-                    newValue,
-                    filterButton.getValue(),
-                    User.class);
+            ListManipulation.updateFilter(filteredData, newValue, filterButton.getValue(),
+                    Product.class);
         });
 
         searchField = (TextField) toolBar.getChildren().get(5);
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            ListManipulation.updateFilter(filteredData, newValue, "fullName", User.class);
+            ListManipulation.updateFilter(filteredData, newValue, "name", Product.class);
         });
 
         sortButton = (ChoiceBox<String>) toolBar.getChildren().get(8);
         sortButton.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if ("None".equals(newValue)) {
-                sortedData.setComparator(null);
-
-                employeesData.setAll(originalOrder);
-                return;
-            }
-
-            ListManipulation.updateSort(
-                    sortedData,
-                    true,
-                    newValue,
-                    User.class);
+            ListManipulation.updateSort(sortedData, true, sortButton.getValue(), Product.class);
         });
 
-        addSortAndFilterOtions();
+        addSortAndFilterOptions();
     }
 
-    private void setEmployeeList() {
-
-        originalOrder = javafx.collections.FXCollections.observableArrayList(employeesData);
-
-        filteredData = new FilteredList<>(employeesData, p -> true);
+    private void setProductList() {
+        filteredData = new FilteredList<>(productsData, p -> true);
         sortedData = new SortedList<>(filteredData);
-        sortedData.addListener((ListChangeListener<User>) change -> {
+        sortedData.addListener((ListChangeListener<Product>) change -> {
             refreshGrid();
         });
     }
@@ -148,29 +116,18 @@ public class EmployeeGrid {
     private void refreshGrid() {
         grid.getChildren().clear();
 
-        int column = 0;
-        int row = 0;
-
-        for (User user : sortedData) {
-            Parent card = loadEmployeeCard(user, () -> {
-                employeesData.remove(user);
-            });
-
+        for (Product product : sortedData) {
+            Parent card = loadProductCard(product);
             if (card != null) {
-                grid.add(card, column++, row);
-
-                if (column == 3) {
-                    column = 0;
-                    row++;
-                }
+                grid.getChildren().add(card);
             }
         }
     }
 
-    private Parent loadEmployeeCard(User user, Runnable onDelete) {
+    private Parent loadProductCard(Product product) {
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/hypermarket/view/components/EmployeeCard.fxml"));
+                    getClass().getResource("/com/hypermarket/view/components/ProductCard.fxml"));
             Parent node = loader.load();
 
             if (node instanceof Region) {
@@ -178,10 +135,8 @@ public class EmployeeGrid {
             }
             GridPane.setHgrow(node, Priority.ALWAYS);
 
-            EmployeeCardController controller = loader.getController();
-            controller.setData(user);
-
-            controller.setOnDeleteAction(onDelete);
+            ProductCardController controller = loader.getController();
+            controller.setData(product);
 
             return node;
         } catch (IOException ex) {
@@ -191,24 +146,17 @@ public class EmployeeGrid {
     }
 
     private void updateFilterChoices(String property) {
-
-        filterChoice.getItems().clear();
-
-        if ("None".equals(property)) {
-            return;
-        }
-
         filterChoice.getItems().clear();
         Field field;
         try {
-            field = User.class.getDeclaredField(filterButton.getValue());
+            field = Product.class.getDeclaredField(filterButton.getValue());
             field.setAccessible(true);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
             return;
         }
 
-        for (User obj : employeesData) {
+        for (Product obj : productsData) {
             Object choice;
             try {
                 choice = field.get(obj);
@@ -221,24 +169,13 @@ public class EmployeeGrid {
         }
     }
 
-    private void addSortAndFilterOtions() {
+    private void addSortAndFilterOptions() {
+        Field[] fields = Product.class.getDeclaredFields();
 
-        sortButton.getItems().add("None");
-        filterButton.getItems().add("None");
-
-        String[] fields = {
-                "ID",
-                "fName",
-                "lName",
-                "role",
-                "salary"
-        };
-
-        for (String fieldName : fields) {
+        for (Field field : fields) {
+            String fieldName = field.getName();
             sortButton.getItems().add(fieldName);
             filterButton.getItems().add(fieldName);
         }
-        sortButton.setValue("None");
-        filterButton.setValue("None");
     }
 }

@@ -1,5 +1,8 @@
 package com.hypermarket.entities;
 
+import com.hypermarket.data.DataStore;
+import com.hypermarket.modules.sales.MakeOrder;
+
 public class Sales extends User {
 
     public Sales(String recordLine) {
@@ -10,5 +13,11 @@ public class Sales extends User {
             String email, String password,
             double salary) {
         super(role, id, fName, lName, image, phone, email, password, salary);
+    }
+
+    public Order MakeOrder() {
+        Order newOrder = new Order(this);
+        DataStore.getDataStore().getOrders().add(newOrder);
+        return newOrder;
     }
 }
