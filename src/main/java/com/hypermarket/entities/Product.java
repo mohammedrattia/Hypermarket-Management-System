@@ -19,6 +19,7 @@ public class Product {
         this.productID = productID;
         this.name = name;
         this.price = price;
+        //jawn jawn
     }
 
     public Product(String name, String category, double price, int quantity, String size, String duration,
