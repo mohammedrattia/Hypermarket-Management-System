@@ -3,8 +3,7 @@ package com.hypermarket.modules.inventory;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.hypermarket.modules.admin.DashboardHome;
-import com.hypermarket.modules.admin.EmployeeGrid;
+import com.hypermarket.modules.inventory.*;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
 public class InventoryViewController implements Initializable {
 
@@ -31,10 +31,22 @@ public class InventoryViewController implements Initializable {
     private Label menuAddProducts;
 
     @FXML
-    private Label menuUpdateProduct;
+    private Label menuUpdateUserInfo;
 
-    private DashboardHome dashboardHome;
-    private EmployeeGrid employeeGrid;
+    @FXML
+    private HBox menuDashboardItem;
+
+    @FXML
+    private HBox menuProductsItem;
+
+    @FXML
+    private HBox menuAddProductItem;
+
+    @FXML
+    private HBox menuUpdateUserInfoItem;
+
+    private InventoryDashboard inventorydashboard;
+    private ProductsGrid productsGrid;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -44,38 +56,44 @@ public class InventoryViewController implements Initializable {
     }
 
     private void setUpNavigation() {
-        menuDashboard.setOnMouseClicked(event -> {
+        menuDashboardItem.setOnMouseClicked(event -> {
             showDashboard();
         });
 
-        menuProducts.setOnMouseClicked(event -> {
-            showEmployees();
+        menuProductsItem.setOnMouseClicked(event -> {
+            showProducts();
         });
 
-        menuAddProducts.setOnMouseClicked(event -> {
-            showAddEmployee();
+        menuAddProductItem.setOnMouseClicked(event -> {
+            showAddProduct();
         });
 
-        menuUpdateProduct.setOnMouseClicked(event -> {
+        menuUpdateUserInfo.setOnMouseClicked(event -> {
+            showUpdateUserInfo();
+        });
+
+        menuUpdateUserInfoItem.setOnMouseClicked(event -> {
             showUpdateUserInfo();
         });
     }
 
     private void showDashboard() {
         updateTitleAndActiveTab(menuDashboard);
-        if (dashboardHome == null)
-            dashboardHome = new DashboardHome();
+        if (inventorydashboard == null)
+            inventorydashboard = new InventoryDashboard();
         contentArea.getChildren().clear();
-        contentArea.getChildren().add(dashboardHome.getView());
+        contentArea.getChildren().add(inventorydashboard.getView());
         fitToAnchor(contentArea.getChildren().get(0));
     }
 
-    private void showEmployees() {
+    private void showProducts() {
         updateTitleAndActiveTab(menuProducts);
-        if (employeeGrid == null)
-            employeeGrid = new EmployeeGrid();
+
+        if (productsGrid == null)
+            productsGrid = new ProductsGrid();
+            
         contentArea.getChildren().clear();
-        contentArea.getChildren().add(employeeGrid.getView());
+        contentArea.getChildren().add(productsGrid.getView());
         fitToAnchor(contentArea.getChildren().get(0));
     }
 
@@ -86,13 +104,13 @@ public class InventoryViewController implements Initializable {
             contentArea.getChildren().clear();
             contentArea.getChildren().add(updateUserUI);
             fitToAnchor(updateUserUI);
-            updateTitleAndActiveTab(menuUpdateProduct);
+            updateTitleAndActiveTab(menuUpdateUserInfo);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void showAddEmployee() {
+    private void showAddProduct() {
         try {
             Parent addEmployeeUI = FXMLLoader.load(
                     getClass().getResource("/com/hypermarket/view/admin/AdminAddEmployee.fxml"));
@@ -118,7 +136,7 @@ public class InventoryViewController implements Initializable {
         menuDashboard.getStyleClass().remove("active-label");
         menuProducts.getStyleClass().remove("active-label");
         menuAddProducts.getStyleClass().remove("active-label");
-        menuUpdateProduct.getStyleClass().remove("active-label");
+        menuUpdateUserInfo.getStyleClass().remove("active-label");
 
         activeBox.getStyleClass().add("active-label");
         pageTitle.setText(activeBox.getText());

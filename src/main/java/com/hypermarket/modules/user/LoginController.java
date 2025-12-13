@@ -1,5 +1,7 @@
 package com.hypermarket.modules.user;
 
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -7,15 +9,26 @@ import javafx.scene.control.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.hypermarket.data.DataStore;
+import com.hypermarket.entities.User;
 import com.hypermarket.service.*;
 
 public class LoginController implements Initializable {
 
     @FXML
-    private TextField emailField;
+    private Button loginButton;
 
     @FXML
-    private Button loginButton;
+    private Button testAdminButton;
+    @FXML
+    private Button testInventoryButton;
+    @FXML
+    private Button testMarketingButton;
+    @FXML
+    private Button testSalesButton;
+
+    @FXML
+    private TextField emailField;
 
     @FXML
     private PasswordField passField;
@@ -29,6 +42,34 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loginButton.setDefaultButton(true);
+        testCredential();
+    }
+
+    public void testCredential() {
+        testAdminButton.setOnMouseClicked(event -> {
+            testButton(testAdminButton);
+        });
+        testInventoryButton.setOnMouseClicked(event -> {
+            testButton(testInventoryButton);
+        });
+        testMarketingButton.setOnMouseClicked(event -> {
+            testButton(testMarketingButton);
+        });
+        testSalesButton.setOnMouseClicked(event -> {
+            testButton(testSalesButton);
+        });
+    }
+
+    public void testButton(Button button) {
+        ObservableList<User> users = DataStore.getDataStore().getUsers();
+        for (User user : users) {
+            if (user.getRole().name().toLowerCase().equals(button.getText().toLowerCase())) {
+                emailField.setText(user.getEmail());
+                passField.setText(user.getPassword());
+                return;
+            }
+        }
+        System.out.println("Couldn't Find " + button.getText() + "!!");
     }
 
     @FXML

@@ -1,12 +1,12 @@
-package com.hypermarket.modules.inventory;
+package com.hypermarket.modules.sales;
 
 import java.io.IOException;
 import java.util.List;
 
 import com.hypermarket.data.DataStore;
-import com.hypermarket.entities.Product;
+import com.hypermarket.entities.User;
+import com.hypermarket.modules.components.EmployeeCardController;
 import com.hypermarket.modules.components.KpiCardController;
-import com.hypermarket.modules.components.ProductCardController;
 
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -16,9 +16,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class InventoryDashboard {
-
-    private VBox productGridContainer;
+public class SalesDashboard {
+    private VBox employeeListContainer;
     private HBox kpiContainer;
 
     public Parent getView() {
@@ -27,18 +26,18 @@ public class InventoryDashboard {
 
         kpiContainer = new HBox(30);
 
-        productGridContainer = new VBox(10);
-        productGridContainer.setPadding(new Insets(0));
+        employeeListContainer = new VBox(15);
+        employeeListContainer.setPadding(new Insets(10));
 
         refreshView();
 
         HBox bottomContainer = new HBox(5);
         VBox.setVgrow(bottomContainer, Priority.ALWAYS);
 
-        ScrollPane scrollPane = new ScrollPane(productGridContainer);
+        ScrollPane scrollPane = new ScrollPane(employeeListContainer);
         scrollPane.setFitToWidth(true);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setPrefWidth(400);
+        scrollPane.setPrefWidth(370);
         scrollPane.setStyle("-fx-background-color: transparent;");
 
         Parent pieChartNode = loadPieChartComponent();
@@ -59,24 +58,24 @@ public class InventoryDashboard {
         kpiContainer.getChildren().clear();
 
         DataStore db = DataStore.getDataStore();
-        List<Product> products = db.getProducts();
+        List<User> users = db.getUsers();
 
-        int productCount = products.size();
+        int userCount = users.size();
 
         kpiContainer.getChildren().addAll(
-                loadKpiCard("Porducts", String.valueOf(productCount), "2", true),
-                loadKpiCard("Categories", "10", "2", true),
+                loadKpiCard("Active Users", String.valueOf(userCount), "2", true),
+                loadKpiCard("Total Sales", "120,000", "2", true),
                 loadKpiCard("Low Stock", "10 Items", "5%", false));
     }
 
     private void refreshList() {
-        productGridContainer.getChildren().clear();
+        employeeListContainer.getChildren().clear();
 
         DataStore db = DataStore.getDataStore();
-        List<Product> products = db.getProducts();
-        for (int i = 0; i < products.size(); i++) {
-            Product p = products.get(i);
-            productGridContainer.getChildren().add(loadProductCards(p, this::refreshView));
+        List<User> users = db.getUsers();
+        for (int i = 0; i < users.size(); i++) {
+            User u = users.get(i);
+            employeeListContainer.getChildren().add(loadEmployeeCard(u, this::refreshView));
         }
     }
 
@@ -107,15 +106,16 @@ public class InventoryDashboard {
         }
     }
 
-    private Parent loadProductCards(Product product, Runnable onDelete) {
+    private Parent loadEmployeeCard(User user, Runnable onDelete) {
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/hypermarket/view/components/ProductCard.fxml"));
+                    getClass().getResource("/com/hypermarket/view/components/EmployeeCard.fxml"));
             Parent node = loader.load();
 
-            ProductCardController controller = loader.getController();
-            controller.setData(product);
+            EmployeeCardController controller = loader.getController();
+            controller.setData(user);
             controller.setOnDeleteAction(onDelete);
+
             return node;
         } catch (IOException ex) {
             ex.printStackTrace();

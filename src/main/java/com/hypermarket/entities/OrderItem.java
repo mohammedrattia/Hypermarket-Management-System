@@ -1,8 +1,31 @@
 package com.hypermarket.entities;
 
+import java.util.List;
+
+import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
+import com.hypermarket.service.ListManipulation;
+
+import javafx.scene.chart.PieChart.Data;
 
 public class OrderItem {
+
+    private int orderItemID;
+    private Order order;
+    private Product product;
+    private int quantity;
+    private double priceThatDate;
+
+    public OrderItem(Product product, int quantity) {
+        List<OrderItem> orderItems = DataStore.getDataStore().getOrderItems();
+        if (orderItems.isEmpty())
+            this.orderItemID = 1;
+        else
+            this.orderItemID = orderItems.get(orderItems.size() - 1).getOrderItemID() + 1;
+        this.product = product;
+        this.quantity = quantity;
+        this.priceThatDate = new Double(product.getPrice());
+    }
 
     public OrderItem(String recordLine) {
         parseString(recordLine);
@@ -10,35 +33,62 @@ public class OrderItem {
 
     @Override
     public String toString() {
-        // return this.attribute01 + FileManager.delimeter + this.attribute02 +
-        // FileManager.delimeter + FileManager.dateFormat.format(this.attribute03) +
-        // FileManager.delimeter + FileManager.dateTimeFormat.format(this.attribute04) +
-        // FileManager.delimeter + this.attribute05.toString() + ....;
-        // attribute03 type is Date (it has date only and time is set to 00:00:00)
-        // attribute04 type is Date (it has both date and time)
-        // attribute05 type is Role (only for user to know his role)
-        return "ُExample";
+        return orderItemID + FileManager.DELIMETER + order.getOrderID() + FileManager.DELIMETER + product.getProductID()
+                + FileManager.DELIMETER + quantity
+                + FileManager.DELIMETER + priceThatDate;
     }
 
     private void parseString(String line) {
         String[] values = line.split(FileManager.DELIMETER);
         // Look at the following examples and make the parseString Function
         try {
-            // this.attribute01 = values[0]; // Read String
-            // this.attribute02 = Integer(values[1]); // Convert String to Int //
-            // attribute02 is int
-            // this.attribute03 = FileManager.dateFormat.parse(values[2]); // Read Date only
-            // // attribute03 type is Date (it has date only and time is set to 00:00:00)
-            // this.attribute04 = FileManager.dateTimeFormat.parse(values[3]); // Read Date
-            // + Time // attribute04 type is Date (it has both date and time)
-            // this.attribute05 = Role.valueOf(values[4].toUpperCase().trim()); // Convert
-            // String to Role (must be UpperCase) // attribute05 type is Role (only for user
-            // to know his role)
+            orderItemID = new Integer(values[0]);
+            order = ListManipulation.searchObjectWithID(DataStore.getDataStore().getOrders(), values[1]);
+            product = ListManipulation.searchObjectWithID(DataStore.getDataStore().getProducts(), values[2]);
+            quantity = new Integer(values[3]);
+            priceThatDate = new Double(values[4]);
         } catch (IllegalArgumentException e) {
             System.err.println("Error Chosing Role: " + e.getMessage());
         } catch (Exception e) {
             System.err.println("Error parsing data: " + e.getMessage());
         }
+    }
+
+    public int getOrderItemID() {
+        return orderItemID;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+        priceThatDate = new Double(product.getPrice());
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getPriceThatDate() {
+        return priceThatDate;
+    }
+
+    public double getSubTotal() {
+        return priceThatDate * quantity;
     }
 
 }

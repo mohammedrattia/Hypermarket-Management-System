@@ -9,6 +9,7 @@ import java.util.Locale;
 import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.User;
 
+import javafx.scene.shape.Circle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -61,6 +63,8 @@ public class EmployeeCardController {
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toURL().toString());
                 userImage.setImage(image);
+
+                makeImageRound(userImage, 80);
             }
         } catch (MalformedURLException e) {
             System.err.println(e.getMessage());
@@ -90,6 +94,18 @@ public class EmployeeCardController {
             ex.printStackTrace();
             System.err.println("Error loading modal");
         }
+    }
+
+    private void makeImageRound(ImageView imageView, double size) {
+        imageView.setFitWidth(size);
+        imageView.setFitHeight(size);
+        imageView.setPreserveRatio(false);
+
+        Circle clip = new Circle(size / 2);
+        clip.setCenterX(size / 2);
+        clip.setCenterY(size / 2);
+
+        imageView.setClip(clip);
     }
 
 }

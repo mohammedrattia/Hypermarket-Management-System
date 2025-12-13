@@ -1,0 +1,35 @@
+.order-item-card {
+    -fx-background-color: white; /* Clean white background */
+    -fx-padding: 8 15;           /* Vertical: 8px, Horizontal: 15px */
+    -fx-border-color: -fx-grey-200;
+    -fx-border-width: 0 0 1 0;   /* Only bottom border (separator line) */
+    -fx-cursor: hand;            /* Suggests it is clickable/selectable */
+}
+
+.order-item-card:hover {
+    -fx-background-color: -fx-grey-50;
+}
+
+.order-item-card:selected {
+    -fx-background-color: -fx-primary-100; /* Very light green */
+    -fx-border-color: -fx-primary-300;
+}
+
+.item-name {
+    -fx-text-fill: -fx-grey-800; 
+    -fx-font-weight: 800;      
+    -fx-font-size: 14px;
+}
+
+.item-details-text {
+    -fx-text-fill: -fx-grey-500; 
+    -fx-font-weight: bold;       
+    -fx-font-size: 11px;         
+}
+
+.item-total-price {
+    -fx-text-fill: -fx-grey-800;
+    -fx-font-weight: 800;       
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER_RIGHT;
+}
