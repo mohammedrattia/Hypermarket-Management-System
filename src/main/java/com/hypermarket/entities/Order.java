@@ -1,8 +1,23 @@
 package com.hypermarket.entities;
 
+import java.time.LocalDate;
+
 import com.hypermarket.data.FileManager;
 
+import javafx.collections.ObservableList;
+
 public class Order {
+
+    private int orderID;
+    private LocalDate date;
+    private int totalQuantity;
+    private double totalPrice;
+    private Sales seller;
+    private ObservableList<OrderItem> items;
+
+    public Order(Sales seller) {
+
+    }
 
     public Order(String recordLine) {
         parseString(recordLine);
@@ -39,6 +54,11 @@ public class Order {
         } catch (Exception e) {
             System.err.println("Error parsing data: " + e.getMessage());
         }
+    }
+
+    public String getOrderID() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getOrderID'");
     }
 
 }
