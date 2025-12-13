@@ -1,8 +1,9 @@
 package com.hypermarket.entities;
 
-import com.hypermarket.data.*; 
+import com.hypermarket.data.*;
 import com.hypermarket.entities.*;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,7 +12,7 @@ import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-        // If there's anything you want to ask about the code "Better Call Mada" , 01065145114
+// If there's anything you want to ask about the code "Better Call Mada" , 01065145114
 
 public class Inventory extends User {
     private ObservableList<Product> products;
@@ -25,14 +26,14 @@ public class Inventory extends User {
     }
 
     public Inventory(String role, int id, String fName, String lName, String image, String phone,
-                     String email, String password, double salary) {
+            String email, String password, double salary) {
 
         super(role, id, fName, lName, image, phone, email, password, salary);
         DataStore ds = DataStore.getDataStore();
         this.products = ds.getProducts();
         this.batches = ds.getBatches();
         this.damageLogs = ds.getDamageLogs();
-        this.notifications = ds.getNotifications(); 
+        this.notifications = ds.getNotifications();
     }
 
     public void addProduct(Product newProduct) {
@@ -46,7 +47,7 @@ public class Inventory extends User {
     public void updateProduct(String id, Product updateProduct) {
         for (int i = 0; i < products.size(); i++) {
             if (String.valueOf(products.get(i).getProductID()).equals(id)) {
-                products.set(i, updateProduct); 
+                products.set(i, updateProduct);
                 DataStore.getDataStore().saveAllData();
                 return;
             }
@@ -95,13 +96,13 @@ public class Inventory extends User {
 
     public List<Product> checkLowStock() {
         List<Product> results = new ArrayList<>();
-        
-        for (Product product : products) {              
-            if (product.getQuantity() < 5) {             
-                results.add(product);                    
+
+        for (Product product : products) {
+            if (product.getQuantity() < 5) {
+                results.add(product);
             }
         }
-    
+
         return results;
     }
 
@@ -112,7 +113,9 @@ public class Inventory extends User {
         long dayInMilliseconds = 86400000L;
         List<Batch> nearExpiryBatches = new ArrayList<>();
         for (Batch b : this.batches) {
-            if (b.getExpiryDate().getTime() - date.getTime() <=7 * dayInMilliseconds) {
+            if (Date.from(b.getExpiryDate().atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime()
+                    - date.getTime() <= 7 * dayInMilliseconds) {
+                // if (b.getExpiryDate().getTime() - date.getTime() <=7 * dayInMilliseconds) {
                 nearExpiryBatches.add(b);
             }
         }

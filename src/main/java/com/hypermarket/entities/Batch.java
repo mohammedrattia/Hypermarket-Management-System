@@ -1,5 +1,6 @@
 package com.hypermarket.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import com.hypermarket.data.DataStore;
@@ -11,8 +12,8 @@ public class Batch {
     private int batchID;
     private Product product;
     private int quantity;
-    private Date deliveryDate;
-    private Date expiryDate;
+    private LocalDate deliveryDate;
+    private LocalDate expiryDate;
 
     public Batch(String record) {
         parseString(record);
@@ -30,28 +31,28 @@ public class Batch {
         return quantity;
     }
 
-    public Date getExpiryDate() {
+    public LocalDate getExpiryDate() {
         return expiryDate;
     }
 
     @Override
     public String toString() {
-        return batchID + FileManager.DELIMETER + 
-               product.getProductID() + FileManager.DELIMETER +
-               quantity + FileManager.DELIMETER + 
-               FileManager.dateTimeFormat.format(deliveryDate) + 
-               FileManager.DELIMETER + 
-               FileManager.dateFormat.format(expiryDate);
+        return batchID + FileManager.DELIMETER +
+                product.getProductID() + FileManager.DELIMETER +
+                quantity + FileManager.DELIMETER +
+                deliveryDate.format(FileManager.dateFormat) +
+                FileManager.DELIMETER +
+                expiryDate.format(FileManager.dateFormat);
     }
 
     private void parseString(String line) {
         String[] values = line.split(FileManager.DELIMETER);
         try {
             batchID = Integer.valueOf(values[0]);
-            product = ListManipulation.searchObjectWithID(DataStore.getDataStore().getProducts(), values[1]); 
+            product = ListManipulation.searchObjectWithID(DataStore.getDataStore().getProducts(), values[1]);
             quantity = Integer.valueOf(values[2]);
-            deliveryDate = FileManager.dateTimeFormat.parse(values[3]);
-            expiryDate = FileManager.dateFormat.parse(values[4]);
+            deliveryDate = LocalDate.parse(values[3], FileManager.dateFormat);
+            expiryDate = LocalDate.parse(values[4], FileManager.dateFormat);
         } catch (IllegalArgumentException e) {
             System.err.println("Error Entering Data: " + e.getMessage());
         } catch (Exception e) {
