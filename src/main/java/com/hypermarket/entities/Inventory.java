@@ -6,6 +6,7 @@ import com.hypermarket.entities.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Date;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import javafx.collections.ObservableList;
 
 public class Inventory extends User {
     private ObservableList<Product> products;
+    private ObservableList<Batch> batches;
     private ObservableList<DamageLog> damageLogs;
     private ObservableList<DamageLog> returnLogs;
     private ObservableList<Notification> notifications;
@@ -28,6 +30,7 @@ public class Inventory extends User {
         super(role, id, fName, lName, image, phone, email, password, salary);
         DataStore ds = DataStore.getDataStore();
         this.products = ds.getProducts();
+        this.batches = ds.getBatches();
         this.damageLogs = ds.getDamageLogs();
         this.notifications = ds.getNotifications(); 
     }
@@ -104,8 +107,16 @@ public class Inventory extends User {
 
     // Still not finished and wont be soon i guess
 
-    public List<Product> checkExpiryDates() {
-        return new ArrayList<>();
+    public List<Batch> checkExpiryDates() {
+        Date date = new Date();
+        long dayInMilliseconds = 86400000L;
+        List<Batch> nearExpiryBatches = new ArrayList<>();
+        for (Batch b : this.batches) {
+            if (b.getExpiryDate().getTime() - date.getTime() <=7 * dayInMilliseconds) {
+                nearExpiryBatches.add(b);
+            }
+        }
+        return nearExpiryBatches;
     }
 
     public List<Notification> viewNotifications() {
