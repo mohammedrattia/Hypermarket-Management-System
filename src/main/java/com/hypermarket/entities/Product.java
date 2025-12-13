@@ -1,38 +1,37 @@
 package com.hypermarket.entities;
 
+import com.hypermarket.data.FileManager;
+
 public class Product {
+    private int productID;
     private String name;
     private String category;
-    private double price;
-    private double offer;
+    private String description;
     private int quantity;
+    private double price;
+    private Offer offer;
     private String size;
-    private String duration;
-    private String imagePath;
-    private int productID;
+    private int threshold;
+    private String imageName;
 
     public Product(String record) {
         parseString(record);
     }
 
-    public Product(int productID, String name, double price) {
+    public Product(int productID, String name, String category, String description, int quantity, double price, String size, int threshold) {
         this.productID = productID;
-        this.name = name;
-        this.price = price;
-    }
-
-    public Product(String name, String category, double price, int quantity, String size, String duration,
-            String imagePath,
-            int productID, double offer) {
         this.name = name;
         this.category = category;
-        this.price = price;
-        this.offer = offer;
+        this.description = description;
         this.quantity = quantity;
+        this.price = price;
         this.size = size;
-        this.duration = duration;
-        this.imagePath = imagePath;
-        this.productID = productID;
+        this.threshold = threshold;
+        this.imageName = "image_" + this.productID;
+    }
+    
+    public int getProductID() {
+        return productID;
     }
 
     public String getName() {
@@ -42,66 +41,92 @@ public class Product {
     public String getCategory() {
         return category;
     }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public double getOffer() {
-        return offer;
+    
+    public String getDescription() {
+        return description;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public Offer getOffer() {
+        return offer;
+    }
+
+    public void setOffer(Offer offer) {
+        this.offer = offer;
+    }
+
     public String getSize() {
         return size;
     }
 
-    public String getDuration() {
-        return duration;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public int getProductID() {
-        return productID;
-    }
-
-
-
-    public void parseString(String line) {
-        String[] parts = line.split(";");
-
-        try {
-            this.productID = Integer.parseInt(parts[0]); // int
-            this.name = parts[1];                        // String
-            this.category = parts[2];                    // String
-            this.price = Double.parseDouble(parts[3]);   // double
-            this.offer = Double.parseDouble(parts[4]);   // double
-            this.quantity = Integer.parseInt(parts[5]);  // int
-            this.size = parts[6];                        // String
-            this.duration = parts[7];                    // String
-            this.imagePath = parts[8];                   // String
-        } catch (Exception e) {
-            System.err.println("Error parsing product: " + line);
-            e.printStackTrace();
-        }
+    public String getImageName() {
+        return imageName;
     }
 
     @Override
     public String toString() {
-        return productID + ";" + 
-            name + ";" + 
-            category + ";" + 
-            price + ";" + 
-            offer + ";" + 
-            quantity + ";" + 
-            size + ";" + 
-            duration + ";" + 
-            imagePath;
+        return productID + FileManager.DELIMETER + 
+               name + FileManager.DELIMETER + 
+               category + FileManager.DELIMETER +
+               description + FileManager.DELIMETER +
+               quantity + FileManager.DELIMETER +
+               price + FileManager.DELIMETER +
+               //! The offer thing needs to be fixed
+               (offer != null ? offer.toString() : "null") + FileManager.DELIMETER +
+               size + FileManager.DELIMETER +
+               threshold + FileManager.DELIMETER + 
+               imageName;
+    }
+
+    private void parseString(String line) {
+        String[] values = line.split(FileManager.DELIMETER);
+        try {
+            productID = Integer.valueOf(values[0]);
+            name = values[1];
+            category = values[2];
+            description = values[3];
+            quantity = Integer.valueOf(values[4]);
+            price = Double.valueOf(values[5]);
+            /**Habiba will handle this value:
+            offer = Offer.valueOf(values[6]);*/
+            size = values[7];
+            threshold = Integer.valueOf(values[8]);
+            imageName = values[9];
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error Entering Data: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Error Parsing Data: " + e.getMessage());
+        }
+    }
+
+    public boolean isLowStock() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'isLowStock'");
+    }
+
+    public int getTotalQuantity() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTotalQuantity'");
+    }
+
+    public boolean reduceStock(int quantity2) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'reduceStock'");
+    }
+
+    public int getThreshold() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getThreshold'");
     }
 }

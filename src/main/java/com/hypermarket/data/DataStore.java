@@ -29,7 +29,7 @@ public class DataStore {
         lists.put("orderItems", orderItems);
         lists.put("offers", offers);
         lists.put("reports", reports);
-        lists.put("notification", notifications);
+        lists.put("notifications", notifications);
         lists.put("damageLogs", damageLogs);
     }
 
@@ -66,7 +66,7 @@ public class DataStore {
         loadData("orderItems", orderItems, (record) -> new OrderItem(record));
         loadData("offers", offers, (record) -> new Offer(record));
         loadData("reports", reports, (record) -> new Report(record));
-        loadData("notification", notifications, (record) -> new Notification(record));
+        loadData("notifications", notifications, (record) -> new Notification(record));
         loadData("damageLogs", damageLogs, (record) -> new DamageLog(record));
 
     }

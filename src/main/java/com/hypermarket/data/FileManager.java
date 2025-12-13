@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.*;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,8 +20,12 @@ public class FileManager {
     private static final String FILEEXTENSION = ".txt";
     public static final String IMAGE_PATH = "data/ProfileImages/";
     public static final String DELIMETER = ";";
-    public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    public static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    // public static SimpleDateFormat dateFormat = new
+    // SimpleDateFormat("yyyy-MM-dd");
+    // public static SimpleDateFormat dateTimeFormat = new
+    // SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public static DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public static void writeFile(String filename, ObservableList<?> data) {
         File dataFolder = new File(BASEPATH);
