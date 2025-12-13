@@ -29,7 +29,7 @@ public class DataStore {
         lists.put("orderItems", orderItems);
         lists.put("offers", offers);
         lists.put("reports", reports);
-        lists.put("notifications", notifications);
+        lists.put("notification", notifications);
         lists.put("damageLogs", damageLogs);
     }
 
