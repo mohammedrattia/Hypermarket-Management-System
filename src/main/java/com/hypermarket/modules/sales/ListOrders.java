@@ -28,11 +28,11 @@ public class ListOrders implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // rootPane.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         // rootPane.getStylesheets().add(getClass().getResource("/css/specific.css").toExternalForm());
-        loadDashboardHome();
+        // loadDashboardHome();
     }
 
     private void loadDashboardHome() {
-        contentArea.getChildren().clear();
+        // contentArea.getChildren().clear();
 
     }
 }
