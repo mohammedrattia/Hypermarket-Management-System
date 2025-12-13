@@ -1,4 +1,4 @@
-/* .default-color0.chart-pie {
+.default-color0.chart-pie {
   -fx-pie-color: #2e7d32;
   -fx-background-color: #2e7d32;
 }
@@ -21,14 +21,14 @@
 .default-color4.chart-pie {
   -fx-pie-color: #aed581;
   -fx-background-color: #aed581;
-} */
+}
 
-/* .chart {
+.chart {
   -fx-background-color: transparent;
-} */
+}
 
 .chart-content {
-  /* -fx-padding: 10px; */
+  -fx-padding: 10px;
 }
 
 /* .chart-legend {

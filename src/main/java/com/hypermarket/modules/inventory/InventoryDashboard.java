@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.List;
 
 import com.hypermarket.data.DataStore;
-import com.hypermarket.entities.Product; // Assuming you have this
+import com.hypermarket.entities.Product;
 import com.hypermarket.modules.components.KpiCardController;
-// Import your PieChart controller/component if needed
+import com.hypermarket.modules.components.ProductCardController;
 
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -15,91 +15,80 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.BorderPane;
 
 public class InventoryDashboard {
 
+    private VBox productGridContainer;
     private HBox kpiContainer;
-    private VBox productListContainer; 
 
-    // This method is what you call from your MainController
     public Parent getView() {
-        
         VBox mainLayout = new VBox(20);
-        mainLayout.setPadding(new Insets(20));
-        kpiContainer = new HBox(20);
-        productListContainer = new VBox(10);
+        mainLayout.setPadding(new Insets(25));
 
-        refreshView(); 
+        kpiContainer = new HBox(30);
 
-        ScrollPane scrollPane = new ScrollPane(productListContainer);
+        productGridContainer = new VBox(10);
+        productGridContainer.setPadding(new Insets(0));
+
+        refreshView();
+
+        HBox bottomContainer = new HBox(5);
+        VBox.setVgrow(bottomContainer, Priority.ALWAYS);
+
+        ScrollPane scrollPane = new ScrollPane(productGridContainer);
         scrollPane.setFitToWidth(true);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setPrefWidth(400);
         scrollPane.setStyle("-fx-background-color: transparent;");
-        VBox.setVgrow(scrollPane, Priority.ALWAYS); // Let it grow to fill space
 
-        // 6. Assemble everything
-        // Example: Top = KPIs, Center = Chart + List
-        mainLayout.getChildren().add(kpiContainer);
-        
-        // Let's assume you want the PieChart above the List
-        Parent chartNode = loadPieChartComponent();
-        if (chartNode != null) {
-            mainLayout.getChildren().add(chartNode);
-        }
-        
-        mainLayout.getChildren().add(scrollPane);
+        Parent pieChartNode = loadPieChartComponent();
+        HBox.setHgrow(pieChartNode, Priority.ALWAYS);
+
+        bottomContainer.getChildren().addAll(pieChartNode, scrollPane);
+        mainLayout.getChildren().addAll(kpiContainer, bottomContainer);
 
         return mainLayout;
     }
 
-    // --- REFRESH LOGIC ---
-
-    public void refreshView() {
+    private void refreshView() {
         refreshKpis();
-        refreshProductList();
+        refreshList();
     }
 
     private void refreshKpis() {
         kpiContainer.getChildren().clear();
 
-        // Calculate Stats
-        DataStore ds = DataStore.getDataStore();
-        int productCount = ds.getProducts().size();
-        // You can add logic here to count low stock, etc.
+        DataStore db = DataStore.getDataStore();
+        List<Product> products = db.getProducts();
 
-        // Load the 3 Cards
+        int productCount = products.size();
+
         kpiContainer.getChildren().addAll(
-            loadKpiCard("Total Products", "100", "+5", true),
-            loadKpiCard("Low Stock", "5", "-2", false), // Example data
-            loadKpiCard("Categories", "8", "0", true)
-        );
+                loadKpiCard("Porducts", String.valueOf(productCount), "2", true),
+                loadKpiCard("Categories", "10", "2", true),
+                loadKpiCard("Low Stock", "10 Items", "5%", false));
     }
 
-    private void refreshProductList() {
-        productListContainer.getChildren().clear();
+    private void refreshList() {
+        productGridContainer.getChildren().clear();
 
-        List<Product> products = DataStore.getDataStore().getProducts();
-        
-        // Loop through data and create a row for each product
-        for (Product p : products) {
-            // Assume you have a ProductCard.fxml, or you can use EmployeeCard.fxml as a template
-            // passing 'null' for onDelete for now
-            productListContainer.getChildren().add(loadProductCard(p)); 
+        DataStore db = DataStore.getDataStore();
+        List<Product> products = db.getProducts();
+        for (int i = 0; i < products.size(); i++) {
+            Product p = products.get(i);
+            productGridContainer.getChildren().add(loadProductCards(p, this::refreshView));
         }
     }
 
-    // --- LOADER HELPER METHODS ---
-    // These methods do the heavy lifting of reading the FXML files
-
     private Parent loadKpiCard(String title, String value, String trend, boolean isPositive) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/hypermarket/view/components/KpiCard.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/hypermarket/view/components/KpiCard.fxml"));
             Parent node = loader.load();
-            
-            // Get controller and push data
+
             KpiCardController controller = loader.getController();
             controller.setData(title, value, trend, isPositive);
-            
+
             return node;
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -109,8 +98,8 @@ public class InventoryDashboard {
 
     private Parent loadPieChartComponent() {
         try {
-            // Assuming your PieChart component is in this path
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/hypermarket/view/components/PieChart.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/hypermarket/view/components/PieChart.fxml"));
             return loader.load();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -118,22 +107,19 @@ public class InventoryDashboard {
         }
     }
 
-    // Assuming you reuse EmployeeCard or have a ProductCard.fxml
-    private Parent loadProductCard(Product product) {
-        // You can reuse a card FXML here. If you don't have a ProductCard.fxml,
-        // you might need to create one, or use a Label for now.
+    private Parent loadProductCards(Product product, Runnable onDelete) {
         try {
-             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/hypermarket/view/components/EmployeeCard.fxml"));
-             Parent node = loader.load();
-             
-             // Setup controller (You might need to adapt EmployeeCardController to accept Product)
-             // EmployeeCardController controller = loader.getController();
-             // controller.setProduct(product); 
-             
-             return node;
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/hypermarket/view/components/ProductCard.fxml"));
+            Parent node = loader.load();
+
+            ProductCardController controller = loader.getController();
+            controller.setData(product);
+            controller.setOnDeleteAction(onDelete);
+            return node;
         } catch (IOException ex) {
-             return null;
+            ex.printStackTrace();
+            return null;
         }
     }
 }
-

@@ -9,3 +9,4 @@
 10;Tarek;Zaki;user_010.png;INVENTORY;01299887766;tarek.z@warehouse.com;warehouse143000.0;0.0
 15;ahmed;ali;image;MARKETING;1234567896;ssss@gmail.com;123456;800000.0
 16;Ahmed;Alaa;image;MARKETING;01129012900;jack@wrestler.com;weareheros;676767.0
+17;Mona;Lisa;user_001.png;INVENTORY;01555556666;a;a;0.0
