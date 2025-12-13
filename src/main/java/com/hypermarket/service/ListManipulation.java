@@ -2,8 +2,11 @@ package com.hypermarket.service;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
+import com.hypermarket.entities.*;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -91,14 +94,13 @@ public class ListManipulation {
         if (list == null || list.isEmpty()) {
             return null;
         }
-        System.out.println("my id:" + id);
         T firstItem = list.getFirst();
         Class<?> listClass = firstItem.getClass();
-        Field[] fields = listClass.getDeclaredFields();
+
+        List<Field> fields = getAllFields(listClass);
         Field idField = null;
 
         for (Field field : fields) {
-            System.out.println("the Field: " + field.getName());
             if (field.getName().toLowerCase().trim().contains("id")) {
                 idField = field;
                 break;
@@ -106,15 +108,24 @@ public class ListManipulation {
         }
 
         if (idField == null) {
+            System.out.println("[Warning] No ID field found for class: " + listClass.getSimpleName());
             return null;
         }
         idField.setAccessible(true);
-        System.out.println("id Field: " + idField.getName());
-        for (T t : list) {
-            System.out.println("the User ID: " + t.toString());
-            if (id.equals(String.valueOf(idField.get(t))))
-                return t;
+        for (T element : list) {
+            if (id.equals(String.valueOf(idField.get(element))))
+                return element;
         }
         return null;
+    }
+
+    private static List<Field> getAllFields(Class<?> type) {
+        List<Field> fields = new ArrayList<>();
+        // int level = 2;
+        for (Class<?> parentClass = type; parentClass != null
+                && parentClass != Object.class; parentClass = parentClass.getSuperclass()) {
+            fields.addAll(Arrays.asList(parentClass.getDeclaredFields()));
+        }
+        return fields;
     }
 }

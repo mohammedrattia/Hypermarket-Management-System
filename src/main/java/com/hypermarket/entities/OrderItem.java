@@ -1,5 +1,7 @@
 package com.hypermarket.entities;
 
+import java.util.List;
+
 import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 import com.hypermarket.service.ListManipulation;
@@ -8,12 +10,18 @@ import javafx.scene.chart.PieChart.Data;
 
 public class OrderItem {
 
+    private int orderItemID;
     private Order order;
     private Product product;
     private int quantity;
     private double priceThatDate;
 
     public OrderItem(Product product, int quantity) {
+        List<OrderItem> orderItems = DataStore.getDataStore().getOrderItems();
+        if (orderItems.isEmpty())
+            this.orderItemID = 1;
+        else
+            this.orderItemID = orderItems.get(orderItems.size() - 1).getOrderItemID() + 1;
         this.product = product;
         this.quantity = quantity;
         this.priceThatDate = new Double(product.getPrice());
@@ -25,7 +33,8 @@ public class OrderItem {
 
     @Override
     public String toString() {
-        return order.getOrderID() + FileManager.DELIMETER + product.getProductID() + FileManager.DELIMETER + quantity
+        return orderItemID + FileManager.DELIMETER + order.getOrderID() + FileManager.DELIMETER + product.getProductID()
+                + FileManager.DELIMETER + quantity
                 + FileManager.DELIMETER + priceThatDate;
     }
 
@@ -33,15 +42,20 @@ public class OrderItem {
         String[] values = line.split(FileManager.DELIMETER);
         // Look at the following examples and make the parseString Function
         try {
-            order = ListManipulation.searchObjectWithID(DataStore.getDataStore().getOrders(), values[0]);
-            product = ListManipulation.searchObjectWithID(DataStore.getDataStore().getProducts(), values[1]);
-            quantity = new Integer(values[1]);
-            priceThatDate = new Double(values[2]);
+            orderItemID = new Integer(values[0]);
+            order = ListManipulation.searchObjectWithID(DataStore.getDataStore().getOrders(), values[1]);
+            product = ListManipulation.searchObjectWithID(DataStore.getDataStore().getProducts(), values[2]);
+            quantity = new Integer(values[3]);
+            priceThatDate = new Double(values[4]);
         } catch (IllegalArgumentException e) {
             System.err.println("Error Chosing Role: " + e.getMessage());
         } catch (Exception e) {
             System.err.println("Error parsing data: " + e.getMessage());
         }
+    }
+
+    public int getOrderItemID() {
+        return orderItemID;
     }
 
     public Order getOrder() {

@@ -1,22 +1,30 @@
 package com.hypermarket.entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
+import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Order {
 
     private int orderID;
-    private LocalDate date;
+    private LocalDateTime dateTime;
     private int totalQuantity;
     private double totalPrice;
     private Sales seller;
-    private ObservableList<OrderItem> items;
+    private ObservableList<OrderItem> items = FXCollections.observableArrayList();
 
     public Order(Sales seller) {
-
+        List<Order> orders = DataStore.getDataStore().getOrders();
+        if (orders.isEmpty())
+            this.orderID = 1;
+        else
+            this.orderID = orders.get(orders.size() - 1).getOrderID() + 1;
     }
 
     public Order(String recordLine) {
@@ -56,9 +64,43 @@ public class Order {
         }
     }
 
-    public String getOrderID() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getOrderID'");
+    public int getOrderID() {
+        return orderID;
     }
 
+    public Sales getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Sales seller) {
+        this.seller = seller;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public int getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(int totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public ObservableList<OrderItem> getItems() {
+        return items;
+    }
 }
