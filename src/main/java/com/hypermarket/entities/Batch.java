@@ -1,6 +1,8 @@
 package com.hypermarket.entities;
 
 import java.util.Date;
+
+import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 import com.hypermarket.service.ListManipulation;
 
@@ -46,8 +48,7 @@ public class Batch {
         String[] values = line.split(FileManager.DELIMETER);
         try {
             batchID = Integer.valueOf(values[0]);
-            //product = ListManipulation.searchObjectWithID(ObservableList<T> products, values[1]); Someone added ths functions that I don't have yet.
-            quantity = Integer.valueOf(values[2]);
+            product = ListManipulation.searchObjectWithID(DataStore.getDataStore().getProducts(), values[1]); 
             deliveryDate = FileManager.dateTimeFormat.parse(values[3]);
             expiryDate = FileManager.dateFormat.parse(values[4]);
         } catch (IllegalArgumentException e) {
