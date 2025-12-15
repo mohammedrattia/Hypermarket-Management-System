@@ -8,6 +8,7 @@ import com.hypermarket.modules.inventory.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -47,12 +48,17 @@ public class InventoryViewController implements Initializable {
 
     private InventoryDashboard inventorydashboard;
     private ProductsGrid productsGrid;
-
+    Runnable onLogout;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         showDashboard();
         setUpNavigation();
         updateTitleAndActiveTab(menuDashboard);
+    }
+
+    public void setOnLogout(Runnable onLogout) {
+        this.onLogout = onLogout;
     }
 
     private void setUpNavigation() {
@@ -100,7 +106,7 @@ public class InventoryViewController implements Initializable {
     private void showUpdateUserInfo() {
         try {
             Parent updateUserUI = FXMLLoader.load(
-                    getClass().getResource("/com/hypermarket/view/UpdateUserInfo.fxml"));
+                    getClass().getResource("/com/hypermarket/view/user/UpdateUserInfo.fxml"));
             contentArea.getChildren().clear();
             contentArea.getChildren().add(updateUserUI);
             fitToAnchor(updateUserUI);
@@ -112,12 +118,13 @@ public class InventoryViewController implements Initializable {
 
     private void showAddProduct() {
         try {
-            Parent addEmployeeUI = FXMLLoader.load(
-                    getClass().getResource("/com/hypermarket/view/admin/AdminAddEmployee.fxml"));
+            Parent addProductUI = FXMLLoader.load(
+                    getClass().getResource("/com/hypermarket/view/inventory/AddProduct.fxml"));
 
             contentArea.getChildren().clear();
-            contentArea.getChildren().add(addEmployeeUI);
-            fitToAnchor(addEmployeeUI);
+            contentArea.getChildren().add(addProductUI);
+            contentArea.setPadding(Insets.EMPTY);
+            fitToAnchor(addProductUI);
             updateTitleAndActiveTab(menuAddProducts);
         } catch (Exception e) {
             e.printStackTrace();

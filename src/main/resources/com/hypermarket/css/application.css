@@ -31,7 +31,7 @@
 
 .menu-item {
   -fx-text-fill: rgb(36, 36, 36);
-  -fx-padding: 12 20 12 20;
+  -fx-padding: 12 20;
   -fx-cursor: hand;
 }
 
@@ -191,4 +191,13 @@
 }
 .menu-text {
   -fx-font-size: 16px;
+  -fx-max-width: 150px;
+  
+}
+
+.menu-icon-box{
+  -fx-alignment: center;
+  -fx-min-width: 30px;
+  -fx-max-width: 30px;
+
 }

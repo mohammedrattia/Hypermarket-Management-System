@@ -109,8 +109,9 @@
         </HBox>
 
         <AnchorPane fx:id="contentArea" layoutY="80.0" styleClass="content-area" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
-          <padding><Insets bottom="20.0" left="30.0" right="30.0" top="20.0" /></padding>
-        </AnchorPane>
+               <padding>
+                  <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+               </padding></AnchorPane>
 
       </children>
     </AnchorPane>

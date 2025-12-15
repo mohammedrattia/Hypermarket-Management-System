@@ -1,8 +1,14 @@
 package com.hypermarket.service;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
+import com.hypermarket.entities.*;
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 
@@ -81,5 +87,45 @@ public class ListManipulation {
         }
 
         sortedList.setComparator(comparator);
+    }
+
+    public static <T> T searchObjectWithID(ObservableList<T> list, String id)
+            throws IllegalArgumentException, IllegalAccessException {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+        T firstItem = list.getFirst();
+        Class<?> listClass = firstItem.getClass();
+
+        List<Field> fields = getAllFields(listClass);
+        Field idField = null;
+
+        for (Field field : fields) {
+            if (field.getName().toLowerCase().trim().contains("id")) {
+                idField = field;
+                break;
+            }
+        }
+
+        if (idField == null) {
+            System.out.println("[Warning] No ID field found for class: " + listClass.getSimpleName());
+            return null;
+        }
+        idField.setAccessible(true);
+        for (T element : list) {
+            if (id.equals(String.valueOf(idField.get(element))))
+                return element;
+        }
+        return null;
+    }
+
+    private static List<Field> getAllFields(Class<?> type) {
+        List<Field> fields = new ArrayList<>();
+        // int level = 2;
+        for (Class<?> parentClass = type; parentClass != null
+                && parentClass != Object.class; parentClass = parentClass.getSuperclass()) {
+            fields.addAll(Arrays.asList(parentClass.getDeclaredFields()));
+        }
+        return fields;
     }
 }

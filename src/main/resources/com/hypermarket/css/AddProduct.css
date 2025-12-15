@@ -1,0 +1,69 @@
+.PageTitle {
+    -fx-font-size: 50px;
+    -fx-text-fill: #212f3d;
+    -fx-font-weight: bold;
+}
+
+.BtnsHbox {
+    -fx-background-color: rgba(247, 247, 247, 0.432);
+}
+
+.input-field {
+    -fx-background-color: rgb(245, 245, 245);
+}
+
+.BtnsSep {
+    -fx-background-color: rgb(0, 160, 77);
+}
+
+#AddClearProductBtns
+{
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-background-radius: 12;
+  -fx-padding: 10 15 10 15;
+  -fx-cursor: hand;
+  -fx-min-width: 110px;
+  -fx-min-height: 35px;
+  -fx-pref-width: 150px;
+  -fx-pref-height: 60px;
+  -fx-font-size: 12px;
+}
+
+
+
+#add-update-btn
+{
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-background-radius: 12;
+  -fx-padding: 10 15 10 15;
+  -fx-cursor: hand;
+  -fx-min-width: 110px;
+  -fx-min-height: 35px;
+  -fx-pref-width: 360px;
+  -fx-pref-height: 60px;
+  -fx-font-size: 12px;
+}
+
+.input-field:focused {
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-border-color: #10b981;
+}
+.input-field:hover {
+    -fx-background-color: rgb(216, 216, 216);
+    -fx-border-color: #10b981;
+}
+
+.main-container {
+    -fx-background-color: rgb(231, 231, 231);
+}
+
+.label-container {
+    -fx-min-width: 100px;
+    -fx-pref-width: 100px;
+}
+
+.sidebar-panel {
+    -fx-background-color: rgb(238, 238, 238);
+}

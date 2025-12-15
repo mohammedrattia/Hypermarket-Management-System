@@ -6,10 +6,11 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="main-scene" stylesheets="@../../css/Login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.user.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="main-scene" stylesheets="@../../css/Login.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.user.LoginController">
    <children>
       <StackPane prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -20,6 +21,14 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Label>
+                  <HBox prefHeight="2.0" prefWidth="270.0" styleClass="test-credentials-box">
+                     <children>
+                        <Button fx:id="testAdminButton" mnemonicParsing="false" styleClass="test-credentials-btn" text="Admin" />
+                        <Button fx:id="testInventoryButton" mnemonicParsing="false" styleClass="test-credentials-btn" text="Inventory" />
+                        <Button fx:id="testMarketingButton" mnemonicParsing="false" styleClass="test-credentials-btn" text="Marketing" />
+                        <Button fx:id="testSalesButton" mnemonicParsing="false" styleClass="test-credentials-btn" text="Sales" />
+                     </children>
+                  </HBox>
                   <Label styleClass="field-label" text="Email:" />
                   <TextField fx:id="emailField" promptText="Enter your email" />
                   <Label styleClass="field-label" text="Password:" />

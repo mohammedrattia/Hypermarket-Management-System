@@ -5,8 +5,15 @@ module com.hypermarket {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.fontawesome5;
     requires javafx.base;
+    // Receipt Printer
+    requires java.desktop;
+    requires kernel;
+    requires layout;
+    requires io;
+    requires html2pdf;
 
     opens com.hypermarket.modules.components to javafx.fxml;
+    opens com.hypermarket.modules.sales to javafx.fxml;
     opens com.hypermarket.modules.admin to javafx.fxml;
     opens com.hypermarket.modules.user to javafx.fxml;
     opens com.hypermarket.entities to javafx.fxml, javafx.base;
