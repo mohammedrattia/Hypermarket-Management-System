@@ -35,6 +35,10 @@ public class Batch {
         return expiryDate;
     }
 
+    public LocalDate getDeliveryDate() {
+        return deliveryDate;
+    }
+
     public int getBatchThreshold(){
         return product.getThreshold();
     }
