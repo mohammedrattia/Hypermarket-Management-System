@@ -85,7 +85,6 @@ public class SalesViewController implements Initializable {
         showDashboard();
         setUpNavigation();
         updateTitleAndActiveTab(menuDashboard);
-
         try {
             File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
             if (imageFile.exists()) {
