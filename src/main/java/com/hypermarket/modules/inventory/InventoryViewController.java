@@ -1,8 +1,12 @@
 package com.hypermarket.modules.inventory;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.hypermarket.data.FileManager;
+import com.hypermarket.entities.User;
 import com.hypermarket.modules.inventory.*;
 
 import javafx.fxml.FXML;
@@ -11,8 +15,11 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import com.hypermarket.service.Session;
 
 public class InventoryViewController implements Initializable {
 
@@ -49,15 +56,30 @@ public class InventoryViewController implements Initializable {
     @FXML
     private HBox menuUpdateUserInfoItem;
 
+    @FXML
+    private ImageView userProfileImage;
+
     private InventoryDashboard inventorydashboard;
     private ProductsGrid productsGrid;
     Runnable onLogout;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        User currentUser = Session.getInstance().getUser();
+
         showDashboard();
         setUpNavigation();
         updateTitleAndActiveTab(menuDashboard);
+
+        try {
+            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            if (imageFile.exists()) {
+                Image image = new Image(imageFile.toURI().toURL().toString());
+                userProfileImage.setImage(image);
+            }
+        } catch (MalformedURLException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     public void setOnLogout(Runnable onLogout) {
