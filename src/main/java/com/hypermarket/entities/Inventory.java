@@ -3,6 +3,7 @@ package com.hypermarket.entities;
 import com.hypermarket.data.*;
 import com.hypermarket.entities.*;
 
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,9 @@ public class Inventory extends User {
         super(recordLine);
         DataStore ds = DataStore.getDataStore();
         this.products = ds.getProducts();
+        this.batches = ds.getBatches();
         this.damageLogs = ds.getDamageLogs();
-        this.notifications = ds.getNotifications(); 
+        this.notifications = ds.getNotifications();
     }
 
     public Inventory(String role, int id, String fName, String lName, String image, String phone,
@@ -87,33 +89,34 @@ public class Inventory extends User {
         return this.damageLogs;
     }
 
-    public List<Product> checkLowStock() {
-        List<Product> results = new ArrayList<>();
-
-        for (Product product : products) {
-            if (product.getQuantity() < 5) {
-                results.add(product);
+    public List<Batch> checkLowStock() {
+        List<Batch> lowStockBatches = new ArrayList<>();
+        for (Batch b : this.batches) {
+            if (b.getQuantity() < b.getBatchThreshold()) {
+                lowStockBatches.add(b);
             }
         }
-
-        return results;
+        return lowStockBatches;
     }
-
-    // Still not finished and wont be soon i guess
 
     public List<Batch> checkExpiryDates() {
-        Date date = new Date();
-        long dayInMilliseconds = 86400000L;
-        List<Batch> nearExpiryBatches = new ArrayList<>();
-        for (Batch b : this.batches) {
-            if (Date.from(b.getExpiryDate().atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime()
-                    - date.getTime() <= 7 * dayInMilliseconds) {
-                // if (b.getExpiryDate().getTime() - date.getTime() <=7 * dayInMilliseconds) {
-                nearExpiryBatches.add(b);
-            }
+    LocalDate today = LocalDate.now();
+    LocalDate sevenDaysFromNow = today.plusDays(7);
+    
+    List<Batch> nearExpiryBatches = new ArrayList<>();
+
+    for (Batch b : this.batches) {
+        LocalDate expiryDate = b.getExpiryDate();
+
+        boolean isInFutureOrToday = !expiryDate.isBefore(today);
+        boolean isWithinWeek = !expiryDate.isAfter(sevenDaysFromNow);
+
+        if (isInFutureOrToday && isWithinWeek) {
+            nearExpiryBatches.add(b);
         }
-        return nearExpiryBatches;
     }
+    return nearExpiryBatches;
+}
 
     public List<Notification> viewNotifications() {
         return this.notifications;

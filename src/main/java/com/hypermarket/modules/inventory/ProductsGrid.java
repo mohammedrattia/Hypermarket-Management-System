@@ -27,6 +27,11 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.geometry.Pos;
 
+import javafx.stage.Stage;
+import javafx.stage.Modality;
+import javafx.stage.StageStyle;
+import javafx.scene.Scene;
+
 public class ProductsGrid {
 
     private ScrollPane scrollPane;
@@ -140,6 +145,27 @@ public class ProductsGrid {
 
             ProductCardController controller = loader.getController();
             controller.setData(product);
+
+            node.setOnMouseClicked(event -> {
+                try {
+                    FXMLLoader modalLoader = new FXMLLoader(getClass().getResource("/com/hypermarket/view/inventory/ProductDetailsModal.fxml"));
+                    Parent modalView = modalLoader.load();
+
+                    ProductDetailsModalController modalController = modalLoader.getController();
+                    modalController.setProduct(product);
+
+                    Stage modalStage = new Stage();
+                    modalStage.initModality(Modality.APPLICATION_MODAL);
+                    modalStage.initStyle(StageStyle.UTILITY);
+                    modalStage.setTitle("Product Details");
+                    modalStage.setScene(new Scene(modalView));
+
+                    modalStage.showAndWait();
+                    refreshGrid();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
 
             return node;
         } catch (IOException ex) {

@@ -14,6 +14,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
@@ -130,6 +131,10 @@ public class EmployeeGrid {
                     newValue,
                     User.class);
         });
+
+        toolBar.setAlignment(Pos.TOP_CENTER);
+        HBox.setHgrow(searchField, Priority.ALWAYS);
+        searchField.setMaxWidth(Double.MAX_VALUE);
 
         addSortAndFilterOtions();
     }

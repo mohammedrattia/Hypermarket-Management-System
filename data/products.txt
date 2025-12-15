@@ -1,4 +1,4 @@
-101;Fresh Apple;Fruits;5.0;0;0.0;null;null;0;null
+101;Fresh Tomatoes;Fruits;Very very fresh tomatoes;136;10.0;null;12;10;image_101.jpg
 102;Orange Juice;Beverages;15.0;0;0.0;null;null;0;null
 103;Full Cream Milk;Dairy;25.0;0;0.0;null;null;0;null
 104;Cheddar Cheese;Dairy;45.0;0;0.0;null;null;0;null

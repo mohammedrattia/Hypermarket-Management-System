@@ -29,6 +29,15 @@ public class Product {
         this.threshold = threshold;
         this.imageName = "image_" + this.productID;
     }
+
+    public Product(String name, String size, double price, String category, String description)
+    {
+        this.name = name;
+        this.size = size;
+        this.price = price;
+        this.category = category;
+        this.description = description;
+    }
     
     public int getProductID() {
         return productID;
@@ -68,6 +77,34 @@ public class Product {
 
     public String getSize() {
         return size;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public void setThreshold(int threshold) {
+        this.threshold = threshold;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     public String getImageName() {
@@ -111,13 +148,11 @@ public class Product {
     }
 
     public boolean isLowStock() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isLowStock'");
+        return quantity <= threshold;
     }
 
     public int getTotalQuantity() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTotalQuantity'");
+        return quantity;
     }
 
     public boolean reduceStock(int quantity2) {
@@ -126,7 +161,6 @@ public class Product {
     }
 
     public int getThreshold() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getThreshold'");
+        return threshold;
     }
 }

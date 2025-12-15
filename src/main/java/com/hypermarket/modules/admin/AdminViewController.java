@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
 public class AdminViewController implements Initializable {
 
@@ -40,6 +41,18 @@ public class AdminViewController implements Initializable {
 
     @FXML
     private Label menuLogout;
+
+    @FXML
+    private HBox menuDashboardItem;
+
+    @FXML
+    private HBox menuEmployeesItem;
+
+    @FXML
+    private HBox menuAddEmployeesItem;
+
+    @FXML
+    private HBox menuUpdateUserInfoItem;
 
     @FXML
     private ImageView userImage;
@@ -72,19 +85,19 @@ public class AdminViewController implements Initializable {
     }
 
     private void setUpNavigation() {
-        menuDashboard.setOnMouseClicked(event -> {
+        menuDashboardItem.setOnMouseClicked(event -> {
             showDashboard();
         });
 
-        menuEmployees.setOnMouseClicked(event -> {
+        menuEmployeesItem.setOnMouseClicked(event -> {
             showEmployees();
         });
 
-        menuAddEmployees.setOnMouseClicked(event -> {
+        menuAddEmployeesItem.setOnMouseClicked(event -> {
             showAddEmployee();
         });
 
-        menuUpdateUserInfo.setOnMouseClicked(event -> {
+        menuUpdateUserInfoItem.setOnMouseClicked(event -> {
             showUpdateUserInfo();
         });
 
