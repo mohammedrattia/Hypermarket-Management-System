@@ -44,12 +44,15 @@ public class InventoryViewController implements Initializable {
     private HBox menuAddProductItem;
 
     @FXML
+    private HBox menuLogoutItem;
+
+    @FXML
     private HBox menuUpdateUserInfoItem;
 
     private InventoryDashboard inventorydashboard;
     private ProductsGrid productsGrid;
     Runnable onLogout;
-    
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         showDashboard();
@@ -81,6 +84,10 @@ public class InventoryViewController implements Initializable {
         menuUpdateUserInfoItem.setOnMouseClicked(event -> {
             showUpdateUserInfo();
         });
+
+        menuLogoutItem.setOnMouseClicked(event -> {
+            onLogout.run();
+        });
     }
 
     private void showDashboard() {
@@ -97,7 +104,7 @@ public class InventoryViewController implements Initializable {
 
         if (productsGrid == null)
             productsGrid = new ProductsGrid();
-            
+
         contentArea.getChildren().clear();
         contentArea.getChildren().add(productsGrid.getView());
         fitToAnchor(contentArea.getChildren().get(0));

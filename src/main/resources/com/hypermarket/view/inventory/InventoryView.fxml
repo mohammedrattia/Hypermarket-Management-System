@@ -68,7 +68,7 @@
               <FontIcon fx:id="settingsIcon" iconLiteral="fas-user-edit" iconSize="18" styleClass="menu-icon" />
               <Label fx:id="menuUpdateUserInfo" styleClass="menu-text" text="Update User Info" />
             </HBox>
-            <HBox alignment="CENTER_LEFT" spacing="12" styleClass="menu-item">
+            <HBox fx:id="menuLogoutItem" alignment="CENTER_LEFT" spacing="12" styleClass="menu-item">
               <FontIcon fx:id="logoutIcon" iconLiteral="fas-sign-out-alt" iconSize="18" styleClass="menu-icon" />
               <Label fx:id="menuLogout" styleClass="menu-text" text="Logout" />
             </HBox>
