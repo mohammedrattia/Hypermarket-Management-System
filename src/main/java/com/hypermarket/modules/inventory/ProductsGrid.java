@@ -38,6 +38,7 @@ public class ProductsGrid {
     private ChoiceBox<String> filterButton;
     private ChoiceBox<String> filterChoice;
     private ChoiceBox<String> sortButton;
+    private static final String NONE = "None";
 
     private ObservableList<Product> productsData = DataStore.getDataStore().getProducts();
     private FilteredList<Product> filteredData;
@@ -83,12 +84,26 @@ public class ProductsGrid {
     private void configToolBar() {
         filterButton = (ChoiceBox<String>) toolBar.getChildren().get(1);
         filterButton.valueProperty().addListener((observable, oldValue, newValue) -> {
-            updateFilterChoices(filterButton.getValue());
+            if (NONE.equals(newValue)) {
+                filterChoice.getItems().clear();
+                filteredData.setPredicate(p -> true); // remove filter
+                return;
+            }
+
+            updateFilterChoices(newValue);
         });
 
         filterChoice = (ChoiceBox<String>) toolBar.getChildren().get(3);
         filterChoice.valueProperty().addListener((observable, oldValue, newValue) -> {
-            ListManipulation.updateFilter(filteredData, newValue, filterButton.getValue(),
+            if (newValue == null || NONE.equals(newValue)) {
+                filteredData.setPredicate(p -> true);
+                return;
+            }
+
+            ListManipulation.updateFilter(
+                    filteredData,
+                    newValue,
+                    filterButton.getValue(),
                     Product.class);
         });
 
@@ -99,7 +114,16 @@ public class ProductsGrid {
 
         sortButton = (ChoiceBox<String>) toolBar.getChildren().get(8);
         sortButton.valueProperty().addListener((observable, oldValue, newValue) -> {
-            ListManipulation.updateSort(sortedData, true, sortButton.getValue(), Product.class);
+            if (NONE.equals(newValue)) {
+                sortedData.setComparator(null);
+                return;
+            }
+
+            ListManipulation.updateSort(
+                    sortedData,
+                    true,
+                    newValue,
+                    Product.class);
         });
 
         toolBar.setAlignment(Pos.TOP_CENTER);
@@ -173,12 +197,19 @@ public class ProductsGrid {
     }
 
     private void addSortAndFilterOptions() {
-        Field[] fields = Product.class.getDeclaredFields();
 
+        sortButton.getItems().add(NONE);
+        filterButton.getItems().add(NONE);
+
+        Field[] fields = Product.class.getDeclaredFields();
         for (Field field : fields) {
             String fieldName = field.getName();
             sortButton.getItems().add(fieldName);
             filterButton.getItems().add(fieldName);
         }
+
+        sortButton.setValue(NONE);
+        filterButton.setValue(NONE);
     }
+
 }
