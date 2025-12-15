@@ -116,11 +116,11 @@ public class AddProductController {
             int newID = inventorySystem.generateNextProductId(); 
 
             if (this.selectedImageFile != null) {
-                File folder = new File("Data/Product_Images");
+                File folder = new File("Data/ProductImages");
                 if (!folder.exists()) {
                     folder.mkdir();
                 }
-                File dest = new File("Data/Product_Images/image_" + newID + ".png");
+                File dest = new File("Data/ProductImages/image_" + newID + ".png");
                 Files.copy(
                     this.selectedImageFile.toPath(), 
                     dest.toPath(), 

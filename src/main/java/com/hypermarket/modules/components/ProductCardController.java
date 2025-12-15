@@ -31,7 +31,7 @@ public class ProductCardController {
         productQuantityCard.setText("Quantity: " + product.getQuantity());
 
         String imgName = product.getImageName();
-        File file = new File("Data/Product_Images/" + imgName + ".png");
+        File file = new File("Data/ProductImages/" + imgName + ".png");
 
         if (file.exists()) {
             productImage.setImage(new Image(file.toURI().toString()));
