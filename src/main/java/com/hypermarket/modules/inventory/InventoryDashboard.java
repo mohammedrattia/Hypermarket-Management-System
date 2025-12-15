@@ -10,6 +10,7 @@ import com.hypermarket.modules.components.ProductCardController;
 
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
@@ -88,6 +89,9 @@ public class InventoryDashboard {
 
             KpiCardController controller = loader.getController();
             controller.setData(title, value, trend, isPositive);
+            ((VBox)node).setAlignment(Pos.TOP_CENTER);
+            HBox.setHgrow(node, Priority.ALWAYS);
+            ((VBox)node).setMaxWidth(Double.MAX_VALUE);
 
             return node;
         } catch (IOException ex) {

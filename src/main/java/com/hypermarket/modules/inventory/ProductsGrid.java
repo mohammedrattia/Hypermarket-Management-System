@@ -102,6 +102,9 @@ public class ProductsGrid {
             ListManipulation.updateSort(sortedData, true, sortButton.getValue(), Product.class);
         });
 
+        toolBar.setAlignment(Pos.TOP_CENTER);
+        HBox.setHgrow(searchField, Priority.ALWAYS);
+        searchField.setMaxWidth(Double.MAX_VALUE);
         addSortAndFilterOptions();
     }
 
