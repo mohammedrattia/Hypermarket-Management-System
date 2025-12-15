@@ -101,7 +101,7 @@ public class Inventory extends User {
 
     public List<Batch> checkExpiryDates() {
     LocalDate today = LocalDate.now();
-    LocalDate threshold = today.plusDays(7);
+    LocalDate sevenDaysFromNow = today.plusDays(7);
     
     List<Batch> nearExpiryBatches = new ArrayList<>();
 
@@ -109,7 +109,7 @@ public class Inventory extends User {
         LocalDate expiryDate = b.getExpiryDate();
 
         boolean isInFutureOrToday = !expiryDate.isBefore(today);
-        boolean isWithinWeek = !expiryDate.isAfter(threshold);
+        boolean isWithinWeek = !expiryDate.isAfter(sevenDaysFromNow);
 
         if (isInFutureOrToday && isWithinWeek) {
             nearExpiryBatches.add(b);
