@@ -13,3 +13,8 @@
 113;Soda Can;Beverages;7.0;0;0.0;null;null;0;null
 114;Yogurt;Dairy;6.0;0;0.0;null;null;0;null
 115;Tuna Can;Canned;35.0;0;0.0;null;null;0;null
+116;Tomato;Vegs;a red round veg;0;10.0;null;2KG;5;image_116
+117;Cat;cat;o i i a i;0;1000.0;null;5KG;5;image_117
+118;REPO;Robot;jawn;0;500.0;null;100KG;5;image_118
+119;Hornet;Knight;sadasda;0;5000.0;null;0KG;10;image_119
+120;o i i a e;Cat;o i i a e;0;200.0;null;5KG;15;image_120
