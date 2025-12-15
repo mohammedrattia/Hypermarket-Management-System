@@ -3,6 +3,7 @@ package com.hypermarket.entities;
 import com.hypermarket.data.*;
 import com.hypermarket.entities.*;
 
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -98,21 +99,24 @@ public class Inventory extends User {
         return lowStockBatches;
     }
 
-    // Still not finished and wont be soon i guess
-
     public List<Batch> checkExpiryDates() {
-        Date date = new Date();
-        long dayInMilliseconds = 86400000L;
-        List<Batch> nearExpiryBatches = new ArrayList<>();
-        for (Batch b : this.batches) {
-            if (Date.from(b.getExpiryDate().atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime()
-                    - date.getTime() <= 7 * dayInMilliseconds) {
-                // if (b.getExpiryDate().getTime() - date.getTime() <=7 * dayInMilliseconds) {
-                nearExpiryBatches.add(b);
-            }
+    LocalDate today = LocalDate.now();
+    LocalDate threshold = today.plusDays(7);
+    
+    List<Batch> nearExpiryBatches = new ArrayList<>();
+
+    for (Batch b : this.batches) {
+        LocalDate expiryDate = b.getExpiryDate();
+
+        boolean isInFutureOrToday = !expiryDate.isBefore(today);
+        boolean isWithinWeek = !expiryDate.isAfter(threshold);
+
+        if (isInFutureOrToday && isWithinWeek) {
+            nearExpiryBatches.add(b);
         }
-        return nearExpiryBatches;
     }
+    return nearExpiryBatches;
+}
 
     public List<Notification> viewNotifications() {
         return this.notifications;
