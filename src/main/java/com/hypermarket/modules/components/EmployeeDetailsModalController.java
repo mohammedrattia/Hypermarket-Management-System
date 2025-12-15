@@ -1,9 +1,12 @@
 package com.hypermarket.modules.components;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.Admin;
 import com.hypermarket.entities.User;
 import com.hypermarket.modules.admin.UpdateEmployee;
@@ -16,7 +19,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.scene.shape.Circle;
 
 public class EmployeeDetailsModalController {
     @FXML
@@ -31,6 +37,9 @@ public class EmployeeDetailsModalController {
     private Label modalPhoneLabel;
     @FXML
     private Label modalSalaryLabel;
+
+    @FXML
+    private ImageView popupImage;
 
     private User currentUser;
 
@@ -52,6 +61,17 @@ public class EmployeeDetailsModalController {
 
             NumberFormat currency = NumberFormat.getCurrencyInstance(Locale.US);
             modalSalaryLabel.setText(currency.format(user.getSalary()));
+        }
+        try {
+            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            if (imageFile.exists()) {
+                Image image = new Image(imageFile.toURI().toURL().toString());
+                popupImage.setImage(image);
+
+                makeImageRound(popupImage, 80);
+            }
+        } catch (MalformedURLException e) {
+            System.err.println(e.getMessage());
         }
     }
 
@@ -102,5 +122,17 @@ public class EmployeeDetailsModalController {
     private void closeModal() {
         Stage stage = (Stage) modalNameLabel.getScene().getWindow();
         stage.close();
+    }
+
+    private void makeImageRound(ImageView imageView, double size) {
+        imageView.setFitWidth(size);
+        imageView.setFitHeight(size);
+        imageView.setPreserveRatio(false);
+
+        Circle clip = new Circle(size / 2);
+        clip.setCenterX(size / 2);
+        clip.setCenterY(size / 2);
+
+        imageView.setClip(clip);
     }
 }

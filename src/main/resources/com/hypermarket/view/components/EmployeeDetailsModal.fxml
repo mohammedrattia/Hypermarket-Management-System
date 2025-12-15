@@ -19,7 +19,7 @@
    <children>
       <HBox alignment="CENTER_LEFT" spacing="20.0">
          <children>
-            <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="popupImage" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/userBlack.png" />
                </image>
