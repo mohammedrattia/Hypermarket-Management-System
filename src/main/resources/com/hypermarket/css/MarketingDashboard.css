@@ -1,0 +1,99 @@
+
+.title {
+    -fx-font-size: 28px;  
+    -fx-font-weight: bold;
+    -fx-text-fill: #4b8f29;  
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 3);
+}
+
+
+.section {
+    -fx-padding: 15;
+    -fx-background-color: #ffffff;  
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #81c784;  
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 3);
+}
+
+
+.button {
+    -fx-background-color: #66bb6a;  
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-padding: 8 20 8 20;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 5);
+}
+
+.button:hover {
+    -fx-background-color: #81c784;
+}
+
+
+.text-field, .text-area, .combo-box, .date-picker {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 8;
+    -fx-border-color: #c8e6c9;
+    -fx-border-width: 1.5;
+    -fx-font-size: 14px;
+}
+
+
+.card {
+    -fx-background-color: #e8f5e9;
+    -fx-padding: 12;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-font-size: 14px;
+    -fx-spacing: 6;
+    -fx-border-color: #66bb6a;
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 5);
+}
+
+.card Label {
+    -fx-text-fill: #4b8f29;
+}
+
+.card Button {
+    -fx-background-color: transparent;
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+
+.text-field:focused, .text-area:focused, .combo-box:focused, .date-picker:focused {
+    -fx-border-color: #66bb6a;
+    -fx-background-color: #ffffff;
+}
+
+
+.offers-section {
+    -fx-spacing: 10;  
+}
+
+
+.date-range {
+    -fx-spacing: 10;  
+    -fx-alignment: center;  
+}
+
+
+.radio-buttons {
+    -fx-spacing: 15;
+    -fx-alignment: center;
+}
+
+
+.card:hover {
+    -fx-background-color: #dcedc8;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 10);
+}
+

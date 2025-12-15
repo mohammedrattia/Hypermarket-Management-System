@@ -126,11 +126,15 @@ public class App extends Application {
                 });
 
                 stage.setScene(scene);
-                stage.show(); 
+                stage.show();
         }
 
         private static void loadMarketingScene(Stage stage) throws IOException {
-
+                FXMLLoader fxmlLoader = new FXMLLoader(
+                                App.class.getResource("/com/hypermarket/view/components/MarketingDashboard.fxml"));
+                scene = new Scene(fxmlLoader.load());
+                stage.setScene(scene);
+                stage.show();
         }
 
         public static void main(String[] args) {

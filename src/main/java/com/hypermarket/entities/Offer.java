@@ -1,44 +1,116 @@
 package com.hypermarket.entities;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import com.hypermarket.data.FileManager;
 
 public class Offer {
+
+    private int offerID;
+    private String offerName;
+    private double discount;
+    private Date startDate;
+    private Date endDate;
+    private String targetType;
+    private String targetValue;
+    private Product product;
 
     public Offer(String recordLine) {
         parseString(recordLine);
     }
 
+    public Offer(int offerID, String offerName, double discount, Date startDate,
+            Date endDate, String targetType, String targetValue) {
+        this.offerID = offerID;
+        this.offerName = offerName;
+        this.discount = discount;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.targetType = targetType;
+        this.targetValue = targetValue;
+    }
+
+    public int getOfferID() {
+        return offerID;
+    }
+
+    public String getOfferName() {
+        return offerName;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public String getTargetType() {
+        return targetType;
+    }
+
+    public String getTargetValue() {
+        return targetValue;
+    }
+
+    public void setOfferName(String offerName) {
+        this.offerName = offerName;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setTargetType(String targetType) {
+        this.targetType = targetType;
+    }
+
+    public void setTargetValue(String targetValue) {
+        this.targetValue = targetValue;
+    }
+
+    public boolean isActive() {
+        Date now = new Date();
+        return now.after(startDate) && now.before(endDate);
+    }
+
     @Override
     public String toString() {
-        // return this.attribute01 + FileManager.delimeter + this.attribute02 +
-        // FileManager.delimeter + FileManager.dateFormat.format(this.attribute03) +
-        // FileManager.delimeter + FileManager.dateTimeFormat.format(this.attribute04) +
-        // FileManager.delimeter + this.attribute05.toString() + ....;
-        // attribute03 type is Date (it has date only and time is set to 00:00:00)
-        // attribute04 type is Date (it has both date and time)
-        // attribute05 type is Role (only for user to know his role)
-        return "ُExample";
+        SimpleDateFormat sdf = FileManager.dateFormat1;
+        return offerID + FileManager.DELIMETER +
+                offerName + FileManager.DELIMETER +
+                discount + FileManager.DELIMETER +
+                sdf.format(startDate) + FileManager.DELIMETER +
+                sdf.format(endDate) + FileManager.DELIMETER +
+                targetType + FileManager.DELIMETER +
+                targetValue;
     }
 
     private void parseString(String line) {
-        String[] values = line.split(FileManager.DELIMETER);
-        // Look at the following examples and make the parseString Function
         try {
-            // this.attribute01 = values[0]; // Read String
-            // this.attribute02 = Integer(values[1]); // Convert String to Int //
-            // attribute02 is int
-            // this.attribute03 = FileManager.dateFormat.parse(values[2]); // Read Date only
-            // // attribute03 type is Date (it has date only and time is set to 00:00:00)
-            // this.attribute04 = FileManager.dateTimeFormat.parse(values[3]); // Read Date
-            // + Time // attribute04 type is Date (it has both date and time)
-            // this.attribute05 = Role.valueOf(values[4].toUpperCase().trim()); // Convert
-            // String to Role (must be UpperCase) // attribute05 type is Role (only for user
-            // to know his role)
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error Chosing Role: " + e.getMessage());
+            String[] values = line.split(FileManager.DELIMETER);
+            this.offerID = Integer.parseInt(values[0]);
+            this.offerName = values[1];
+            this.discount = Double.parseDouble(values[2]);
+            this.startDate = FileManager.dateFormat1.parse(values[3]);
+            this.endDate = FileManager.dateFormat1.parse(values[4]);
+            this.targetType = values[5];
+            this.targetValue = values[6];
         } catch (Exception e) {
-            System.err.println("Error parsing data: " + e.getMessage());
+            System.err.println("Error parsing Offer: " + e.getMessage());
         }
     }
-
 }
