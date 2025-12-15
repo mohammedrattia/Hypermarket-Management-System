@@ -14,9 +14,8 @@ public class Report {
     private Date creationDate;
     private String content;
 
-    
     public Report(int reportID, String reportTitle, int totalOffers, int activeOffers,
-                  int expiredOffers, double maxDiscount, Date creationDate, String content) {
+            int expiredOffers, double maxDiscount, Date creationDate, String content) {
         this.reportID = reportID;
         this.reportTitle = reportTitle;
         this.totalOffers = totalOffers;
@@ -27,7 +26,6 @@ public class Report {
         this.content = content;
     }
 
-    
     public Report(String recordLine) {
         try {
             String[] values = recordLine.split(FileManager.DELIMETER);
@@ -37,14 +35,13 @@ public class Report {
             this.activeOffers = Integer.parseInt(values[3]);
             this.expiredOffers = Integer.parseInt(values[4]);
             this.maxDiscount = Double.parseDouble(values[5]);
-            this.creationDate = new Date(Long.parseLong(values[6]));
+            this.creationDate = FileManager.dateTimeFormat1.parse(values[6]);
             this.content = (values.length > 7) ? values[7] : "";
         } catch (Exception e) {
             System.err.println("Error parsing Report: " + e.getMessage());
         }
     }
 
-    
     public Report(String content, String author) {
         this.reportID = 0;
         this.reportTitle = "Custom Marketing Report - " + java.time.LocalDateTime.now();
@@ -56,25 +53,47 @@ public class Report {
         this.content = content;
     }
 
-    
-    public int getReportID() { return reportID; }
-    public String getReportTitle() { return reportTitle; }
-    public int getTotalOffers() { return totalOffers; }
-    public int getActiveOffers() { return activeOffers; }
-    public int getExpiredOffers() { return expiredOffers; }
-    public double getMaxDiscount() { return maxDiscount; }
-    public Date getCreationDate() { return creationDate; }
-    public String getContent() { return content; }
+    public int getReportID() {
+        return reportID;
+    }
+
+    public String getReportTitle() {
+        return reportTitle;
+    }
+
+    public int getTotalOffers() {
+        return totalOffers;
+    }
+
+    public int getActiveOffers() {
+        return activeOffers;
+    }
+
+    public int getExpiredOffers() {
+        return expiredOffers;
+    }
+
+    public double getMaxDiscount() {
+        return maxDiscount;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public String getContent() {
+        return content;
+    }
 
     @Override
     public String toString() {
         return reportID + FileManager.DELIMETER +
-               reportTitle + FileManager.DELIMETER +
-               totalOffers + FileManager.DELIMETER +
-               activeOffers + FileManager.DELIMETER +
-               expiredOffers + FileManager.DELIMETER +
-               maxDiscount + FileManager.DELIMETER +
-               creationDate.getTime() + FileManager.DELIMETER +
-               content;
+                reportTitle + FileManager.DELIMETER +
+                totalOffers + FileManager.DELIMETER +
+                activeOffers + FileManager.DELIMETER +
+                expiredOffers + FileManager.DELIMETER +
+                maxDiscount + FileManager.DELIMETER +
+                FileManager.dateTimeFormat1.format(creationDate) + FileManager.DELIMETER +
+                content;
     }
 }

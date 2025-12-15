@@ -11,15 +11,16 @@ public class Offer {
     private double discount;
     private Date startDate;
     private Date endDate;
-    private String targetType; 
-    private String targetValue; 
+    private String targetType;
+    private String targetValue;
+    private Product product;
 
     public Offer(String recordLine) {
         parseString(recordLine);
     }
 
     public Offer(int offerID, String offerName, double discount, Date startDate,
-                 Date endDate, String targetType, String targetValue) {
+            Date endDate, String targetType, String targetValue) {
         this.offerID = offerID;
         this.offerName = offerName;
         this.discount = discount;
@@ -29,20 +30,57 @@ public class Offer {
         this.targetValue = targetValue;
     }
 
-    public int getOfferID() { return offerID; }
-    public String getOfferName() { return offerName; }
-    public double getDiscount() { return discount; }
-    public Date getStartDate() { return startDate; }
-    public Date getEndDate() { return endDate; }
-    public String getTargetType() { return targetType; }
-    public String getTargetValue() { return targetValue; }
+    public int getOfferID() {
+        return offerID;
+    }
 
-    public void setOfferName(String offerName) { this.offerName = offerName; }
-    public void setDiscount(double discount) { this.discount = discount; }
-    public void setStartDate(Date startDate) { this.startDate = startDate; }
-    public void setEndDate(Date endDate) { this.endDate = endDate; }
-    public void setTargetType(String targetType) { this.targetType = targetType; }
-    public void setTargetValue(String targetValue) { this.targetValue = targetValue; }
+    public String getOfferName() {
+        return offerName;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public String getTargetType() {
+        return targetType;
+    }
+
+    public String getTargetValue() {
+        return targetValue;
+    }
+
+    public void setOfferName(String offerName) {
+        this.offerName = offerName;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setTargetType(String targetType) {
+        this.targetType = targetType;
+    }
+
+    public void setTargetValue(String targetValue) {
+        this.targetValue = targetValue;
+    }
 
     public boolean isActive() {
         Date now = new Date();
@@ -51,14 +89,14 @@ public class Offer {
 
     @Override
     public String toString() {
-        SimpleDateFormat sdf = FileManager.dateFormat;
+        SimpleDateFormat sdf = FileManager.dateFormat1;
         return offerID + FileManager.DELIMETER +
-               offerName + FileManager.DELIMETER +
-               discount + FileManager.DELIMETER +
-               sdf.format(startDate) + FileManager.DELIMETER +
-               sdf.format(endDate) + FileManager.DELIMETER +
-               targetType + FileManager.DELIMETER +
-               targetValue;
+                offerName + FileManager.DELIMETER +
+                discount + FileManager.DELIMETER +
+                sdf.format(startDate) + FileManager.DELIMETER +
+                sdf.format(endDate) + FileManager.DELIMETER +
+                targetType + FileManager.DELIMETER +
+                targetValue;
     }
 
     private void parseString(String line) {
@@ -67,8 +105,8 @@ public class Offer {
             this.offerID = Integer.parseInt(values[0]);
             this.offerName = values[1];
             this.discount = Double.parseDouble(values[2]);
-            this.startDate = FileManager.dateFormat.parse(values[3]);
-            this.endDate = FileManager.dateFormat.parse(values[4]);
+            this.startDate = FileManager.dateFormat1.parse(values[3]);
+            this.endDate = FileManager.dateFormat1.parse(values[4]);
             this.targetType = values[5];
             this.targetValue = values[6];
         } catch (Exception e) {
