@@ -24,8 +24,9 @@ public class Inventory extends User {
         super(recordLine);
         DataStore ds = DataStore.getDataStore();
         this.products = ds.getProducts();
+        this.batches = ds.getBatches();
         this.damageLogs = ds.getDamageLogs();
-        this.notifications = ds.getNotifications(); 
+        this.notifications = ds.getNotifications();
     }
 
     public Inventory(String role, int id, String fName, String lName, String image, String phone,
