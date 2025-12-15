@@ -88,16 +88,14 @@ public class Inventory extends User {
         return this.damageLogs;
     }
 
-    public List<Product> checkLowStock() {
-        List<Product> results = new ArrayList<>();
-
-        for (Product product : products) {
-            if (product.getQuantity() < 5) {
-                results.add(product);
+    public List<Batch> checkLowStock() {
+        List<Batch> lowStockBatches = new ArrayList<>();
+        for (Batch b : this.batches) {
+            if (b.getQuantity() < b.getBatchThreshold()) {
+                lowStockBatches.add(b);
             }
         }
-
-        return results;
+        return lowStockBatches;
     }
 
     // Still not finished and wont be soon i guess

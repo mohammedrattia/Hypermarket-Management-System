@@ -35,6 +35,10 @@ public class Batch {
         return expiryDate;
     }
 
+    public int getBatchThreshold(){
+        return product.getThreshold();
+    }
+
     @Override
     public String toString() {
         return batchID + FileManager.DELIMETER +

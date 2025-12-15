@@ -29,6 +29,15 @@ public class Product {
         this.threshold = threshold;
         this.imageName = "image_" + this.productID;
     }
+
+    public Product(String name, String size, double price, String category, String description)
+    {
+        this.name = name;
+        this.size = size;
+        this.price = price;
+        this.category = category;
+        this.description = description;
+    }
     
     public int getProductID() {
         return productID;
