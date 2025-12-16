@@ -94,7 +94,7 @@
           <Button fx:id="notificationButton" mnemonicParsing="false" styleClass="notif-button">
             <graphic>
               <StackPane>
-                <FontIcon fx:id="notifIcon" iconLiteral="fas-bell" iconSize="20" styleClass="notif-icon" />
+                <FontIcon fx:id="notificationBtn" iconLiteral="fas-bell" iconSize="20" styleClass="notif-icon" />
               </StackPane>
             </graphic>
           </Button>

@@ -1,44 +1,90 @@
 package com.hypermarket.entities;
 
+import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Notification {
 
-    public Notification(String recordLine) {
-        parseString(recordLine);
+    private String message;
+    private LocalDate date;
+
+    public Notification(String record) {
+        parseString(record);
+    }
+
+    public static Notification createNew(String message) {
+        Notification n = new Notification(message + FileManager.DELIMETER + LocalDate.now().format(FileManager.dateFormat));
+        n.message = message;
+        n.date = LocalDate.now();
+        return n;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 
     @Override
     public String toString() {
-        // return this.attribute01 + FileManager.delimeter + this.attribute02 +
-        // FileManager.delimeter + FileManager.dateFormat.format(this.attribute03) +
-        // FileManager.delimeter + FileManager.dateTimeFormat.format(this.attribute04) +
-        // FileManager.delimeter + this.attribute05.toString() + ....;
-        // attribute03 type is Date (it has date only and time is set to 00:00:00)
-        // attribute04 type is Date (it has both date and time)
-        // attribute05 type is Role (only for user to know his role)
-        return "ُExample";
+        return message + FileManager.DELIMETER + date.format(FileManager.dateFormat);
     }
 
-    private void parseString(String line) {
-        String[] values = line.split(FileManager.DELIMETER);
-        // Look at the following examples and make the parseString Function
+    private void parseString(String record) {
+        String[] fields = record.split(FileManager.DELIMETER);
         try {
-            // this.attribute01 = values[0]; // Read String
-            // this.attribute02 = Integer(values[1]); // Convert String to Int //
-            // attribute02 is int
-            // this.attribute03 = FileManager.dateFormat.parse(values[2]); // Read Date only
-            // // attribute03 type is Date (it has date only and time is set to 00:00:00)
-            // this.attribute04 = FileManager.dateTimeFormat.parse(values[3]); // Read Date
-            // + Time // attribute04 type is Date (it has both date and time)
-            // this.attribute05 = Role.valueOf(values[4].toUpperCase().trim()); // Convert
-            // String to Role (must be UpperCase) // attribute05 type is Role (only for user
-            // to know his role)
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error Chosing Role: " + e.getMessage());
+            this.message = fields[0];
+            this.date = LocalDate.parse(fields[1], FileManager.dateFormat);
         } catch (Exception e) {
-            System.err.println("Error parsing data: " + e.getMessage());
+            System.err.println("Error parsing notification: " + e.getMessage());
+            this.message = "Error reading notification";
+            this.date = LocalDate.now();
         }
     }
 
+
+    public static List<String> getSystemAlerts() {
+        List<String> alerts = new ArrayList<>();
+        alerts.addAll(checkLowStock());
+        alerts.addAll(checkExpiry());
+        
+        if (alerts.isEmpty()) {
+            alerts.add("✅ System is Healthy. No alerts.");
+        }
+        return alerts;
+    }
+
+    private static List<String> checkLowStock() {
+        List<String> lowStock = new ArrayList<>();
+        for (Product p : DataStore.getDataStore().getProducts()) {
+            if (p.getQuantity() <= p.getThreshold()) {
+                lowStock.add("📉 LOW STOCK: " + p.getName() + " (Qty: " + p.getQuantity() + ")");
+            }
+        }
+        return lowStock;
+    }
+
+    private static List<String> checkExpiry() {
+        List<String> expiring = new ArrayList<>();
+        LocalDate today = LocalDate.now();
+
+        for (Batch b : DataStore.getDataStore().getBatches()) {
+            if (b.getExpiryDate() != null) {
+                long days = ChronoUnit.DAYS.between(today, b.getExpiryDate());
+                
+                if (days < 0) {
+                    expiring.add("❌ EXPIRED: " + b.getProduct().getName() + " (Batch " + b.getBatchID() + ")");
+                } else if (days <= 7) {
+                    expiring.add("⚠️ EXPIRING SOON: " + b.getProduct().getName() + " (" + days + " days left)");
+                }
+            }
+        }
+        return expiring;
+    }
 }
