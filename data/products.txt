@@ -1,15 +1,22 @@
-101;Fresh Tomatoes;Fruits;Very very fresh tomatoes;136;10.0;null;12;10;image_101.jpg
-102;Orange Juice;Beverages;15.0;0;0.0;null;null;0;image_102.png
-103;Full Cream Milk;Dairy;25.0;0;0.0;null;null;0;image_103.png
-104;Cheddar Cheese;Dairy;45.0;0;0.0;null;null;0;image_104.png
-105;Toast Bread;Bakery;12.0;0;0.0;null;null;0;image_105.png
-106;Frozen Chicken;Meat;85.0;0;0.0;null;null;0;image_106.jpg
-107;Basmati Rice;Grains;120.0;0;0.0;null;null;0;image_107.jpg
-108;Italian Pasta;Grains;12.5;0;0.0;null;null;0;image_108.jpeg
-109;Red Eggs;Dairy;110.0;0;0.0;null;null;0;image_109.jpeg
-110;Apple;Vegetables;8.0;0;0.0;null;null;0;image_110.png
-111;Potato Chips;Snacks;5.0;0;0.0;null;null;0;image_111.jpg
-112;Chocolate Bar;Snacks;18.0;0;0.0;null;null;0;image_112.jpg
-113;Soda Can;Beverages;7.0;0;0.0;null;null;0;image_113.jpg
-114;Yogurt;Dairy;6.0;0;0.0;null;null;0;image_114.jpeg
-115;Tuna Can;Canned;35.0;0;0.0;null;null;0;image_115.jpg
+101;Fresh Apple;Fruits;5.0;0;0.0;null;null;0;null
+102;Orange Juice;Beverages;15.0;0;0.0;null;null;0;null
+103;Full Cream Milk;Dairy;25.0;0;0.0;null;null;0;null
+104;Cheddar Cheese;Dairy;45.0;0;0.0;null;null;0;null
+105;Toast Bread;Bakery;12.0;0;0.0;null;null;0;null
+106;Frozen Chicken;Meat;85.0;0;0.0;null;null;0;null
+107;Basmati Rice;Grains;120.0;0;0.0;null;null;0;null
+108;Italian Pasta;Grains;12.5;0;0.0;null;null;0;null
+109;Red Eggs;Dairy;110.0;0;0.0;null;null;0;null
+110;Tomato;Vegetables;8.0;0;0.0;null;null;0;null
+111;Potato Chips;Snacks;5.0;0;0.0;null;null;0;null
+112;Chocolate Bar;Snacks;18.0;0;0.0;null;null;0;null
+113;Soda Can;Beverages;7.0;0;0.0;null;null;0;null
+114;Yogurt;Dairy;6.0;0;0.0;null;null;0;null
+115;Tuna Can;Canned;35.0;0;0.0;null;null;0;null
+116;Tomato;Vegs;a red round veg;0;10.0;null;2KG;5;image_116
+117;Cat;cat;o i i a i;0;1000.0;null;5KG;5;image_117
+118;REPO;Robot;jawn;0;500.0;null;100KG;5;image_118
+119;Hornet;Knight;sadasda;0;5000.0;null;0KG;10;image_119
+120;o i i a e;Cat;o i i a e;0;200.0;null;5KG;15;image_120
+121;Hollow;Knight;jawn;0;10000.0;null;0KG;10;image_121
+122;asdasd;dasda;sdfasdfsdfadsf;0;10000.0;null;asdasd;10;image_122

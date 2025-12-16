@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import java.io.File;
 
 public class ProductCardController {
 
@@ -28,14 +29,19 @@ public class ProductCardController {
         productIDCard.setText("ID: " + product.getProductID());
         productPriceCard.setText("Price: " + product.getPrice() + " $");
         productQuantityCard.setText("Quantity: " + product.getQuantity());
-        // expDateProduct.setText("Expiration Date: " + product.getExpiryDate());
-        
-        // try {
-        //    if (product.getImagePath() != null && !product.getImagePath().isEmpty()) {
-        //        productImage.setImage(new Image(product.getImagePath()));
-        //    }
-        // } catch (Exception e) {
-        //    System.out.println("Could not load image for product: " + product.getName());
-        // }
+
+        String imgName = product.getImageName();
+        File file = new File("Data/ProductImages/" + imgName + ".png");
+
+        if (file.exists()) {
+            productImage.setImage(new Image(file.toURI().toString()));
+        } else {
+            try {
+                String defaultPath = "/com/hypermarket/view/images/no_image.png";
+                productImage.setImage(new Image(getClass().getResourceAsStream(defaultPath)));
+            } catch (Exception e) {
+                productImage.setImage(null);
+            }
+        }
     }
 }

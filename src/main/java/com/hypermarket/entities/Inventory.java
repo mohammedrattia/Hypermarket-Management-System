@@ -49,6 +49,18 @@ public class Inventory extends User {
         }
     }
 
+    public int generateNextProductId() {
+        int maxId = 0;
+        if (products != null) {
+            for (Product p : products) {
+                if (p.getProductID() > maxId) {
+                    maxId = p.getProductID();
+                }
+            }
+        }
+        return maxId + 1;
+    }
+
     public void updateProduct(String id, Product updateProduct) {
         for (int i = 0; i < products.size(); i++) {
             if (String.valueOf(products.get(i).getProductID()).equals(id)) {

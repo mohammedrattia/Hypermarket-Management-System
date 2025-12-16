@@ -94,6 +94,16 @@
                         <TextField id="text-fields" fx:id="categoryField" minWidth="55.0" prefHeight="40.0" prefWidth="500.0" promptText="Enter Product Category" styleClass="input-field" />
                      </children>
                   </HBox>
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="630.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="CENTER" styleClass="label-container">
+                           <children>
+                              <Label minWidth="16.0" prefHeight="52.0" prefWidth="164.0" styleClass="input-label" text="Threshold" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                        <TextField id="text-fields" fx:id="thresholdField" minWidth="65.0" prefHeight="40.0" prefWidth="500.0" promptText="Enter Product Threshold" styleClass="input-field" />
+                     </children>
+                  </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                      <children>
                         <VBox alignment="CENTER" styleClass="label-container">
