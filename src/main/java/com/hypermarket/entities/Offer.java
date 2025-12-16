@@ -5,6 +5,8 @@ import java.util.Date;
 import com.hypermarket.data.FileManager;
 
 public class Offer {
+    
+    public enum Status { PENDING, ACTIVE, EXPIRED }
 
     private int offerID;
     private String offerName;
@@ -14,6 +16,7 @@ public class Offer {
     private String targetType;
     private String targetValue;
     private Product product;
+    private Status manualStatus;
 
     public Offer(String recordLine) {
         parseString(recordLine);
@@ -58,6 +61,31 @@ public class Offer {
         return targetValue;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public Status getStatus() {
+        if (manualStatus != null) return manualStatus;
+        Date now = new Date();
+        if (now.before(startDate)) return Status.PENDING;
+        else if (now.after(endDate)) return Status.EXPIRED;
+        else return Status.ACTIVE;
+    }
+    
+    public void setManualStatus(Status status) {
+        this.manualStatus = status;
+    }
+
+    public boolean isActive() {
+        Date now = new Date();
+        return now.after(startDate) && now.before(endDate);
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     public void setOfferName(String offerName) {
         this.offerName = offerName;
     }
@@ -82,10 +110,7 @@ public class Offer {
         this.targetValue = targetValue;
     }
 
-    public boolean isActive() {
-        Date now = new Date();
-        return now.after(startDate) && now.before(endDate);
-    }
+
 
     @Override
     public String toString() {

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="root" stylesheets="@../../css/application.css"
+            xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.hypermarket.modules.components.MarketingViewController">
+
+    <children>
+        
+        <VBox fx:id="sidebar" prefWidth="250.0" styleClass="sidebar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="80.0" styleClass="logo-container">
+                    <padding><Insets left="20.0" /></padding>
+                    <Label styleClass="logo" text="HyperMarket"/>
+                </HBox>
+
+                <VBox styleClass="menu-container" VBox.vgrow="ALWAYS">
+                    <children>
+                        <HBox fx:id="menuDashboardItem" alignment="CENTER_LEFT" spacing="12" styleClass="menu-item">
+                            <FontIcon iconLiteral="fas-tachometer-alt" iconSize="18" styleClass="menu-icon"/>
+                            <Label fx:id="menuDashboard" styleClass="menu-text" text="Dashboard"/>
+                        </HBox>
+                        <HBox fx:id="menuReportsItem" alignment="CENTER_LEFT" spacing="12" styleClass="menu-item">
+                            <FontIcon iconLiteral="fas-chart-pie" iconSize="18" styleClass="menu-icon"/>
+                            <Label fx:id="menuReports" styleClass="menu-text" text="Reports"/>
+                        </HBox>
+                        <HBox fx:id="menuOffersItem" alignment="CENTER_LEFT" spacing="12" styleClass="menu-item">
+                            <FontIcon iconLiteral="fas-tags" iconSize="18" styleClass="menu-icon"/>
+                            <Label fx:id="menuOffers" styleClass="menu-text" text="Offers"/>
+                        </HBox>
+                    </children>
+                </VBox>
+
+                
+                <VBox styleClass="bottom-menu">
+                    <HBox fx:id="menuLogoutItem" alignment="CENTER_LEFT" spacing="12" styleClass="menu-item">
+                        <FontIcon iconLiteral="fas-sign-out-alt" iconSize="18" styleClass="menu-icon"/>
+                        <Label fx:id="menuLogout" styleClass="menu-text" text="Logout"/>
+                    </HBox>
+                </VBox>
+            </children>
+        </VBox>
+
+        
+        <AnchorPane fx:id="mainContent" layoutX="250.0" prefWidth="1030.0" styleClass="main-content"
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                
+                <HBox alignment="CENTER_LEFT" prefHeight="80.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0"
+                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <padding><Insets left="30.0" right="30.0" /></padding>
+                    <Label fx:id="pageTitle" styleClass="page-title" text="Marketing Dashboard"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                </HBox>
+
+                
+                <AnchorPane fx:id="contentArea" layoutY="80.0" styleClass="content-area"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+                    
+                    <VBox fx:id="dashboardContainer" spacing="20" style="-fx-padding: 25;">
+                        <HBox fx:id="kpiContainer" spacing="30"/>
+                        <VBox fx:id="dashboardContent" spacing="20"/>
+                        <AnchorPane fx:id="tableContainer" style="-fx-background-color:transparent;" prefHeight="300"/>
+                    </VBox>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
