@@ -17,7 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -45,9 +44,14 @@ public class EmployeeCardController {
     private User currentUser;
 
     private Runnable onDeleteAction;
+    private Runnable onUpdateAction;
 
     public void setOnDeleteAction(Runnable action) {
         this.onDeleteAction = action;
+    }
+
+    public void setonUpdateAction(Runnable action) {
+        this.onUpdateAction = action;
     }
 
     public void setData(User user) {
@@ -82,6 +86,7 @@ public class EmployeeCardController {
             controller.setUserData(this.currentUser);
 
             controller.setOnDeleteCallBack(this.onDeleteAction);
+            controller.setOnUpdateCallback(this.onUpdateAction);
 
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);

@@ -44,9 +44,14 @@ public class EmployeeDetailsModalController {
     private User currentUser;
 
     private Runnable onDeleteCallBack;
+    private Runnable onUpdateCallback;
 
     public void setOnDeleteCallBack(Runnable callback) {
         this.onDeleteCallBack = callback;
+    }
+
+    public void setOnUpdateCallback(Runnable callback) {
+        this.onUpdateCallback = callback;
     }
 
     public void setUserData(User user) {
@@ -83,7 +88,9 @@ public class EmployeeDetailsModalController {
             Parent root = loader.load();
 
             UpdateEmployee controller = loader.getController();
-            controller.setUserData(currentUser);
+            controller.setUserData(this.currentUser);
+
+            controller.setOnUpdateCallback(this.onUpdateCallback);
 
             Scene scene = modalNameLabel.getScene();
             scene.setRoot(root);
