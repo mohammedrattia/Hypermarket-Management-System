@@ -97,7 +97,7 @@ public class Order {
     public boolean addItem(Product product, int quantity) {
         // if (product.isLowStock() || product.getTotalQuantity() - quantity <
         // product.getThreshold()) {
-        if (quantity > product.getTotalQuantity()) {
+        if (quantity > product.getQuantity()) {
             return false;
         }
         OrderItem newItem = new OrderItem(product, quantity);
@@ -136,7 +136,7 @@ public class Order {
 
     public void purchase() throws Exception {
         for (OrderItem item : items) {
-            if (item.getQuantity() > item.getProduct().getTotalQuantity()) {
+            if (item.getQuantity() > item.getProduct().getQuantity()) {
                 throw new Exception("Not enough stock for: " + item.getProduct().getName());
             }
         }

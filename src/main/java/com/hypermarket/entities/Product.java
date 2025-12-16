@@ -163,10 +163,6 @@ public class Product {
         return quantity <= threshold;
     }
 
-    public int getTotalQuantity() {
-        return quantity;
-    }
-
     public boolean reduceStock(int amount) {
         if (amount > this.quantity) {
             return false;
