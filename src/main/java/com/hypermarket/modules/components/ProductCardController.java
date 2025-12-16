@@ -7,19 +7,28 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class ProductCardController {
 
-    @FXML private HBox productCard;
-    @FXML private ImageView productImage;
-    @FXML private Label productNameCard;
-    @FXML private Label productIDCard;
-    @FXML private Label productPriceCard;
-    @FXML private Label productQuantityCard;
-    @FXML private Label expDateProduct;
-    
+    @FXML
+    private HBox productCard;
+    @FXML
+    private ImageView productImage;
+    @FXML
+    private Label productNameCard;
+    @FXML
+    private Label productIDCard;
+    @FXML
+    private Label productPriceCard;
+    @FXML
+    private Label productQuantityCard;
+    @FXML
+    private Label expDateProduct;
+
     private Runnable onDeleteAction;
-    
+
     public void setOnDeleteAction(Runnable action) {
         this.onDeleteAction = action;
     }
@@ -30,17 +39,25 @@ public class ProductCardController {
         productPriceCard.setText("Price: " + product.getPrice() + " $");
         productQuantityCard.setText("Quantity: " + product.getQuantity());
 
-        String imgName = product.getImageName();
-        File file = new File("Data/ProductImages/" + imgName + ".png");
+        productImage.setPreserveRatio(true);
+        productImage.setSmooth(true);
 
-        if (file.exists()) {
-            productImage.setImage(new Image(file.toURI().toString()));
+        String imgName = product.getImageName();
+        File dir = new File(System.getProperty("user.dir") + "/data/ProductImages");
+
+        File imageFile = new File(dir, imgName + ".png");
+        if (!imageFile.exists())
+            imageFile = new File(dir, imgName + ".jpg");
+        if (!imageFile.exists())
+            imageFile = new File(dir, imgName + ".jpeg");
+
+        if (imageFile.exists()) {
+            productImage.setImage(new Image(imageFile.toURI().toString()));
         } else {
-            try {
-                String defaultPath = "/com/hypermarket/view/images/no_image.png";
-                productImage.setImage(new Image(getClass().getResourceAsStream(defaultPath)));
-            } catch (Exception e) {
-                productImage.setImage(null);
+            var stream = getClass().getResourceAsStream(
+                    "/com/hypermarket/view/images/no_image.png");
+            if (stream != null) {
+                productImage.setImage(new Image(stream));
             }
         }
     }

@@ -25,7 +25,8 @@ public class Product {
         parseString(record);
     }
 
-    public Product(int productID, String name, String category, String description, int quantity, double price, String size, int threshold) {
+    public Product(int productID, String name, String category, String description, int quantity, double price,
+            String size, int threshold) {
         this.productID = productID;
         this.name = name;
         this.category = category;
@@ -37,15 +38,14 @@ public class Product {
         this.imageName = "image_" + this.productID;
     }
 
-    public Product(String name, String size, double price, String category, String description)
-    {
+    public Product(String name, String size, double price, String category, String description) {
         this.name = name;
         this.size = size;
         this.price = price;
         this.category = category;
         this.description = description;
     }
-    
+
     public int getProductID() {
         return productID;
     }
@@ -57,7 +57,7 @@ public class Product {
     public String getCategory() {
         return category;
     }
-    
+
     public String getDescription() {
         return description;
     }
@@ -120,37 +120,42 @@ public class Product {
 
     @Override
     public String toString() {
-        return productID + FileManager.DELIMETER + 
-               name + FileManager.DELIMETER + 
-               category + FileManager.DELIMETER +
-               description + FileManager.DELIMETER +
-               quantity + FileManager.DELIMETER +
-               price + FileManager.DELIMETER +
-               //! The offer thing needs to be fixed
-               (offer != null ? offer.toString() : "null") + FileManager.DELIMETER +
-               size + FileManager.DELIMETER +
-               threshold + FileManager.DELIMETER + 
-               imageName;
+        return productID + FileManager.DELIMETER +
+                name + FileManager.DELIMETER +
+                category + FileManager.DELIMETER +
+                description + FileManager.DELIMETER +
+                quantity + FileManager.DELIMETER +
+                price + FileManager.DELIMETER +
+                // ! The offer thing needs to be fixed
+                (offer != null ? offer.toString() : "null") + FileManager.DELIMETER +
+                size + FileManager.DELIMETER +
+                threshold + FileManager.DELIMETER +
+                imageName;
     }
 
     private void parseString(String line) {
         String[] values = line.split(FileManager.DELIMETER);
+
         try {
-            productID = Integer.valueOf(values[0]);
+            productID = Integer.parseInt(values[0]);
             name = values[1];
-            category = values[2];
-            description = values[3];
-            quantity = Integer.valueOf(values[4]);
-            price = Double.valueOf(values[5]);
-            /**Habiba will handle this value:
-            offer = Offer.valueOf(values[6]);*/
+            category = values[3];
+            description = values[3]; // or values[2] if you want
+            quantity = (int) Double.parseDouble(values[4]);
+            price = Double.parseDouble(values[5]);
             size = values[7];
-            threshold = Integer.valueOf(values[8]);
-            imageName = values[9];
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error Entering Data: " + e.getMessage());
+            threshold = (int) Double.parseDouble(values[8]);
+
+            imageName = values.length > 9 ? values[9] : "image_" + productID;
+
+            // safety
+            if (imageName == null || imageName.equalsIgnoreCase("null")) {
+                imageName = "image_" + productID;
+            }
+
         } catch (Exception e) {
-            System.err.println("Error Parsing Data: " + e.getMessage());
+            System.err.println("Error parsing product line: " + line);
+            e.printStackTrace();
         }
     }
 
@@ -176,7 +181,8 @@ public class Product {
         int remainingToDeduct = amount;
 
         for (Batch batch : productBatches) {
-            if (remainingToDeduct <= 0) break;
+            if (remainingToDeduct <= 0)
+                break;
 
             int currentBatchQty = batch.getQuantity();
             int deductFromBatch = Math.min(currentBatchQty, remainingToDeduct);
@@ -186,7 +192,7 @@ public class Product {
         }
 
         this.quantity -= amount;
-        
+
         allBatches.removeIf(b -> b.getQuantity() <= 0);
 
         return true;
