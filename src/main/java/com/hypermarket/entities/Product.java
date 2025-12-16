@@ -1,6 +1,13 @@
 package com.hypermarket.entities;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
+
+import javafx.collections.ObservableList;
 
 public class Product {
     private int productID;
@@ -155,9 +162,34 @@ public class Product {
         return quantity;
     }
 
-    public boolean reduceStock(int quantity2) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'reduceStock'");
+    public boolean reduceStock(int amount) {
+        if (amount > this.quantity) {
+            return false;
+        }
+
+        ObservableList<Batch> allBatches = DataStore.getDataStore().getBatches();
+        List<Batch> productBatches = allBatches.stream()
+                .filter(b -> b.getProduct().getProductID() == this.productID)
+                .sorted(Comparator.comparing(Batch::getExpiryDate))
+                .collect(Collectors.toList());
+
+        int remainingToDeduct = amount;
+
+        for (Batch batch : productBatches) {
+            if (remainingToDeduct <= 0) break;
+
+            int currentBatchQty = batch.getQuantity();
+            int deductFromBatch = Math.min(currentBatchQty, remainingToDeduct);
+
+            batch.setQuantity(currentBatchQty - deductFromBatch);
+            remainingToDeduct -= deductFromBatch;
+        }
+
+        this.quantity -= amount;
+        
+        allBatches.removeIf(b -> b.getQuantity() <= 0);
+
+        return true;
     }
 
     public int getThreshold() {
