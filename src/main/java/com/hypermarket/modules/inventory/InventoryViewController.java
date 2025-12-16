@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.hypermarket.data.FileManager;
+import com.hypermarket.entities.Notification;
 import com.hypermarket.entities.User;
 import com.hypermarket.modules.inventory.*;
 
@@ -14,12 +15,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import com.hypermarket.service.Session;
+import java.util.List;              
+import javafx.geometry.Side;
+import org.kordamp.ikonli.javafx.FontIcon; 
+import javafx.scene.input.MouseEvent;  
 
 public class InventoryViewController implements Initializable {
 
@@ -59,6 +67,9 @@ public class InventoryViewController implements Initializable {
     @FXML
     private ImageView userProfileImage;
 
+    @FXML
+    private FontIcon notificationBtn;
+
     private InventoryDashboard inventorydashboard;
     private ProductsGrid productsGrid;
     Runnable onLogout;
@@ -80,6 +91,12 @@ public class InventoryViewController implements Initializable {
         } catch (MalformedURLException e) {
             System.err.println(e.getMessage());
         }
+
+        if (notificationBtn != null) {
+        notificationBtn.setOnMouseClicked(event -> {
+            showNotifications();
+        });
+    }
     }
 
     public void setOnLogout(Runnable onLogout) {
@@ -159,6 +176,24 @@ public class InventoryViewController implements Initializable {
             e.printStackTrace();
         }
 
+    }
+
+    private void showNotifications() {
+        List<String> alerts = com.hypermarket.entities.Notification.getSystemAlerts(); 
+        ContextMenu menu = new ContextMenu();
+
+        menu.setStyle("-fx-background-color: white;");
+
+        for (String message : alerts) {
+            MenuItem item = new MenuItem(message);
+            if (message.contains("LOW") || message.contains("EXPIRED")) {
+                item.setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
+            } else {
+                item.setStyle("-fx-text-fill: green;");
+            }
+            menu.getItems().add(item);
+        }
+        menu.show(notificationBtn, Side.BOTTOM, 0, 0);
     }
 
     private void fitToAnchor(javafx.scene.Node node) {
