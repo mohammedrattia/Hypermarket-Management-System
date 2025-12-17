@@ -19,7 +19,6 @@ public class DataStore {
     private ObservableList<Offer> offers = FXCollections.observableArrayList();
     private ObservableList<Report> reports = FXCollections.observableArrayList();
     private ObservableList<DamageLog> damageLogs = FXCollections.observableArrayList();
-    private ObservableList<Notification> notifications = FXCollections.observableArrayList();
     private HashMap<String, ObservableList<?>> lists = new HashMap<>();
 
     private DataStore() {
@@ -31,7 +30,6 @@ public class DataStore {
         lists.put("returns", returns);
         lists.put("offers", offers);
         lists.put("reports", reports);
-        lists.put("notifications", notifications);
         lists.put("damageLogs", damageLogs);
     }
 
@@ -69,7 +67,6 @@ public class DataStore {
         loadData("returns", returns, (record) -> new Return(record));
         loadData("offers", offers, (record) -> new Offer(record));
         loadData("reports", reports, (record) -> new Report(record));
-        loadData("notifications", notifications, (record) -> new Notification(record));
         loadData("damageLogs", damageLogs, (record) -> new DamageLog(record));
 
     }
@@ -117,10 +114,6 @@ public class DataStore {
 
     public ObservableList<Report> getReports() {
         return reports;
-    }
-
-    public ObservableList<Notification> getNotifications() {
-        return notifications;
     }
 
     public ObservableList<DamageLog> getDamageLogs() {
