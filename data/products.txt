@@ -20,3 +20,4 @@
 120;Office Desk;Furniture;Ergonomic Workstation;20;220.0;null;25KG;5;image_120
 121;Hollow Block;Construction;Standard Concrete Block;1000;1.2;null;15KG;100;image_121
 122;Standard Tool;Hardware;Multi-Purpose Hand Tool;40;19.99;null;1.5KG;10;image_122
+123;تم تعبئة الكرش بنجاح;تم تعبئة الكرش بنجاح;تم تعبئة الكرش بنجاح;0;15.0;null;تم تعبئة الكرش بنجاح;10;image_123

@@ -207,9 +207,9 @@ public class InventoryViewController implements Initializable {
             itemLabel.setMaxWidth(300);
 
             if (message.contains("LOW") || message.contains("EXPIRED")) {
-                itemLabel.setStyle("-fx-text-fill: #d32f2f; -fx-font-weight: bold; -fx-font-size: 13px;");
+                itemLabel.setStyle("-fx-text-fill: #d32f2f; -fx-font-weight: bold; -fx-font-size: 14px;");
             } else {
-                itemLabel.setStyle("-fx-text-fill: #2e7d32; -fx-font-size: 16px;");
+                itemLabel.setStyle("-fx-text-fill: #2e7d32; -fx-font-size: 13px;");
             }
             contentBox.getChildren().add(itemLabel);
         }

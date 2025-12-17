@@ -5,25 +5,40 @@ import java.util.List;
 
 import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.Product;
+import com.hypermarket.modules.inventory.*;
 import com.hypermarket.modules.components.KpiCardController;
 import com.hypermarket.modules.components.PieChartController;
 import com.hypermarket.modules.components.ProductCardController;
+import com.hypermarket.service.Session;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class InventoryDashboard {
 
     private VBox productGridContainer;
     private HBox kpiContainer;
     private PieChart pieChartNode;
+
+    private ObjectProperty<Product> selectedProduct = new SimpleObjectProperty<>();
+
+    public ReadOnlyObjectProperty<Product> getSelectedProductProperty() {
+        return selectedProduct;
+    }
 
     public Parent getView() {
         VBox mainLayout = new VBox(20);
@@ -68,10 +83,14 @@ public class InventoryDashboard {
 
         int productCount = products.size();
 
+        long categoryCount = products.stream().map(Product::getCategory).distinct().count();
+
+        long lowStockCount = products.stream().filter(p -> p.getQuantity() <= p.getThreshold()).count();
+
         kpiContainer.getChildren().addAll(
-                loadKpiCard("Porducts", String.valueOf(productCount), "2", true),
-                loadKpiCard("Categories", "10", "2", true),
-                loadKpiCard("Low Stock", "10 Items", "5%", false));
+                loadKpiCard("Porducts", String.valueOf(productCount), "-", true),
+                loadKpiCard("Categories", String.valueOf(categoryCount),"-", true),
+                loadKpiCard("Low Stock", lowStockCount + " Items", "-", false));
     }
 
     private void refreshList() {
@@ -127,6 +146,13 @@ public class InventoryDashboard {
             ProductCardController controller = loader.getController();
             controller.setData(product);
             controller.setOnDeleteAction(onDelete);
+            node.setOnMouseClicked(event -> {
+                if (Session.getInstance().getUser().getRole().toString() == "INVENTORY") {
+                    openProductDetailsModal(product);
+                } else if (Session.getInstance().getUser().getRole().toString() == "SALES") {
+                    selectedProduct.set(product);
+                }
+            });
             return node;
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -136,5 +162,34 @@ public class InventoryDashboard {
 
     private void refreshPie() {
         pieChartNode = loadPieChartComponent();
+    }
+
+
+    private void openProductDetailsModal(Product product) {
+        try {
+            FXMLLoader modalLoader = new FXMLLoader(
+                    getClass().getResource("/com/hypermarket/view/inventory/ProductDetailsModal.fxml"));
+            Parent modalView = modalLoader.load();
+            Object modalController = modalLoader.getController();
+            try {
+                java.lang.reflect.Method setProductMethod = modalController.getClass().getMethod("setProduct",
+                        Product.class);
+                setProductMethod.invoke(modalController, product);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            Stage modalStage = new Stage();
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.initStyle(StageStyle.UTILITY);
+            modalStage.setTitle("Product Details");
+            modalStage.setScene(new Scene(modalView));
+
+            modalStage.showAndWait();
+            refreshView(); 
+        } catch (IOException e) {
+            e.printStackTrace();
+        
+        }
     }
 }

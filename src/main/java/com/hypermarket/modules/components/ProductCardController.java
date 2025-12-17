@@ -54,8 +54,7 @@ public class ProductCardController {
         if (imageFile.exists()) {
             productImage.setImage(new Image(imageFile.toURI().toString()));
         } else {
-            var stream = getClass().getResourceAsStream(
-                    "/com/hypermarket/view/images/no_image.png");
+            var stream = getClass().getResourceAsStream("/com/hypermarket/view/images/no_image.png");
             if (stream != null) {
                 productImage.setImage(new Image(stream));
             }
