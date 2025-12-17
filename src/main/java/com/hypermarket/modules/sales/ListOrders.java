@@ -14,6 +14,7 @@ import com.hypermarket.entities.Sales;
 import com.hypermarket.modules.admin.AdminViewController;
 import com.hypermarket.modules.components.EmployeeCardController;
 import com.hypermarket.modules.components.KpiCardController;
+import com.hypermarket.modules.components.ReceiptPrinter;
 import com.hypermarket.modules.components.TableViewController;
 
 import javafx.fxml.FXML;
@@ -80,6 +81,7 @@ public class ListOrders implements Initializable {
             System.out.println("Popup: Please select an order first!");
         } else {
             System.out.println("Opening Receipt for Order #" + selectedOrder.getOrderID());
+            selectedOrder.printReceipt();
         }
     }
 

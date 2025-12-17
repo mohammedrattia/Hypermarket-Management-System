@@ -63,6 +63,7 @@ public class UpdateInfoController implements Initializable {
     private Button uploadImageBtn;
 
     private File selectedImageFile;
+    private Runnable onUpdateImage;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -96,6 +97,10 @@ public class UpdateInfoController implements Initializable {
 
     }
 
+    public void setOnUpdateImage(Runnable onUpdateImage) {
+        this.onUpdateImage = onUpdateImage;
+    }
+
     @FXML
     private void handleSave(ActionEvent event) {
         if (currentUser == null) {
@@ -127,6 +132,7 @@ public class UpdateInfoController implements Initializable {
                 e.printStackTrace();
             }
         }
+        onUpdateImage.run();
 
         DataStore.getDataStore().saveAllData();
         new Alert(Alert.AlertType.INFORMATION, "User info updated successfully!").showAndWait();
