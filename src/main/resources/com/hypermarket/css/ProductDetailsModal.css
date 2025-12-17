@@ -105,3 +105,61 @@
     -fx-background-color: #e0e0e0;
 
 }
+
+/* Red Gradient Button Style for Delete */
+.btn-danger {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-background-radius: 12;
+  -fx-padding: 10 20 10 20;
+  -fx-cursor: hand;
+  -fx-min-width: 170px;
+  -fx-min-height: 45px;
+  -fx-pref-width: 190px;
+  -fx-pref-height: 45px;
+  -fx-font-size: 15px;
+  -fx-background-color: linear-gradient(to bottom right, #ef4444 0%, #dc2626 100%);
+  -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.3), 10, 0, 0, 4);
+}
+
+.btn-danger:hover {
+  -fx-background-color: linear-gradient(to bottom right, #dc2626 0%, #b91c1c 100%);
+  -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.6), 10, 0, 0, 4);
+  -fx-font-weight: bold;
+}
+
+.btn-danger:pressed {
+  -fx-translate-y: 2;
+  -fx-min-width: 170px;
+  -fx-min-height: 45px;
+  -fx-pref-width: 190px;
+  -fx-pref-height: 45px;
+  -fx-font-weight: bold;
+}
+
+/* Warning/Yellow Small Button */
+.btn-warning-small {
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-background-radius: 8;
+  -fx-padding: 6 12;
+  -fx-cursor: hand;
+  -fx-font-size: 12px;
+  -fx-background-color: linear-gradient(to bottom right, #f59e0b 0%, #d97706 100%);
+  -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.3), 5, 0, 0, 2);
+}
+
+.btn-warning-small:hover {
+  -fx-background-color: linear-gradient(to bottom right, #d97706 0%, #b45309 100%);
+  -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.6), 5, 0, 0, 2);
+}
+
+.btn-warning-small:pressed {
+    -fx-translate-y: 1;
+}
+
+/* Icon Color Utility */
+.icon-light {
+    -fx-icon-color: white;
+    -fx-fill: white;
+}

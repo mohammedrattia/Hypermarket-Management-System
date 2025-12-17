@@ -36,7 +36,7 @@
                             <Image url="@../../images/fresh-tomatoes.png" />
                          </image>
                       </ImageView>
-                      <Button onAction="#handleUploadImage" text="Change Image" styleClass="btn-success-small" />
+                      <Button onAction="#handleUploadImage" text="Change Image" styleClass="btn-warning-small" />
                   </VBox>
                   <VBox alignment="CENTER_LEFT">
                      <children>
@@ -124,16 +124,21 @@
             
             <Separator />
 
-            <!-- Actions -->
-            <HBox alignment="CENTER_RIGHT" spacing="15.0">
-               <Button onAction="#handleCancel" text="Cancel" styleClass="btn-secondary"/>
-               <Button onAction="#handleUpdate" text="Save Changes" styleClass="btn-success">
-                  <graphic>
-                      <FontIcon iconLiteral="fas-save" styleClass="icon-light"/>
-                  </graphic>
-               </Button>
-            </HBox>
-         </children>
+                  <!-- Actions -->
+                  <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                     <Button onAction="#handleDelete" text="Delete Product" styleClass="btn-danger">
+                        <graphic>
+                            <FontIcon iconLiteral="fas-trash" styleClass="icon-light"/>
+                        </graphic>
+                     </Button>
+                     <Region HBox.hgrow="ALWAYS"/>
+                     <Button onAction="#handleCancel" text="Cancel" styleClass="btn-secondary"/>
+                     <Button onAction="#handleUpdate" text="Save Changes" styleClass="btn-success">
+                        <graphic>
+                            <FontIcon iconLiteral="fas-save" styleClass="icon-light"/>
+                        </graphic>
+                     </Button>
+                  </HBox>         </children>
       </VBox>
    </content>
 </ScrollPane>

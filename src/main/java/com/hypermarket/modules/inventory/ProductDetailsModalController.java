@@ -294,6 +294,30 @@ public class ProductDetailsModalController {
     }
 
     @FXML
+    private void handleDelete(ActionEvent event) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Delete Product");
+        alert.setHeaderText("Delete " + product.getName() + "?");
+        alert.setContentText("Are you sure you want to delete this product? All associated batches (" + 
+                             DataStore.getDataStore().getBatches().stream()
+                                 .filter(b -> b.getProduct().getProductID() == product.getProductID()).count() + 
+                             ") will also be removed.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Cascade delete batches
+            DataStore.getDataStore().getBatches().removeIf(b -> b.getProduct().getProductID() == product.getProductID());
+            
+            // Delete product
+            DataStore.getDataStore().getProducts().remove(product);
+            
+            DataStore.getDataStore().saveAllData();
+            
+            closeModal();
+        }
+    }
+
+    @FXML
     private void handleCancel(ActionEvent event) {
         closeModal();
     }
