@@ -97,8 +97,14 @@ public class OffersPageController {
             productCombo.setValue(null);
 
         } catch (NumberFormatException ex) {
-            System.err.println("Invalid discount input");
-        }
+              Alert alert = new Alert(Alert.AlertType.ERROR);
+              alert.setTitle("Invalid Discount");
+              alert.setHeaderText(null);
+              alert.setContentText("Please enter a valid positive number for Discount!");
+              alert.showAndWait();
+              return;
+}
+
     }
 
     private VBox createOfferCard(Offer o) {
