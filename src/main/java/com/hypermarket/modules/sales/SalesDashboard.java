@@ -86,21 +86,21 @@ public class SalesDashboard {
     }
 
     private void refreshView() {
-        List<Order> allOrders = DataStore.getDataStore().getOrders();
+        ObservableList<Order> allOrders = DataStore.getDataStore().getOrders();
         LocalDate today = LocalDate.now();
         LocalDate yesterday = today.minusDays(1);
 
-        List<Order> myOrders = new ArrayList<>();
+        // List<Order> myOrders = new ArrayList<>();
+        // for (Order o : allOrders) {
+        // if (o.getSeller() != null && o.getSeller().getID() == currentUser.getID()) {
+        // myOrders.add(o);
+        // }
+        // }
+
+        ObservableList<Order> myOrdersToday = FXCollections.observableArrayList();
+        ObservableList<Order> myOrdersYesterday = FXCollections.observableArrayList();
+
         for (Order o : allOrders) {
-            if (o.getSeller().getID() == currentUser.getID()) {
-                myOrders.add(o);
-            }
-        }
-
-        List<Order> myOrdersToday = new ArrayList<>();
-        List<Order> myOrdersYesterday = new ArrayList<>();
-
-        for (Order o : myOrders) {
             LocalDate oDate = o.getDateTime().toLocalDate();
             if (oDate.equals(today)) {
                 myOrdersToday.add(o);
@@ -110,7 +110,7 @@ public class SalesDashboard {
         }
 
         refreshKpis(myOrdersToday, myOrdersYesterday);
-        refreshBarChart(myOrders);
+        refreshBarChart(allOrders);
         refreshMiniTable(myOrdersToday);
     }
 
