@@ -15,6 +15,12 @@ import javafx.scene.control.Alert;
 
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
+import javafx.application.Platform;
+
+
+
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class ReportsPageController {
 
@@ -47,57 +53,42 @@ public class ReportsPageController {
     private void addReport() {
         if (currentUser == null) return;
         String content = inputReportArea.getText().trim();
-        if (content == null || content.trim().isEmpty()) {
 
+        if (content == null || content.trim().isEmpty()) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Empty Report");
-        alert.setHeaderText(null);
+        alert.setHeaderText("Report Content Missing");
         alert.setContentText("You didn't write anything in the report!");
 
         alert.showAndWait();
         return;
     }
+        
+
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String formattedDate = LocalDateTime.now().format(formatter);
 
         Report r = currentUser.saveCustomReport(
                 0,
-                "Custom Marketing Report - " + java.time.LocalDateTime.now(),
+                "Custom Marketing Report - " + formattedDate,
                 content
         );
 
         reportsContainer.getChildren().add(createReportCard(r));
         inputReportArea.clear();
 
-        showToast("Report added successfully ");
+        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+        successAlert.setTitle("Report Added");
+        successAlert.setHeaderText("Report Added Successfully");
+        successAlert.setContentText("The report has been added successfully!");
+        successAlert.showAndWait();
+
+        
 
     }
-    private void showToast(String message) {
-    Label toast = new Label(message);
-    toast.setStyle(
-        "-fx-background-color: #4CAF50;" +
-        "-fx-text-fill: white;" +
-        "-fx-padding: 10 20;" +
-        "-fx-background-radius: 20;" +
-        "-fx-font-weight: bold;"
-    );
-    toast.setOpacity(0);
 
-    reportsContainer.getChildren().add(toast);
-
-    FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), toast);
-    fadeIn.setFromValue(0);
-    fadeIn.setToValue(1);
-
-    
-    FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), toast);
-    fadeOut.setFromValue(1);
-    fadeOut.setToValue(0);
-    fadeOut.setDelay(Duration.seconds(2));
-
-    fadeOut.setOnFinished(e -> reportsContainer.getChildren().remove(toast));
-
-    fadeIn.play();
-    fadeOut.play();
-}
 
 
     private VBox createReportCard(Report r) {

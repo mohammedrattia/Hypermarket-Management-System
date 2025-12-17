@@ -96,7 +96,6 @@ public class UpdateInfoController implements Initializable {
     }
 
     public void setOnUpdateImage(Runnable onUpdateImage) {
-        System.out.println("DEBUG: Callback has been connected!");
         this.onUpdateImage = onUpdateImage;
     }
 

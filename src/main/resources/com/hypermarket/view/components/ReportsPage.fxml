@@ -13,7 +13,7 @@
         
         <Label styleClass="title" text="Custom Reports" />
         
-        <TextArea fx:id="inputReportArea" prefRowCount="3" promptText="Write your report content here..." styleClass="text-area" />
+        <TextArea fx:id="inputReportArea" prefRowCount="6" promptText="Write your report content here..." styleClass="text-area" />
         
         <Button fx:id="generateReportBtn" styleClass="button" text="Add Report" />
         
