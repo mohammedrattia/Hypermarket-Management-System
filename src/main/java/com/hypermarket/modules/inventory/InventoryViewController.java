@@ -9,6 +9,7 @@ import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.Notification;
 import com.hypermarket.entities.User;
 import com.hypermarket.modules.inventory.*;
+import com.hypermarket.modules.user.UpdateInfoController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -161,14 +162,41 @@ public class InventoryViewController implements Initializable {
 
     private void showUpdateUserInfo() {
         try {
-            Parent updateUserUI = FXMLLoader.load(
+            FXMLLoader updateUserUI = new FXMLLoader(
                     getClass().getResource("/com/hypermarket/view/user/UpdateUserInfo.fxml"));
+
+            Parent root = updateUserUI.load();
+            UpdateInfoController controller = updateUserUI.getController();
+            controller.setOnUpdateImage(() -> {
+                refereshImage();
+            });
             contentArea.getChildren().clear();
-            contentArea.getChildren().add(updateUserUI);
-            fitToAnchor(updateUserUI);
+            contentArea.getChildren().add(root);
+            fitToAnchor(root);
             updateTitleAndActiveTab(menuUpdateUserInfo);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void refereshImage() {
+        User currentUser = Session.getInstance().getUser();
+        try {
+            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            if (imageFile.exists()) {
+                Image image = new Image(imageFile.toURI().toURL().toString());
+                userProfileImage.setImage(image);
+
+                userProfileImage.setPreserveRatio(false);
+                Circle clip = new Circle();
+                clip.setCenterX(25);
+                clip.setCenterY(25);
+                clip.setRadius(25);
+
+                userProfileImage.setClip(clip);
+            }
+        } catch (MalformedURLException e) {
+            System.err.println(e.getMessage());
         }
     }
 
