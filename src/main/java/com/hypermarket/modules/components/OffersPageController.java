@@ -67,137 +67,120 @@ public class OffersPageController {
         }
     }
 
-    <<<<<<<
-
-    Updated upstream
-
-    private void addOffer() {
-        if (currentUser == null)
-            return;
-        try {
-            String name = offerNameField.getText().trim();
-            double discount = Double.parseDouble(discountField.getText().trim());
-            LocalDate startL = startDatePicker.getValue();
-            LocalDate endL = endDatePicker.getValue();
-            if (name.isEmpty() || startL == null || endL == null) return;
-=======
-
     private boolean datesOverlap(Date start1, Date end1, Date start2, Date end2) {
         return !start1.after(end2) && !start2.after(end1);
     }
 
     Product selectedProduct = null;
 
-   private void addOffer() {
-    if (currentUser == null)
-        return;
-
-    selectedProduct = null;
-
-    try {
-        String name = offerNameField.getText().trim();
-        double discount = Double.parseDouble(discountField.getText().trim());
-        LocalDate startL = startDatePicker.getValue();
-        LocalDate endL = endDatePicker.getValue();
-
-       
-        if (name.isEmpty() || startL == null || endL == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Missing Fields");
-            alert.setHeaderText(null);
-            alert.setContentText("Please fill in all fields before adding the offer.");
-            alert.showAndWait();
+    private void addOffer() {
+        if (currentUser == null)
             return;
-        }
 
-        Date start = Date.from(startL.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        Date end = Date.from(endL.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        selectedProduct = null;
 
-        
-        if (end.before(start)) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Invalid Dates");
-            alert.setHeaderText(null);
-            alert.setContentText("End date must be after start date.");
-            alert.showAndWait();
-            return;
-        }
+        try {
+            String name = offerNameField.getText().trim();
+            double discount = Double.parseDouble(discountField.getText().trim());
+            LocalDate startL = startDatePicker.getValue();
+            LocalDate endL = endDatePicker.getValue();
 
-      
-        String targetType = rbAll.isSelected() ? "ALL" : "PRODUCT";
-        String targetVal = rbProduct.isSelected() && productCombo.getValue() != null
-                ? productCombo.getValue()
-                : "ALL";
-
-       
-        if (rbProduct.isSelected() && productCombo.getValue() != null) {
-            String productName = productCombo.getValue();
-            selectedProduct = DataStore.getDataStore().getProducts()
-                    .stream()
-                    .filter(p -> p.getName().equals(productName))
-                    .findFirst()
-                    .orElse(null);
-        }
-
-        
-        Offer.Status status = Offer.Status.ACTIVE;
-
-        if (selectedProduct != null) {
-            boolean rejected = false;
-            boolean pending = false;
-
-            for (Offer o : DataStore.getDataStore().getOffers()) {
-                if (o.getProduct() != null &&
-                    o.getProduct().getProductID() == selectedProduct.getProductID() &&
-                    o.getManualStatus() == Offer.Status.ACTIVE) {
-
-                    
-                    if (!start.before(o.getStartDate()) && !end.after(o.getEndDate())) {
-                        rejected = true;
-                        break;
-                    }
-
-                    
-                    if (!start.before(o.getStartDate()) && end.after(o.getEndDate())) {
-                        pending = true;
-                    }
-                }
-            }
-
-            if (rejected) {
+            if (name.isEmpty() || startL == null || endL == null) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Offer Conflict");
-                alert.setHeaderText("Rejected");
-                alert.setContentText("Cannot add offer. This product already has an active offer in the selected period.");
+                alert.setTitle("Missing Fields");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill in all fields before adding the offer.");
                 alert.showAndWait();
                 return;
             }
->>>>>>> Stashed changes
 
-            if (pending || start.after(new Date())) {
-                status = Offer.Status.PENDING;
+            Date start = Date.from(startL.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            Date end = Date.from(endL.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+            if (end.before(start)) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Invalid Dates");
+                alert.setHeaderText(null);
+                alert.setContentText("End date must be after start date.");
+                alert.showAndWait();
+                return;
+            }
+
+            String targetType = rbAll.isSelected() ? "ALL" : "PRODUCT";
+            String targetVal = rbProduct.isSelected() && productCombo.getValue() != null
+                    ? productCombo.getValue()
+                    : "ALL";
+
+            if (rbProduct.isSelected() && productCombo.getValue() != null) {
+                String productName = productCombo.getValue();
+                selectedProduct = DataStore.getDataStore().getProducts()
+                        .stream()
+                        .filter(p -> p.getName().equals(productName))
+                        .findFirst()
+                        .orElse(null);
+            }
+
+            Offer.Status status = Offer.Status.ACTIVE;
+
+            if (selectedProduct != null) {
+                boolean rejected = false;
+                boolean pending = false;
+
+                for (Offer o : DataStore.getDataStore().getOffers()) {
+                    if (o.getProduct() != null &&
+                            o.getProduct().getProductID() == selectedProduct.getProductID() &&
+                            o.getManualStatus() == Offer.Status.ACTIVE) {
+
+                        if (!start.before(o.getStartDate()) && !end.after(o.getEndDate())) {
+                            rejected = true;
+                            break;
+                        }
+
+                        if (!start.before(o.getStartDate()) && end.after(o.getEndDate())) {
+                            pending = true;
+                        }
+                    }
+                }
+
+                if (rejected) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Offer Conflict");
+                    alert.setHeaderText("Rejected");
+                    alert.setContentText(
+                            "Cannot add offer. This product already has an active offer in the selected period.");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if (pending || start.after(new Date())) {
+                    status = Offer.Status.PENDING;
+                } else {
+                    status = Offer.Status.ACTIVE;
+                }
+
             } else {
-                status = Offer.Status.ACTIVE;
+
+                if (start.after(new Date())) {
+                    status = Offer.Status.PENDING;
+                }
             }
 
-        } else {
-            
-            if (start.after(new Date())) {
-                status = Offer.Status.PENDING;
+            Offer o = currentUser.createOffer(name, discount, start, end, targetType, targetVal);
+            o.setProduct(selectedProduct);
+            o.setManualStatus(status);
+
+            if (selectedProduct != null) {
+                selectedProduct.setOffer(o);
             }
-        }
 
-       
-        Offer o = currentUser.createOffer(name, discount, start, end, targetType, targetVal);
-        o.setProduct(selectedProduct);
-        o.setManualStatus(status);
+            DataStore.getDataStore().saveAllData();
 
-        if (selectedProduct != null) {
-            selectedProduct.setOffer(o);
-        }
+            offersContainer.getChildren().clear();
+            DataStore.getDataStore().getOffers().stream()
+                    .sorted((a, b) -> Integer.compare(getStatusOrder(a.getManualStatus()),
+                            getStatusOrder(b.getManualStatus())))
+                    .forEach(o2 -> offersContainer.getChildren().add(createOfferCard(o2)));
 
-<<<<<<< Updated upstream
-            
             offerNameField.clear();
             discountField.clear();
             startDatePicker.setValue(null);
@@ -207,33 +190,13 @@ public class OffersPageController {
             productCombo.setValue(null);
 
         } catch (NumberFormatException ex) {
-            System.err.println("Invalid discount input");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Discount");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter a valid positive number for Discount!");
+            alert.showAndWait();
         }
-    }=======
-
-    DataStore.getDataStore().saveAllData();
-
-    offersContainer.getChildren().clear();DataStore.getDataStore().getOffers().stream().sorted((a,b)->Integer.compare(getStatusOrder(a.getManualStatus()), getStatusOrder(b.getManualStatus())))
-                .forEach(o2 -> offersContainer.getChildren().add(createOfferCard(o2)));
-
-   
-        offerNameField.clear();
-        discountField.clear();
-        startDatePicker.setValue(null);
-        endDatePicker.setValue(null);
-        rbAll.setSelected(true);
-        rbProduct.setSelected(false);
-        productCombo.setValue(null);
-
-    }catch(NumberFormatException ex)
-    {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Invalid Discount");
-        alert.setHeaderText(null);
-        alert.setContentText("Please enter a valid positive number for Discount!");
-        alert.showAndWait();
     }
-}
 
     private int getStatusOrder(Offer.Status status) {
         return switch (status) {
@@ -241,9 +204,7 @@ public class OffersPageController {
             case PENDING -> 2;
             case EXPIRED -> 3;
         };
-    }>>>>>>>
-
-    Stashed changes
+    }
 
     private VBox createOfferCard(Offer o) {
         VBox card = new VBox(8);
