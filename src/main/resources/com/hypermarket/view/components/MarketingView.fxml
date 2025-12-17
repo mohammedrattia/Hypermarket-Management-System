@@ -65,6 +65,10 @@
           <padding><Insets bottom="15.0" left="10.0" right="10.0" top="10.0" /></padding>
           <children>
             <Separator styleClass="sidebar-separator" />
+            <HBox fx:id="menuUpdateUserInfoItem" alignment="CENTER_LEFT" spacing="12" styleClass="menu-item">
+              <FontIcon fx:id="settingsIcon" iconLiteral="fas-user-edit" iconSize="18" styleClass="menu-icon" />
+              <Label fx:id="menuUpdateUserInfo" styleClass="menu-text" text="Update User Info" />
+            </HBox>
             <HBox fx:id="menuLogoutItem" alignment="CENTER_LEFT" spacing="12" styleClass="menu-item">
               <FontIcon iconLiteral="fas-sign-out-alt" iconSize="18" styleClass="menu-icon" />
               <Label fx:id="menuLogout" styleClass="menu-text" text="Logout" />
