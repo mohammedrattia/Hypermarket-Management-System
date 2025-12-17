@@ -1,0 +1,49 @@
+
+.pdf-viewer-root {
+    -fx-background-color: white;
+}
+
+.header-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+.pdf-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: #e2e8f0;
+}
+
+.pdf-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.pages-container {
+    -fx-background-color: #f1f5f9; /* Light slate background */
+    -fx-padding: 10;
+}
+ 
+
+.dialog-btn {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 8 20;
+    -fx-background-radius: 8;
+    -fx-font-size: 12px;
+}
+
+.close-btn {
+    -fx-background-color: #94a3b8;
+}
+.close-btn:hover {
+    -fx-background-color: #64748b;
+}
+
+.save-btn {
+    -fx-background-color: #10b981;
+}
+.save-btn:hover {
+    -fx-background-color: #059669; 
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.4), 8, 0, 0, 2);
+}

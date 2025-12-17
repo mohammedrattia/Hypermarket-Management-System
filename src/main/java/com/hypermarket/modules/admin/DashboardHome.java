@@ -10,7 +10,6 @@ import com.hypermarket.modules.components.KpiCardController;
 import com.hypermarket.modules.components.PieChartController;
 import com.hypermarket.service.Session;
 
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;

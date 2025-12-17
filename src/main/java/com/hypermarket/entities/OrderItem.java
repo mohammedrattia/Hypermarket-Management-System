@@ -1,12 +1,8 @@
 package com.hypermarket.entities;
 
-import java.util.List;
-
 import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 import com.hypermarket.service.ListManipulation;
-
-import javafx.scene.chart.PieChart.Data;
 
 public class OrderItem implements Parsable {
 
@@ -73,7 +69,7 @@ public class OrderItem implements Parsable {
 
     public void setProduct(Product product) {
         this.product = product;
-        priceThatDate = new Double(product.getPrice());
+        priceThatDate = product.getPrice();
     }
 
     public int getQuantity() {

@@ -245,9 +245,9 @@ public class InventoryViewController extends ViewController implements Initializ
 
         CustomMenuItem customItem = new CustomMenuItem(scrollPane);
         customItem.setHideOnClick(false);
-        
+
         customItem.setStyle("-fx-background-color: white;");
-        
+
         menu.getItems().add(customItem);
         menu.show(notificationBtn, Side.LEFT, -20, -150);
     }

@@ -16,7 +16,6 @@
    <stylesheets>
       <URL value="@../../css/OrderItemCard.css" />
       <URL value="@../../css/ReturnItemCard.css" />
-      <URL value="@../../css/SalesThemes.css" />
    </stylesheets>
 
    <children>
