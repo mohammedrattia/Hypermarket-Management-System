@@ -3,8 +3,12 @@ package com.hypermarket.modules.components;
 import com.hypermarket.service.*;
 
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.Function;
 
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -20,6 +24,9 @@ public class TableViewController<T> implements Initializable {
 	private ObservableList<T> tableRows;
 	private FilteredList<T> filteredData;
 	private String filterOnProperty;
+
+	private List<String> excludedFields = new ArrayList<>();
+	private Map<String, Function<Object, String>> customFormatters = new HashMap<>();
 
 	@FXML
 	private TableView<T> tableView;
@@ -77,11 +84,17 @@ public class TableViewController<T> implements Initializable {
 
 		for (Field field : fields) {
 			String fieldName = field.getName();
-			TableColumn<T, Object> col = addColumn(fieldName);
+
+			if (excludedFields.contains(fieldName))
+				continue;
+
+			TableColumn<T, Object> col = addColumn(fieldName, field);
 
 			addColumnsMenuItem(col, fieldName);
 
-			filterButton.getItems().add(fieldName);
+			if (field.getType() != LocalDateTime.class) {
+				filterButton.getItems().add(fieldName);
+			}
 		}
 	}
 
@@ -97,9 +110,22 @@ public class TableViewController<T> implements Initializable {
 		});
 	}
 
-	private TableColumn<T, Object> addColumn(String fieldName) {
+	private TableColumn<T, Object> addColumn(String fieldName, Field field) {
 		TableColumn<T, Object> col = new TableColumn<>(fieldName);
-		col.setCellValueFactory(new PropertyValueFactory<>(fieldName));
+		if (customFormatters.containsKey(fieldName)) {
+			col.setCellValueFactory(rowData -> {
+				try {
+					field.setAccessible(true);
+					Object rawValue = field.get(rowData.getValue());
+					String formattedValue = customFormatters.get(fieldName).apply(rawValue);
+					return new SimpleObjectProperty<>(formattedValue);
+				} catch (Exception e) {
+					return new SimpleObjectProperty<>(null);
+				}
+			});
+		} else {
+			col.setCellValueFactory(new PropertyValueFactory<>(fieldName));
+		}
 		tableView.getColumns().add(col);
 		return col;
 	}
@@ -132,12 +158,39 @@ public class TableViewController<T> implements Initializable {
 			Object choice;
 			try {
 				choice = field.get(obj);
-				boolean alreadyExist = filterChoice.getItems().contains(String.valueOf(choice));
+				String formattedValue;
+				if (customFormatters.containsKey(property)) {
+					formattedValue = customFormatters.get(property).apply(choice);
+				} else {
+					formattedValue = String.valueOf(choice);
+				}
+				boolean alreadyExist = filterChoice.getItems().contains(formattedValue);
 				if (!alreadyExist)
-					filterChoice.getItems().add(String.valueOf(choice));
+					filterChoice.getItems().add(formattedValue);
 			} catch (IllegalAccessException | IllegalArgumentException e) {
 				e.printStackTrace();
 			}
 		}
 	}
+
+	public void excludeColumn(String... fieldNames) {
+		excludedFields.addAll(Arrays.asList(fieldNames));
+	}
+
+	public void setColumnFormatter(String fieldName, Function<Object, String> formatter) {
+		customFormatters.put(fieldName, formatter);
+	}
+
+	public ReadOnlyObjectProperty<T> getSelectedItemProperty() {
+		return tableView.getSelectionModel().selectedItemProperty();
+	}
+
+	public T getSelectedItem() {
+		return tableView.getSelectionModel().getSelectedItem();
+	}
+
+	public void clearSelection() {
+		tableView.getSelectionModel().clearSelection();
+	}
+
 }

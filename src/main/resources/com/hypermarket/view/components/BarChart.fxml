@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.hypermarket.modules.components.BarChartController">
+
+    <BarChart fx:id="barChart" animated="false" legendVisible="false" title="Weekly Performance">
+        <xAxis>
+            <CategoryAxis label="Day" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+            <NumberAxis label="Revenue ($)" side="LEFT" />
+        </yAxis>
+    </BarChart>
+
+</VBox>

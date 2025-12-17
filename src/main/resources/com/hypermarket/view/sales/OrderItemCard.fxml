@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox fx:id="orderItemCard" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="400.0"
+<HBox fx:id="orderItemCard" alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0"
    styleClass="order-item-card" xmlns="http://javafx.com/javafx/25"
    xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.sales.OrderItemCard">
    <stylesheets>

@@ -15,6 +15,7 @@ public class OrderItem {
     private Product product;
     private int quantity;
     private double priceThatDate;
+    private int returnedItems;
 
     public OrderItem(Product product, int quantity) {
         this.product = product;
@@ -39,11 +40,10 @@ public class OrderItem {
         try {
             orderItemID = Integer.parseInt(values[0]);
             order = ListManipulation.searchObjectWithID(DataStore.getDataStore().getOrders(), values[1]);
+            order.getItems().add(this);
             product = ListManipulation.searchObjectWithID(DataStore.getDataStore().getProducts(), values[2]);
             quantity = Integer.parseInt(values[3]);
             priceThatDate = Double.parseDouble(values[4]);
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error Chosing Role: " + e.getMessage());
         } catch (Exception e) {
             System.err.println("Error parsing data: " + e.getMessage());
         }
@@ -80,6 +80,14 @@ public class OrderItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getReturnedItems() {
+        return returnedItems;
+    }
+
+    public void setReturnedItems(int returnedItems) {
+        this.returnedItems = returnedItems;
     }
 
     public double getPriceThatDate() {

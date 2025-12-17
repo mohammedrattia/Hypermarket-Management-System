@@ -5,13 +5,19 @@ import java.lang.reflect.Field;
 
 import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.Product;
+import com.hypermarket.entities.Role;
 import com.hypermarket.modules.components.ProductCardController;
 import com.hypermarket.service.ListManipulation;
+import com.hypermarket.service.Session;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
@@ -48,6 +54,12 @@ public class ProductsGrid {
     private ObservableList<Product> productsData = DataStore.getDataStore().getProducts();
     private FilteredList<Product> filteredData;
     private SortedList<Product> sortedData;
+
+    private ObjectProperty<Product> selectedProduct = new SimpleObjectProperty<>();
+
+    public ReadOnlyObjectProperty<Product> getSelectedProductProperty() {
+        return selectedProduct;
+    }
 
     public Parent getView() {
 
@@ -171,23 +183,10 @@ public class ProductsGrid {
             controller.setData(product);
 
             node.setOnMouseClicked(event -> {
-                try {
-                    FXMLLoader modalLoader = new FXMLLoader(getClass().getResource("/com/hypermarket/view/inventory/ProductDetailsModal.fxml"));
-                    Parent modalView = modalLoader.load();
-
-                    ProductDetailsModalController modalController = modalLoader.getController();
-                    modalController.setProduct(product);
-
-                    Stage modalStage = new Stage();
-                    modalStage.initModality(Modality.APPLICATION_MODAL);
-                    modalStage.initStyle(StageStyle.UTILITY);
-                    modalStage.setTitle("Product Details");
-                    modalStage.setScene(new Scene(modalView));
-
-                    modalStage.showAndWait();
-                    refreshGrid();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (Session.getInstance().getUser().getRole().toString() == "INVENTORY") {
+                    openProductDetailsModal(product);
+                } else if (Session.getInstance().getUser().getRole().toString() == "SALES") {
+                    selectedProduct.set(product);
                 }
             });
 
@@ -195,6 +194,34 @@ public class ProductsGrid {
         } catch (IOException ex) {
             ex.printStackTrace();
             return null;
+        }
+    }
+
+    private void openProductDetailsModal(Product product) {
+        try {
+            FXMLLoader modalLoader = new FXMLLoader(
+                    getClass().getResource("/com/hypermarket/view/inventory/ProductDetailsModal.fxml"));
+            Parent modalView = modalLoader.load();
+
+            Object modalController = modalLoader.getController();
+            try {
+                java.lang.reflect.Method setProductMethod = modalController.getClass().getMethod("setProduct",
+                        Product.class);
+                setProductMethod.invoke(modalController, product);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            Stage modalStage = new Stage();
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            modalStage.initStyle(StageStyle.UTILITY);
+            modalStage.setTitle("Product Details");
+            modalStage.setScene(new Scene(modalView));
+
+            modalStage.showAndWait();
+            refreshGrid();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
