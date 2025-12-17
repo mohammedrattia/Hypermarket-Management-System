@@ -1,6 +1,7 @@
 package com.hypermarket.modules.inventory;
 
 import com.hypermarket.entities.Product;
+import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.Inventory;
 
 import javafx.fxml.FXML;
@@ -120,10 +121,9 @@ public class AddProductController {
                     folder.mkdir();
                 }
                 File dest = new File("Data/ProductImages/image_" + newID + ".png");
-                Files.copy(
-                        this.selectedImageFile.toPath(),
-                        dest.toPath(),
-                        StandardCopyOption.REPLACE_EXISTING);
+                FileManager.copyImage(
+                        this.selectedImageFile,
+                        dest);
             }
             Product newProduct = new Product(newID, name, category, description, 0, price, size, threshold);
             inventorySystem.addProduct(newProduct);
