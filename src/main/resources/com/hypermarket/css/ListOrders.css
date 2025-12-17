@@ -18,9 +18,9 @@
   -fx-background-radius: 12;
   -fx-padding: 10 20 10 20;
   -fx-cursor: hand;
-  -fx-min-width: 145px;
+  -fx-min-width: 200px;
   -fx-min-height: 45px;
-  -fx-pref-width: 160px;
+  -fx-pref-width: 220px;
   -fx-pref-height: 45px;
   -fx-font-size: 15px;
 }
@@ -85,9 +85,9 @@
 .remove-btn:pressed,
 .receipt-btn:pressed {
   -fx-translate-y: 2;
-  -fx-min-width: 145px;
+  -fx-min-width: 200px;
   -fx-min-height: 45px;
-  -fx-pref-width: 160px;
+  -fx-pref-width: 220px;
   -fx-pref-height: 45px;
   -fx-font-weight: bold;
 }

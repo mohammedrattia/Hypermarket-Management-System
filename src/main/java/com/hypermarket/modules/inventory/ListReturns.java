@@ -1,14 +1,18 @@
-package com.hypermarket.modules.sales;
+package com.hypermarket.modules.inventory;
 
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.Comparator;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
+import com.hypermarket.entities.Batch;
 import com.hypermarket.entities.OrderItem;
 import com.hypermarket.entities.Product;
-import com.hypermarket.entities.Return; // Import the Return entity
+import com.hypermarket.entities.Return;
 import com.hypermarket.modules.components.TableViewController;
 
 import javafx.fxml.FXML;
@@ -16,6 +20,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -39,10 +45,62 @@ public class ListReturns implements Initializable {
     private void initListeners() {
         returnsTable.getSelectedItemProperty().addListener((obs, oldVal, newVal) -> {
             selectedReturn = newVal;
-            if (selectedReturn != null) {
-                System.out.println("Selected Return ID: " + selectedReturn.getReturnID());
-            }
         });
+    }
+
+    @FXML
+    private void handleReAddToStock() {
+        if (selectedReturn == null) {
+            showAlert("Selection Error", "Please select a returned order first.");
+            return;
+        }
+
+        DataStore db = DataStore.getDataStore();
+        
+        Product product = selectedReturn.getProduct();
+        int qtyToReturn = selectedReturn.getQuantityReturned();
+
+        List<Batch> productBatches = db.getBatches().stream()
+                .filter(b -> b.getProduct().getProductID() == product.getProductID())
+                .sorted(Comparator.comparing(Batch::getExpiryDate))
+                .collect(Collectors.toList());
+
+        if (!productBatches.isEmpty()) {
+            Batch targetBatch = productBatches.get(0);
+            targetBatch.setQuantity(targetBatch.getQuantity() + qtyToReturn);
+        } else {
+            System.err.println("Warning: No active batches found for product " + product.getName() + ". Stock added to product total only.");
+        }
+
+        product.setQuantity(product.getQuantity() + qtyToReturn);
+
+        db.getReturns().remove(selectedReturn);
+        
+        returnsTable.clearSelection();
+        selectedReturn = null;
+        showAlert("Success", "Item re-added to stock (Nearest Expiry Batch updated).");
+    }
+
+    @FXML
+    private void handleDeleteDamaged() {
+        if (selectedReturn == null) {
+            showAlert("Selection Error", "Please select a returned order first.");
+            return;
+        }
+
+        DataStore.getDataStore().getReturns().remove(selectedReturn);
+
+        returnsTable.clearSelection();
+        selectedReturn = null;
+        showAlert("Deleted", "Returned order discarded as damaged/waste.");
+    }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     private void loadReturnsTable() {
@@ -77,7 +135,6 @@ public class ListReturns implements Initializable {
 
         returnsTable.setColumnFormatter("product", obj -> {
             Product p = (Product) obj;
-            // If you want "ID - Name", change to: p.getProductID() + " - " + p.getName()
             return p != null ? String.valueOf(p.getProductID()) : "";
         });
 
@@ -101,6 +158,6 @@ public class ListReturns implements Initializable {
     }
 
     public void clearTableSelection() {
-        returnsTable.clearSelection();
+        if(returnsTable != null) returnsTable.clearSelection();
     }
 }
