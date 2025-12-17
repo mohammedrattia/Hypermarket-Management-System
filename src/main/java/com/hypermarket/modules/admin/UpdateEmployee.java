@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.hypermarket.entities.Role;
 import com.hypermarket.entities.User;
 import com.hypermarket.data.*;
 
@@ -125,6 +126,8 @@ public class UpdateEmployee implements Initializable {
         user.setLName(lnameField.getText());
         user.setPhone(phoneField.getText());
         user.setEmail(emailField.getText());
+        user.setRole(Role.valueOf(roleComboBox.getValue().toUpperCase()));
+        user.setSalary(Double.parseDouble(salaryField.getText()));
 
         // Only update password if user entered a new one
         if (!newPassField.getText().trim().isEmpty()) {
