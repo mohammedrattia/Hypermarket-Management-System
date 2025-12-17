@@ -133,3 +133,25 @@
     -fx-pref-height: 45px;
     -fx-font-weight: bold;
 }
+
+.combo-box {
+    -fx-border-color: #a0a0a0;
+    -fx-border-width: 1;
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+}
+
+.combo-box:hover {
+    -fx-background-color: white;
+    -fx-border-color: #10b981;
+}
+
+.combo-box:focused {
+    -fx-background-color: white;
+    -fx-border-color: #10b981;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #10b981;
+}

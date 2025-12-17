@@ -23,11 +23,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
+
 import com.hypermarket.service.Session;
-import java.util.List;              
+import java.util.List;
 import javafx.geometry.Side;
-import org.kordamp.ikonli.javafx.FontIcon; 
-import javafx.scene.input.MouseEvent;  
+import org.kordamp.ikonli.javafx.FontIcon;
+import javafx.scene.input.MouseEvent;
 
 public class InventoryViewController implements Initializable {
 
@@ -87,16 +89,24 @@ public class InventoryViewController implements Initializable {
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toURL().toString());
                 userProfileImage.setImage(image);
+
+                userProfileImage.setPreserveRatio(false);
+                Circle clip = new Circle();
+                clip.setCenterX(25);
+                clip.setCenterY(25);
+                clip.setRadius(25);
+
+                userProfileImage.setClip(clip);
             }
         } catch (MalformedURLException e) {
             System.err.println(e.getMessage());
         }
 
         if (notificationBtn != null) {
-        notificationBtn.setOnMouseClicked(event -> {
-            showNotifications();
-        });
-    }
+            notificationBtn.setOnMouseClicked(event -> {
+                showNotifications();
+            });
+        }
     }
 
     public void setOnLogout(Runnable onLogout) {
@@ -179,7 +189,7 @@ public class InventoryViewController implements Initializable {
     }
 
     private void showNotifications() {
-        List<String> alerts = com.hypermarket.entities.Notification.getSystemAlerts(); 
+        List<String> alerts = com.hypermarket.entities.Notification.getSystemAlerts();
         ContextMenu menu = new ContextMenu();
 
         menu.setStyle("-fx-background-color: white;");

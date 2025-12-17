@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 public class AdminViewController implements Initializable {
 
@@ -74,6 +75,14 @@ public class AdminViewController implements Initializable {
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toURL().toString());
                 userImage.setImage(image);
+               
+                userImage.setPreserveRatio(false);
+                Circle clip = new Circle();
+                clip.setCenterX(25);
+                clip.setCenterY(25);
+                clip.setRadius(25);
+
+                userImage.setClip(clip);
             }
         } catch (MalformedURLException e) {
             System.err.println(e.getMessage());

@@ -53,7 +53,7 @@
                                     <PasswordField fx:id="passwordField" />
                                     <PasswordField fx:id="confirmPassField" />
                                     <TextField fx:id="salaryField" />
-                                    <ComboBox fx:id="roleComboBox" prefWidth="150.0" promptText="Select Role" />
+                                    <ComboBox fx:id="roleComboBox" prefWidth="150.0" promptText="Select Role" styleClass="box-Style" />
                                 </children>
                             </VBox>
                      </children>
