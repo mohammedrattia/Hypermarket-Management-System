@@ -1,7 +1,6 @@
 package com.hypermarket.entities;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
