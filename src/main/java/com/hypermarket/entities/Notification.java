@@ -7,7 +7,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Notification implements Parsable {
+public class Notification {
 
     private String message;
     private LocalDate date;

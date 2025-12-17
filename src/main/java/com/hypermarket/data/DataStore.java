@@ -18,7 +18,6 @@ public class DataStore {
     private ObservableList<Return> returns = FXCollections.observableArrayList();
     private ObservableList<Offer> offers = FXCollections.observableArrayList();
     private ObservableList<Report> reports = FXCollections.observableArrayList();
-    private ObservableList<DamageLog> damageLogs = FXCollections.observableArrayList();
     private HashMap<String, ObservableList<?>> lists = new HashMap<>();
 
     private DataStore() {
@@ -30,7 +29,6 @@ public class DataStore {
         lists.put("returns", returns);
         lists.put("offers", offers);
         lists.put("reports", reports);
-        lists.put("damageLogs", damageLogs);
     }
 
     public static DataStore getDataStore() {
@@ -67,8 +65,6 @@ public class DataStore {
         loadData("returns", returns, (record) -> new Return(record));
         loadData("offers", offers, (record) -> new Offer(record));
         loadData("reports", reports, (record) -> new Report(record));
-        loadData("damageLogs", damageLogs, (record) -> new DamageLog(record));
-
     }
 
     private <T> void loadData(String filename, ObservableList<T> list, Parser<T> parser) {
@@ -116,7 +112,4 @@ public class DataStore {
         return reports;
     }
 
-    public ObservableList<DamageLog> getDamageLogs() {
-        return damageLogs;
-    }
 }
