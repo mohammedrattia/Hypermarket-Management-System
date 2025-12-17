@@ -3,34 +3,24 @@ package com.hypermarket.modules.sales;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-import com.hypermarket.app.App;
 import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.Order;
-import com.hypermarket.entities.Product;
 import com.hypermarket.entities.Sales;
-import com.hypermarket.modules.admin.AdminViewController;
-import com.hypermarket.modules.components.EmployeeCardController;
-import com.hypermarket.modules.components.KpiCardController;
-import com.hypermarket.modules.components.ReceiptPrinter;
 import com.hypermarket.modules.components.TableViewController;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -97,16 +87,6 @@ public class ListOrders implements Initializable {
             // loader.setController(order);
             MakeReturn controller = loader.getController();
             controller.setOrder(order);
-
-            // Object modalController = loader.getController();
-            // try {
-            // java.lang.reflect.Method setProductMethod =
-            // modalController.getClass().getMethod("setProduct",
-            // Product.class);
-            // // setProductMethod.invoke(modalController, product);
-            // } catch (Exception e) {
-            // e.printStackTrace();
-            // }
 
             Stage makeReturnView = new Stage();
             makeReturnView.initModality(Modality.APPLICATION_MODAL);
