@@ -4,7 +4,9 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.List;
 
+import com.hypermarket.service.Session;
 import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.Notification;
 import com.hypermarket.entities.User;
@@ -26,11 +28,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-
-import com.hypermarket.service.Session;
-import java.util.List;
-import javafx.geometry.Side;
 import org.kordamp.ikonli.javafx.FontIcon;
+import javafx.geometry.Side;
+
 
 public class InventoryViewController extends ViewController implements Initializable {
 

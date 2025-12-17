@@ -26,6 +26,8 @@ public class ProductCardController {
     private Label productQuantityCard;
     @FXML
     private Label expDateProduct;
+    @FXML
+    private Label CategoryLabel;
 
     private Runnable onDeleteAction;
 
@@ -38,6 +40,7 @@ public class ProductCardController {
         productIDCard.setText("ID: " + product.getProductID());
         productPriceCard.setText("Price: " + product.getPrice() + " $");
         productQuantityCard.setText("Quantity: " + product.getQuantity());
+        CategoryLabel.setText("Category: " + product.getCategory());
 
         productImage.setPreserveRatio(true);
         productImage.setSmooth(true);
