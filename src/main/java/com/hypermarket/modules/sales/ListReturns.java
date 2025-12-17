@@ -88,11 +88,6 @@ public class ListReturns implements Initializable {
             return "";
         });
 
-        returnsTable.setColumnFormatter("status", obj -> {
-            Return returnedItem = (Return) obj;
-            return returnedItem.getStatus().toString();
-        });
-
         returnsTable.setColumnFormatter("refundAmount", obj -> {
             return String.format("$ %,.2f", (Double) obj);
         });

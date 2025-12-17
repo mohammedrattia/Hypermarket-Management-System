@@ -13,7 +13,6 @@
     </children>
     <stylesheets>
         <URL value="@../../css/ListOrders.css" />
-        <URL value="@../../css/SalesThemes.css" />
     </stylesheets>
 
 </VBox>

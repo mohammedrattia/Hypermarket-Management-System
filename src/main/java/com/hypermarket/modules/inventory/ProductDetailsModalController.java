@@ -20,7 +20,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
@@ -103,7 +102,7 @@ public class ProductDetailsModalController {
             String imageName = product.getImageName();
             if (imageName != null && !imageName.equals("null") && !imageName.isEmpty()) {
                 File imageFile = new File("data/ProductImages/" + imageName);
-                
+
                 // If specific extension is missing, try finding the file with common extensions
                 if (!imageFile.exists()) {
                     File pngFile = new File("data/ProductImages/" + imageName + ".png");
@@ -314,21 +313,23 @@ public class ProductDetailsModalController {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Delete Product");
         alert.setHeaderText("Delete " + product.getName() + "?");
-        alert.setContentText("Are you sure you want to delete this product? All associated batches (" + 
-                             DataStore.getDataStore().getBatches().stream()
-                                 .filter(b -> b.getProduct().getProductID() == product.getProductID()).count() + 
-                             ") will also be removed.");
+        alert.setContentText("Are you sure you want to delete this product? All associated batches (" +
+                DataStore.getDataStore().getBatches().stream()
+                        .filter(b -> b.getProduct().getProductID() == product.getProductID()).count()
+                +
+                ") will also be removed.");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             // Cascade delete batches
-            DataStore.getDataStore().getBatches().removeIf(b -> b.getProduct().getProductID() == product.getProductID());
-            
+            DataStore.getDataStore().getBatches()
+                    .removeIf(b -> b.getProduct().getProductID() == product.getProductID());
+
             // Delete product
             DataStore.getDataStore().getProducts().remove(product);
-            
+
             DataStore.getDataStore().saveAllData();
-            
+
             closeModal();
         }
     }

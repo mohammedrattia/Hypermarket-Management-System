@@ -18,7 +18,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -245,9 +244,9 @@ public class InventoryViewController extends ViewController implements Initializ
 
         CustomMenuItem customItem = new CustomMenuItem(scrollPane);
         customItem.setHideOnClick(false);
-        
+
         customItem.setStyle("-fx-background-color: white;");
-        
+
         menu.getItems().add(customItem);
         menu.show(notificationBtn, Side.LEFT, -20, -150);
     }

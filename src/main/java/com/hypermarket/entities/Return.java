@@ -14,7 +14,6 @@ public class Return implements Parsable {
     private Product product;
     private LocalDateTime returnDate;
     private int quantityReturned;
-    private ReturnStatus status;
     private double refundAmount;
 
     public Return(OrderItem orderItem, int quantityReturned) {
@@ -28,7 +27,6 @@ public class Return implements Parsable {
         this.orderItem = orderItem;
         this.product = orderItem.getProduct();
         this.quantityReturned = quantityReturned;
-        this.status = ReturnStatus.PENDING;
         this.returnDate = LocalDateTime.now();
         this.refundAmount = quantityReturned * orderItem.getPriceThatDate();
         returnsList.add(this);
@@ -44,7 +42,6 @@ public class Return implements Parsable {
                 orderItem.getOrderItemID() + FileManager.DELIMETER +
                 returnDate.format(FileManager.dateTimeFormat) + FileManager.DELIMETER +
                 quantityReturned + FileManager.DELIMETER +
-                this.status.toString() + FileManager.DELIMETER +
                 refundAmount;
     }
 
@@ -58,8 +55,7 @@ public class Return implements Parsable {
             this.product = orderItem.getProduct();
             this.returnDate = LocalDateTime.parse(values[2], FileManager.dateTimeFormat);
             this.quantityReturned = Integer.parseInt(values[3]);
-            this.status = ReturnStatus.valueOf(values[4].toUpperCase().trim());
-            this.refundAmount = Double.parseDouble(values[5]);
+            this.refundAmount = Double.parseDouble(values[4]);
 
         } catch (Exception e) {
             System.err.println("Error parsing data: " + e.getMessage());
@@ -86,16 +82,8 @@ public class Return implements Parsable {
         return quantityReturned;
     }
 
-    public ReturnStatus getStatus() {
-        return status;
-    }
-
     public double getRefundAmount() {
         return refundAmount;
-    }
-
-    public void setStatus(ReturnStatus status) {
-        this.status = status;
     }
 
     public void setQuantityReturned(int quantityReturned) {
