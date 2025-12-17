@@ -7,7 +7,6 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 3);
 }
 
-
 .section {
     -fx-padding: 15;
     -fx-background-color: #ffffff;  
@@ -35,13 +34,9 @@
 }
 
 
-.text-field, .text-area, .combo-box, .date-picker {
-    -fx-background-radius: 8;
-    -fx-border-radius: 8;
-    -fx-padding: 8;
-    -fx-border-color: #c8e6c9;
-    -fx-border-width: 1.5;
-    -fx-font-size: 14px;
+.text-field:focused, .text-area:focused, .combo-box:focused, .date-picker:focused {
+    -fx-border-color: #39ff90;
+    -fx-background-color: rgba(0,255,127,0.1);
 }
 
 
@@ -97,3 +92,105 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 10);
 }
 
+.status-active {
+    -fx-text-fill: green;
+    -fx-font-weight: bold;
+}
+
+.status-expired {
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+}
+
+.status-pending {
+    -fx-text-fill: orange;
+    -fx-font-weight: bold;
+}
+
+.status-active,
+.status-expired,
+.status-pending {
+    -fx-padding: 4 12;
+    -fx-background-radius: 14;
+    -fx-font-size: 12px;
+    -fx-alignment: center;
+}
+
+
+.status-active {
+    -fx-background-color: rgba(76, 175, 80, 0.15);
+    -fx-text-fill: #2e7d32;
+}
+
+
+.status-expired {
+    -fx-background-color: rgba(244, 67, 54, 0.15);
+    -fx-text-fill: #c62828;
+}
+
+.status-pending {
+    -fx-background-color: rgba(255, 152, 0, 0.15);
+    -fx-text-fill: #ef6c00;
+}
+
+
+
+
+.status-combo {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #81c784;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-font-size: 12px;
+    -fx-padding: 2 6 2 6;
+}
+
+.status-combo:focused {
+    -fx-border-color: #4caf50;
+    -fx-background-color: #f1f8e9;
+}
+
+
+.delete-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: #e57373;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+    -fx-padding: 6;
+    -fx-cursor: hand;
+}
+
+.delete-btn:hover {
+    -fx-background-color: rgba(244, 67, 54, 0.15);
+}
+
+.delete-btn .ikonli-font-icon {
+    -fx-icon-color: #d32f2f;
+}
+.delete-btn:hover .ikonli-font-icon {
+    -fx-icon-color: #b71c1c;
+}
+.delete-btn:pressed {
+    -fx-background-color: rgba(244, 67, 54, 0.25);
+}
+.active-label {
+    -fx-background-color: #66bb6a;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 12;
+    -fx-background-radius: 8;
+}
+.expired-label {
+    -fx-background-color: #ef5350;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 12;
+    -fx-background-radius: 8;
+}
+.pending-label {
+    -fx-background-color: #ffa726;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 12;
+    -fx-background-radius: 8;
+}
