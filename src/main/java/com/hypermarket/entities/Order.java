@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
+import com.hypermarket.modules.components.ReceiptPrinter;
 import com.hypermarket.service.ListManipulation;
 
 import javafx.collections.FXCollections;
@@ -131,7 +132,7 @@ public class Order {
     }
 
     public void printReceipt() {
-        // TODO
+        ReceiptPrinter.printToPDF(this);
     }
 
     public void purchase() throws Exception {

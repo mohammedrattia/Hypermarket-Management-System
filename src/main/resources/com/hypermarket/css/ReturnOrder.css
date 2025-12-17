@@ -1,0 +1,135 @@
+
+.header-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+}
+
+.topbar {
+    -fx-background-color: white;
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 0 1 0;
+}
+
+.totals-section {
+    -fx-background-color: #f8fafc; /* Light grey footer background */
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 1 0 0 0;
+}
+
+
+.action-btn {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 8 15;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+}
+
+.green-outline-btn {
+    -fx-background-color: white;
+    -fx-border-color: #10b981;
+    -fx-border-radius: 8;
+    -fx-text-fill: #10b981;
+}
+.green-outline-btn:hover {
+    -fx-background-color: #ecfdf5;
+}
+
+.grey-btn {
+    -fx-background-color: #94a3b8;
+}
+.grey-btn:hover {
+    -fx-background-color: #64748b;
+}
+
+.confirm-btn {
+    -fx-background-color: linear-gradient(to bottom right, #10b981 0%, #059669 100%);
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.3), 10, 0, 0, 4);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-min-width: 175px;
+}
+.confirm-btn:hover {
+    -fx-min-width: 175px;
+    -fx-background-color: linear-gradient(to bottom right, #059669 0%, #047857 100%);
+    -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.6), 10, 0, 0, 4);
+}
+
+.cancel-btn {
+    -fx-background-color: linear-gradient(to bottom right, #ef4444 0%, #dc2626 100%);
+    -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.3), 10, 0, 0, 4);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-min-width: 175px; /* Slightly smaller than confirm */
+}
+.cancel-btn:hover {
+    -fx-min-width: 175px; /* Slightly smaller than confirm */
+    -fx-background-color: linear-gradient(to bottom right, #dc2626 0%, #b91c1c 100%);
+    -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.5), 15, 0, 0, 6);
+}
+
+
+.detail-icon {
+    -fx-icon-color: #10b981; 
+    -fx-icon-size: 16;
+}
+
+.order-detail-label {
+    -fx-text-fill: #475569;      
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-min-width: 100px;          
+}
+
+.order-detail-value {
+    -fx-text-fill: #1e293b;
+    -fx-font-size: 14px;
+}
+
+
+.damaged-box-container {
+    -fx-padding: 10;
+    -fx-background-color: #fef2f2;
+    -fx-background-radius: 8;
+    -fx-border-color: #fca5a5;
+    -fx-border-radius: 8;
+}
+
+.damaged-checkbox {
+    -fx-text-fill: #b91c1c;
+    -fx-font-weight: bold;
+}
+.damaged-checkbox .box {
+    -fx-background-color: white;
+    -fx-border-color: #b91c1c;
+}
+.damaged-checkbox:selected .mark {
+    -fx-background-color: #b91c1c;
+}
+
+.refund-text-large {
+    -fx-text-fill: #ef4444; /* Keep Red for Refund Amount */
+    -fx-font-size: 26px;
+    -fx-font-weight: 900;
+    -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.1), 5, 0, 0, 2);
+}
+
+.items-list-section {
+    -fx-background-color: white;
+    -fx-padding: 10;
+}
+.items-list-section .list-cell {
+    -fx-padding: 5 0;
+    -fx-background-color: transparent;
+}
+.items-list-section .list-cell:empty {
+    -fx-background-color: transparent;
+}

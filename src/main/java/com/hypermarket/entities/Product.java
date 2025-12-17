@@ -139,8 +139,8 @@ public class Product {
         try {
             productID = Integer.parseInt(values[0]);
             name = values[1];
-            category = values[3];
-            description = values[3]; // or values[2] if you want
+            category = values[2];
+            description = values[3];
             quantity = (int) Double.parseDouble(values[4]);
             price = Double.parseDouble(values[5]);
             size = values[7];

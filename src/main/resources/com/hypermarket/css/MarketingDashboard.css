@@ -32,15 +32,29 @@
     -fx-background-color: #81c784;
 }
 
+.text-field,
+.combo-box,
+.date-picker {
+    -fx-background-color: #f6f6f6;
+    -fx-border-color: #c8e6c9;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 6 10 6 10;
+    -fx-font-size: 14px;
+}
 
 .text-field:focused,
 .text-area:focused,
 .combo-box:focused,
 .date-picker:focused {
-    -fx-border-color: #39ff90;
-    -fx-background-color: rgba(0, 255, 127, 0.1);
+    -fx-border-color: beige;
+    -fx-background-color: #f1f8e9;
 }
 
+.combo-box {
+    -fx-min-width: 150px;
+    -fx-background-color: #f6f6f6;
+}
 
 .card {
     -fx-background-color: #e8f5e9;
@@ -66,14 +80,6 @@
 }
 
 
-.text-field:focused,
-.text-area:focused,
-.combo-box:focused,
-.date-picker:focused {
-    -fx-border-color: #66bb6a;
-    -fx-background-color: #ffffff;
-}
-
 
 .offers-section {
     -fx-spacing: 10;
@@ -98,7 +104,7 @@
 }
 
 .status-active {
-    -fx-text-fill: green;
+    -fx-text-fill: beige;
     -fx-font-weight: bold;
 }
 
@@ -206,3 +212,32 @@
     -fx-font-size: 1em;
     -fx-background-insets: 0;
 }
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: 0 2 0 0;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #66bb6a;
+    -fx-background-insets: 2;
+    -fx-background-radius: 6;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #81c784;
+}
+
+.scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: rgba(0,0,0,0.05);
+    -fx-background-radius: 6;
+}
+

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox fx:id="returnItemCard" alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="650.0" spacing="10.0" styleClass="order-item-card" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.returns.ReturnItemCard">
+
+   <stylesheets>
+      <URL value="@../../css/OrderItemCard.css" />
+      <URL value="@../../css/ReturnItemCard.css" />
+      <URL value="@../../css/SalesThemes.css" />
+   </stylesheets>
+
+   <children>
+
+      <VBox alignment="CENTER_LEFT" spacing="2.0" HBox.hgrow="ALWAYS">
+         <children>
+            <Label fx:id="itemName" styleClass="item-name" text="Basmati Rice" />
+
+            <HBox alignment="CENTER_LEFT" spacing="4.0">
+               <children>
+                  <Label fx:id="originalQuantity" styleClass="item-details-text" text="10" />
+                  <Label styleClass="item-details-text" text="Units x" />
+                  <Label fx:id="unitPrice" styleClass="item-details-text" text="\$ 120.00" />
+                  <Label styleClass="item-details-text" text="=" />
+                  <Label fx:id="originalTotalPrice" styleClass="item-details-text, text-bold" text="\$ 1,200.00" />
+               </children>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <Label styleClass="item-details-text" text="Prev. Returned:" />
+                  <Label fx:id="prevReturnedQuantity" styleClass="item-details-text, prev-returned-value" text="2" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+
+      <Region HBox.hgrow="ALWAYS" />
+
+      <VBox alignment="CENTER_LEFT" spacing="2.0">
+         <children>
+            <Label styleClass="label-mini-header" text="RETURN NOW" />
+            <HBox alignment="CENTER_RIGHT" spacing="5.0">
+               <children>
+                  <Spinner fx:id="toReturnField" prefWidth="75.0" styleClass="return-field" />
+
+                  <Button fx:id="maxButton" mnemonicParsing="false" styleClass="max-btn" text="Max" />
+
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+
+      <VBox alignment="CENTER_RIGHT" prefWidth="100.0">
+         <children>
+            <Label styleClass="label-mini-header-red" text="REFUND" />
+            <Label fx:id="refundSubtotal" alignment="CENTER_RIGHT" styleClass="item-total-price, refund-subtotal-text" text="\$ 0.00" />
+         </children>
+      </VBox>
+
+   </children>
+</HBox>

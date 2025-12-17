@@ -1,0 +1,73 @@
+.refund-price-text {
+    -fx-text-fill: #ef4444;
+}
+
+.return-field {
+    -fx-background-color: transparent;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 4;
+    -fx-font-size: 11px;
+}
+
+.return-field .increment-arrow-button,
+.return-field .decrement-arrow-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    -fx-padding: 2 5;
+}
+
+.return-field .increment-arrow-button:hover,
+.return-field .decrement-arrow-button:hover {
+    -fx-background-color: #f1f5f9;
+}
+
+.return-field .text-field {
+    -fx-background-color: white;
+    -fx-padding: 2 5;
+}
+
+.text-bold {
+    -fx-font-weight: bold;
+}
+
+.prev-returned-value {
+    -fx-text-fill: #f59e0b;
+    -fx-font-weight: bold;
+}
+
+.label-mini-header {
+    -fx-font-size: 9px;
+    -fx-text-fill: #94a3b8;
+    -fx-font-weight: bold;
+}
+
+.label-mini-header-red {
+    -fx-font-size: 9px;
+    -fx-text-fill: #ef4444;
+    -fx-font-weight: bold;
+}
+
+.refund-subtotal-text {
+    -fx-text-fill: #ef4444;
+}
+
+.max-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #10b981; /* Green Theme Color */
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 3 6;
+    -fx-border-color: #10b981;
+    -fx-border-radius: 4;
+    -fx-border-width: 1;
+}
+
+.max-btn:hover {
+    -fx-background-color: #ecfdf5; /* Very Light Green on hover */
+}
+
+.max-btn:pressed {
+    -fx-background-color: #10b981;
+    -fx-text-fill: white;
+}

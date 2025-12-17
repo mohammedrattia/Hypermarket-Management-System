@@ -34,7 +34,7 @@ public class ProductCardController {
     }
 
     public void setData(Product product) {
-        productNameCard.setText("Name: " + product.getName());
+        productNameCard.setText(product.getName());
         productIDCard.setText("ID: " + product.getProductID());
         productPriceCard.setText("Price: " + product.getPrice() + " $");
         productQuantityCard.setText("Quantity: " + product.getQuantity());

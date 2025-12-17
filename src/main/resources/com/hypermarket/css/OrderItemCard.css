@@ -1,35 +1,35 @@
 .order-item-card {
-    -fx-background-color: white; /* Clean white background */
-    -fx-padding: 8 15;           /* Vertical: 8px, Horizontal: 15px */
-    -fx-border-color: -fx-grey-200;
-    -fx-border-width: 0 0 1 0;   /* Only bottom border (separator line) */
-    -fx-cursor: hand;            /* Suggests it is clickable/selectable */
+    /*-fx-background-color: white;*/ 
+    -fx-padding: 5 8;         
+    -fx-border-color: #e2e8f0;
+    -fx-border-width: 0 0 1 0; 
+    -fx-cursor: hand;          
 }
 
 .order-item-card:hover {
-    -fx-background-color: -fx-grey-50;
+    -fx-background-color: #f8fafc;
 }
 
 .order-item-card:selected {
-    -fx-background-color: -fx-primary-100; /* Very light green */
-    -fx-border-color: -fx-primary-300;
+    -fx-background-color: #e6faee;
+    -fx-border-color: #9ae6b4;
 }
 
 .item-name {
-    -fx-text-fill: -fx-grey-800; 
+    -fx-text-fill: #1e293b; 
     -fx-font-weight: 800;      
     -fx-font-size: 14px;
 }
 
 .item-details-text {
-    -fx-text-fill: -fx-grey-500; 
-    -fx-font-weight: bold;       
+    -fx-text-fill: #64748b; 
+    /* -fx-font-weight: bold;        */
     -fx-font-size: 11px;         
 }
 
 .item-total-price {
-    -fx-text-fill: -fx-grey-800;
-    -fx-font-weight: 800;       
+    -fx-text-fill: #1e293b;
+    -fx-font-weight: 700;       
     -fx-font-size: 14px;
     -fx-alignment: CENTER_RIGHT;
 }

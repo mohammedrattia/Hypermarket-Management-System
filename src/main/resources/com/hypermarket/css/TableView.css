@@ -5,11 +5,11 @@
 
 .table-view {
     -fx-border-color: #a0a0a0;
-    -fx-border-width: 1;
+    -fx-border-width: 0;
     -fx-background-color: #ffffff;
     -fx-background-radius: 8;
-    -fx-min-height: 300;
-    -fx-max-height: 300;
+    /* -fx-min-height: 300; */
+    /* -fx-max-height: 300; */
     -fx-fit-to-height: true;
     -fx-fixed-cell-size: 40px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 2);

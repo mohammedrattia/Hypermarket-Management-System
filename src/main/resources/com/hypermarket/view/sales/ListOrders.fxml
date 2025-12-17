@@ -16,11 +16,11 @@
         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
         <Button fx:id="viewReceiptButton" mnemonicParsing="false" styleClass="receipt-btn" text="View Receipt">
         </Button>
-        <Button fx:id="removeButton" mnemonicParsing="false" styleClass="remove-btn" text="Delete">
+        <Button fx:id="returnOrderButton" mnemonicParsing="false" styleClass="remove-btn" text="Return Order">
         </Button>
       </children>
     </HBox>
-      <AnchorPane fx:id="listArea" prefHeight="200.0" prefWidth="200.0" styleClass="list-area" VBox.vgrow="ALWAYS" />
+      <AnchorPane fx:id="listArea" maxHeight="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" styleClass="list-area" VBox.vgrow="ALWAYS" />
   </children>
   <stylesheets>
     <URL value="@../../css/ListOrders.css" />

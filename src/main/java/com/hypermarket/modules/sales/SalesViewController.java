@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.hypermarket.data.FileManager;
+import com.hypermarket.entities.Sales;
 import com.hypermarket.entities.User;
 import com.hypermarket.modules.admin.DashboardHome;
 import com.hypermarket.modules.admin.EmployeeGrid;
@@ -14,8 +15,10 @@ import com.hypermarket.service.Session;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -23,6 +26,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 
 public class SalesViewController implements Initializable {
+
+    @FXML
+    private AnchorPane mainContainer;
 
     @FXML
     private AnchorPane contentArea;
@@ -78,7 +84,6 @@ public class SalesViewController implements Initializable {
     Runnable onLogout;
 
     private SalesDashboard salesDashboard;
-    // private EmployeeGrid employeeGrid;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -110,22 +115,13 @@ public class SalesViewController implements Initializable {
     }
 
     private void setUpNavigation() {
-        menuDashboardItem.setOnMouseClicked(event -> {
-            showDashboard();
-        });
+        menuDashboardItem.setOnMouseClicked(event -> showDashboard());
 
-        menuOrdersItem.setOnMouseClicked(event -> {
-            showListOrders();
-        });
+        menuOrdersItem.setOnMouseClicked(event -> showListOrders());
 
-        menuMakeOrderItem.setOnMouseClicked(event -> {
-            showMakeOrder();
-        });
-        menuReturnedOrdersItem.setOnMouseClicked(event -> {
-            // showAddEmployee();
-        });
+        menuMakeOrderItem.setOnMouseClicked(event -> showMakeOrder());
+        menuReturnedOrdersItem.setOnMouseClicked(event -> showListReturns());
         menuReturnOrderItem.setOnMouseClicked(event -> {
-            // showAddEmployee();
         });
 
         menuUpdateUserInfo.setOnMouseClicked(event -> {
@@ -140,7 +136,7 @@ public class SalesViewController implements Initializable {
     private void showDashboard() {
         updateTitleAndActiveTab(menuDashboard);
         if (salesDashboard == null)
-            salesDashboard = new SalesDashboard();
+            salesDashboard = new SalesDashboard((Sales) Session.getInstance().getUser());
         contentArea.getChildren().clear();
         contentArea.getChildren().add(salesDashboard.getView());
         fitToAnchor(contentArea.getChildren().get(0));
@@ -148,8 +144,18 @@ public class SalesViewController implements Initializable {
 
     private void showListOrders() {
         try {
-            Parent listOrdersUI = FXMLLoader.load(
-                    getClass().getResource("/com/hypermarket/view/sales/ListOrders.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/hypermarket/view/sales/ListOrders.fxml"));
+            Parent listOrdersUI = loader.load();
+            ListOrders listOrdersController = loader.getController();
+
+            mainContainer.setOnMouseClicked(event -> {
+                if (contentArea.getChildren().contains(listOrdersUI))
+                    listOrdersController.clearTableSelection();
+            });
+
+            listOrdersController.setOnNewOrderAction(() -> {
+                showMakeOrder();
+            });
 
             contentArea.getChildren().clear();
             contentArea.getChildren().add(listOrdersUI);
@@ -162,13 +168,39 @@ public class SalesViewController implements Initializable {
 
     private void showMakeOrder() {
         try {
-            Parent makeOrderUI = FXMLLoader.load(
-                    getClass().getResource("/com/hypermarket/view/sales/MakeOrder.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/hypermarket/view/sales/MakeOrder.fxml"));
+            Parent makeOrderUI = loader.load();
+            MakeOrder makeOrderController = loader.getController();
+
+            mainContainer.setOnMouseClicked(event -> {
+                if (contentArea.getChildren().contains(makeOrderUI))
+                    makeOrderController.clearSelection();
+            });
 
             contentArea.getChildren().clear();
             contentArea.getChildren().add(makeOrderUI);
             fitToAnchor(makeOrderUI);
             updateTitleAndActiveTab(menuMakeOrder);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showListReturns() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/hypermarket/view/sales/ListReturns.fxml"));
+            Parent listReturnsUI = loader.load();
+            ListReturns listReturnsController = loader.getController();
+
+            mainContainer.setOnMouseClicked(event -> {
+                if (contentArea.getChildren().contains(listReturnsUI))
+                    listReturnsController.clearTableSelection();
+            });
+
+            contentArea.getChildren().clear();
+            contentArea.getChildren().add(listReturnsUI);
+            fitToAnchor(listReturnsUI);
+            updateTitleAndActiveTab(menuReturnedOrders);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -15,6 +15,7 @@ public class DataStore {
     private ObservableList<Batch> batches = FXCollections.observableArrayList();
     private ObservableList<Order> orders = FXCollections.observableArrayList();
     private ObservableList<OrderItem> orderItems = FXCollections.observableArrayList();
+    private ObservableList<Return> returns = FXCollections.observableArrayList();
     private ObservableList<Offer> offers = FXCollections.observableArrayList();
     private ObservableList<Report> reports = FXCollections.observableArrayList();
     private ObservableList<DamageLog> damageLogs = FXCollections.observableArrayList();
@@ -27,6 +28,7 @@ public class DataStore {
         lists.put("batches", batches);
         lists.put("orders", orders);
         lists.put("orderItems", orderItems);
+        lists.put("returns", returns);
         lists.put("offers", offers);
         lists.put("reports", reports);
         lists.put("notifications", notifications);
@@ -64,6 +66,7 @@ public class DataStore {
         loadData("batches", batches, (record) -> new Batch(record));
         loadData("orders", orders, (record) -> new Order(record));
         loadData("orderItems", orderItems, (record) -> new OrderItem(record));
+        loadData("returns", returns, (record) -> new Return(record));
         loadData("offers", offers, (record) -> new Offer(record));
         loadData("reports", reports, (record) -> new Report(record));
         loadData("notifications", notifications, (record) -> new Notification(record));
@@ -102,6 +105,10 @@ public class DataStore {
 
     public ObservableList<OrderItem> getOrderItems() {
         return orderItems;
+    }
+
+    public ObservableList<Return> getReturns() {
+        return returns;
     }
 
     public ObservableList<Offer> getOffers() {
