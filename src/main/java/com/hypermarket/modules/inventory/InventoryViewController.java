@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.hypermarket.data.FileManager;
+import com.hypermarket.entities.Notification;
 import com.hypermarket.entities.User;
 import com.hypermarket.modules.components.ViewController;
 import com.hypermarket.modules.user.UpdateInfoController;
@@ -18,7 +19,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -212,7 +212,7 @@ public class InventoryViewController extends ViewController implements Initializ
     }
 
     private void showNotifications() {
-        List<String> alerts = com.hypermarket.entities.Notification.getSystemAlerts();
+        List<String> alerts = Notification.getSystemAlerts();
         ContextMenu menu = new ContextMenu();
 
         menu.setStyle("-fx-selection-bar: white; -fx-selection-bar-non-focused: white; -fx-background-color: white;");
