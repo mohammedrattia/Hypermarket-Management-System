@@ -1,4 +1,11 @@
+<<<<<<< Updated upstream
 1;offer 1;23.0;2025-12-16;2025-12-18;ALL;ALL
 2;offer 2;34.0;2025-12-03;2025-12-11;ALL;ALL
 3;offer 3;50.0;2025-12-26;2025-12-30;ALL;ALL
 4;offer 4;45.0;2025-12-04;2025-12-10;ALL;ALL
+=======
+1;off1;22.0;2025-12-17;2025-12-20;PRODUCT;Full Cream Milk;-1
+2;off2;44.0;2025-12-18;2025-12-29;PRODUCT;Full Cream Milk;-1
+3;off3;3.0;2025-12-17;2025-12-22;PRODUCT;Orange Juice;102
+4;offf4;44.0;2025-12-18;2025-12-31;PRODUCT;Orange Juice;102
+>>>>>>> Stashed changes
