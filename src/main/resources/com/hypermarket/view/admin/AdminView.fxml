@@ -91,14 +91,6 @@
           </Label>
           <Region HBox.hgrow="ALWAYS" />
 
-          <Button fx:id="notificationButton" mnemonicParsing="false" styleClass="notif-button">
-            <graphic>
-              <StackPane>
-                <FontIcon fx:id="notifIcon" iconLiteral="fas-bell" iconSize="20" styleClass="notif-icon" />
-              </StackPane>
-            </graphic>
-          </Button>
-
           <HBox alignment="CENTER" styleClass="user-profile">
             <children>
               <ImageView fx:id="userImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">

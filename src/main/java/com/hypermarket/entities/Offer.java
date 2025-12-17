@@ -119,6 +119,7 @@ public class Offer {
     @Override
     public String toString() {
         SimpleDateFormat sdf = FileManager.dateFormat1;
+        // TODO: add product id
         return offerID + FileManager.DELIMETER +
                 offerName + FileManager.DELIMETER +
                 discount + FileManager.DELIMETER +
@@ -129,6 +130,7 @@ public class Offer {
     }
 
     private void parseString(String line) {
+        // TODO: get the product from the list into the attribute
         try {
             String[] values = line.split(FileManager.DELIMETER);
             this.offerID = Integer.parseInt(values[0]);
