@@ -78,13 +78,40 @@ public class ReceiptPrinter {
     }
 
     private static void openFile(String filePath) {
-        try {
-            File file = new File(filePath);
-            if (file.exists() && Desktop.isDesktopSupported()) {
-                Desktop.getDesktop().open(file);
+        // 1. Run in a separate thread to prevent freezing the UI
+        new Thread(() -> {
+            try {
+                File file = new File(filePath);
+                if (!file.exists()) {
+                    System.err.println("File not found: " + filePath);
+                    return;
+                }
+
+                String os = System.getProperty("os.name").toLowerCase();
+
+                if (os.contains("win")) {
+                    // Windows: Desktop API works well
+                    if (Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().open(file);
+                    }
+                } else if (os.contains("mac")) {
+                    // macOS: The 'open' command is safest
+                    new ProcessBuilder("open", file.getAbsolutePath()).start();
+                } else if (os.contains("nix") || os.contains("nux")) {
+                    // Linux: 'xdg-open' is the standard universal opener
+                    // We use ProcessBuilder to run the shell command
+                    new ProcessBuilder("xdg-open", file.getAbsolutePath()).start();
+                } else {
+                    // Fallback for others
+                    if (Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().open(file);
+                    }
+                }
+
+            } catch (IOException e) {
+                System.err.println("Error opening file: " + e.getMessage());
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        }).start();
     }
 }
