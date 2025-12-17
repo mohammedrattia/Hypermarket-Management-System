@@ -8,7 +8,10 @@ import com.hypermarket.entities.User;
 import com.hypermarket.modules.components.EmployeeCardController;
 import com.hypermarket.modules.components.KpiCardController;
 import com.hypermarket.modules.components.PieChartController;
+import com.hypermarket.service.Session;
 
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -80,10 +83,12 @@ public class DashboardHome {
         employeeListContainer.getChildren().clear();
 
         DataStore db = DataStore.getDataStore();
-        List<User> users = db.getUsers();
-        for (int i = 0; i < users.size(); i++) {
-            User u = users.get(i);
-            employeeListContainer.getChildren().add(loadEmployeeCard(u, this::refreshView));
+        ObservableList<User> users = db.getUsers();
+        for (User user : users) {
+            if (user.getID() == Session.getInstance().getUser().getID())
+                continue;
+
+            employeeListContainer.getChildren().add(loadEmployeeCard(user, this::refreshView));
         }
     }
 

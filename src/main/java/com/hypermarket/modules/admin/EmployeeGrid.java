@@ -7,6 +7,7 @@ import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.User;
 import com.hypermarket.modules.components.EmployeeCardController;
 import com.hypermarket.service.ListManipulation;
+import com.hypermarket.service.Session;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -157,6 +158,9 @@ public class EmployeeGrid {
         int row = 0;
 
         for (User user : sortedData) {
+            if (user.getID() == Session.getInstance().getUser().getID())
+                continue;
+
             Parent card = loadEmployeeCard(user,
                     () -> employeesData.remove(user),
                     this::refreshGrid);
