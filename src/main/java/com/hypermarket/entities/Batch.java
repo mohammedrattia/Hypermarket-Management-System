@@ -7,7 +7,7 @@ import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 import com.hypermarket.service.ListManipulation;
 
-public class Batch {
+public class Batch implements Parsable {
 
     private int batchID;
     private Product product;
@@ -43,7 +43,7 @@ public class Batch {
         return deliveryDate;
     }
 
-    public int getBatchThreshold(){
+    public int getBatchThreshold() {
         return product.getThreshold();
     }
 
@@ -57,7 +57,7 @@ public class Batch {
                 expiryDate.format(FileManager.dateFormat);
     }
 
-    private void parseString(String line) {
+    public void parseString(String line) {
         String[] values = line.split(FileManager.DELIMETER);
         try {
             batchID = Integer.valueOf(values[0]);

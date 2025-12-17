@@ -9,7 +9,7 @@ import com.hypermarket.data.FileManager;
 
 import javafx.collections.ObservableList;
 
-public class Product {
+public class Product implements Parsable {
     private int productID;
     private String name;
     private String category;
@@ -126,14 +126,13 @@ public class Product {
                 description + FileManager.DELIMETER +
                 quantity + FileManager.DELIMETER +
                 price + FileManager.DELIMETER +
-                // ! The offer thing needs to be fixed
                 (offer != null ? offer.toString() : "null") + FileManager.DELIMETER +
                 size + FileManager.DELIMETER +
                 threshold + FileManager.DELIMETER +
                 imageName;
     }
 
-    private void parseString(String line) {
+    public void parseString(String line) {
         String[] values = line.split(FileManager.DELIMETER);
 
         try {
