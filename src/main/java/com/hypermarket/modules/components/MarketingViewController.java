@@ -19,6 +19,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+
+
+
 public class MarketingViewController implements Initializable {
 
     @FXML
@@ -51,6 +56,16 @@ public class MarketingViewController implements Initializable {
     @FXML
     private HBox menuLogoutItem;
 
+    @FXML
+    private HBox menuUpdateItem;
+    @FXML
+    private Label menuUpdate;
+    @FXML
+    private HBox menuUpdateUserInfoItem;
+    @FXML
+    private Label menuUpdateUserInfo;
+
+
     private Runnable onLogout;
 
     @Override
@@ -63,21 +78,63 @@ public class MarketingViewController implements Initializable {
         this.onLogout = onLogout;
     }
 
+    
+    private void setActiveMenuLabel(HBox activeItem, Label activeLabel) {
+        menuDashboard.getStyleClass().remove("active-label");
+        menuReports.getStyleClass().remove("active-label");
+        menuOffers.getStyleClass().remove("active-label");
+        menuUpdateUserInfo.getStyleClass().remove("active-label");
+
+        activeLabel.getStyleClass().add("active-label");
+}
+
+
     private void setUpNavigation() {
-        menuDashboardItem.setOnMouseClicked(e -> showDashboard());
-        menuReportsItem.setOnMouseClicked(e -> showReports());
-        menuOffersItem.setOnMouseClicked(e -> showOffers());
-        menuLogoutItem.setOnMouseClicked(e -> onLogout.run());
-    }
+
+    menuDashboardItem.setOnMouseClicked(e -> {
+        setActiveMenuLabel(menuDashboardItem, menuDashboard);
+        showDashboard();
+    });
+
+    menuReportsItem.setOnMouseClicked(e -> {
+        setActiveMenuLabel(menuReportsItem, menuReports);
+        showReports();
+    });
+
+    menuOffersItem.setOnMouseClicked(e -> {
+        setActiveMenuLabel(menuOffersItem, menuOffers);
+        showOffers();
+    });
+
+    menuUpdateUserInfoItem.setOnMouseClicked(e -> {
+        setActiveMenuLabel(menuUpdateUserInfoItem, menuUpdateUserInfo);
+        showUpdateUserInfo();
+    });
+
+    menuLogoutItem.setOnMouseClicked(e -> onLogout.run());
+}
+
+
+
+    
 
     private void showDashboard() {
         pageTitle.setText("Marketing Dashboard");
+        pageTitle.setFont(Font.font("System", FontWeight.BOLD, 28));
         dashboardContainer.setVisible(true);
         contentArea.getChildren().clear();
         refreshDashboard();
         contentArea.getChildren().add(dashboardContainer);
         fitToAnchor(dashboardContainer);
     }
+    private void setActiveMenu(HBox activeItem) {
+    HBox[] items = {menuDashboardItem, menuReportsItem, menuOffersItem};
+    for (HBox item : items) {
+        item.setStyle("-fx-background-color: transparent;");
+    }
+    activeItem.setStyle("-fx-background-color: #4CAF50;");
+}
+
 
     private void refreshDashboard() {
         kpiContainer.getChildren().clear();
@@ -100,8 +157,8 @@ public class MarketingViewController implements Initializable {
                         "1%", false));
 
         // PieChart
-        PieChart pie = loadPieChartComponent();
-        dashboardContent.getChildren().add(pie);
+        //PieChart pie = loadPieChartComponent();
+       // dashboardContent.getChildren().add(pie);
 
         // TableView of Offers
         ObservableList<Offer> offers = FXCollections.observableArrayList(db.getOffers());
@@ -132,18 +189,20 @@ public class MarketingViewController implements Initializable {
         }
     }
 
-    private PieChart loadPieChartComponent() {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/hypermarket/view/components/PieChart.fxml"));
-            PieChart root = loader.load();
-            root.setMinHeight(400);
-            return root;
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-    }
+//  private PieChart loadPieChartComponent() {
+//      try {
+// 
+//        FXMLLoader loader = new FXMLLoader(
+//              getClass().getResource("/com/hypermarket/view/components/PieChart.fxml"));
+//    PieChart root = loader.load();
+//  root.setMinHeight(400);
+//return root;
+// 
+//} catch (IOException ex) {
+ //  ex.printStackTrace();
+ // return null;
+ // }
+  // }
 
     private void showReports() {
         pageTitle.setText("Reports");
@@ -179,4 +238,17 @@ public class MarketingViewController implements Initializable {
         AnchorPane.setLeftAnchor(node, 0.0);
         AnchorPane.setRightAnchor(node, 0.0);
     }
+    private void showUpdateUserInfo() {
+        try {
+            Parent updateUserUI = FXMLLoader.load(
+                    getClass().getResource("/com/hypermarket/view/user/UpdateUserInfo.fxml"));
+            contentArea.getChildren().clear();
+            contentArea.getChildren().add(updateUserUI);
+            fitToAnchor(updateUserUI);
+            fitToAnchor(updateUserUI);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
+
