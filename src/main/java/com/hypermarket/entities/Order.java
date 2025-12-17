@@ -38,7 +38,8 @@ public class Order implements Parsable {
 
     @Override
     public String toString() {
-        return orderID + FileManager.DELIMETER + seller.getID() + FileManager.DELIMETER
+        int sellerID = (seller != null) ? seller.getID() : 0;
+        return orderID + FileManager.DELIMETER + sellerID + FileManager.DELIMETER
                 + dateTime.format(FileManager.dateTimeFormat) + FileManager.DELIMETER + totalQuantity
                 + FileManager.DELIMETER + totalPrice;
     }
