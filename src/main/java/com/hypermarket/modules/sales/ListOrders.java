@@ -134,7 +134,7 @@ public class ListOrders implements Initializable {
         });
 
         ordersTable.setColumnFormatter("dateTime", obj -> {
-            return ((LocalDateTime) obj).format(FileManager.dateTimeFormat);
+            return ((LocalDateTime) obj).format(FileManager.localDateTimeFormat);
         });
     }
 

@@ -120,7 +120,7 @@ public class Offer implements Parsable {
 
     @Override
     public String toString() {
-        SimpleDateFormat sdf = FileManager.dateFormat1;
+        SimpleDateFormat sdf = FileManager.dateFormat;
         int productId = (product != null) ? product.getProductID() : -1;
         return offerID + FileManager.DELIMETER +
                 offerName + FileManager.DELIMETER +
@@ -138,8 +138,8 @@ public class Offer implements Parsable {
             this.offerID = Integer.parseInt(values[0]);
             this.offerName = values[1];
             this.discount = Double.parseDouble(values[2]);
-            this.startDate = FileManager.dateFormat1.parse(values[3]);
-            this.endDate = FileManager.dateFormat1.parse(values[4]);
+            this.startDate = FileManager.dateFormat.parse(values[3]);
+            this.endDate = FileManager.dateFormat.parse(values[4]);
             this.targetType = values[5];
             this.targetValue = values[6];
 

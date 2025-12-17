@@ -83,7 +83,7 @@ public class ListReturns implements Initializable {
 
         returnsTable.setColumnFormatter("returnDate", obj -> {
             if (obj != null) {
-                return ((LocalDateTime) obj).format(FileManager.dateTimeFormat);
+                return ((LocalDateTime) obj).format(FileManager.localDateTimeFormat);
             }
             return "";
         });

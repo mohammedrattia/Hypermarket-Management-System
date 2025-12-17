@@ -18,7 +18,7 @@ public class Notification implements Parsable {
 
     public static Notification createNew(String message) {
         Notification n = new Notification(
-                message + FileManager.DELIMETER + LocalDate.now().format(FileManager.dateFormat));
+                message + FileManager.DELIMETER + LocalDate.now().format(FileManager.localDateFormat));
         n.message = message;
         n.date = LocalDate.now();
         return n;
@@ -34,14 +34,14 @@ public class Notification implements Parsable {
 
     @Override
     public String toString() {
-        return message + FileManager.DELIMETER + date.format(FileManager.dateFormat);
+        return message + FileManager.DELIMETER + date.format(FileManager.localDateFormat);
     }
 
     public void parseString(String record) {
         String[] fields = record.split(FileManager.DELIMETER);
         try {
             this.message = fields[0];
-            this.date = LocalDate.parse(fields[1], FileManager.dateFormat);
+            this.date = LocalDate.parse(fields[1], FileManager.localDateFormat);
         } catch (Exception e) {
             System.err.println("Error parsing notification: " + e.getMessage());
             this.message = "Error reading notification";

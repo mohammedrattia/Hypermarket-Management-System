@@ -40,7 +40,7 @@ public class Order implements Parsable {
     public String toString() {
         int sellerID = (seller != null) ? seller.getID() : 0;
         return orderID + FileManager.DELIMETER + sellerID + FileManager.DELIMETER
-                + dateTime.format(FileManager.dateTimeFormat) + FileManager.DELIMETER + totalQuantity
+                + dateTime.format(FileManager.localDateTimeFormat) + FileManager.DELIMETER + totalQuantity
                 + FileManager.DELIMETER + totalPrice;
     }
 
@@ -54,7 +54,7 @@ public class Order implements Parsable {
                 seller = (Sales) user;
             else
                 seller = null;
-            dateTime = LocalDateTime.parse(values[2], FileManager.dateTimeFormat);
+            dateTime = LocalDateTime.parse(values[2], FileManager.localDateTimeFormat);
             totalQuantity = Integer.parseInt(values[3]);
             totalPrice = Double.parseDouble(values[4]);
         } catch (IllegalArgumentException e) {
