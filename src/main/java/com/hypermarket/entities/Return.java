@@ -14,10 +14,10 @@ public class Return implements Parsable {
     private Product product;
     private LocalDateTime returnDate;
     private int quantityReturned;
-    private boolean isDamaged;
+    private ReturnStatus status;
     private double refundAmount;
 
-    public Return(OrderItem orderItem, int quantityReturned, boolean isDamaged) {
+    public Return(OrderItem orderItem, int quantityReturned) {
         ObservableList<Return> returnsList = DataStore.getDataStore().getReturns();
         if (returnsList.isEmpty()) {
             this.returnID = 1;
@@ -28,7 +28,7 @@ public class Return implements Parsable {
         this.orderItem = orderItem;
         this.product = orderItem.getProduct();
         this.quantityReturned = quantityReturned;
-        this.isDamaged = isDamaged;
+        this.status = ReturnStatus.PENDING;
         this.returnDate = LocalDateTime.now();
         this.refundAmount = quantityReturned * orderItem.getPriceThatDate();
         returnsList.add(this);
@@ -44,7 +44,7 @@ public class Return implements Parsable {
                 orderItem.getOrderItemID() + FileManager.DELIMETER +
                 returnDate.format(FileManager.dateTimeFormat) + FileManager.DELIMETER +
                 quantityReturned + FileManager.DELIMETER +
-                isDamaged + FileManager.DELIMETER +
+                this.status.toString() + FileManager.DELIMETER +
                 refundAmount;
     }
 
@@ -58,7 +58,7 @@ public class Return implements Parsable {
             this.product = orderItem.getProduct();
             this.returnDate = LocalDateTime.parse(values[2], FileManager.dateTimeFormat);
             this.quantityReturned = Integer.parseInt(values[3]);
-            this.isDamaged = Boolean.parseBoolean(values[4]);
+            this.status = ReturnStatus.valueOf(values[4].toUpperCase().trim());
             this.refundAmount = Double.parseDouble(values[5]);
 
         } catch (Exception e) {
@@ -86,16 +86,16 @@ public class Return implements Parsable {
         return quantityReturned;
     }
 
-    public boolean isDamaged() {
-        return isDamaged;
+    public ReturnStatus getStatus() {
+        return status;
     }
 
     public double getRefundAmount() {
         return refundAmount;
     }
 
-    public void setDamaged(boolean isDamaged) {
-        this.isDamaged = isDamaged;
+    public void setStatus(ReturnStatus status) {
+        this.status = status;
     }
 
     public void setQuantityReturned(int quantityReturned) {

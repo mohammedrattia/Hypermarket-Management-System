@@ -38,21 +38,35 @@ import javafx.stage.Stage;
 
 public class ProductDetailsModalController {
 
-    @FXML private ImageView productImage;
-    @FXML private TextField nameField;
-    @FXML private Label idLabel;
-    @FXML private TextField categoryField;
-    @FXML private TextField priceField;
-    @FXML private TextField sizeField;
-    @FXML private TextField thresholdField;
-    @FXML private TextArea descriptionArea;
-    @FXML private TextField quantityField;
+    @FXML
+    private ImageView productImage;
+    @FXML
+    private TextField nameField;
+    @FXML
+    private Label idLabel;
+    @FXML
+    private TextField categoryField;
+    @FXML
+    private TextField priceField;
+    @FXML
+    private TextField sizeField;
+    @FXML
+    private TextField thresholdField;
+    @FXML
+    private TextArea descriptionArea;
+    @FXML
+    private TextField quantityField;
 
-    @FXML private TableView<Batch> batchesTable;
-    @FXML private TableColumn<Batch, Integer> batchIdCol;
-    @FXML private TableColumn<Batch, Integer> batchQtyCol;
-    @FXML private TableColumn<Batch, String> batchExpiryCol;
-    @FXML private TableColumn<Batch, String> batchDeliveryCol;
+    @FXML
+    private TableView<Batch> batchesTable;
+    @FXML
+    private TableColumn<Batch, Integer> batchIdCol;
+    @FXML
+    private TableColumn<Batch, Integer> batchQtyCol;
+    @FXML
+    private TableColumn<Batch, String> batchExpiryCol;
+    @FXML
+    private TableColumn<Batch, String> batchDeliveryCol;
 
     private Product product;
     private File selectedImageFile;
@@ -109,7 +123,7 @@ public class ProductDetailsModalController {
                     productImage.setImage(new Image(imageFile.toURI().toURL().toString()));
                 }
             } else {
-                 // Load default or leave as is (placeholder in FXML)
+                // Load default or leave as is (placeholder in FXML)
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -129,8 +143,7 @@ public class ProductDetailsModalController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Product Image");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
-        );
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
         File file = fileChooser.showOpenDialog(nameField.getScene().getWindow());
         if (file != null) {
             selectedImageFile = file;
@@ -170,30 +183,31 @@ public class ProductDetailsModalController {
 
         // Add styling to dialog
         try {
-            dialog.getDialogPane().getScene().getStylesheets().add(getClass().getResource("/com/hypermarket/css/ProductDetailsModal.css").toExternalForm());
+            dialog.getDialogPane().getScene().getStylesheets()
+                    .add(getClass().getResource("/com/hypermarket/css/ProductDetailsModal.css").toExternalForm());
             Node addButton = dialog.getDialogPane().lookupButton(addButtonType);
             addButton.getStyleClass().add("btn-success");
-            
+
             Node cancelButton = dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
             if (cancelButton != null) {
                 cancelButton.getStyleClass().add("btn-secondary");
             }
-            
+
             // Set initial disabled state
             addButton.setDisable(true);
-            
+
             // Re-assign addButton for listener use
-            final Node finalAddButton = addButton; 
-             quantity.textProperty().addListener((observable, oldValue, newValue) -> {
+            final Node finalAddButton = addButton;
+            quantity.textProperty().addListener((observable, oldValue, newValue) -> {
                 finalAddButton.setDisable(newValue.trim().isEmpty());
             });
         } catch (Exception e) {
             System.err.println("Could not load CSS for dialog");
             e.printStackTrace();
-             // Fallback if CSS fails
-             Node addButton = dialog.getDialogPane().lookupButton(addButtonType);
-             addButton.setDisable(true);
-             quantity.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Fallback if CSS fails
+            Node addButton = dialog.getDialogPane().lookupButton(addButtonType);
+            addButton.setDisable(true);
+            quantity.textProperty().addListener((observable, oldValue, newValue) -> {
                 addButton.setDisable(newValue.trim().isEmpty());
             });
         }
@@ -206,17 +220,17 @@ public class ProductDetailsModalController {
                     int qty = Integer.parseInt(quantity.getText());
                     LocalDate del = deliveryDate.getValue();
                     LocalDate exp = expiryDate.getValue();
-                    
+
                     // Generate ID
                     int newId = generateBatchId();
-                    
+
                     // batchID;productID;quantity;deliveryDate;expiryDate
                     String record = newId + FileManager.DELIMETER +
-                                    product.getProductID() + FileManager.DELIMETER +
-                                    qty + FileManager.DELIMETER +
-                                    del.format(FileManager.dateFormat) + FileManager.DELIMETER +
-                                    exp.format(FileManager.dateFormat);
-                    
+                            product.getProductID() + FileManager.DELIMETER +
+                            qty + FileManager.DELIMETER +
+                            del.format(FileManager.dateFormat) + FileManager.DELIMETER +
+                            exp.format(FileManager.dateFormat);
+
                     return new Batch(record);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -240,8 +254,9 @@ public class ProductDetailsModalController {
     private int generateBatchId() {
         ObservableList<Batch> batches = DataStore.getDataStore().getBatches();
         int maxId = 0;
-        for(Batch b : batches) {
-            if(b.getBatchID() > maxId) maxId = b.getBatchID();
+        for (Batch b : batches) {
+            if (b.getBatchID() > maxId)
+                maxId = b.getBatchID();
         }
         return maxId + 1;
     }
@@ -260,22 +275,23 @@ public class ProductDetailsModalController {
                 String ext = getFileExtension(selectedImageFile);
                 String newImageName = "image_" + product.getProductID() + ext;
                 File destDir = new File("data/ProductImages/");
-                if(!destDir.exists()) destDir.mkdirs();
-                
+                if (!destDir.exists())
+                    destDir.mkdirs();
+
                 File destFile = new File(destDir, newImageName);
                 FileManager.copyImage(selectedImageFile, destFile);
-                
+
                 product.setImageName(newImageName);
             }
 
             DataStore.getDataStore().saveAllData();
-            
+
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setHeaderText(null);
             alert.setContentText("Product updated successfully!");
             alert.showAndWait();
-            
+
             closeModal();
 
         } catch (NumberFormatException e) {
@@ -285,7 +301,7 @@ public class ProductDetailsModalController {
             alert.setContentText("Please check your number fields.");
             alert.showAndWait();
         } catch (IOException e) {
-             Alert alert = new Alert(AlertType.ERROR);
+            Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Image Upload Failed");
             alert.setContentText(e.getMessage());
@@ -331,7 +347,7 @@ public class ProductDetailsModalController {
         String name = file.getName();
         int lastIndexOf = name.lastIndexOf(".");
         if (lastIndexOf == -1) {
-            return ""; 
+            return "";
         }
         return name.substring(lastIndexOf);
     }
