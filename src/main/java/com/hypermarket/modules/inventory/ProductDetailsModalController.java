@@ -89,6 +89,22 @@ public class ProductDetailsModalController {
             String imageName = product.getImageName();
             if (imageName != null && !imageName.equals("null") && !imageName.isEmpty()) {
                 File imageFile = new File("data/ProductImages/" + imageName);
+                
+                // If specific extension is missing, try finding the file with common extensions
+                if (!imageFile.exists()) {
+                    File pngFile = new File("data/ProductImages/" + imageName + ".png");
+                    File jpgFile = new File("data/ProductImages/" + imageName + ".jpg");
+                    File jpegFile = new File("data/ProductImages/" + imageName + ".jpeg");
+
+                    if (pngFile.exists()) {
+                        imageFile = pngFile;
+                    } else if (jpgFile.exists()) {
+                        imageFile = jpgFile;
+                    } else if (jpegFile.exists()) {
+                        imageFile = jpegFile;
+                    }
+                }
+
                 if (imageFile.exists()) {
                     productImage.setImage(new Image(imageFile.toURI().toURL().toString()));
                 }
