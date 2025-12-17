@@ -42,6 +42,10 @@ public class AddEmployeeController implements Initializable {
     @FXML
     private Button saveBtn;
 
+    File defaultImageFile = new File(
+            "src/main/resources/com/hypermarket/images/greenUser.png");
+    Image defaultUserImage = new Image(defaultImageFile.toURI().toString());
+
     private File selectedImageFile;
     private int placeholderID;
     private String imageName;
@@ -58,6 +62,9 @@ public class AddEmployeeController implements Initializable {
         placeholderID = getNextAvailableID();
         imageName = "user_" + String.format("%03d", placeholderID) + ".png";
         roleComboBox.setPromptText("Select Role");
+
+        userImage.setImage(defaultUserImage);
+        selectedImageFile = defaultImageFile;
     }
 
     @FXML
@@ -170,8 +177,9 @@ public class AddEmployeeController implements Initializable {
         passwordField.clear();
         confirmPassField.clear();
         roleComboBox.getSelectionModel().clearSelection();
-        userImage.setImage(null);
+        userImage.setImage(defaultUserImage);
         selectedImageFile = null;
+
     }
 
 }
