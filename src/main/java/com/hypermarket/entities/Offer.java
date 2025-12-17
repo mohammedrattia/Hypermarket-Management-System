@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import com.hypermarket.data.FileManager;
 
-public class Offer {
+public class Offer implements Parsable {
 
     public enum Status {
         PENDING, ACTIVE, EXPIRED
@@ -129,8 +129,7 @@ public class Offer {
                 targetValue;
     }
 
-    private void parseString(String line) {
-        // TODO: get the product from the list into the attribute
+    public void parseString(String line) {
         try {
             String[] values = line.split(FileManager.DELIMETER);
             this.offerID = Integer.parseInt(values[0]);

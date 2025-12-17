@@ -16,12 +16,15 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
 import com.hypermarket.service.Session;
@@ -212,18 +215,41 @@ public class InventoryViewController extends ViewController implements Initializ
         List<String> alerts = com.hypermarket.entities.Notification.getSystemAlerts();
         ContextMenu menu = new ContextMenu();
 
-        menu.setStyle("-fx-background-color: white;");
+        menu.setStyle("-fx-selection-bar: white; -fx-selection-bar-non-focused: white; -fx-background-color: white;");
+
+        VBox contentBox = new VBox(15);
+        contentBox.setPadding(new Insets(15));
+        contentBox.setStyle("-fx-background-color: white;");
 
         for (String message : alerts) {
-            MenuItem item = new MenuItem(message);
+            Label itemLabel = new Label(message);
+            itemLabel.setWrapText(true);
+            itemLabel.setMaxWidth(300);
+
             if (message.contains("LOW") || message.contains("EXPIRED")) {
-                item.setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
+                itemLabel.setStyle("-fx-text-fill: #d32f2f; -fx-font-weight: bold; -fx-font-size: 14px;");
             } else {
-                item.setStyle("-fx-text-fill: green;");
+                itemLabel.setStyle("-fx-text-fill: #2e7d32; -fx-font-size: 13px;");
             }
-            menu.getItems().add(item);
+            contentBox.getChildren().add(itemLabel);
         }
-        menu.show(notificationBtn, Side.BOTTOM, 0, 0);
+
+        ScrollPane scrollPane = new ScrollPane(contentBox);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefHeight(450);
+        scrollPane.setMaxHeight(450);
+        scrollPane.setPrefWidth(350);
+
+        scrollPane.setFocusTraversable(false);
+        scrollPane.setStyle("-fx-background-color: white; -fx-background-insets: 0;");
+
+        CustomMenuItem customItem = new CustomMenuItem(scrollPane);
+        customItem.setHideOnClick(false);
+        
+        customItem.setStyle("-fx-background-color: white;");
+        
+        menu.getItems().add(customItem);
+        menu.show(notificationBtn, Side.LEFT, -20, -150);
     }
 
     private void fitToAnchor(javafx.scene.Node node) {

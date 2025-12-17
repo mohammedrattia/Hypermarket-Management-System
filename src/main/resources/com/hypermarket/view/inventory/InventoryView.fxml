@@ -94,7 +94,10 @@
           <Button fx:id="notificationButton" mnemonicParsing="false" styleClass="notif-button">
             <graphic>
               <StackPane>
-                <FontIcon fx:id="notificationBtn" iconLiteral="fas-bell" iconSize="20" styleClass="notif-icon" />
+                <FontIcon fx:id="notificationBtn" iconLiteral="fas-bell" iconSize="20" styleClass="notif-icon">
+                           <StackPane.margin>
+                              <Insets />
+                           </StackPane.margin></FontIcon>
               </StackPane>
             </graphic>
           </Button>
@@ -103,6 +106,9 @@
             <children>
               <ImageView fx:id="userProfileImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                 <image><Image url="@../../images/user.png" /></image>
+                        <HBox.margin>
+                           <Insets left="25.0" />
+                        </HBox.margin>
               </ImageView>
             </children>
           </HBox>

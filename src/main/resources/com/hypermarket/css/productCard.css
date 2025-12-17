@@ -6,6 +6,13 @@
 	-fx-padding: 6 0 10 0;
 }
 
+.product-card:hover {
+    -fx-cursor: hand;
+    -fx-translate-y: -5;
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.25), 20, 0, 0, 8);
+    -fx-background-color: #059669, #ffffff; /* Slightly darker top border on hover */
+}
+
 .product-image {
 	-fx-background-image: url("tomato.jpg");
     -fx-background-size: cover;
