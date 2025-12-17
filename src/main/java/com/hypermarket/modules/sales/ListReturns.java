@@ -26,10 +26,8 @@ public class ListReturns implements Initializable {
     @FXML
     private VBox mainContainer;
 
-    // 1. Updated Generic Type to <Return>
     private TableViewController<Return> returnsTable;
 
-    // 2. Updated Selection Object
     private Return selectedReturn;
 
     @Override
@@ -39,7 +37,6 @@ public class ListReturns implements Initializable {
     }
 
     private void initListeners() {
-        // 3. Updated Listener to cast to Return
         returnsTable.getSelectedItemProperty().addListener((obs, oldVal, newVal) -> {
             selectedReturn = newVal;
             if (selectedReturn != null) {
@@ -53,12 +50,11 @@ public class ListReturns implements Initializable {
                 getClass().getResource("/com/hypermarket/view/components/TableView.fxml"));
 
         if (returnsTable == null) {
-            // 4. Initialize with Return.class and getReturns() list
             returnsTable = new TableViewController<>(Return.class, DataStore.getDataStore().getReturns(), "returnID");
         }
         fxmlLoader.setController(returnsTable);
 
-        formatTable(); // Apply the new formatters
+        formatTable();
 
         try {
             Parent table = fxmlLoader.load();
@@ -92,9 +88,9 @@ public class ListReturns implements Initializable {
             return "";
         });
 
-        returnsTable.setColumnFormatter("isDamaged", obj -> {
-            // Note: Check if your field is named "isDamaged" or just "damaged"
-            return (boolean) obj ? "Damaged" : "Good Condition";
+        returnsTable.setColumnFormatter("status", obj -> {
+            Return returnedItem = (Return) obj;
+            return returnedItem.getStatus().toString();
         });
 
         returnsTable.setColumnFormatter("refundAmount", obj -> {

@@ -121,8 +121,6 @@ public class SalesViewController implements Initializable {
 
         menuMakeOrderItem.setOnMouseClicked(event -> showMakeOrder());
         menuReturnedOrdersItem.setOnMouseClicked(event -> showListReturns());
-        menuReturnOrderItem.setOnMouseClicked(event -> {
-        });
 
         menuUpdateUserInfo.setOnMouseClicked(event -> {
             showUpdateUserInfo();

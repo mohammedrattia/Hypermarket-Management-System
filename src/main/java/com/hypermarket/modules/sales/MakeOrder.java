@@ -238,7 +238,13 @@ public class MakeOrder implements Initializable {
             productsGrid = new ProductsGrid();
         itemProductsList.getChildren().clear();
         try {
-            itemProductsList.getChildren().add(productsGrid.getView());
+            Parent productsGridView = productsGrid.getView();
+            VBox rootBox = (VBox) productsGridView;
+            HBox toolBar = (HBox) rootBox.getChildren().get(0);
+            TextField internalSearch = (TextField) toolBar.getChildren().get(5);
+            internalSearch.textProperty().bind(itemProductName.textProperty());
+            rootBox.getChildren().remove(toolBar);
+            itemProductsList.getChildren().add(productsGridView);
         } catch (Exception e) {
             System.out.println("couldn't load products!!");
             System.err.println(e.toString());

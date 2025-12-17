@@ -31,7 +31,8 @@ public class OrderItem {
     public String toString() {
         return orderItemID + FileManager.DELIMETER + order.getOrderID() + FileManager.DELIMETER + product.getProductID()
                 + FileManager.DELIMETER + quantity
-                + FileManager.DELIMETER + priceThatDate;
+                + FileManager.DELIMETER + priceThatDate
+                + FileManager.DELIMETER + returnedItems;
     }
 
     private void parseString(String line) {
@@ -44,6 +45,7 @@ public class OrderItem {
             product = ListManipulation.searchObjectWithID(DataStore.getDataStore().getProducts(), values[2]);
             quantity = Integer.parseInt(values[3]);
             priceThatDate = Double.parseDouble(values[4]);
+            returnedItems = Integer.parseInt(values[5]);
         } catch (Exception e) {
             System.err.println("Error parsing data: " + e.getMessage());
         }

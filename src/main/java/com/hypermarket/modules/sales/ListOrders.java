@@ -10,6 +10,7 @@ import com.hypermarket.app.App;
 import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.Order;
+import com.hypermarket.entities.Product;
 import com.hypermarket.entities.Sales;
 import com.hypermarket.modules.admin.AdminViewController;
 import com.hypermarket.modules.components.EmployeeCardController;
@@ -31,6 +32,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class ListOrders implements Initializable {
     @FXML
@@ -53,7 +57,7 @@ public class ListOrders implements Initializable {
 
     private Runnable onNewOrderRequest;
 
-    TableViewController ordersTable;
+    TableViewController<Order> ordersTable;
 
     Order selectedOrder;
 
@@ -73,7 +77,7 @@ public class ListOrders implements Initializable {
         });
         newOrderButton.setOnMouseClicked(event -> onNewOrderRequest.run());
         viewReceiptButton.setOnMouseClicked(event -> loadOrderReceipt());
-        returnOrderButton.setOnMouseClicked(event -> loadReturnOrder());
+        returnOrderButton.setOnMouseClicked(event -> loadReturnOrder(selectedOrder));
     }
 
     private void loadOrderReceipt() {
@@ -85,11 +89,33 @@ public class ListOrders implements Initializable {
         }
     }
 
-    private void loadReturnOrder() {
-        if (selectedOrder == null) {
-            System.out.println("Popup: Please select an order first!");
-        } else {
-            System.out.println("Opening Return Page for Order #" + selectedOrder.getOrderID());
+    private void loadReturnOrder(Order order) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/hypermarket/view/sales/MakeReturn.fxml"));
+            Parent makeReturn = loader.load();
+            // loader.setController(order);
+            MakeReturn controller = loader.getController();
+            controller.setOrder(order);
+
+            // Object modalController = loader.getController();
+            // try {
+            // java.lang.reflect.Method setProductMethod =
+            // modalController.getClass().getMethod("setProduct",
+            // Product.class);
+            // // setProductMethod.invoke(modalController, product);
+            // } catch (Exception e) {
+            // e.printStackTrace();
+            // }
+
+            Stage makeReturnView = new Stage();
+            makeReturnView.initModality(Modality.APPLICATION_MODAL);
+            makeReturnView.initStyle(StageStyle.UTILITY);
+            makeReturnView.setTitle("Return Items");
+            makeReturnView.setScene(new Scene(makeReturn));
+            makeReturnView.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

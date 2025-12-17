@@ -45,12 +45,13 @@
 }
 
 .confirm-btn {
+
     -fx-background-color: linear-gradient(to bottom right, #10b981 0%, #059669 100%);
     -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.3), 10, 0, 0, 4);
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 12;
-    -fx-padding: 10 20;
+    -fx-padding: 10 12;
     -fx-cursor: hand;
     -fx-min-width: 175px;
 }
@@ -66,12 +67,12 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-background-radius: 12;
-    -fx-padding: 10 20;
+    -fx-padding: 10 12;
     -fx-cursor: hand;
-    -fx-min-width: 175px; /* Slightly smaller than confirm */
+    -fx-min-width: 125px; /* Slightly smaller than confirm */
 }
 .cancel-btn:hover {
-    -fx-min-width: 175px; /* Slightly smaller than confirm */
+    -fx-min-width: 125px; /* Slightly smaller than confirm */
     -fx-background-color: linear-gradient(to bottom right, #dc2626 0%, #b91c1c 100%);
     -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.5), 15, 0, 0, 6);
 }
@@ -85,7 +86,7 @@
 .order-detail-label {
     -fx-text-fill: #475569;      
     -fx-font-weight: bold;
-    -fx-font-size: 14px;
+    -fx-font-size: 12px;
     -fx-min-width: 100px;          
 }
 
@@ -116,8 +117,8 @@
 }
 
 .refund-text-large {
-    -fx-text-fill: #ef4444; /* Keep Red for Refund Amount */
-    -fx-font-size: 26px;
+    -fx-text-fill: #ef4444;
+    -fx-font-size: 20px;
     -fx-font-weight: 900;
     -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.1), 5, 0, 0, 2);
 }

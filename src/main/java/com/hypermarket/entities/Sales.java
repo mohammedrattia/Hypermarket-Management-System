@@ -19,4 +19,10 @@ public class Sales extends User {
         Order newOrder = new Order(this);
         return newOrder;
     }
+
+    public Return makeReturn(OrderItem orderItem, int quantityReturned) {
+        Return newReturn = new Return(orderItem, quantityReturned);
+        orderItem.setReturnedItems(orderItem.getReturnedItems() + quantityReturned);
+        return newReturn;
+    }
 }
