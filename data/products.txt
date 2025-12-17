@@ -1,5 +1,5 @@
-101;Fresh Apple;Fruits;null;14;0.0;null;null;0;image_101
-102;Orange Juice;juice;null;0;0.0;null;null;0;image_102
+101;Fresh Apple;null;null;14;0.0;null;null;0;image_101
+102;Orange Juice;null;null;0;0.0;null;null;0;image_102
 103;Full Cream Milk;null;null;0;0.0;null;null;0;image_103
 104;Cheddar Cheese;null;null;0;0.0;null;null;0;image_104
 105;Toast Bread;null;null;0;0.0;null;null;0;image_105
@@ -20,3 +20,4 @@
 120;o i i a e;null;null;500;200.0;null;5KG;15;image_120
 121;Hollow;null;null;0;10000.0;null;0KG;10;image_121
 122;asdasd;null;null;0;10000.0;null;asdasd;10;image_122
+123;Jawn;jawn;jawn;0;100.0;null;jawn;50;image_123
