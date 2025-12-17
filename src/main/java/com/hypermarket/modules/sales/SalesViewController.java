@@ -10,6 +10,7 @@ import com.hypermarket.entities.Sales;
 import com.hypermarket.entities.User;
 import com.hypermarket.modules.admin.DashboardHome;
 import com.hypermarket.modules.admin.EmployeeGrid;
+import com.hypermarket.modules.user.UpdateInfoController;
 import com.hypermarket.service.Session;
 
 import javafx.fxml.FXML;
@@ -208,14 +209,41 @@ public class SalesViewController implements Initializable {
 
     private void showUpdateUserInfo() {
         try {
-            Parent updateUserUI = FXMLLoader.load(
+            FXMLLoader updateUserUI = new FXMLLoader(
                     getClass().getResource("/com/hypermarket/view/user/UpdateUserInfo.fxml"));
+
+            Parent root = updateUserUI.load();
+            UpdateInfoController controller = updateUserUI.getController();
+            controller.setOnUpdateImage(() -> {
+                refereshImage();
+            });
             contentArea.getChildren().clear();
-            contentArea.getChildren().add(updateUserUI);
-            fitToAnchor(updateUserUI);
+            contentArea.getChildren().add(root);
+            fitToAnchor(root);
             updateTitleAndActiveTab(menuUpdateUserInfo);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void refereshImage() {
+        User currentUser = Session.getInstance().getUser();
+        try {
+            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            if (imageFile.exists()) {
+                Image image = new Image(imageFile.toURI().toURL().toString());
+                userImage.setImage(image);
+
+                userImage.setPreserveRatio(false);
+                Circle clip = new Circle();
+                clip.setCenterX(25);
+                clip.setCenterY(25);
+                clip.setRadius(25);
+
+                userImage.setClip(clip);
+            }
+        } catch (MalformedURLException e) {
+            System.err.println(e.getMessage());
         }
     }
 
