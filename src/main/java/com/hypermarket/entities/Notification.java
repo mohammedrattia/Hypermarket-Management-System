@@ -7,7 +7,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Notification {
+public class Notification implements Parsable {
 
     private String message;
     private LocalDate date;
@@ -17,7 +17,8 @@ public class Notification {
     }
 
     public static Notification createNew(String message) {
-        Notification n = new Notification(message + FileManager.DELIMETER + LocalDate.now().format(FileManager.dateFormat));
+        Notification n = new Notification(
+                message + FileManager.DELIMETER + LocalDate.now().format(FileManager.dateFormat));
         n.message = message;
         n.date = LocalDate.now();
         return n;
@@ -36,7 +37,7 @@ public class Notification {
         return message + FileManager.DELIMETER + date.format(FileManager.dateFormat);
     }
 
-    private void parseString(String record) {
+    public void parseString(String record) {
         String[] fields = record.split(FileManager.DELIMETER);
         try {
             this.message = fields[0];
@@ -48,12 +49,11 @@ public class Notification {
         }
     }
 
-
     public static List<String> getSystemAlerts() {
         List<String> alerts = new ArrayList<>();
         alerts.addAll(checkLowStock());
         alerts.addAll(checkExpiry());
-        
+
         if (alerts.isEmpty()) {
             alerts.add("✅ System is Healthy. No alerts.");
         }
@@ -77,7 +77,7 @@ public class Notification {
         for (Batch b : DataStore.getDataStore().getBatches()) {
             if (b.getExpiryDate() != null) {
                 long days = ChronoUnit.DAYS.between(today, b.getExpiryDate());
-                
+
                 if (days < 0) {
                     expiring.add("❌ EXPIRED: " + b.getProduct().getName() + " (Batch " + b.getBatchID() + ")");
                 } else if (days <= 7) {

@@ -2,7 +2,7 @@ package com.hypermarket.entities;
 
 import com.hypermarket.data.FileManager;
 
-public class DamageLog {
+public class DamageLog implements Parsable {
 
     public DamageLog(String recordLine) {
         parseString(recordLine);
@@ -20,7 +20,7 @@ public class DamageLog {
         return "ُExample";
     }
 
-    private void parseString(String line) {
+    public void parseString(String line) {
         String[] values = line.split(FileManager.DELIMETER);
         // Look at the following examples and make the parseString Function
         try {

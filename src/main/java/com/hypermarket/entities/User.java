@@ -5,7 +5,7 @@ import com.hypermarket.data.FileManager;
 
 import javafx.collections.ObservableList;
 
-public class User {
+public class User implements Parsable {
     private int ID;
     private String fName;
     private String lName;
@@ -59,7 +59,7 @@ public class User {
                 + this.salary;
     }
 
-    private void parseString(String line) {
+    public void parseString(String line) {
         String[] values = line.split(FileManager.DELIMETER);
 
         try {

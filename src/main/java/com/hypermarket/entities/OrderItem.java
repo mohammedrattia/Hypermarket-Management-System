@@ -8,7 +8,7 @@ import com.hypermarket.service.ListManipulation;
 
 import javafx.scene.chart.PieChart.Data;
 
-public class OrderItem {
+public class OrderItem implements Parsable {
 
     private int orderItemID;
     private Order order;
@@ -34,7 +34,7 @@ public class OrderItem {
                 + FileManager.DELIMETER + priceThatDate;
     }
 
-    private void parseString(String line) {
+    public void parseString(String line) {
         String[] values = line.split(FileManager.DELIMETER);
         // Look at the following examples and make the parseString Function
         try {

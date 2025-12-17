@@ -13,7 +13,7 @@ import com.hypermarket.service.ListManipulation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class Order {
+public class Order implements Parsable {
 
     private int orderID;
     private LocalDateTime dateTime;
@@ -43,7 +43,7 @@ public class Order {
                 + FileManager.DELIMETER + totalPrice;
     }
 
-    private void parseString(String line) {
+    public void parseString(String line) {
         String[] values = line.split(FileManager.DELIMETER);
         // Look at the following examples and make the parseString Function
         try {
