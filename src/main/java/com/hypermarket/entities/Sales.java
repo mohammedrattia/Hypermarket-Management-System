@@ -1,8 +1,5 @@
 package com.hypermarket.entities;
 
-import com.hypermarket.data.DataStore;
-import com.hypermarket.modules.sales.MakeOrder;
-
 public class Sales extends User {
 
     public Sales(String recordLine) {

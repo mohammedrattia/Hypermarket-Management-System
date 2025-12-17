@@ -10,12 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -90,14 +85,12 @@ public class SalesDashboard {
         LocalDate today = LocalDate.now();
         LocalDate yesterday = today.minusDays(1);
 
-        ObservableList<Order> myOrders = FXCollections.observableArrayList();
-        // ObservableList<Order> myOrders = allOrders;
+        ObservableList<Order> myOrders = allOrders;
 
-        for (Order o : allOrders) {
-            if (o.getSeller() != null && o.getSeller().getID() == currentUser.getID()) {
-                myOrders.add(o);
-            }
-        }
+        // ObservableList<Order> myOrders = FXCollections.observableArrayList();
+        // for (Order o : allOrders)
+        // if (o.getSeller() != null && o.getSeller().getID() == currentUser.getID())
+        // myOrders.add(o);
 
         ObservableList<Order> myOrdersToday = FXCollections.observableArrayList();
         ObservableList<Order> myOrdersYesterday = FXCollections.observableArrayList();

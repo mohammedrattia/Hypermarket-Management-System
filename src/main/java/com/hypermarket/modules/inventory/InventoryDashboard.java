@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.Product;
-import com.hypermarket.modules.inventory.*;
 import com.hypermarket.modules.components.KpiCardController;
 import com.hypermarket.modules.components.PieChartController;
 import com.hypermarket.modules.components.ProductCardController;
@@ -89,7 +88,7 @@ public class InventoryDashboard {
 
         kpiContainer.getChildren().addAll(
                 loadKpiCard("Porducts", String.valueOf(productCount), "-", true),
-                loadKpiCard("Categories", String.valueOf(categoryCount),"-", true),
+                loadKpiCard("Categories", String.valueOf(categoryCount), "-", true),
                 loadKpiCard("Low Stock", lowStockCount + " Items", "-", false));
     }
 
@@ -164,7 +163,6 @@ public class InventoryDashboard {
         pieChartNode = loadPieChartComponent();
     }
 
-
     private void openProductDetailsModal(Product product) {
         try {
             FXMLLoader modalLoader = new FXMLLoader(
@@ -186,10 +184,10 @@ public class InventoryDashboard {
             modalStage.setScene(new Scene(modalView));
 
             modalStage.showAndWait();
-            refreshView(); 
+            refreshView();
         } catch (IOException e) {
             e.printStackTrace();
-        
+
         }
     }
 }

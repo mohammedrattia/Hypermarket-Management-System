@@ -49,21 +49,21 @@ public class Inventory extends User {
     }
 
     public List<Batch> checkExpiryDates() {
-    LocalDate today = LocalDate.now();
-    LocalDate sevenDaysFromNow = today.plusDays(7);
-    
-    List<Batch> nearExpiryBatches = new ArrayList<>();
+        LocalDate today = LocalDate.now();
+        LocalDate sevenDaysFromNow = today.plusDays(7);
 
-    for (Batch b : this.batches) {
-        LocalDate expiryDate = b.getExpiryDate();
+        List<Batch> nearExpiryBatches = new ArrayList<>();
 
-        boolean isInFutureOrToday = !expiryDate.isBefore(today);
-        boolean isWithinWeek = !expiryDate.isAfter(sevenDaysFromNow);
+        for (Batch b : this.batches) {
+            LocalDate expiryDate = b.getExpiryDate();
 
-        if (isInFutureOrToday && isWithinWeek) {
-            nearExpiryBatches.add(b);
+            boolean isInFutureOrToday = !expiryDate.isBefore(today);
+            boolean isWithinWeek = !expiryDate.isAfter(sevenDaysFromNow);
+
+            if (isInFutureOrToday && isWithinWeek) {
+                nearExpiryBatches.add(b);
+            }
         }
-    }
-    return nearExpiryBatches;
+        return nearExpiryBatches;
     }
 }

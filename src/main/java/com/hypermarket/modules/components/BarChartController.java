@@ -2,13 +2,10 @@ package com.hypermarket.modules.components;
 
 import com.hypermarket.entities.Order;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;

@@ -14,10 +14,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-
-import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 
 public class AddProductController {
@@ -97,7 +93,7 @@ public class AddProductController {
     }
 
     private void handleAddProduct() {
-        if(!validateInput()) {
+        if (!validateInput()) {
             return;
         }
         try {
@@ -188,5 +184,3 @@ public class AddProductController {
         alert.showAndWait();
     }
 }
-
-

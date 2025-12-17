@@ -21,8 +21,6 @@ public class Product implements Parsable {
     private int threshold;
     private String imageName;
 
-
-
     public Product(String record) {
         parseString(record);
     }
@@ -90,6 +88,7 @@ public class Product implements Parsable {
     public Offer getOffer() {
         return offer;
     }
+
     public Offer getActiveOffer() {
         if (offer != null && offer.getManualStatus() == Offer.Status.ACTIVE) {
             return offer;
@@ -97,15 +96,14 @@ public class Product implements Parsable {
         return null;
     }
 
-    
     public void setOffer(Offer newOffer) {
-        if (newOffer != null && newOffer.getManualStatus() == Offer.Status.ACTIVE) {
-            if (this.offer != null && this.offer.getManualStatus() == Offer.Status.ACTIVE) {
-                
-                this.offer.setManualStatus(Offer.Status.PENDING);
-            }
+        if ((newOffer != null && newOffer.getManualStatus() == Offer.Status.ACTIVE) &&
+                (this.offer != null && this.offer.getManualStatus() == Offer.Status.ACTIVE)) {
+
+            this.offer.setManualStatus(Offer.Status.PENDING);
         }
         this.offer = newOffer;
+
     }
 
     public String getSize() {
@@ -143,8 +141,6 @@ public class Product implements Parsable {
     public String getImageName() {
         return imageName;
     }
-
-    
 
     @Override
     public String toString() {

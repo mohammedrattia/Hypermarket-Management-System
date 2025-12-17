@@ -50,6 +50,9 @@ public class InventoryViewController extends ViewController implements Initializ
     private Label menuAddProducts;
 
     @FXML
+    private Label menuReturnedOrders;
+
+    @FXML
     private Label menuUpdateUserInfo;
 
     @FXML
@@ -60,6 +63,9 @@ public class InventoryViewController extends ViewController implements Initializ
 
     @FXML
     private HBox menuAddProductItem;
+
+    @FXML
+    private HBox menuReturnedOrdersItem;
 
     @FXML
     private HBox menuLogoutItem;
@@ -120,6 +126,10 @@ public class InventoryViewController extends ViewController implements Initializ
 
         menuAddProductItem.setOnMouseClicked(event -> {
             showAddProduct();
+        });
+
+        menuReturnedOrdersItem.setOnMouseClicked(event -> {
+            showReturnedOrders();
         });
 
         menuUpdateUserInfo.setOnMouseClicked(event -> {
@@ -211,6 +221,26 @@ public class InventoryViewController extends ViewController implements Initializ
 
     }
 
+    private void showReturnedOrders() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/hypermarket/view/inventory/ListReturns.fxml"));
+            Parent listReturnsUI = loader.load();
+            ListReturns listReturnsController = loader.getController();
+
+            contentArea.setOnMouseClicked(event -> {
+                if (contentArea.getChildren().contains(listReturnsUI))
+                    listReturnsController.clearTableSelection();
+            });
+
+            contentArea.getChildren().clear();
+            contentArea.getChildren().add(listReturnsUI);
+            fitToAnchor(listReturnsUI);
+            updateTitleAndActiveTab(menuReturnedOrders);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void showNotifications() {
         List<String> alerts = Notification.getSystemAlerts();
         ContextMenu menu = new ContextMenu();
@@ -245,9 +275,9 @@ public class InventoryViewController extends ViewController implements Initializ
 
         CustomMenuItem customItem = new CustomMenuItem(scrollPane);
         customItem.setHideOnClick(false);
-        
+
         customItem.setStyle("-fx-background-color: white;");
-        
+
         menu.getItems().add(customItem);
         menu.show(notificationBtn, Side.LEFT, -20, -150);
     }
@@ -263,6 +293,7 @@ public class InventoryViewController extends ViewController implements Initializ
         menuDashboard.getStyleClass().remove("active-label");
         menuProducts.getStyleClass().remove("active-label");
         menuAddProducts.getStyleClass().remove("active-label");
+        menuReturnedOrders.getStyleClass().remove("active-label");
         menuUpdateUserInfo.getStyleClass().remove("active-label");
 
         activeBox.getStyleClass().add("active-label");

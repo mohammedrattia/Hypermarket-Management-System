@@ -1,6 +1,5 @@
 package com.hypermarket.modules.user;
 
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

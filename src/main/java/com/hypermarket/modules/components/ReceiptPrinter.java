@@ -7,26 +7,27 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import javafx.application.Platform;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.time.format.DateTimeFormatter;
 
 public class ReceiptPrinter {
 
     private static final String DEST_FOLDER = "receipts/";
-    private static final String TEMPLATE_PATH = "src/main/resources/com/hypermarket/view/components/ReceiptTemplate.html";
 
-    // Dimensions (80mm about 226 points)
+    private static final String TEMPLATE_PATH = "/com/hypermarket/view/components/ReceiptTemplate.html";
+
+    // Dimensions (80mm)
     private static final float PDF_WIDTH = 226f;
-    private static final float PDF_HEIGHT = 2000f;
+    private static final float PDF_HEIGHT = 400f;
 
     public static void printToPDF(Order order) {
         try {
-            String htmlContent = new String(Files.readAllBytes(Paths.get(TEMPLATE_PATH)));
+            String htmlContent = loadTemplate();
 
             String date = order.getDateTime().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             String sellerName = (order.getSeller() != null) ? order.getSeller().getFName() : "Unknown";
@@ -55,18 +56,27 @@ public class ReceiptPrinter {
             String destPath = setupFilePath(order.getOrderID());
             PdfWriter writer = new PdfWriter(destPath);
             PdfDocument pdf = new PdfDocument(writer);
-
-            // Set size to 80mm
             pdf.setDefaultPageSize(new PageSize(PDF_WIDTH, PDF_HEIGHT));
-
             HtmlConverter.convertToPdf(htmlContent, pdf, new ConverterProperties());
+            pdf.close();
 
-            System.out.println("Receipt Created: " + destPath);
-            openFile(destPath);
+            System.out.println("Receipt Generated: " + destPath);
+
+            File pdfFile = new File(destPath);
+            Platform.runLater(() -> PDFViewerController.showPdfPreview(pdfFile));
 
         } catch (Exception e) {
             System.err.println("Error printing receipt: " + e.getMessage());
             e.printStackTrace();
+        }
+    }
+
+    private static String loadTemplate() throws IOException {
+        try (InputStream is = ReceiptPrinter.class.getResourceAsStream(TEMPLATE_PATH)) {
+            if (is == null) {
+                throw new IOException("Template file not found at: " + TEMPLATE_PATH);
+            }
+            return new String(is.readAllBytes(), StandardCharsets.UTF_8);
         }
     }
 
@@ -75,43 +85,5 @@ public class ReceiptPrinter {
         if (!directory.exists())
             directory.mkdirs();
         return DEST_FOLDER + "Order_" + orderId + ".pdf";
-    }
-
-    private static void openFile(String filePath) {
-        // 1. Run in a separate thread to prevent freezing the UI
-        new Thread(() -> {
-            try {
-                File file = new File(filePath);
-                if (!file.exists()) {
-                    System.err.println("File not found: " + filePath);
-                    return;
-                }
-
-                String os = System.getProperty("os.name").toLowerCase();
-
-                if (os.contains("win")) {
-                    // Windows: Desktop API works well
-                    if (Desktop.isDesktopSupported()) {
-                        Desktop.getDesktop().open(file);
-                    }
-                } else if (os.contains("mac")) {
-                    // macOS: The 'open' command is safest
-                    new ProcessBuilder("open", file.getAbsolutePath()).start();
-                } else if (os.contains("nix") || os.contains("nux")) {
-                    // Linux: 'xdg-open' is the standard universal opener
-                    // We use ProcessBuilder to run the shell command
-                    new ProcessBuilder("xdg-open", file.getAbsolutePath()).start();
-                } else {
-                    // Fallback for others
-                    if (Desktop.isDesktopSupported()) {
-                        Desktop.getDesktop().open(file);
-                    }
-                }
-
-            } catch (IOException e) {
-                System.err.println("Error opening file: " + e.getMessage());
-                e.printStackTrace();
-            }
-        }).start();
     }
 }
