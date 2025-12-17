@@ -55,6 +55,11 @@
                   <Label fx:id="menuAddProducts" styleClass="menu-text" text="Add Product" />
                 </HBox>
 
+                <HBox fx:id="menuReturnedOrdersItem" alignment="CENTER_LEFT" prefHeight="50.0" spacing="12" styleClass="menu-item">
+                  <FontIcon iconLiteral="fas-box-open" iconSize="18" styleClass="submenu-icon" />
+                  <Label fx:id="menuReturnedOrders" styleClass="menu-text" text="Returned Orders" />
+                </HBox>
+
               </children>
             </VBox>
           </content>
