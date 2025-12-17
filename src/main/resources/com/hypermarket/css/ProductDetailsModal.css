@@ -8,6 +8,7 @@
 .modal-name {
   -fx-text-fill: black;
   -fx-font-weight: bold;
+  -fx-font-size: 20px;
 }
 
 .modal-id {
