@@ -7,11 +7,13 @@ import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.User;
 import com.hypermarket.modules.components.EmployeeCardController;
 import com.hypermarket.modules.components.KpiCardController;
+import com.hypermarket.modules.components.PieChartController;
 
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -20,6 +22,7 @@ import javafx.scene.layout.VBox;
 public class DashboardHome {
     private VBox employeeListContainer;
     private HBox kpiContainer;
+    private PieChart pieChartNode;
 
     public Parent getView() {
         VBox mainLayout = new VBox(20);
@@ -41,7 +44,6 @@ public class DashboardHome {
         scrollPane.setPrefWidth(370);
         scrollPane.setStyle("-fx-background-color: transparent;");
 
-        Parent pieChartNode = loadPieChartComponent();
         HBox.setHgrow(pieChartNode, Priority.ALWAYS);
 
         bottomContainer.getChildren().addAll(pieChartNode, scrollPane);
@@ -53,6 +55,11 @@ public class DashboardHome {
     private void refreshView() {
         refreshKpis();
         refreshList();
+        refreshPie();
+    }
+
+    private void refreshPie() {
+        pieChartNode = loadPieChartComponent();
     }
 
     private void refreshKpis() {
@@ -88,9 +95,9 @@ public class DashboardHome {
 
             KpiCardController controller = loader.getController();
             controller.setData(title, value, trend, isPositive);
-            ((VBox)node).setAlignment(Pos.TOP_CENTER);
+            ((VBox) node).setAlignment(Pos.TOP_CENTER);
             HBox.setHgrow(node, Priority.ALWAYS);
-            ((VBox)node).setMaxWidth(Double.MAX_VALUE);
+            ((VBox) node).setMaxWidth(Double.MAX_VALUE);
 
             return node;
         } catch (IOException ex) {
@@ -99,11 +106,14 @@ public class DashboardHome {
         }
     }
 
-    private Parent loadPieChartComponent() {
+    private PieChart loadPieChartComponent() {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/com/hypermarket/view/components/PieChart.fxml"));
-            return loader.load();
+            PieChart root = loader.load();
+            PieChartController pieController = loader.getController();
+            pieController.setData(DataStore.getDataStore().getUsers(), "role");
+            return root;
         } catch (IOException ex) {
             ex.printStackTrace();
             return null;

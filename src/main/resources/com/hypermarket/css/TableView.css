@@ -87,3 +87,17 @@
 .choice-box .menu-item:hover {
     -fx-background-color: #10b981;
 }
+
+.choice-box .context-menu {
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    /* -fx-padding: 6; */
+}
+
+.choice-box .menu-item {
+    -fx-background-radius: 14;
+}
+
+.choice-box .menu-item:hover {
+    -fx-background-radius: 14;
+}
