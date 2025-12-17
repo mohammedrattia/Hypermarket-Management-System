@@ -4,7 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" 
@@ -13,29 +12,22 @@
       spacing="5.0" 
       styleClass="kpi-card"
       stylesheets="@../../css/KpiCard.css"
-      xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.components.KpiCardController">
+      xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.hypermarket.modules.components.KpiCardController">
+
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
    </padding>
+
    <children>
-      <Label fx:id="valueLabel" text="500 M" styleClass="kpi-value">
-         <font>
-            <Font size="48.0" />
-         </font>
-      </Label>
-      <Label fx:id="titleLabel" text="Products" styleClass="kpi-label">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
+      <Label fx:id="valueLabel" text="500 M" styleClass="kpi-value" />
+
+      <Label fx:id="titleLabel" text="Products" styleClass="kpi-label" />
+
       <HBox alignment="CENTER" spacing="5.0">
         <children>
             <FontIcon fx:id="trendIcon" iconLiteral="fas-arrow-up" iconSize="12" styleClass="kpi-trend-icon-positive" />
-            <Label fx:id="trendLabel" text="12.5%" styleClass="kpi-trend-positive">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
+            <Label fx:id="trendLabel" text="12.5%" styleClass="kpi-trend-positive" />
          </children>
       </HBox>
    </children>

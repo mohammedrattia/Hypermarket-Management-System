@@ -22,11 +22,31 @@
   -fx-background-color: rgb(229, 229, 229);
 }
 
-.menu-scroll,
-.menu-scroll .viewport,
-.menu-scroll .scroll-bar .menu-container,
-.menu-item {
+.menu-scroll {
   -fx-background-color: transparent;
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+  -fx-background-radius: 0;
+}
+
+.menu-scroll:focused {
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+  -fx-background-color: transparent;
+  -fx-background-radius: 0;
+
+  -fx-faint-focus-color: transparent;
+  -fx-focus-color: transparent;
+}
+
+.menu-scroll>.viewport {
+  -fx-background-color: transparent;
+}
+
+.menu-container:focused {
+  -fx-background-insets: 0;
+  -fx-background-color: transparent;
+  -fx-focus-color: transparent;
 }
 
 .menu-item {
@@ -119,57 +139,45 @@
 }
 
 .confirm-btn {
-  -fx-background-color: linear-gradient(
-    to bottom right,
-    #10b981 0%,
-    #059669 100%
-  );
+  -fx-background-color: linear-gradient(to bottom right,
+      #10b981 0%,
+      #059669 100%);
   -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.3), 10, 0, 0, 4);
 }
 
 .confirm-btn:hover {
-  -fx-background-color: linear-gradient(
-    to bottom right,
-    #059669 0%,
-    #047857 100%
-  );
+  -fx-background-color: linear-gradient(to bottom right,
+      #059669 0%,
+      #047857 100%);
   -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.6), 10, 0, 0, 4);
   -fx-font-weight: bold;
 }
 
 .cancel-btn {
-  -fx-background-color: linear-gradient(
-    to bottom right,
-    #ef4444 0%,
-    #dc2626 100%
-  );
+  -fx-background-color: linear-gradient(to bottom right,
+      #ef4444 0%,
+      #dc2626 100%);
   -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.3), 10, 0, 0, 4);
 }
 
 .cancel-btn:hover {
-  -fx-background-color: linear-gradient(
-    to bottom right,
-    #dc2626 0%,
-    #b91c1c 100%
-  );
+  -fx-background-color: linear-gradient(to bottom right,
+      #dc2626 0%,
+      #b91c1c 100%);
   -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.5), 15, 0, 0, 6);
 }
 
 .edit-btn {
-  -fx-background-color: linear-gradient(
-    to bottom right,
-    #ffae22 0%,
-    #f18e1e 100%
-  );
+  -fx-background-color: linear-gradient(to bottom right,
+      #ffae22 0%,
+      #f18e1e 100%);
   -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.3), 10, 0, 0, 4);
 }
 
 .edit-btn:hover {
-  -fx-background-color: linear-gradient(
-    to bottom right,
-    #f2a624 0%,
-    #ea891a 100%
-  );
+  -fx-background-color: linear-gradient(to bottom right,
+      #f2a624 0%,
+      #ea891a 100%);
   -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.5), 15, 0, 0, 6);
 }
 
@@ -189,13 +197,14 @@
   -fx-text-fill: #0b6b3c;
   -fx-font-weight: 700;
 }
+
 .menu-text {
   -fx-font-size: 16px;
   -fx-max-width: 150px;
-  
+
 }
 
-.menu-icon-box{
+.menu-icon-box {
   -fx-alignment: center;
   -fx-min-width: 30px;
   -fx-max-width: 30px;

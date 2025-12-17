@@ -1,7 +1,5 @@
 package com.hypermarket.modules.components;
 
-
-
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -45,7 +43,7 @@ public class OffersPageController {
 
     @FXML
     public void initialize() {
-        
+
         currentUser = (Marketing) Session.getInstance().getUser();
 
         ToggleGroup offerGroup = new ToggleGroup();
@@ -68,13 +66,15 @@ public class OffersPageController {
     }
 
     private void addOffer() {
-        if (currentUser == null) return;
+        if (currentUser == null)
+            return;
         try {
             String name = offerNameField.getText().trim();
             double discount = Double.parseDouble(discountField.getText().trim());
             LocalDate startL = startDatePicker.getValue();
             LocalDate endL = endDatePicker.getValue();
-            if (name.isEmpty() || startL == null || endL == null) return;
+            if (name.isEmpty() || startL == null || endL == null)
+                return;
 
             Date start = Date.from(startL.atStartOfDay(ZoneId.systemDefault()).toInstant());
             Date end = Date.from(endL.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -88,7 +88,6 @@ public class OffersPageController {
 
             offersContainer.getChildren().add(createOfferCard(o));
 
-            
             offerNameField.clear();
             discountField.clear();
             startDatePicker.setValue(null);
@@ -118,19 +117,19 @@ public class OffersPageController {
 
         Label target = new Label(targetText);
 
-        Label statusLabel = new Label("Status: " + o.getStatus());
-        updateStatusLabelStyle(statusLabel, o.getStatus());
+        Label statusLabel = new Label("Status: " + o.getManualStatus());
+        updateStatusLabelStyle(statusLabel, o.getManualStatus());
 
         ComboBox<Offer.Status> statusCombo = new ComboBox<>();
         statusCombo.getItems().addAll(Offer.Status.values());
-        statusCombo.setValue(o.getStatus());
-        statusCombo.setPrefWidth(120); 
+        statusCombo.setValue(o.getManualStatus());
+        statusCombo.setPrefWidth(120);
         statusCombo.getStyleClass().add("status-combo");
 
         statusCombo.setOnAction(e -> {
             o.setManualStatus(statusCombo.getValue());
-            statusLabel.setText("Status: " + o.getStatus());
-            updateStatusLabelStyle(statusLabel, o.getStatus());
+            statusLabel.setText("Status: " + o.getManualStatus());
+            updateStatusLabelStyle(statusLabel, o.getManualStatus());
             DataStore.getDataStore().saveAllData();
         });
 
@@ -170,14 +169,13 @@ public class OffersPageController {
                 discount,
                 dates,
                 target,
-                actionsRow
-        );
+                actionsRow);
 
         return card;
     }
 
     private void updateStatusLabelStyle(Label label, Offer.Status status) {
-        switch(status) {
+        switch (status) {
             case ACTIVE -> label.setStyle("-fx-font-weight: bold; -fx-text-fill: green;");
             case EXPIRED -> label.setStyle("-fx-font-weight: bold; -fx-text-fill: red;");
             case PENDING -> label.setStyle("-fx-font-weight: bold; -fx-text-fill: orange;");
