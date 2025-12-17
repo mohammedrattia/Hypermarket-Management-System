@@ -1,13 +1,12 @@
-1;Anas;Hassanein;user_001.png;ADMIN;01001234567;anas@system.com;123456;6.9E7
+1;Anass;Hassanein;user_001.png;ADMIN;01001234567;anass@system.com;123456;6.9E7
 2;Malek;Abido;user_002.png;SALES;01001001001;abido@system.com;123456;1.0E7
 3;Ahmed;Elsharkawy;user_005.png;INVENTORY;01234567890;mada@admin.com;666666;1.0E7
 4;Abdallah;Ramadan;user_000.png;MARKETING;01099887766;body@gmail.com;123456;1.0E7
 5;Hana;AbdelHamid;user_008.png;ADMIN;01028041233;hanav@system.com;123456;6.9E7
-6;Mohammed;Ragab;user_006.png;ADMIN;01223344556;Ragab@sales.com;123456;1.0E7
+6;Mohammed;Ragab;user_006.png;ADMIN;01100110011;ragab@system.com;123456;1.0E7
 7;Ahmed;Khairi;default.png;INVENTORY;01155667788;layla.h@stock.com;stockpass;41000.0
 8;Amir;Youssef;default.png;MARKETING;01544332211;amir.y@market.com;market99;53000.0
 9;Nour;Eldin;default.png;SALES;01011223344;nour.el@sales.com;sellmore;39500.0
-10;Tarek;Zaki;default.png;INVENTORY;01299887766;tarek.z@warehouse.com;warehouse1;43000.0
 16;Ahmed;Alaa;default.png;MARKETING;01129012900;jack@wrestler.com;weareheros;676767.0
-17;Moccisor;GG;default.png;ADMIN;01101011001;moccisor@system.com;74108520;1000000.0
 18;Jack;Sparrow;default.png;SALES;12345496;jack@gmail.com;jack;99999.0
+19;the;knight;user_019.png;ADMIN;01100110011;knight@system.com;0000;1000000.0
