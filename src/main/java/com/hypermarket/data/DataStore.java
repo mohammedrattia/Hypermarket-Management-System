@@ -60,7 +60,7 @@ public class DataStore {
             else if (record.toLowerCase().contains(FileManager.DELIMETER + "marketing" + FileManager.DELIMETER))
                 return new Marketing(record.trim());
             else
-                return new User(record.trim());
+                return null;
         });
         loadData("products", products, (record) -> new Product(record));
         loadData("batches", batches, (record) -> new Batch(record));

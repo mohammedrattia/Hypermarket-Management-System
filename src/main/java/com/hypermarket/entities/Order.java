@@ -48,7 +48,11 @@ public class Order implements Parsable {
         // Look at the following examples and make the parseString Function
         try {
             orderID = Integer.parseInt(values[0]);
-            seller = (Sales) ListManipulation.searchObjectWithID(DataStore.getDataStore().getUsers(), values[1]);
+            User user = ListManipulation.searchObjectWithID(DataStore.getDataStore().getUsers(), values[1]);
+            if (user instanceof Sales)
+                seller = (Sales) user;
+            else
+                seller = null;
             dateTime = LocalDateTime.parse(values[2], FileManager.dateTimeFormat);
             totalQuantity = Integer.parseInt(values[3]);
             totalPrice = Double.parseDouble(values[4]);

@@ -150,8 +150,7 @@ public class ListOrders implements Initializable {
         ordersTable.excludeColumn("items");
 
         ordersTable.setColumnFormatter("seller", obj -> {
-            Sales s = (Sales) obj;
-            return s.getFName();
+            return (obj != null) ? ((Sales) obj).getFName() : "Unknown";
         });
 
         ordersTable.setColumnFormatter("dateTime", obj -> {
