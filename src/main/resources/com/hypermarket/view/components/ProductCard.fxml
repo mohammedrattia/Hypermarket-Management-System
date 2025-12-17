@@ -13,11 +13,13 @@
    <children>
       <StackPane id="image-container" prefHeight="176.0" prefWidth="182.0" styleClass="image-container">
          <children>
-            <ImageView id="productImage" fx:id="productImage" fitHeight="159.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" styleClass="product-image">
-               <image>
-                  <Image url="@Juice.png" />
-               </image>
-            </ImageView>
+             <ImageView fx:id="productImage"
+                   fitWidth="127.0"
+                   fitHeight="159.0"
+                   preserveRatio="true"
+                   smooth="true"
+                   pickOnBounds="true"
+                   styleClass="product-image"/>
          </children>
       </StackPane>
       <Separator orientation="VERTICAL" prefHeight="152.0" prefWidth="11.0" />

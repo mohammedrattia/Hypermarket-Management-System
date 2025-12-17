@@ -6,12 +6,14 @@ import java.util.List;
 import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.Product;
 import com.hypermarket.modules.components.KpiCardController;
+import com.hypermarket.modules.components.PieChartController;
 import com.hypermarket.modules.components.ProductCardController;
 
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -21,6 +23,7 @@ public class InventoryDashboard {
 
     private VBox productGridContainer;
     private HBox kpiContainer;
+    private PieChart pieChartNode;
 
     public Parent getView() {
         VBox mainLayout = new VBox(20);
@@ -54,6 +57,7 @@ public class InventoryDashboard {
     private void refreshView() {
         refreshKpis();
         refreshList();
+        refreshPie();
     }
 
     private void refreshKpis() {
@@ -89,9 +93,9 @@ public class InventoryDashboard {
 
             KpiCardController controller = loader.getController();
             controller.setData(title, value, trend, isPositive);
-            ((VBox)node).setAlignment(Pos.TOP_CENTER);
+            ((VBox) node).setAlignment(Pos.TOP_CENTER);
             HBox.setHgrow(node, Priority.ALWAYS);
-            ((VBox)node).setMaxWidth(Double.MAX_VALUE);
+            ((VBox) node).setMaxWidth(Double.MAX_VALUE);
 
             return node;
         } catch (IOException ex) {
@@ -100,11 +104,14 @@ public class InventoryDashboard {
         }
     }
 
-    private Parent loadPieChartComponent() {
+    private PieChart loadPieChartComponent() {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/com/hypermarket/view/components/PieChart.fxml"));
-            return loader.load();
+            PieChart root = loader.load();
+            PieChartController pieController = loader.getController();
+            pieController.setData(DataStore.getDataStore().getProducts(), "category");
+            return root;
         } catch (IOException ex) {
             ex.printStackTrace();
             return null;
@@ -125,5 +132,9 @@ public class InventoryDashboard {
             ex.printStackTrace();
             return null;
         }
+    }
+
+    private void refreshPie() {
+        pieChartNode = loadPieChartComponent();
     }
 }

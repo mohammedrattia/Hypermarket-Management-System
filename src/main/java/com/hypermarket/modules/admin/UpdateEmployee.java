@@ -64,6 +64,12 @@ public class UpdateEmployee implements Initializable {
 
     private File selectedImageFile;
 
+    private Runnable onUpdateCallback;
+
+    public void setOnUpdateCallback(Runnable onUpdateCallback) {
+        this.onUpdateCallback = onUpdateCallback;
+    }
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         roleComboBox.getItems().addAll(
@@ -135,6 +141,10 @@ public class UpdateEmployee implements Initializable {
         }
 
         new Alert(Alert.AlertType.INFORMATION, "User info updated successfully!").showAndWait();
+
+        if (onUpdateCallback != null) {
+            onUpdateCallback.run();
+        }
 
         Stage stage = (Stage) saveBtn.getScene().getWindow();
         stage.close();

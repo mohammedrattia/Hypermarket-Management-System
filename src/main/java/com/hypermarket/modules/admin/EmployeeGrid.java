@@ -157,9 +157,9 @@ public class EmployeeGrid {
         int row = 0;
 
         for (User user : sortedData) {
-            Parent card = loadEmployeeCard(user, () -> {
-                employeesData.remove(user);
-            });
+            Parent card = loadEmployeeCard(user,
+                    () -> employeesData.remove(user),
+                    this::refreshGrid);
 
             if (card != null) {
                 grid.add(card, column++, row);
@@ -172,7 +172,7 @@ public class EmployeeGrid {
         }
     }
 
-    private Parent loadEmployeeCard(User user, Runnable onDelete) {
+    private Parent loadEmployeeCard(User user, Runnable onDelete, Runnable onUpdate) {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/com/hypermarket/view/components/EmployeeCard.fxml"));
@@ -187,6 +187,7 @@ public class EmployeeGrid {
             controller.setData(user);
 
             controller.setOnDeleteAction(onDelete);
+            controller.setonUpdateAction(onUpdate);
 
             return node;
         } catch (IOException ex) {

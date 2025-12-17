@@ -1,6 +1,13 @@
 package com.hypermarket.entities;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
+
+import javafx.collections.ObservableList;
 
 public class Product {
     private int productID;
@@ -18,7 +25,8 @@ public class Product {
         parseString(record);
     }
 
-    public Product(int productID, String name, String category, String description, int quantity, double price, String size, int threshold) {
+    public Product(int productID, String name, String category, String description, int quantity, double price,
+            String size, int threshold) {
         this.productID = productID;
         this.name = name;
         this.category = category;
@@ -30,15 +38,14 @@ public class Product {
         this.imageName = "image_" + this.productID;
     }
 
-    public Product(String name, String size, double price, String category, String description)
-    {
+    public Product(String name, String size, double price, String category, String description) {
         this.name = name;
         this.size = size;
         this.price = price;
         this.category = category;
         this.description = description;
     }
-    
+
     public int getProductID() {
         return productID;
     }
@@ -50,7 +57,7 @@ public class Product {
     public String getCategory() {
         return category;
     }
-    
+
     public String getDescription() {
         return description;
     }
@@ -113,37 +120,42 @@ public class Product {
 
     @Override
     public String toString() {
-        return productID + FileManager.DELIMETER + 
-               name + FileManager.DELIMETER + 
-               category + FileManager.DELIMETER +
-               description + FileManager.DELIMETER +
-               quantity + FileManager.DELIMETER +
-               price + FileManager.DELIMETER +
-               //! The offer thing needs to be fixed
-               (offer != null ? offer.toString() : "null") + FileManager.DELIMETER +
-               size + FileManager.DELIMETER +
-               threshold + FileManager.DELIMETER + 
-               imageName;
+        return productID + FileManager.DELIMETER +
+                name + FileManager.DELIMETER +
+                category + FileManager.DELIMETER +
+                description + FileManager.DELIMETER +
+                quantity + FileManager.DELIMETER +
+                price + FileManager.DELIMETER +
+                // ! The offer thing needs to be fixed
+                (offer != null ? offer.toString() : "null") + FileManager.DELIMETER +
+                size + FileManager.DELIMETER +
+                threshold + FileManager.DELIMETER +
+                imageName;
     }
 
     private void parseString(String line) {
         String[] values = line.split(FileManager.DELIMETER);
+
         try {
-            productID = Integer.valueOf(values[0]);
+            productID = Integer.parseInt(values[0]);
             name = values[1];
             category = values[2];
             description = values[3];
-            quantity = Integer.valueOf(values[4]);
-            price = Double.valueOf(values[5]);
-            /**Habiba will handle this value:
-            offer = Offer.valueOf(values[6]);*/
+            quantity = (int) Double.parseDouble(values[4]);
+            price = Double.parseDouble(values[5]);
             size = values[7];
-            threshold = Integer.valueOf(values[8]);
-            imageName = values[9];
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error Entering Data: " + e.getMessage());
+            threshold = (int) Double.parseDouble(values[8]);
+
+            imageName = values.length > 9 ? values[9] : "image_" + productID;
+
+            // safety
+            if (imageName == null || imageName.equalsIgnoreCase("null")) {
+                imageName = "image_" + productID;
+            }
+
         } catch (Exception e) {
-            System.err.println("Error Parsing Data: " + e.getMessage());
+            System.err.println("Error parsing product line: " + line);
+            e.printStackTrace();
         }
     }
 
@@ -151,13 +163,35 @@ public class Product {
         return quantity <= threshold;
     }
 
-    public int getTotalQuantity() {
-        return quantity;
-    }
+    public boolean reduceStock(int amount) {
+        if (amount > this.quantity) {
+            return false;
+        }
 
-    public boolean reduceStock(int quantity2) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'reduceStock'");
+        ObservableList<Batch> allBatches = DataStore.getDataStore().getBatches();
+        List<Batch> productBatches = allBatches.stream()
+                .filter(b -> b.getProduct().getProductID() == this.productID)
+                .sorted(Comparator.comparing(Batch::getExpiryDate))
+                .collect(Collectors.toList());
+
+        int remainingToDeduct = amount;
+
+        for (Batch batch : productBatches) {
+            if (remainingToDeduct <= 0)
+                break;
+
+            int currentBatchQty = batch.getQuantity();
+            int deductFromBatch = Math.min(currentBatchQty, remainingToDeduct);
+
+            batch.setQuantity(currentBatchQty - deductFromBatch);
+            remainingToDeduct -= deductFromBatch;
+        }
+
+        this.quantity -= amount;
+
+        allBatches.removeIf(b -> b.getQuantity() <= 0);
+
+        return true;
     }
 
     public int getThreshold() {

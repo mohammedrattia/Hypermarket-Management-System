@@ -31,6 +31,10 @@ public class Batch {
         return quantity;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public LocalDate getExpiryDate() {
         return expiryDate;
     }

@@ -1,6 +1,6 @@
 package com.hypermarket.modules.inventory;
 
-import com.hypermarket.entities.Product; 
+import com.hypermarket.entities.Product;
 import com.hypermarket.entities.Inventory;
 
 import javafx.fxml.FXML;
@@ -53,7 +53,6 @@ public class AddProductController {
 
     private File selectedImageFile;
 
-
     @FXML
     public void initialize() {
         clearBtn.setOnAction(event -> {
@@ -68,7 +67,6 @@ public class AddProductController {
         }
     }
 
-
     @FXML
     void clearAllFields() {
         nameField.clear();
@@ -80,7 +78,6 @@ public class AddProductController {
         productImageView.setImage(null);
         nameField.requestFocus();
     }
-
 
     @FXML
     private void handleImageSelection() {
@@ -97,6 +94,7 @@ public class AddProductController {
             productImageView.setImage(newImage);
         }
     }
+
     private void handleAddProduct() {
         try {
             String name = nameField.getText();
@@ -104,7 +102,7 @@ public class AddProductController {
             String category = categoryField.getText();
             String size = sizeField.getText();
             double price = Double.parseDouble(priceField.getText());
-            
+
             int threshold = 5;
             try {
                 threshold = Integer.parseInt(thresholdField.getText());
@@ -112,8 +110,9 @@ public class AddProductController {
                 System.out.println("Invalid Threshold, using default 5");
             }
 
-            Inventory inventorySystem = new Inventory("Admin", 0, "System", "User", "null", "000", "email", "pass", 0.0);
-            int newID = inventorySystem.generateNextProductId(); 
+            Inventory inventorySystem = new Inventory("Admin", 0, "System", "User", "null", "000", "email", "pass",
+                    0.0);
+            int newID = inventorySystem.generateNextProductId();
 
             if (this.selectedImageFile != null) {
                 File folder = new File("Data/ProductImages");
@@ -122,13 +121,12 @@ public class AddProductController {
                 }
                 File dest = new File("Data/ProductImages/image_" + newID + ".png");
                 Files.copy(
-                    this.selectedImageFile.toPath(), 
-                    dest.toPath(), 
-                    StandardCopyOption.REPLACE_EXISTING
-                );
+                        this.selectedImageFile.toPath(),
+                        dest.toPath(),
+                        StandardCopyOption.REPLACE_EXISTING);
             }
             Product newProduct = new Product(newID, name, category, description, 0, price, size, threshold);
-            inventorySystem.addProduct(newProduct);            
+            inventorySystem.addProduct(newProduct);
             clearAllFields();
         } catch (Exception e) {
             e.printStackTrace();

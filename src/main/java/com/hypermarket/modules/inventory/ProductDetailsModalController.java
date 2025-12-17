@@ -79,7 +79,7 @@ public class ProductDetailsModalController {
         sizeField.setText(product.getSize());
         thresholdField.setText(String.valueOf(product.getThreshold()));
         descriptionArea.setText(product.getDescription());
-        quantityField.setText(String.valueOf(product.getTotalQuantity()));
+        quantityField.setText(String.valueOf(product.getQuantity()));
 
         loadImage();
     }
@@ -217,7 +217,7 @@ public class ProductDetailsModalController {
             product.setQuantity(product.getQuantity() + batch.getQuantity()); // Update product quantity
             DataStore.getDataStore().saveAllData();
             loadBatches();
-            quantityField.setText(String.valueOf(product.getTotalQuantity()));
+            quantityField.setText(String.valueOf(product.getQuantity()));
         });
     }
 
