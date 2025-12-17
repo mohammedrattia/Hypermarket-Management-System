@@ -89,6 +89,22 @@ public class ProductDetailsModalController {
             String imageName = product.getImageName();
             if (imageName != null && !imageName.equals("null") && !imageName.isEmpty()) {
                 File imageFile = new File("data/ProductImages/" + imageName);
+                
+                // If specific extension is missing, try finding the file with common extensions
+                if (!imageFile.exists()) {
+                    File pngFile = new File("data/ProductImages/" + imageName + ".png");
+                    File jpgFile = new File("data/ProductImages/" + imageName + ".jpg");
+                    File jpegFile = new File("data/ProductImages/" + imageName + ".jpeg");
+
+                    if (pngFile.exists()) {
+                        imageFile = pngFile;
+                    } else if (jpgFile.exists()) {
+                        imageFile = jpgFile;
+                    } else if (jpegFile.exists()) {
+                        imageFile = jpegFile;
+                    }
+                }
+
                 if (imageFile.exists()) {
                     productImage.setImage(new Image(imageFile.toURI().toURL().toString()));
                 }
@@ -274,6 +290,30 @@ public class ProductDetailsModalController {
             alert.setHeaderText("Image Upload Failed");
             alert.setContentText(e.getMessage());
             alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void handleDelete(ActionEvent event) {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Delete Product");
+        alert.setHeaderText("Delete " + product.getName() + "?");
+        alert.setContentText("Are you sure you want to delete this product? All associated batches (" + 
+                             DataStore.getDataStore().getBatches().stream()
+                                 .filter(b -> b.getProduct().getProductID() == product.getProductID()).count() + 
+                             ") will also be removed.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Cascade delete batches
+            DataStore.getDataStore().getBatches().removeIf(b -> b.getProduct().getProductID() == product.getProductID());
+            
+            // Delete product
+            DataStore.getDataStore().getProducts().remove(product);
+            
+            DataStore.getDataStore().saveAllData();
+            
+            closeModal();
         }
     }
 
