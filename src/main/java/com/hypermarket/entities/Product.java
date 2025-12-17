@@ -76,6 +76,17 @@ public class Product implements Parsable {
         return price;
     }
 
+    public double getDiscountedPrice() {
+        if (this.offer == null) {
+            return this.price;
+        }
+
+        double discountAmount = this.price * (this.offer.getDiscount() / 100.0);
+        double discountedPrice = this.price - discountAmount;
+
+        return Math.max(0.0, discountedPrice);
+    }
+
     public Offer getOffer() {
         return offer;
     }
