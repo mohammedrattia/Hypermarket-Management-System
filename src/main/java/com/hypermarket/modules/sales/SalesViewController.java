@@ -10,6 +10,7 @@ import com.hypermarket.entities.Sales;
 import com.hypermarket.entities.User;
 import com.hypermarket.modules.admin.DashboardHome;
 import com.hypermarket.modules.admin.EmployeeGrid;
+import com.hypermarket.modules.components.ViewController;
 import com.hypermarket.modules.user.UpdateInfoController;
 import com.hypermarket.service.Session;
 
@@ -26,7 +27,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 
-public class SalesViewController implements Initializable {
+public class SalesViewController extends ViewController implements Initializable {
 
     @FXML
     private AnchorPane mainContainer;
@@ -82,8 +83,6 @@ public class SalesViewController implements Initializable {
     @FXML
     private ImageView userImage;
 
-    Runnable onLogout;
-
     private SalesDashboard salesDashboard;
 
     @Override
@@ -111,11 +110,7 @@ public class SalesViewController implements Initializable {
         }
     }
 
-    public void setOnLogout(Runnable onLogout) {
-        this.onLogout = onLogout;
-    }
-
-    private void setUpNavigation() {
+    protected void setUpNavigation() {
         menuDashboardItem.setOnMouseClicked(event -> showDashboard());
 
         menuOrdersItem.setOnMouseClicked(event -> showListOrders());
@@ -134,7 +129,7 @@ public class SalesViewController implements Initializable {
         });
     }
 
-    private void showDashboard() {
+    protected void showDashboard() {
         updateTitleAndActiveTab(menuDashboard);
         if (salesDashboard == null)
             salesDashboard = new SalesDashboard((Sales) Session.getInstance().getUser());

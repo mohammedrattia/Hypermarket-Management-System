@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.User;
+import com.hypermarket.modules.components.ViewController;
 import com.hypermarket.modules.user.UpdateInfoController;
 import com.hypermarket.service.Session;
 
@@ -21,7 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 
-public class AdminViewController implements Initializable {
+public class AdminViewController extends ViewController implements Initializable {
 
     @FXML
     private AnchorPane contentArea;
@@ -59,8 +60,6 @@ public class AdminViewController implements Initializable {
     @FXML
     private ImageView userImage;
 
-    Runnable onLogout;
-
     private DashboardHome dashboardHome;
     private EmployeeGrid employeeGrid;
 
@@ -72,11 +71,7 @@ public class AdminViewController implements Initializable {
         updateTitleAndActiveTab(menuDashboard);
     }
 
-    public void setOnLogout(Runnable onLogout) {
-        this.onLogout = onLogout;
-    }
-
-    private void setUpNavigation() {
+    protected void setUpNavigation() {
         menuDashboardItem.setOnMouseClicked(event -> {
             showDashboard();
         });
@@ -98,7 +93,7 @@ public class AdminViewController implements Initializable {
         });
     }
 
-    private void showDashboard() {
+    protected void showDashboard() {
         updateTitleAndActiveTab(menuDashboard);
         if (dashboardHome == null)
             dashboardHome = new DashboardHome();

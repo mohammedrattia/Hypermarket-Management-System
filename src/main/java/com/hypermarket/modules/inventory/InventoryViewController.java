@@ -6,9 +6,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.hypermarket.data.FileManager;
-import com.hypermarket.entities.Notification;
 import com.hypermarket.entities.User;
-import com.hypermarket.modules.inventory.*;
+import com.hypermarket.modules.components.ViewController;
 import com.hypermarket.modules.user.UpdateInfoController;
 
 import javafx.fxml.FXML;
@@ -16,7 +15,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -30,9 +28,8 @@ import com.hypermarket.service.Session;
 import java.util.List;
 import javafx.geometry.Side;
 import org.kordamp.ikonli.javafx.FontIcon;
-import javafx.scene.input.MouseEvent;
 
-public class InventoryViewController implements Initializable {
+public class InventoryViewController extends ViewController implements Initializable {
 
     @FXML
     private AnchorPane contentArea;
@@ -75,7 +72,6 @@ public class InventoryViewController implements Initializable {
 
     private InventoryDashboard inventorydashboard;
     private ProductsGrid productsGrid;
-    Runnable onLogout;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -110,11 +106,7 @@ public class InventoryViewController implements Initializable {
         }
     }
 
-    public void setOnLogout(Runnable onLogout) {
-        this.onLogout = onLogout;
-    }
-
-    private void setUpNavigation() {
+    protected void setUpNavigation() {
         menuDashboardItem.setOnMouseClicked(event -> {
             showDashboard();
         });
@@ -140,7 +132,7 @@ public class InventoryViewController implements Initializable {
         });
     }
 
-    private void showDashboard() {
+    protected void showDashboard() {
         updateTitleAndActiveTab(menuDashboard);
         if (inventorydashboard == null)
             inventorydashboard = new InventoryDashboard();

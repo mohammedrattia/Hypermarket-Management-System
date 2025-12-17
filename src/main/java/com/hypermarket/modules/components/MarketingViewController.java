@@ -10,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -19,7 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MarketingViewController implements Initializable {
+public class MarketingViewController extends ViewController implements Initializable {
 
     @FXML
     private AnchorPane contentArea;
@@ -51,26 +50,20 @@ public class MarketingViewController implements Initializable {
     @FXML
     private HBox menuLogoutItem;
 
-    private Runnable onLogout;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setUpNavigation();
         showDashboard();
     }
 
-    public void setOnLogout(Runnable onLogout) {
-        this.onLogout = onLogout;
-    }
-
-    private void setUpNavigation() {
+    protected void setUpNavigation() {
         menuDashboardItem.setOnMouseClicked(e -> showDashboard());
         menuReportsItem.setOnMouseClicked(e -> showReports());
         menuOffersItem.setOnMouseClicked(e -> showOffers());
         menuLogoutItem.setOnMouseClicked(e -> onLogout.run());
     }
 
-    private void showDashboard() {
+    protected void showDashboard() {
         pageTitle.setText("Marketing Dashboard");
         dashboardContainer.setVisible(true);
         contentArea.getChildren().clear();
