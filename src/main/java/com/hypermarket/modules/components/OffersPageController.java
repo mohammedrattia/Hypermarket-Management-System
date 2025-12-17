@@ -8,6 +8,7 @@ import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.Marketing;
 import com.hypermarket.entities.Offer;
 import com.hypermarket.entities.Product;
+import com.hypermarket.entities.Offer.Status;
 import com.hypermarket.service.Session;
 
 import javafx.fxml.FXML;
@@ -28,10 +29,6 @@ public class OffersPageController {
     @FXML
     private TextField discountField;
     @FXML
-    private RadioButton rbAll;
-    @FXML
-    private RadioButton rbProduct;
-    @FXML
     private ComboBox<String> productCombo;
     @FXML
     private DatePicker startDatePicker;
@@ -42,15 +39,12 @@ public class OffersPageController {
     @FXML
     private VBox offersContainer;
 
+    private Product selectedProduct;
+
     @FXML
     public void initialize() {
 
         currentUser = (Marketing) Session.getInstance().getUser();
-
-        ToggleGroup offerGroup = new ToggleGroup();
-        rbAll.setToggleGroup(offerGroup);
-        rbProduct.setToggleGroup(offerGroup);
-        rbAll.setSelected(true);
 
         addOfferBtn.setOnAction(e -> addOffer());
 
@@ -65,12 +59,6 @@ public class OffersPageController {
             offersContainer.getChildren().add(card);
         }
     }
-
-    private boolean datesOverlap(Date start1, Date end1, Date start2, Date end2) {
-        return !start1.after(end2) && !start2.after(end1);
-    }
-
-    Product selectedProduct = null;
 
     private void addOffer() {
         if (currentUser == null)
@@ -105,12 +93,11 @@ public class OffersPageController {
                 return;
             }
 
-            String targetType = rbAll.isSelected() ? "ALL" : "PRODUCT";
-            String targetVal = rbProduct.isSelected() && productCombo.getValue() != null
+            String targetVal = productCombo.getValue() != null
                     ? productCombo.getValue()
-                    : "ALL";
+                    : null;
 
-            if (rbProduct.isSelected() && productCombo.getValue() != null) {
+            if (targetVal != null) {
                 String productName = productCombo.getValue();
                 selectedProduct = DataStore.getDataStore().getProducts()
                         .stream()
@@ -164,8 +151,7 @@ public class OffersPageController {
                 }
             }
 
-            Offer o = currentUser.createOffer(name, discount, start, end, targetType, targetVal);
-            o.setProduct(selectedProduct);
+            Offer o = currentUser.createOffer(name, discount, start, end, selectedProduct);
             o.setManualStatus(status);
 
             if (selectedProduct != null) {
@@ -184,8 +170,6 @@ public class OffersPageController {
             discountField.clear();
             startDatePicker.setValue(null);
             endDatePicker.setValue(null);
-            rbAll.setSelected(true);
-            rbProduct.setSelected(false);
             productCombo.setValue(null);
 
         } catch (NumberFormatException ex) {
@@ -215,12 +199,6 @@ public class OffersPageController {
         Label discount = new Label("Discount: " + o.getDiscount() + "%");
         Label dates = new Label("From: " + o.getStartDate() + " To: " + o.getEndDate());
 
-        String targetText = o.getTargetType().equalsIgnoreCase("ALL")
-                ? "Target: All Products"
-                : "Target: " + o.getTargetValue();
-
-        Label target = new Label(targetText);
-
         Label statusLabel = new Label("Status: " + o.getManualStatus());
         updateStatusLabelStyle(statusLabel, o.getManualStatus());
 
@@ -231,6 +209,18 @@ public class OffersPageController {
         statusCombo.getStyleClass().add("status-combo");
 
         statusCombo.setOnAction(e -> {
+            if (o.getProduct().getOffer() != null && statusCombo.getValue() == Status.ACTIVE) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Offer Conflict");
+                alert.setHeaderText("Rejected");
+                alert.setContentText(
+                        "Cannot make offer active. This product already has an active offer in the selected period.");
+                alert.showAndWait();
+                statusCombo.setValue(Status.PENDING);
+                return;
+            }
+            if (statusCombo.getValue() == Status.ACTIVE)
+                o.getProduct().setOffer(o);
             o.setManualStatus(statusCombo.getValue());
             statusLabel.setText("Status: " + o.getManualStatus());
             updateStatusLabelStyle(statusLabel, o.getManualStatus());
@@ -272,7 +262,6 @@ public class OffersPageController {
                 name,
                 discount,
                 dates,
-                target,
                 actionsRow);
 
         return card;

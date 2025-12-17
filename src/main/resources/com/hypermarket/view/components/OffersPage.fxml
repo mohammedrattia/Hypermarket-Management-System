@@ -35,8 +35,6 @@
             </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="20" styleClass="radio-buttons">
-                <RadioButton fx:id="rbAll" text="All Products" />
-                <RadioButton fx:id="rbProduct" text="Specific Product" />
                 <ComboBox fx:id="productCombo" promptText="Select Product" styleClass="combo-box" />
             </HBox>
 

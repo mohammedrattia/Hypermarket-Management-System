@@ -23,24 +23,11 @@ public class Marketing extends User {
         return dataStore;
     }
 
-    public Offer createOffer(String offerName, double discount, Date startDate, Date endDate, String targetType,
-            String targetValue) {
-
-        int newID = dataStore.getOffers().size() + 1;
-
-        Offer offer = new Offer(newID, offerName, discount, startDate, endDate, targetType, targetValue);
-
-        dataStore.getOffers().add(offer);
-        dataStore.saveAllData();
-        return offer;
-    }
-
     public Offer createOffer(String offerName, double discount, Date startDate, Date endDate, Product product) {
+
         int newID = dataStore.getOffers().size() + 1;
 
-        Offer offer = new Offer(newID, offerName, discount, startDate, endDate, "product",
-                String.valueOf(product.getProductID()));
-        offer.setProduct(product);
+        Offer offer = new Offer(newID, offerName, discount, startDate, endDate, product);
 
         dataStore.getOffers().add(offer);
         dataStore.saveAllData();
@@ -48,15 +35,14 @@ public class Marketing extends User {
     }
 
     public boolean editOffer(int offerID, String offerName, double discount, Date startDate, Date endDate,
-            String targetType, String targetValue) {
+            Product product) {
         for (Offer offer : dataStore.getOffers()) {
             if (offer.getOfferID() == offerID) {
                 offer.setOfferName(offerName);
                 offer.setDiscount(discount);
                 offer.setStartDate(startDate);
                 offer.setEndDate(endDate);
-                offer.setTargetType(targetType);
-                offer.setTargetValue(targetValue);
+                offer.setProduct(product);
                 dataStore.saveAllData();
                 return true;
             }

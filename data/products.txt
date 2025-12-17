@@ -1,10 +1,10 @@
-101;Fresh Apple;Fruit;Organic Fuji Apples;14;2.5;null;1KG;10;image_101
+101;Fresh Apple;Fruit;Organic Fuji Apples;14;2.5;1;offer 1;30.0;2025-12-18;2025-12-19;101;offer 2;20;2025-12-18
 102;Orange Juice;Beverages;No-Pulp Fresh Squeezed;48;4.99;null;1L;15;image_102
 103;Full Cream Milk;Dairy;Homogenized Whole Milk;30;3.25;null;2L;10;image_103
 104;Cheddar Cheese;Dairy;Sharp Aged White Cheddar;24;6.5;null;500G;8;image_104
 105;Toast Bread;Bakery;Whole Wheat Sliced Bread;27;2.1;null;600G;12;image_105
 106;Frozen Chicken;Frozen;Whole Grade A Chicken;14;9.99;null;1.2KG;5;image_106
-107;Basmati Rice;Grains;Extra Long Grain Premium;20;12.5;null;5KG;5;image_107
+107;Basmati Rice;Grains;Extra Long Grain Premium;20;12.5;null;offer 4;90;2025-12-04
 108;Italian Pasta;Grains;Artisan Penne Rigate;80;1.8;null;500G;20;image_108
 109;Red Eggs;Dairy;Grade A Large Brown Eggs;12;4.5;null;12PK;6;image_109
 110;Tomato;Produce;Red Vine-Ripened Tomatoes;60;3.2;null;1KG;15;image_110
