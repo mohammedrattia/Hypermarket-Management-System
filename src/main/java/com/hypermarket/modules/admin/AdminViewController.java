@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.User;
+import com.hypermarket.modules.user.UpdateInfoController;
 import com.hypermarket.service.Session;
 
 import javafx.fxml.FXML;
@@ -65,17 +66,21 @@ public class AdminViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        User currentUser = Session.getInstance().getUser();
         showDashboard();
         setUpNavigation();
         updateTitleAndActiveTab(menuDashboard);
+        refereshImage();
 
+    }
+
+    private void refereshImage() {
+        User currentUser = Session.getInstance().getUser();
         try {
             File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toURL().toString());
                 userImage.setImage(image);
-               
+
                 userImage.setPreserveRatio(false);
                 Circle clip = new Circle();
                 clip.setCenterX(25);
@@ -135,11 +140,15 @@ public class AdminViewController implements Initializable {
 
     private void showUpdateUserInfo() {
         try {
-            Parent updateUserUI = FXMLLoader.load(
+            FXMLLoader updateUserUI = new FXMLLoader(
                     getClass().getResource("/com/hypermarket/view/user/UpdateUserInfo.fxml"));
+
+            UpdateInfoController controller = updateUserUI.getController();
+            controller.setOnUpdateImage(() -> refereshImage());
+            Parent root = updateUserUI.load();
             contentArea.getChildren().clear();
-            contentArea.getChildren().add(updateUserUI);
-            fitToAnchor(updateUserUI);
+            contentArea.getChildren().add(root);
+            fitToAnchor(root);
             updateTitleAndActiveTab(menuUpdateUserInfo);
         } catch (Exception e) {
             e.printStackTrace();

@@ -67,7 +67,7 @@ public class FileManager {
         return records;
     }
 
-    public static void copyImage(File source, File destination) throws IOException {
+    public static void c(File source, File destination) throws IOException {
         Files.copy(Paths.get(source.getPath()), Paths.get(destination.getPath()), StandardCopyOption.REPLACE_EXISTING);
     }
 }
