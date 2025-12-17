@@ -11,9 +11,7 @@ import com.hypermarket.data.*;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -98,6 +96,7 @@ public class UpdateInfoController implements Initializable {
     }
 
     public void setOnUpdateImage(Runnable onUpdateImage) {
+        System.out.println("DEBUG: Callback has been connected!");
         this.onUpdateImage = onUpdateImage;
     }
 
@@ -140,23 +139,6 @@ public class UpdateInfoController implements Initializable {
 
     public javafx.scene.Parent getView() {
         return saveBtn.getScene().getRoot();
-    }
-
-    public class UpdateUserInfoView {
-
-        private Parent view;
-
-        public UpdateUserInfoView() {
-            try {
-                view = FXMLLoader.load(getClass().getResource("UpdateUserInfo.fxml"));
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-
-        public Parent getView() {
-            return view;
-        }
     }
 
     @FXML
