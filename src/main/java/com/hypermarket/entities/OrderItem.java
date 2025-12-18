@@ -16,7 +16,7 @@ public class OrderItem implements Parsable {
     public OrderItem(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
-        this.priceThatDate = product.getPrice();
+        this.priceThatDate = product.getDiscountedPrice();
     }
 
     public OrderItem(String recordLine) {

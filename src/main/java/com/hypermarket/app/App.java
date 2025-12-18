@@ -2,8 +2,8 @@ package com.hypermarket.app;
 
 import com.hypermarket.entities.*;
 import com.hypermarket.modules.admin.AdminViewController;
-import com.hypermarket.modules.components.MarketingViewController;
 import com.hypermarket.modules.inventory.InventoryViewController;
+import com.hypermarket.modules.marketing.MarketingViewController;
 import com.hypermarket.modules.sales.SalesViewController;
 import com.hypermarket.modules.user.LoginController;
 
@@ -132,7 +132,7 @@ public class App extends Application {
 
         private static void loadMarketingScene(Stage stage) throws IOException {
                 FXMLLoader fxmlLoader = new FXMLLoader(
-                                App.class.getResource("/com/hypermarket/view/components/MarketingView.fxml"));
+                                App.class.getResource("/com/hypermarket/view/marketing/MarketingView.fxml"));
                 scene = new Scene(fxmlLoader.load());
                 MarketingViewController controller = fxmlLoader.getController();
                 controller.setOnLogout(() -> {
