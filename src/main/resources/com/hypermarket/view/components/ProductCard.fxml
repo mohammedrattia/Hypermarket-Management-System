@@ -32,6 +32,7 @@
             </HBox>
             <Separator prefWidth="200.0" />
             <Label id="productQuantityCard" fx:id="productQuantityCard" prefHeight="26.0" prefWidth="348.0" styleClass="product-quantity-card" text="Quantity: 100" />
+            <Label fx:id="originalPriceCard" styleClass="original-price" text="Original: 20 $" visible="false" managed="false" />
             <Label id="productPriceCard" fx:id="productPriceCard" prefHeight="32.0" prefWidth="348.0" styleClass="product-price-card" text="Price: 15 $" />
             <Label fx:id="CategoryLabel" text="Category: " />
          </children>
