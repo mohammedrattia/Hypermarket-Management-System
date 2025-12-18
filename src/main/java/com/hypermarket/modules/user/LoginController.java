@@ -80,6 +80,7 @@ public class LoginController implements Initializable {
             Authenticator.authenticate(emailField.getText(), passField.getText());
         } catch (Exception e) {
             makeAlert(e.getMessage());
+            return;
         }
         if (onLoginSuccess != null) {
             onLoginSuccess.run();

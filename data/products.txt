@@ -1,4 +1,4 @@
-101;Fresh Apple;Fruit;Organic Fuji Apples;14;2.5;1;offer 1;30.0;2025-12-18;2025-12-19;101;offer 2;20;2025-12-18
+101;Fresh Apple;Fruit;Organic Fuji Apples;14;2.5;2;offer 2;20.0;2025-12-18;2025-12-24;101;offer 2;20;2025-12-18
 102;Orange Juice;Beverages;No-Pulp Fresh Squeezed;48;4.99;null;1L;15;image_102
 103;Full Cream Milk;Dairy;Homogenized Whole Milk;30;3.25;null;2L;10;image_103
 104;Cheddar Cheese;Dairy;Sharp Aged White Cheddar;24;6.5;null;500G;8;image_104

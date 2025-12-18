@@ -196,6 +196,7 @@ public class OffersPageController {
         Label name = new Label(o.getOfferName());
         name.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
 
+        Label productName = new Label("Product Name: " + o.getProduct().getName());
         Label discount = new Label("Discount: " + o.getDiscount() + "%");
         Label dates = new Label("From: " + o.getStartDate() + " To: " + o.getEndDate());
 
@@ -260,6 +261,7 @@ public class OffersPageController {
         actionsRow.getChildren().addAll(spacer, deleteBtn);
         card.getChildren().addAll(
                 name,
+                productName,
                 discount,
                 dates,
                 actionsRow);
