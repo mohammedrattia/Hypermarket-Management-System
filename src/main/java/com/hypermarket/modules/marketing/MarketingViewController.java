@@ -1,4 +1,4 @@
-package com.hypermarket.modules.components;
+package com.hypermarket.modules.marketing;
 
 import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
@@ -6,6 +6,9 @@ import com.hypermarket.entities.Offer;
 import com.hypermarket.entities.Product;
 import com.hypermarket.entities.Sales;
 import com.hypermarket.entities.User;
+import com.hypermarket.modules.components.KpiCardController;
+import com.hypermarket.modules.components.TableViewController;
+import com.hypermarket.modules.components.ViewController;
 import com.hypermarket.modules.user.UpdateInfoController;
 import com.hypermarket.service.Session;
 
@@ -150,7 +153,7 @@ public class MarketingViewController extends ViewController implements Initializ
         pageTitle.setText("Reports");
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/hypermarket/view/components/ReportsPage.fxml"));
+                    getClass().getResource("/com/hypermarket/view/marketing/ReportsPage.fxml"));
             Parent view = loader.load();
             contentArea.getChildren().clear();
             contentArea.getChildren().add(view);
@@ -165,7 +168,7 @@ public class MarketingViewController extends ViewController implements Initializ
         pageTitle.setText("Offers");
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/com/hypermarket/view/components/OffersPage.fxml"));
+                    getClass().getResource("/com/hypermarket/view/marketing/OffersPage.fxml"));
             Parent view = loader.load();
             contentArea.getChildren().clear();
             contentArea.getChildren().add(view);
