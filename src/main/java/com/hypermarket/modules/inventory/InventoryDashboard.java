@@ -59,7 +59,7 @@ public class InventoryDashboard {
         scrollPane.setPrefWidth(400);
         scrollPane.setStyle("-fx-background-color: transparent;");
 
-        Parent pieChartNode = loadPieChartComponent();
+        pieChartNode = loadPieChartComponent();
         HBox.setHgrow(pieChartNode, Priority.ALWAYS);
 
         bottomContainer.getChildren().addAll(pieChartNode, scrollPane);
@@ -144,7 +144,6 @@ public class InventoryDashboard {
 
             ProductCardController controller = loader.getController();
             controller.setData(product);
-            controller.setOnDeleteAction(onDelete);
             node.setOnMouseClicked(event -> {
                 if (Session.getInstance().getUser().getRole().toString() == "INVENTORY") {
                     openProductDetailsModal(product);

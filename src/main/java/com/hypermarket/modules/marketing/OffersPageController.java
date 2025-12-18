@@ -1,4 +1,4 @@
-package com.hypermarket.modules.components;
+package com.hypermarket.modules.marketing;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -7,6 +7,8 @@ import java.util.Date;
 import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.Marketing;
 import com.hypermarket.entities.Offer;
+import com.hypermarket.entities.Product;
+import com.hypermarket.entities.Offer.Status;
 import com.hypermarket.service.Session;
 
 import javafx.fxml.FXML;
@@ -27,10 +29,6 @@ public class OffersPageController {
     @FXML
     private TextField discountField;
     @FXML
-    private RadioButton rbAll;
-    @FXML
-    private RadioButton rbProduct;
-    @FXML
     private ComboBox<String> productCombo;
     @FXML
     private DatePicker startDatePicker;
@@ -41,15 +39,12 @@ public class OffersPageController {
     @FXML
     private VBox offersContainer;
 
+    private Product selectedProduct;
+
     @FXML
     public void initialize() {
 
         currentUser = (Marketing) Session.getInstance().getUser();
-
-        ToggleGroup offerGroup = new ToggleGroup();
-        rbAll.setToggleGroup(offerGroup);
-        rbProduct.setToggleGroup(offerGroup);
-        rbAll.setSelected(true);
 
         addOfferBtn.setOnAction(e -> addOffer());
 
@@ -68,43 +63,130 @@ public class OffersPageController {
     private void addOffer() {
         if (currentUser == null)
             return;
+
+        selectedProduct = null;
+
         try {
             String name = offerNameField.getText().trim();
             double discount = Double.parseDouble(discountField.getText().trim());
             LocalDate startL = startDatePicker.getValue();
             LocalDate endL = endDatePicker.getValue();
-            if (name.isEmpty() || startL == null || endL == null)
+
+            if (name.isEmpty() || startL == null || endL == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Missing Fields");
+                alert.setHeaderText(null);
+                alert.setContentText("Please fill in all fields before adding the offer.");
+                alert.showAndWait();
                 return;
+            }
 
             Date start = Date.from(startL.atStartOfDay(ZoneId.systemDefault()).toInstant());
             Date end = Date.from(endL.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-            String targetType = rbAll.isSelected() ? "ALL" : "PRODUCT";
-            String targetVal = rbProduct.isSelected() && productCombo.getValue() != null
+            if (end.before(start)) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Invalid Dates");
+                alert.setHeaderText(null);
+                alert.setContentText("End date must be after start date.");
+                alert.showAndWait();
+                return;
+            }
+
+            String targetVal = productCombo.getValue() != null
                     ? productCombo.getValue()
-                    : "ALL";
+                    : null;
 
-            Offer o = currentUser.createOffer(name, discount, start, end, targetType, targetVal);
+            if (targetVal != null) {
+                String productName = productCombo.getValue();
+                selectedProduct = DataStore.getDataStore().getProducts()
+                        .stream()
+                        .filter(p -> p.getName().equals(productName))
+                        .findFirst()
+                        .orElse(null);
+            }
 
-            offersContainer.getChildren().add(createOfferCard(o));
+            Offer.Status status = Offer.Status.ACTIVE;
+
+            if (selectedProduct != null) {
+                boolean rejected = false;
+                boolean pending = false;
+
+                for (Offer o : DataStore.getDataStore().getOffers()) {
+                    if (o.getProduct() != null &&
+                            o.getProduct().getProductID() == selectedProduct.getProductID() &&
+                            o.getManualStatus() == Offer.Status.ACTIVE) {
+
+                        if (!start.before(o.getStartDate()) && !end.after(o.getEndDate())) {
+                            rejected = true;
+                            break;
+                        }
+
+                        if (!start.before(o.getStartDate()) && end.after(o.getEndDate())) {
+                            pending = true;
+                        }
+                    }
+                }
+
+                if (rejected) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Offer Conflict");
+                    alert.setHeaderText("Rejected");
+                    alert.setContentText(
+                            "Cannot add offer. This product already has an active offer in the selected period.");
+                    alert.showAndWait();
+                    return;
+                }
+
+                if (pending || start.after(new Date())) {
+                    status = Offer.Status.PENDING;
+                } else {
+                    status = Offer.Status.ACTIVE;
+                }
+
+            } else {
+
+                if (start.after(new Date())) {
+                    status = Offer.Status.PENDING;
+                }
+            }
+
+            Offer o = currentUser.createOffer(name, discount, start, end, selectedProduct);
+            o.setManualStatus(status);
+
+            if (selectedProduct != null) {
+                selectedProduct.setOffer(o);
+            }
+
+            DataStore.getDataStore().saveAllData();
+
+            offersContainer.getChildren().clear();
+            DataStore.getDataStore().getOffers().stream()
+                    .sorted((a, b) -> Integer.compare(getStatusOrder(a.getManualStatus()),
+                            getStatusOrder(b.getManualStatus())))
+                    .forEach(o2 -> offersContainer.getChildren().add(createOfferCard(o2)));
 
             offerNameField.clear();
             discountField.clear();
             startDatePicker.setValue(null);
             endDatePicker.setValue(null);
-            rbAll.setSelected(true);
-            rbProduct.setSelected(false);
             productCombo.setValue(null);
 
         } catch (NumberFormatException ex) {
-              Alert alert = new Alert(Alert.AlertType.ERROR);
-              alert.setTitle("Invalid Discount");
-              alert.setHeaderText(null);
-              alert.setContentText("Please enter a valid positive number for Discount!");
-              alert.showAndWait();
-              return;
-}
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Discount");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter a valid positive number for Discount!");
+            alert.showAndWait();
+        }
+    }
 
+    private int getStatusOrder(Offer.Status status) {
+        return switch (status) {
+            case ACTIVE -> 1;
+            case PENDING -> 2;
+            case EXPIRED -> 3;
+        };
     }
 
     private VBox createOfferCard(Offer o) {
@@ -114,14 +196,9 @@ public class OffersPageController {
         Label name = new Label(o.getOfferName());
         name.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
 
+        Label productName = new Label("Product Name: " + o.getProduct().getName());
         Label discount = new Label("Discount: " + o.getDiscount() + "%");
         Label dates = new Label("From: " + o.getStartDate() + " To: " + o.getEndDate());
-
-        String targetText = o.getTargetType().equalsIgnoreCase("ALL")
-                ? "Target: All Products"
-                : "Target: " + o.getTargetValue();
-
-        Label target = new Label(targetText);
 
         Label statusLabel = new Label("Status: " + o.getManualStatus());
         updateStatusLabelStyle(statusLabel, o.getManualStatus());
@@ -133,6 +210,18 @@ public class OffersPageController {
         statusCombo.getStyleClass().add("status-combo");
 
         statusCombo.setOnAction(e -> {
+            if (o.getProduct().getOffer() != null && statusCombo.getValue() == Status.ACTIVE) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Offer Conflict");
+                alert.setHeaderText("Rejected");
+                alert.setContentText(
+                        "Cannot make offer active. This product already has an active offer in the selected period.");
+                alert.showAndWait();
+                statusCombo.setValue(Status.PENDING);
+                return;
+            }
+            if (statusCombo.getValue() == Status.ACTIVE)
+                o.getProduct().setOffer(o);
             o.setManualStatus(statusCombo.getValue());
             statusLabel.setText("Status: " + o.getManualStatus());
             updateStatusLabelStyle(statusLabel, o.getManualStatus());
@@ -172,9 +261,9 @@ public class OffersPageController {
         actionsRow.getChildren().addAll(spacer, deleteBtn);
         card.getChildren().addAll(
                 name,
+                productName,
                 discount,
                 dates,
-                target,
                 actionsRow);
 
         return card;

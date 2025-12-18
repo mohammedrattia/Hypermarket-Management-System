@@ -13,43 +13,46 @@
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane stylesheets="@../../css/MarketingDashboard.css"
-            xmlns="http://javafx.com/javafx/25"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.hypermarket.modules.components.OffersPageController">
+    xmlns="http://javafx.com/javafx/25"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.hypermarket.modules.marketing.OffersPageController">
 
-    
-    <VBox spacing="15" style="-fx-padding: 10;" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
-          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-        
-        
+
+    <VBox spacing="15" style="-fx-padding: 10;" AnchorPane.topAnchor="0.0"
+        AnchorPane.bottomAnchor="0.0"
+        AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+
+
         <Label styleClass="title" text="Create New Offer" />
 
-        
-        <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 5;">
+
+        <VBox spacing="10"
+            style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 5;">
             <TextField fx:id="offerNameField" promptText="Offer name" styleClass="text-field" />
             <TextField fx:id="discountField" promptText="Discount %" styleClass="text-field" />
 
             <HBox fx:id="dateRange" alignment="CENTER_LEFT" spacing="10">
-                <DatePicker fx:id="startDatePicker" promptText="Start Date" HBox.hgrow="ALWAYS" prefWidth="550" />
-                <DatePicker fx:id="endDatePicker" promptText="End Date" HBox.hgrow="ALWAYS" prefWidth="550"/>
+                <DatePicker fx:id="startDatePicker" promptText="Start Date" HBox.hgrow="ALWAYS"
+                    prefWidth="550" />
+                <DatePicker fx:id="endDatePicker" promptText="End Date" HBox.hgrow="ALWAYS"
+                    prefWidth="550" />
             </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="20" styleClass="radio-buttons">
-                <RadioButton fx:id="rbAll" text="All Products" />
-                <RadioButton fx:id="rbProduct" text="Specific Product" />
                 <ComboBox fx:id="productCombo" promptText="Select Product" styleClass="combo-box" />
             </HBox>
 
             <Button fx:id="addOfferBtn" maxWidth="Infinity" styleClass="button" text="Add Offer" />
         </VBox>
 
-        
+
         <Label styleClass="title" text="Active Offers List" />
 
-        
-        <ScrollPane fx:id="offersScroll" fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
+
+        <ScrollPane fx:id="offersScroll" fitToWidth="true" VBox.vgrow="ALWAYS"
+            style="-fx-background-color: transparent;">
             <VBox fx:id="offersContainer" spacing="12" style="-fx-padding: 10;" />
         </ScrollPane>
-        
+
     </VBox>
 </AnchorPane>

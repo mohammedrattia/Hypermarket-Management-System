@@ -90,7 +90,7 @@ public class AddEmployeeController implements Initializable {
         }
 
         try {
-            File userImageFile = new File(FileManager.IMAGE_PATH + imageName);
+            File userImageFile = new File(FileManager.USER_IMAGE_PATH + imageName);
             FileManager.copyImage(selectedImageFile, userImageFile);
         } catch (IOException e) {
             e.printStackTrace();

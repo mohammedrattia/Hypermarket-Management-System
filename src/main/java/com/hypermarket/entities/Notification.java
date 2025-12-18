@@ -7,22 +7,10 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Notification implements Parsable {
+public class Notification {
 
     private String message;
     private LocalDate date;
-
-    public Notification(String record) {
-        parseString(record);
-    }
-
-    public static Notification createNew(String message) {
-        Notification n = new Notification(
-                message + FileManager.DELIMETER + LocalDate.now().format(FileManager.dateFormat));
-        n.message = message;
-        n.date = LocalDate.now();
-        return n;
-    }
 
     public String getMessage() {
         return message;
@@ -34,19 +22,7 @@ public class Notification implements Parsable {
 
     @Override
     public String toString() {
-        return message + FileManager.DELIMETER + date.format(FileManager.dateFormat);
-    }
-
-    public void parseString(String record) {
-        String[] fields = record.split(FileManager.DELIMETER);
-        try {
-            this.message = fields[0];
-            this.date = LocalDate.parse(fields[1], FileManager.dateFormat);
-        } catch (Exception e) {
-            System.err.println("Error parsing notification: " + e.getMessage());
-            this.message = "Error reading notification";
-            this.date = LocalDate.now();
-        }
+        return message + FileManager.DELIMETER + date.format(FileManager.localDateFormat);
     }
 
     public static List<String> getSystemAlerts() {

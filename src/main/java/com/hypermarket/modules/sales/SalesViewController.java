@@ -44,12 +44,6 @@ public class SalesViewController extends ViewController implements Initializable
     private Label menuMakeOrder;
 
     @FXML
-    private Label menuReturnedOrders;
-
-    @FXML
-    private Label menuReturnOrder;
-
-    @FXML
     private Label menuUpdateUserInfo;
 
     @FXML
@@ -63,12 +57,6 @@ public class SalesViewController extends ViewController implements Initializable
 
     @FXML
     private HBox menuMakeOrderItem;
-
-    @FXML
-    private HBox menuReturnedOrdersItem;
-
-    @FXML
-    private HBox menuReturnOrderItem;
 
     @FXML
     private HBox menuUpdateUserInfoItem;
@@ -88,7 +76,7 @@ public class SalesViewController extends ViewController implements Initializable
         setUpNavigation();
         updateTitleAndActiveTab(menuDashboard);
         try {
-            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            File imageFile = new File(FileManager.USER_IMAGE_PATH + currentUser.getImage());
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toURL().toString());
                 userImage.setImage(image);
@@ -112,7 +100,6 @@ public class SalesViewController extends ViewController implements Initializable
         menuOrdersItem.setOnMouseClicked(event -> showListOrders());
 
         menuMakeOrderItem.setOnMouseClicked(event -> showMakeOrder());
-        menuReturnedOrdersItem.setOnMouseClicked(event -> showListReturns());
 
         menuUpdateUserInfo.setOnMouseClicked(event -> {
             showUpdateUserInfo();
@@ -176,26 +163,6 @@ public class SalesViewController extends ViewController implements Initializable
         }
     }
 
-    private void showListReturns() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/hypermarket/view/sales/ListReturns.fxml"));
-            Parent listReturnsUI = loader.load();
-            ListReturns listReturnsController = loader.getController();
-
-            mainContainer.setOnMouseClicked(event -> {
-                if (contentArea.getChildren().contains(listReturnsUI))
-                    listReturnsController.clearTableSelection();
-            });
-
-            contentArea.getChildren().clear();
-            contentArea.getChildren().add(listReturnsUI);
-            fitToAnchor(listReturnsUI);
-            updateTitleAndActiveTab(menuReturnedOrders);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private void showUpdateUserInfo() {
         try {
             FXMLLoader updateUserUI = new FXMLLoader(
@@ -218,7 +185,7 @@ public class SalesViewController extends ViewController implements Initializable
     private void refereshImage() {
         User currentUser = Session.getInstance().getUser();
         try {
-            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            File imageFile = new File(FileManager.USER_IMAGE_PATH + currentUser.getImage());
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toURL().toString());
                 userImage.setImage(image);
@@ -247,7 +214,6 @@ public class SalesViewController extends ViewController implements Initializable
         menuDashboard.getStyleClass().remove("active-label");
         menuOrders.getStyleClass().remove("active-label");
         menuMakeOrder.getStyleClass().remove("active-label");
-        menuReturnedOrders.getStyleClass().remove("active-label");
         menuUpdateUserInfo.getStyleClass().remove("active-label");
 
         activeBox.getStyleClass().add("active-label");

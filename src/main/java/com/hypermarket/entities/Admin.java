@@ -4,7 +4,7 @@ import com.hypermarket.data.DataStore;
 
 import javafx.collections.ObservableList;
 
-public class Admin extends User  {
+public class Admin extends User {
     public Admin(String recordLine) {
         super(recordLine);
     }

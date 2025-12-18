@@ -47,9 +47,8 @@ public class SalesDashboard {
         mainLayout.setStyle("-fx-background-color: #f4f4f4;");
 
         kpiContainer = new HBox(30);
-        kpiContainer.setAlignment(Pos.CENTER_LEFT);
 
-        HBox contentContainer = new HBox(20);
+        HBox contentContainer = new HBox(5);
         VBox.setVgrow(contentContainer, Priority.ALWAYS);
 
         Parent chartNode = loadSalesChart();
@@ -85,12 +84,12 @@ public class SalesDashboard {
         LocalDate today = LocalDate.now();
         LocalDate yesterday = today.minusDays(1);
 
-        ObservableList<Order> myOrders = allOrders;
+        // ObservableList<Order> myOrders = allOrders;
 
-        // ObservableList<Order> myOrders = FXCollections.observableArrayList();
-        // for (Order o : allOrders)
-        // if (o.getSeller() != null && o.getSeller().getID() == currentUser.getID())
-        // myOrders.add(o);
+        ObservableList<Order> myOrders = FXCollections.observableArrayList();
+        for (Order o : allOrders)
+            if (o.getSeller() != null && o.getSeller().getID() == currentUser.getID())
+                myOrders.add(o);
 
         ObservableList<Order> myOrdersToday = FXCollections.observableArrayList();
         ObservableList<Order> myOrdersYesterday = FXCollections.observableArrayList();
@@ -196,7 +195,7 @@ public class SalesDashboard {
         table.setStyle(
                 "-fx-border-width: 0px; -fx-background-insets: 0; -fx-padding: 0; -fx-background-color: transparent;");
 
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
 
         table.setSelectionModel(null);
     }
@@ -277,7 +276,9 @@ public class SalesDashboard {
             KpiCardController controller = loader.getController();
             controller.setData(title, value, trend, isPositive);
 
+            ((VBox) node).setAlignment(Pos.TOP_CENTER);
             HBox.setHgrow(node, Priority.ALWAYS);
+            ((VBox) node).setMaxWidth(Double.MAX_VALUE);
             return node;
         } catch (IOException ex) {
             ex.printStackTrace();

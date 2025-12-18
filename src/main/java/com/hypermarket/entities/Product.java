@@ -74,12 +74,36 @@ public class Product implements Parsable {
         return price;
     }
 
+    public double getDiscountedPrice() {
+        if (this.offer == null) {
+            return this.price;
+        }
+
+        double discountAmount = this.price * (this.offer.getDiscount() / 100.0);
+        double discountedPrice = this.price - discountAmount;
+
+        return Math.max(0.0, discountedPrice);
+    }
+
     public Offer getOffer() {
         return offer;
     }
 
-    public void setOffer(Offer offer) {
-        this.offer = offer;
+    public Offer getActiveOffer() {
+        if (offer != null && offer.getManualStatus() == Offer.Status.ACTIVE) {
+            return offer;
+        }
+        return null;
+    }
+
+    public void setOffer(Offer newOffer) {
+        if ((newOffer != null && newOffer.getManualStatus() == Offer.Status.ACTIVE) &&
+                (this.offer != null && this.offer.getManualStatus() == Offer.Status.ACTIVE)) {
+
+            this.offer.setManualStatus(Offer.Status.PENDING);
+        }
+        this.offer = newOffer;
+
     }
 
     public String getSize() {
@@ -126,7 +150,6 @@ public class Product implements Parsable {
                 description + FileManager.DELIMETER +
                 quantity + FileManager.DELIMETER +
                 price + FileManager.DELIMETER +
-                (offer != null ? offer.toString() : "null") + FileManager.DELIMETER +
                 size + FileManager.DELIMETER +
                 threshold + FileManager.DELIMETER +
                 imageName;
@@ -142,10 +165,10 @@ public class Product implements Parsable {
             description = values[3];
             quantity = (int) Double.parseDouble(values[4]);
             price = Double.parseDouble(values[5]);
-            size = values[7];
-            threshold = (int) Double.parseDouble(values[8]);
+            size = values[6];
+            threshold = Integer.parseInt(values[7]);
 
-            imageName = values.length > 9 ? values[9] : "image_" + productID;
+            imageName = values[8];
 
             // safety
             if (imageName == null || imageName.equalsIgnoreCase("null")) {

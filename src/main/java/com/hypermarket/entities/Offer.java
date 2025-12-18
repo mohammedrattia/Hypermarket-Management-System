@@ -2,6 +2,8 @@ package com.hypermarket.entities;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 
 public class Offer implements Parsable {
@@ -15,8 +17,6 @@ public class Offer implements Parsable {
     private double discount;
     private Date startDate;
     private Date endDate;
-    private String targetType;
-    private String targetValue;
     private Product product;
     private Status manualStatus;
 
@@ -25,14 +25,13 @@ public class Offer implements Parsable {
     }
 
     public Offer(int offerID, String offerName, double discount, Date startDate,
-            Date endDate, String targetType, String targetValue) {
+            Date endDate, Product product) {
         this.offerID = offerID;
         this.offerName = offerName;
         this.discount = discount;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.targetType = targetType;
-        this.targetValue = targetValue;
+        this.product = product;
     }
 
     public int getOfferID() {
@@ -55,14 +54,6 @@ public class Offer implements Parsable {
         return endDate;
     }
 
-    public String getTargetType() {
-        return targetType;
-    }
-
-    public String getTargetValue() {
-        return targetValue;
-    }
-
     public Product getProduct() {
         return product;
     }
@@ -80,6 +71,8 @@ public class Offer implements Parsable {
     }
 
     public void setManualStatus(Status status) {
+        if (status != Status.ACTIVE)
+            this.product.setOffer(null);
         this.manualStatus = status;
     }
 
@@ -108,25 +101,16 @@ public class Offer implements Parsable {
         this.endDate = endDate;
     }
 
-    public void setTargetType(String targetType) {
-        this.targetType = targetType;
-    }
-
-    public void setTargetValue(String targetValue) {
-        this.targetValue = targetValue;
-    }
-
     @Override
     public String toString() {
-        SimpleDateFormat sdf = FileManager.dateFormat1;
-        // TODO: add product id
+        SimpleDateFormat sdf = FileManager.dateFormat;
+        int productId = product.getProductID();
         return offerID + FileManager.DELIMETER +
                 offerName + FileManager.DELIMETER +
                 discount + FileManager.DELIMETER +
                 sdf.format(startDate) + FileManager.DELIMETER +
                 sdf.format(endDate) + FileManager.DELIMETER +
-                targetType + FileManager.DELIMETER +
-                targetValue;
+                productId;
     }
 
     public void parseString(String line) {
@@ -135,10 +119,21 @@ public class Offer implements Parsable {
             this.offerID = Integer.parseInt(values[0]);
             this.offerName = values[1];
             this.discount = Double.parseDouble(values[2]);
-            this.startDate = FileManager.dateFormat1.parse(values[3]);
-            this.endDate = FileManager.dateFormat1.parse(values[4]);
-            this.targetType = values[5];
-            this.targetValue = values[6];
+            this.startDate = FileManager.dateFormat.parse(values[3]);
+            this.endDate = FileManager.dateFormat.parse(values[4]);
+
+            int productId = Integer.parseInt(values[5]);
+
+            this.product = DataStore.getDataStore()
+                    .getProducts()
+                    .stream()
+                    .filter(p -> p.getProductID() == productId)
+                    .findFirst()
+                    .orElse(null);
+
+            if (this.product != null) {
+                this.product.setOffer(this);
+            }
         } catch (Exception e) {
             System.err.println("Error parsing Offer: " + e.getMessage());
         }

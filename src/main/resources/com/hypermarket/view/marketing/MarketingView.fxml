@@ -18,7 +18,7 @@
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" styleClass="root"
   stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/25"
   xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="com.hypermarket.modules.inventory.InventoryViewController">
+  fx:controller="com.hypermarket.modules.marketing.MarketingViewController">
 
   <children>
     <VBox fx:id="sidebar" prefWidth="250.0" styleClass="sidebar" AnchorPane.bottomAnchor="0.0"
@@ -30,13 +30,12 @@
             <Insets left="20.0" />
           </padding>
           <children>
-            <ImageView fx:id="userProfileImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
-              preserveRatio="true">
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
               <image>
                 <Image url="@../../images/cart.png" />
               </image>
             </ImageView>
-            <Label styleClass="logo" text="HyperMarket">
+            <Label styleClass="logo" text=" HyperMarket">
               <font>
                 <Font name="System Bold" size="22.0" />
               </font>
@@ -46,36 +45,31 @@
 
         <Separator styleClass="sidebar-separator" />
 
-        <ScrollPane fitToWidth="true" styleClass="menu-scroll" VBox.vgrow="ALWAYS">
+        <ScrollPane fitToWidth="true" focusTraversable="false" styleClass="menu-scroll"
+          VBox.vgrow="ALWAYS">
           <content>
             <VBox prefWidth="250.0" styleClass="menu-container">
               <padding>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
               </padding>
               <children>
+
                 <HBox fx:id="menuDashboardItem" alignment="CENTER_LEFT" prefHeight="50.0"
                   spacing="12" styleClass="menu-item">
-                  <FontIcon fx:id="reportsIcon" iconLiteral="fas-chart-pie" iconSize="18"
-                    styleClass="menu-icon" />
-                  <Label fx:id="menuDashboard" styleClass="menu-text" text=" Dashboard" />
+                  <FontIcon iconLiteral="fas-tachometer-alt" iconSize="18" styleClass="menu-icon" />
+                  <Label fx:id="menuDashboard" styleClass="menu-text" text="Dashboard" />
                 </HBox>
 
-                <HBox fx:id="menuProductsItem" alignment="CENTER_LEFT" prefHeight="50.0"
-                  spacing="12" styleClass="menu-item">
-                  <FontIcon iconLiteral="fas-cubes" iconSize="18" styleClass="menu-icon" />
-                  <Label fx:id="menuProducts" styleClass="menu-text" text="View Products" />
+                <HBox fx:id="menuReportsItem" alignment="CENTER_LEFT" prefHeight="50.0" spacing="12"
+                  styleClass="menu-item">
+                  <FontIcon iconLiteral="fas-chart-pie" iconSize="18" styleClass="menu-icon" />
+                  <Label fx:id="menuReports" styleClass="menu-text" text="Reports" />
                 </HBox>
 
-                <HBox fx:id="menuAddProductItem" alignment="CENTER_LEFT" prefHeight="50.0"
-                  spacing="12" styleClass="menu-item">
-                  <FontIcon iconLiteral="fas-cart-plus" iconSize="18" styleClass="submenu-icon" />
-                  <Label fx:id="menuAddProducts" styleClass="menu-text" text="Add Product" />
-                </HBox>
-
-                <HBox fx:id="menuReturnedOrdersItem" alignment="CENTER_LEFT" prefHeight="50.0"
-                  spacing="12" styleClass="menu-item">
-                  <FontIcon iconLiteral="fas-box-open" iconSize="18" styleClass="submenu-icon" />
-                  <Label fx:id="menuReturnedOrders" styleClass="menu-text" text="Returned Orders" />
+                <HBox fx:id="menuOffersItem" alignment="CENTER_LEFT" prefHeight="50.0" spacing="12"
+                  styleClass="menu-item">
+                  <FontIcon iconLiteral="fas-tags" iconSize="18" styleClass="menu-icon" />
+                  <Label fx:id="menuOffers" styleClass="menu-text" text="Offers" />
                 </HBox>
 
               </children>
@@ -96,8 +90,7 @@
               <Label fx:id="menuUpdateUserInfo" styleClass="menu-text" text="Update User Info" />
             </HBox>
             <HBox fx:id="menuLogoutItem" alignment="CENTER_LEFT" spacing="12" styleClass="menu-item">
-              <FontIcon fx:id="logoutIcon" iconLiteral="fas-sign-out-alt" iconSize="18"
-                styleClass="menu-icon" />
+              <FontIcon iconLiteral="fas-sign-out-alt" iconSize="18" styleClass="menu-icon" />
               <Label fx:id="menuLogout" styleClass="menu-text" text="Logout" />
             </HBox>
           </children>
@@ -117,48 +110,49 @@
             <Insets left="30.0" right="30.0" />
           </padding>
 
-          <Label fx:id="pageTitle" styleClass="page-title" text="Dashboard">
+          <Label fx:id="pageTitle" styleClass="page-title" text="Marketing Dashboard">
             <font>
-              <Font name="System Bold" size="24.0" />
+              <Font size="20.0" />
             </font>
           </Label>
-          <Region HBox.hgrow="ALWAYS" />
 
-          <Button fx:id="notificationButton" mnemonicParsing="false" styleClass="notif-button">
-            <graphic>
-              <StackPane>
-                <FontIcon fx:id="notificationBtn" iconLiteral="fas-bell" iconSize="20"
-                  styleClass="notif-icon">
-                  <StackPane.margin>
-                    <Insets />
-                  </StackPane.margin>
-                </FontIcon>
-              </StackPane>
-            </graphic>
-          </Button>
+          <Region HBox.hgrow="ALWAYS" />
 
           <HBox alignment="CENTER" styleClass="user-profile">
             <children>
-              <ImageView fx:id="userProfileImage" fitHeight="50.0" fitWidth="50.0"
-                pickOnBounds="true" preserveRatio="true">
+              <ImageView fx:id="userImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
+                preserveRatio="true">
                 <image>
                   <Image url="@../../images/user.png" />
                 </image>
-                <HBox.margin>
-                  <Insets left="25.0" />
-                </HBox.margin>
               </ImageView>
             </children>
           </HBox>
         </HBox>
+        <ScrollPane fitToWidth="true" focusTraversable="false" styleClass="menu-scroll"
+          layoutY="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+          <content>
 
-        <AnchorPane fx:id="contentArea" layoutY="80.0" styleClass="content-area"
-          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-          AnchorPane.topAnchor="80.0">
-          <padding>
-            <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
-          </padding>
-        </AnchorPane>
+            <AnchorPane fx:id="contentArea" prefHeight="668.0" prefWidth="1013.0"
+              styleClass="content-area">
+              <padding>
+                <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+              </padding>
+
+              <children>
+                <VBox fx:id="dashboardContainer" spacing="20" AnchorPane.leftAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox fx:id="kpiContainer" alignment="TOP_CENTER" prefHeight="42.0"
+                    prefWidth="968.0" spacing="30" />
+                  <VBox fx:id="dashboardContent" prefHeight="246.0" prefWidth="968.0" spacing="20" />
+                  <AnchorPane fx:id="tableContainer" prefHeight="300"
+                    style="-fx-background-color:transparent;" />
+                </VBox>
+              </children>
+            </AnchorPane>
+          </content>
+        </ScrollPane>
 
       </children>
     </AnchorPane>

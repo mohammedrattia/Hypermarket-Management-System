@@ -69,7 +69,7 @@ public class UpdateInfoController implements Initializable {
         currentUser = Session.getInstance().getUser();
 
         if (currentUser != null) {
-            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            File imageFile = new File(FileManager.USER_IMAGE_PATH + currentUser.getImage());
             idField.setText(String.valueOf(currentUser.getID()));
             fnameField.setText(currentUser.getFName());
             lnameField.setText(currentUser.getLName());
@@ -124,7 +124,7 @@ public class UpdateInfoController implements Initializable {
         // Save selected image
         if (selectedImageFile != null) {
             try {
-                File userImageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+                File userImageFile = new File(FileManager.USER_IMAGE_PATH + currentUser.getImage());
                 FileManager.copyImage(selectedImageFile, userImageFile);
             } catch (IOException e) {
                 e.printStackTrace();

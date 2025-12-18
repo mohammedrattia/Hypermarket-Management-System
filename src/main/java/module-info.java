@@ -1,4 +1,4 @@
-module com.hypermarket {
+@SuppressWarnings("module") module com.hypermarket {
     requires transitive javafx.fxml;
     requires transitive javafx.controls;
     requires transitive javafx.graphics;
@@ -18,6 +18,7 @@ module com.hypermarket {
     opens com.hypermarket.modules.components to javafx.fxml;
     opens com.hypermarket.modules.sales to javafx.fxml;
     opens com.hypermarket.modules.admin to javafx.fxml;
+    opens com.hypermarket.modules.marketing to javafx.fxml;
     opens com.hypermarket.modules.user to javafx.fxml;
     opens com.hypermarket.entities to javafx.fxml, javafx.base;
     opens com.hypermarket.data to javafx.fxml;

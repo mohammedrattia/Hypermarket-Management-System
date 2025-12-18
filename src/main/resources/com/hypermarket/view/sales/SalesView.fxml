@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -10,15 +9,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane fx:id="mainContainer" prefHeight="720.0" prefWidth="1280.0" styleClass="root" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.sales.SalesViewController">
+<AnchorPane fx:id="mainContainer" prefHeight="720.0" prefWidth="1280.0" styleClass="root"
+    stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/25"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.hypermarket.modules.sales.SalesViewController">
 
     <children>
-        <VBox fx:id="sidebar" prefWidth="250.0" styleClass="sidebar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox fx:id="sidebar" prefWidth="250.0" styleClass="sidebar" AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
 
                 <HBox alignment="CENTER_LEFT" prefHeight="80.0" styleClass="logo-container">
@@ -26,7 +28,8 @@
                         <Insets left="20.0" />
                     </padding>
                     <children>
-                        <ImageView fx:id="userProfileImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="userProfileImage" fitHeight="50.0" fitWidth="50.0"
+                            pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../images/cart.png" />
                             </image>
@@ -48,48 +51,50 @@
                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                             </padding>
                             <children>
-                                <HBox fx:id="menuDashboardItem" alignment="CENTER_RIGHT" prefHeight="50.0" spacing="12" styleClass="menu-item">
-                           <VBox alignment="CENTER" styleClass="menu-icon-box">
-                              <HBox.margin>
-                                 <Insets />
-                              </HBox.margin>
-                              <children>
-                                          <FontIcon fx:id="reportsIcon" iconLiteral="fas-chart-pie" iconSize="18" styleClass="menu-icon" />
-                              </children>
-                           </VBox>
-                                    <Label fx:id="menuDashboard" styleClass="menu-text" text="Dashboard" HBox.hgrow="ALWAYS" />
+                                <HBox fx:id="menuDashboardItem" alignment="CENTER_RIGHT"
+                                    prefHeight="50.0" spacing="12" styleClass="menu-item">
+                                    <VBox alignment="CENTER" styleClass="menu-icon-box">
+                                        <HBox.margin>
+                                            <Insets />
+                                        </HBox.margin>
+                                        <children>
+                                            <FontIcon fx:id="reportsIcon"
+                                                iconLiteral="fas-chart-pie" iconSize="18"
+                                                styleClass="menu-icon" />
+                                        </children>
+                                    </VBox>
+                                    <Label fx:id="menuDashboard" styleClass="menu-text"
+                                        text="Dashboard" HBox.hgrow="ALWAYS" />
                                 </HBox>
 
-                                <HBox fx:id="menuOrdersItem" alignment="CENTER_RIGHT" prefHeight="50.0" spacing="12" styleClass="menu-item">
-                           <VBox alignment="CENTER" styleClass="menu-icon-box">
-                              <children>
-                                          <FontIcon fx:id="ordersIcon" iconLiteral="fas-clipboard-list" iconSize="18" styleClass="menu-icon">
-                                    <VBox.margin>
-                                       <Insets right="3.0" />
-                                    </VBox.margin>
-                                 </FontIcon>
-                              </children>
-                           </VBox>
-                                    <Label fx:id="menuOrders" styleClass="menu-text" text="View Orders" HBox.hgrow="ALWAYS" />
+                                <HBox fx:id="menuOrdersItem" alignment="CENTER_RIGHT"
+                                    prefHeight="50.0" spacing="12" styleClass="menu-item">
+                                    <VBox alignment="CENTER" styleClass="menu-icon-box">
+                                        <children>
+                                            <FontIcon fx:id="ordersIcon"
+                                                iconLiteral="fas-clipboard-list" iconSize="18"
+                                                styleClass="menu-icon">
+                                                <VBox.margin>
+                                                    <Insets right="3.0" />
+                                                </VBox.margin>
+                                            </FontIcon>
+                                        </children>
+                                    </VBox>
+                                    <Label fx:id="menuOrders" styleClass="menu-text"
+                                        text="View Orders" HBox.hgrow="ALWAYS" />
                                 </HBox>
 
-                                <HBox fx:id="menuMakeOrderItem" alignment="CENTER_RIGHT" prefHeight="50.0" spacing="12" styleClass="menu-item">
-                           <VBox alignment="CENTER" styleClass="menu-icon-box">
-                              <children>
-                                          <FontIcon fx:id="newOrderIcon" iconLiteral="fas-shipping-fast" iconSize="18" styleClass="submenu-icon" />
-                              </children>
-                           </VBox>
-                                    <Label fx:id="menuMakeOrder" styleClass="menu-text" text="Make Order" HBox.hgrow="ALWAYS" />
-                                </HBox>
-                                <HBox fx:id="menuReturnedOrdersItem" alignment="CENTER_RIGHT" layoutX="20.0" layoutY="121.0" prefHeight="50.0" spacing="12" styleClass="menu-item">
-                                    <children>
-                              <VBox alignment="CENTER" styleClass="menu-icon-box">
-                                 <children>
-                                              <FontIcon fx:id="ReturnedOrdersIcon" iconLiteral="fas-box-open" iconSize="18" styleClass="submenu-icon" />
-                                 </children>
-                              </VBox>
-                                        <Label fx:id="menuReturnedOrders" styleClass="menu-text" text="Returned Orders" HBox.hgrow="ALWAYS" />
-                                    </children>
+                                <HBox fx:id="menuMakeOrderItem" alignment="CENTER_RIGHT"
+                                    prefHeight="50.0" spacing="12" styleClass="menu-item">
+                                    <VBox alignment="CENTER" styleClass="menu-icon-box">
+                                        <children>
+                                            <FontIcon fx:id="newOrderIcon"
+                                                iconLiteral="fas-shipping-fast" iconSize="18"
+                                                styleClass="submenu-icon" />
+                                        </children>
+                                    </VBox>
+                                    <Label fx:id="menuMakeOrder" styleClass="menu-text"
+                                        text="Make Order" HBox.hgrow="ALWAYS" />
                                 </HBox>
 
                             </children>
@@ -103,12 +108,17 @@
                     </padding>
                     <children>
                         <Separator styleClass="sidebar-separator" />
-                        <HBox fx:id="menuUpdateUserInfoItem" alignment="CENTER_LEFT" spacing="12" styleClass="menu-item">
-                            <FontIcon fx:id="settingsIcon" iconLiteral="fas-user-edit" iconSize="18" styleClass="menu-icon" />
-                            <Label fx:id="menuUpdateUserInfo" styleClass="menu-text" text="Update User Info" />
+                        <HBox fx:id="menuUpdateUserInfoItem" alignment="CENTER_LEFT" spacing="12"
+                            styleClass="menu-item">
+                            <FontIcon fx:id="settingsIcon" iconLiteral="fas-user-edit" iconSize="18"
+                                styleClass="menu-icon" />
+                            <Label fx:id="menuUpdateUserInfo" styleClass="menu-text"
+                                text="Update User Info" />
                         </HBox>
-                        <HBox fx:id="menuLogoutItem" alignment="CENTER_LEFT" spacing="12" styleClass="menu-item">
-                            <FontIcon fx:id="logoutIcon" iconLiteral="fas-sign-out-alt" iconSize="18" styleClass="menu-icon" />
+                        <HBox fx:id="menuLogoutItem" alignment="CENTER_LEFT" spacing="12"
+                            styleClass="menu-item">
+                            <FontIcon fx:id="logoutIcon" iconLiteral="fas-sign-out-alt"
+                                iconSize="18" styleClass="menu-icon" />
                             <Label fx:id="menuLogout" styleClass="menu-text" text="Logout" />
                         </HBox>
                     </children>
@@ -117,10 +127,14 @@
             </children>
         </VBox>
 
-        <AnchorPane fx:id="mainContent" layoutX="250.0" prefWidth="1030.0" styleClass="main-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="mainContent" layoutX="250.0" prefWidth="1030.0" styleClass="main-content"
+            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0"
+            AnchorPane.topAnchor="0.0">
             <children>
 
-                <HBox alignment="CENTER_LEFT" prefHeight="80.0" styleClass="top-bar" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <HBox alignment="CENTER_LEFT" prefHeight="80.0" styleClass="top-bar"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="0.0">
                     <padding>
                         <Insets left="30.0" right="30.0" />
                     </padding>
@@ -132,17 +146,10 @@
                     </Label>
                     <Region HBox.hgrow="ALWAYS" />
 
-                    <Button fx:id="notificationButton" mnemonicParsing="false" styleClass="notif-button">
-                        <graphic>
-                            <StackPane>
-                                <FontIcon fx:id="notifIcon" iconLiteral="fas-bell" iconSize="20" styleClass="notif-icon" />
-                            </StackPane>
-                        </graphic>
-                    </Button>
-
                     <HBox alignment="CENTER" styleClass="user-profile">
                         <children>
-                            <ImageView fx:id="userImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                            <ImageView fx:id="userImage" fitHeight="50.0" fitWidth="50.0"
+                                pickOnBounds="true" preserveRatio="true">
                                 <image>
                                     <Image url="@../../images/user.png" />
                                 </image>
@@ -151,7 +158,9 @@
                     </HBox>
                 </HBox>
 
-                      <AnchorPane fx:id="contentArea" layoutY="80.0" styleClass="content-area" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+                <AnchorPane fx:id="contentArea" layoutY="80.0" styleClass="content-area"
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
                     <padding>
                         <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
                     </padding>

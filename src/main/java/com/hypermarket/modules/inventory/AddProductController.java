@@ -119,7 +119,7 @@ public class AddProductController {
                 if (!folder.exists()) {
                     folder.mkdir();
                 }
-                File dest = new File("data/ProductImages/image_" + newID + ".png");
+                File dest = new File(FileManager.PRODUCT_IMAGE_PATH + "image_" + newID + ".png");
                 FileManager.copyImage(
                         this.selectedImageFile,
                         dest);

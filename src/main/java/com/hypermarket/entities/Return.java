@@ -40,7 +40,7 @@ public class Return implements Parsable {
     public String toString() {
         return returnID + FileManager.DELIMETER +
                 orderItem.getOrderItemID() + FileManager.DELIMETER +
-                returnDate.format(FileManager.dateTimeFormat) + FileManager.DELIMETER +
+                returnDate.format(FileManager.localDateTimeFormat) + FileManager.DELIMETER +
                 quantityReturned + FileManager.DELIMETER +
                 refundAmount;
     }
@@ -53,7 +53,7 @@ public class Return implements Parsable {
             this.orderItem = (OrderItem) ListManipulation.searchObjectWithID(
                     DataStore.getDataStore().getOrderItems(), values[1]);
             this.product = orderItem.getProduct();
-            this.returnDate = LocalDateTime.parse(values[2], FileManager.dateTimeFormat);
+            this.returnDate = LocalDateTime.parse(values[2], FileManager.localDateTimeFormat);
             this.quantityReturned = Integer.parseInt(values[3]);
             this.refundAmount = Double.parseDouble(values[4]);
 

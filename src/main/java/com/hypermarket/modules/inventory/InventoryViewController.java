@@ -4,8 +4,11 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.List;
 
+import com.hypermarket.service.Session;
 import com.hypermarket.data.FileManager;
+import com.hypermarket.entities.Notification;
 import com.hypermarket.entities.User;
 import com.hypermarket.modules.components.ViewController;
 import com.hypermarket.modules.user.UpdateInfoController;
@@ -25,11 +28,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-
-import com.hypermarket.service.Session;
-import java.util.List;
-import javafx.geometry.Side;
 import org.kordamp.ikonli.javafx.FontIcon;
+import javafx.geometry.Side;
 
 public class InventoryViewController extends ViewController implements Initializable {
 
@@ -49,6 +49,9 @@ public class InventoryViewController extends ViewController implements Initializ
     private Label menuAddProducts;
 
     @FXML
+    private Label menuReturnedOrders;
+
+    @FXML
     private Label menuUpdateUserInfo;
 
     @FXML
@@ -59,6 +62,9 @@ public class InventoryViewController extends ViewController implements Initializ
 
     @FXML
     private HBox menuAddProductItem;
+
+    @FXML
+    private HBox menuReturnedOrdersItem;
 
     @FXML
     private HBox menuLogoutItem;
@@ -84,7 +90,7 @@ public class InventoryViewController extends ViewController implements Initializ
         updateTitleAndActiveTab(menuDashboard);
 
         try {
-            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            File imageFile = new File(FileManager.USER_IMAGE_PATH + currentUser.getImage());
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toURL().toString());
                 userProfileImage.setImage(image);
@@ -119,6 +125,10 @@ public class InventoryViewController extends ViewController implements Initializ
 
         menuAddProductItem.setOnMouseClicked(event -> {
             showAddProduct();
+        });
+
+        menuReturnedOrdersItem.setOnMouseClicked(event -> {
+            showReturnedOrders();
         });
 
         menuUpdateUserInfo.setOnMouseClicked(event -> {
@@ -176,7 +186,7 @@ public class InventoryViewController extends ViewController implements Initializ
     private void refereshImage() {
         User currentUser = Session.getInstance().getUser();
         try {
-            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            File imageFile = new File(FileManager.USER_IMAGE_PATH + currentUser.getImage());
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toURL().toString());
                 userProfileImage.setImage(image);
@@ -210,8 +220,29 @@ public class InventoryViewController extends ViewController implements Initializ
 
     }
 
+    private void showReturnedOrders() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/hypermarket/view/inventory/ListReturns.fxml"));
+            Parent listReturnsUI = loader.load();
+            ListReturns listReturnsController = loader.getController();
+
+            contentArea.setOnMouseClicked(event -> {
+                if (contentArea.getChildren().contains(listReturnsUI))
+                    listReturnsController.clearTableSelection();
+            });
+
+            contentArea.getChildren().clear();
+            contentArea.getChildren().add(listReturnsUI);
+            fitToAnchor(listReturnsUI);
+            updateTitleAndActiveTab(menuReturnedOrders);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void showNotifications() {
-        List<String> alerts = com.hypermarket.entities.Notification.getSystemAlerts();
+        List<String> alerts = Notification.getSystemAlerts();
         ContextMenu menu = new ContextMenu();
 
         menu.setStyle("-fx-selection-bar: white; -fx-selection-bar-non-focused: white; -fx-background-color: white;");
@@ -262,6 +293,7 @@ public class InventoryViewController extends ViewController implements Initializ
         menuDashboard.getStyleClass().remove("active-label");
         menuProducts.getStyleClass().remove("active-label");
         menuAddProducts.getStyleClass().remove("active-label");
+        menuReturnedOrders.getStyleClass().remove("active-label");
         menuUpdateUserInfo.getStyleClass().remove("active-label");
 
         activeBox.getStyleClass().add("active-label");
