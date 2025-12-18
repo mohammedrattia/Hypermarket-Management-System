@@ -15,7 +15,7 @@
 <AnchorPane stylesheets="@../../css/MarketingDashboard.css"
     xmlns="http://javafx.com/javafx/25"
     xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="com.hypermarket.modules.marketing.OffersPageController">
+    fx:controller="com.hypermarket.modules.components.OffersPageController">
 
 
     <VBox spacing="15" style="-fx-padding: 10;" AnchorPane.topAnchor="0.0"
