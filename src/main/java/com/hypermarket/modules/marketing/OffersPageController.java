@@ -1,4 +1,4 @@
-package com.hypermarket.modules.components;
+package com.hypermarket.modules.marketing;
 
 import java.time.LocalDate;
 import java.time.ZoneId;

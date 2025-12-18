@@ -1,4 +1,4 @@
-package com.hypermarket.modules.components;
+package com.hypermarket.modules.marketing;
 
 import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.Marketing;

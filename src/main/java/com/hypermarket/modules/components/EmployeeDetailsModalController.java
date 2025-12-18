@@ -68,7 +68,7 @@ public class EmployeeDetailsModalController {
             modalSalaryLabel.setText(currency.format(user.getSalary()));
         }
         try {
-            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            File imageFile = new File(FileManager.USER_IMAGE_PATH + currentUser.getImage());
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toURL().toString());
                 popupImage.setImage(image);

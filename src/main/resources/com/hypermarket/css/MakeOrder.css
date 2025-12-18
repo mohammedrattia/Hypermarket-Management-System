@@ -22,7 +22,7 @@
 }
 
 .order-detail-label {
-  -fx-text-fill: -fx-black;
+  -fx-text-fill: #222222;
   -fx-font-weight: bold;
   -fx-font-size: 18px;
   -fx-min-width: 160px;

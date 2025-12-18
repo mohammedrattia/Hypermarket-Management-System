@@ -183,6 +183,7 @@ public class MakeOrder implements Initializable {
     }
 
     private void clearItems() {
+        clearInputFields();
         currentOrder.getItems().clear();
         currentOrder.calculateTotalPrice();
         currentOrder.calculateTotalQuantity();

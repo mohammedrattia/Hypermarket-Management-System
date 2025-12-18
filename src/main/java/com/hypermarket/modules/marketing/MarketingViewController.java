@@ -17,12 +17,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
@@ -142,6 +144,9 @@ public class MarketingViewController extends ViewController implements Initializ
             Parent node = loader.load();
             KpiCardController controller = loader.getController();
             controller.setData(title, value, trend, isPositive);
+            ((VBox) node).setAlignment(Pos.TOP_CENTER);
+            HBox.setHgrow(node, Priority.ALWAYS);
+            ((VBox) node).setMaxWidth(Double.MAX_VALUE);
             return node;
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -201,7 +206,7 @@ public class MarketingViewController extends ViewController implements Initializ
     private void refereshImage() {
         User currentUser = Session.getInstance().getUser();
         try {
-            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            File imageFile = new File(FileManager.USER_IMAGE_PATH + currentUser.getImage());
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toURL().toString());
                 userImage.setImage(image);

@@ -1,5 +1,6 @@
 package com.hypermarket.modules.components;
 
+import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.Order;
 import com.hypermarket.entities.OrderItem;
 import com.itextpdf.html2pdf.ConverterProperties;
@@ -17,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 
 public class ReceiptPrinter {
 
-    private static final String DEST_FOLDER = "receipts/";
+    private static final String DEST_FOLDER = FileManager.RECEIPTS_PATH;
 
     private static final String TEMPLATE_PATH = "/com/hypermarket/view/components/ReceiptTemplate.html";
 

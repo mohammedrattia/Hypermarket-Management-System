@@ -1,7 +1,7 @@
-101;Fresh Apple;Fruit;Organic Fuji Apples;14;2.5;null;0;image_101
-102;Orange Juice;Beverages;No-Pulp Fresh Squeezed;48;4.99;null;0;image_102
-103;Full Cream Milk;Dairy;Homogenized Whole Milk;30;3.25;null;0;image_103
-104;Cheddar Cheese;Dairy;Sharp Aged White Cheddar;24;6.5;null;0;image_104
+101;Fresh Apple;Fruit;Organic Fuji Apples;13;2.5;null;0;image_101
+102;Orange Juice;Beverages;No-Pulp Fresh Squeezed;47;4.99;null;0;image_102
+103;Full Cream Milk;Dairy;Homogenized Whole Milk;24;3.25;null;0;image_103
+104;Cheddar Cheese;Dairy;Sharp Aged White Cheddar;18;6.5;null;0;image_104
 105;Toast Bread;Bakery;Whole Wheat Sliced Bread;27;2.1;null;0;image_105
 106;Frozen Chicken;Frozen;Whole Grade A Chicken;14;9.99;null;0;image_106
 107;Basmati Rice;Grains;Extra Long Grain Premium;20;12.5;null;0;image_107

@@ -96,7 +96,7 @@ public class UpdateEmployee implements Initializable {
         this.user = user;
 
         if (user != null) {
-            File imageFile = new File(FileManager.IMAGE_PATH + user.getImage());
+            File imageFile = new File(FileManager.USER_IMAGE_PATH + user.getImage());
             idField.setText(String.valueOf(user.getID()));
             fnameField.setText(user.getFName());
             lnameField.setText(user.getLName());
@@ -136,7 +136,7 @@ public class UpdateEmployee implements Initializable {
 
         if (selectedImageFile != null) {
             try {
-                File userImageFile = new File(FileManager.IMAGE_PATH + user.getImage());
+                File userImageFile = new File(FileManager.USER_IMAGE_PATH + user.getImage());
                 FileManager.copyImage(selectedImageFile, userImageFile);
             } catch (IOException e) {
                 e.printStackTrace();

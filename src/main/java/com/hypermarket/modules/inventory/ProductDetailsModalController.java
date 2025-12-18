@@ -101,13 +101,13 @@ public class ProductDetailsModalController {
         try {
             String imageName = product.getImageName();
             if (imageName != null && !imageName.equals("null") && !imageName.isEmpty()) {
-                File imageFile = new File("data/ProductImages/" + imageName);
+                File imageFile = new File(FileManager.PRODUCT_IMAGE_PATH + imageName);
 
                 // If specific extension is missing, try finding the file with common extensions
                 if (!imageFile.exists()) {
-                    File pngFile = new File("data/ProductImages/" + imageName + ".png");
-                    File jpgFile = new File("data/ProductImages/" + imageName + ".jpg");
-                    File jpegFile = new File("data/ProductImages/" + imageName + ".jpeg");
+                    File pngFile = new File(FileManager.PRODUCT_IMAGE_PATH + imageName + ".png");
+                    File jpgFile = new File(FileManager.PRODUCT_IMAGE_PATH + imageName + ".jpg");
+                    File jpegFile = new File(FileManager.PRODUCT_IMAGE_PATH + imageName + ".jpeg");
 
                     if (pngFile.exists()) {
                         imageFile = pngFile;
@@ -273,7 +273,7 @@ public class ProductDetailsModalController {
             if (selectedImageFile != null) {
                 String ext = getFileExtension(selectedImageFile);
                 String newImageName = "image_" + product.getProductID() + ext;
-                File destDir = new File("data/ProductImages/");
+                File destDir = new File(FileManager.PRODUCT_IMAGE_PATH);
                 if (!destDir.exists())
                     destDir.mkdirs();
 
