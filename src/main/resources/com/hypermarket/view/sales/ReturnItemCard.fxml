@@ -8,12 +8,14 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox fx:id="returnItemCard" alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="650.0" spacing="10.0" styleClass="order-item-card" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.returns.ReturnItemCard">
+<HBox fx:id="returnItemCard" alignment="CENTER_LEFT" prefHeight="55.0" prefWidth="650.0"
+   spacing="10.0" styleClass="order-item-card" xmlns="http://javafx.com/javafx/25"
+   xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="com.hypermarket.modules.sales.ReturnItemCard">
 
    <stylesheets>
       <URL value="@../../css/OrderItemCard.css" />
       <URL value="@../../css/ReturnItemCard.css" />
-      <URL value="@../../css/SalesThemes.css" />
    </stylesheets>
 
    <children>
@@ -28,14 +30,16 @@
                   <Label styleClass="item-details-text" text="Units x" />
                   <Label fx:id="unitPrice" styleClass="item-details-text" text="\$ 120.00" />
                   <Label styleClass="item-details-text" text="=" />
-                  <Label fx:id="originalTotalPrice" styleClass="item-details-text, text-bold" text="\$ 1,200.00" />
+                  <Label fx:id="originalTotalPrice" styleClass="item-details-text, text-bold"
+                     text="\$ 1,200.00" />
                </children>
             </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="5.0">
                <children>
                   <Label styleClass="item-details-text" text="Prev. Returned:" />
-                  <Label fx:id="prevReturnedQuantity" styleClass="item-details-text, prev-returned-value" text="2" />
+                  <Label fx:id="prevReturnedQuantity"
+                     styleClass="item-details-text, prev-returned-value" text="2" />
                </children>
             </HBox>
          </children>
@@ -60,7 +64,8 @@
       <VBox alignment="CENTER_RIGHT" prefWidth="100.0">
          <children>
             <Label styleClass="label-mini-header-red" text="REFUND" />
-            <Label fx:id="refundSubtotal" alignment="CENTER_RIGHT" styleClass="item-total-price, refund-subtotal-text" text="\$ 0.00" />
+            <Label fx:id="refundSubtotal" alignment="CENTER_RIGHT"
+               styleClass="item-total-price, refund-subtotal-text" text="\$ 0.00" />
          </children>
       </VBox>
 

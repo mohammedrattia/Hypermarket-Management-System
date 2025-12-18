@@ -86,7 +86,7 @@ public class User implements Parsable {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.err.println("Error parsing data: Line is missing fields.");
         } catch (Exception e) {
-            System.err.println("Error parsing data: " + e.getMessage());
+            System.err.println("Error parsing data: " + e.getStackTrace());
         }
     }
 

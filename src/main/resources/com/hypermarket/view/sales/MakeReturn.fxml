@@ -3,7 +3,6 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -15,16 +14,14 @@
 
 <VBox fx:id="returnOrderRoot" prefHeight="700.0" prefWidth="800.0" styleClass="sidebar-panel"
     xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="com.hypermarket.modules.returns.ReturnOrderPopup">
+    fx:controller="com.hypermarket.modules.sales.MakeReturn">
 
     <stylesheets>
         <URL value="@../../css/MakeOrder.css" />
-        <URL value="@../../css/SalesThemes.css" />
         <URL value="@../../css/ReturnOrder.css" />
     </stylesheets>
 
     <children>
-
         <HBox fx:id="topBarButtons" alignment="CENTER_LEFT" prefHeight="60.0" spacing="10.0"
             styleClass="topbar">
             <children>
@@ -52,7 +49,7 @@
 
         <Separator prefWidth="200.0" />
 
-        <HBox alignment="TOP_CENTER" prefHeight="240.0" spacing="20.0" styleClass="totals-section">
+        <HBox alignment="TOP_CENTER" prefHeight="200.0" spacing="20.0" styleClass="totals-section">
             <padding>
                 <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
             </padding>
@@ -69,7 +66,7 @@
                                 <FontIcon iconLiteral="fas-barcode" iconSize="14"
                                     styleClass="detail-icon" wrappingWidth="12.67498779296875" />
                                 <Label styleClass="order-detail-label" text="Order ID :" />
-                                <Label fx:id="orderDetailID1" styleClass="order-detail-value"
+                                <Label fx:id="orderDetailID" styleClass="order-detail-value"
                                     text="1002" />
                             </children>
                         </HBox>
@@ -109,15 +106,7 @@
 
                 <VBox prefHeight="228.0" prefWidth="447.0" spacing="15.0" HBox.hgrow="ALWAYS">
                     <children>
-
-                        <HBox alignment="CENTER_LEFT" prefWidth="1000"
-                            styleClass="damaged-box-container">
-                            <children>
-                                <CheckBox fx:id="globalDamagedCheckbox" mnemonicParsing="false"
-                                    styleClass="damaged-checkbox"
-                                    text="Mark selected items as DAMAGED / WASTE" />
-                            </children>
-                        </HBox>
+                        <Region maxHeight="20.0" prefHeight="20.0" />
 
                         <HBox alignment="CENTER_LEFT" spacing="15.0">
                             <children>
@@ -147,7 +136,7 @@
                             </children>
                         </HBox>
 
-                        <Region maxHeight="40.0" VBox.vgrow="ALWAYS" />
+                        <Region maxHeight="10.0" prefHeight="10.0" VBox.vgrow="ALWAYS" />
 
                         <HBox alignment="CENTER" styleClass="order-buttons-container">
                             <children>

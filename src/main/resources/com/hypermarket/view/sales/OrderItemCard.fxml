@@ -10,7 +10,6 @@
    xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.sales.OrderItemCard">
    <stylesheets>
       <URL value="@../../css/OrderItemCard.css" />
-      <URL value="@../../css/SalesThemes.css" />
    </stylesheets>
    <children>
       <VBox alignment="CENTER_LEFT" spacing="3.0" HBox.hgrow="ALWAYS">

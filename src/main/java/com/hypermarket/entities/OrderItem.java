@@ -1,12 +1,8 @@
 package com.hypermarket.entities;
 
-import java.util.List;
-
 import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 import com.hypermarket.service.ListManipulation;
-
-import javafx.scene.chart.PieChart.Data;
 
 public class OrderItem implements Parsable {
 
@@ -31,7 +27,8 @@ public class OrderItem implements Parsable {
     public String toString() {
         return orderItemID + FileManager.DELIMETER + order.getOrderID() + FileManager.DELIMETER + product.getProductID()
                 + FileManager.DELIMETER + quantity
-                + FileManager.DELIMETER + priceThatDate;
+                + FileManager.DELIMETER + priceThatDate
+                + FileManager.DELIMETER + returnedItems;
     }
 
     public void parseString(String line) {
@@ -44,6 +41,7 @@ public class OrderItem implements Parsable {
             product = ListManipulation.searchObjectWithID(DataStore.getDataStore().getProducts(), values[2]);
             quantity = Integer.parseInt(values[3]);
             priceThatDate = Double.parseDouble(values[4]);
+            returnedItems = Integer.parseInt(values[5]);
         } catch (Exception e) {
             System.err.println("Error parsing data: " + e.getMessage());
         }
@@ -71,7 +69,7 @@ public class OrderItem implements Parsable {
 
     public void setProduct(Product product) {
         this.product = product;
-        priceThatDate = new Double(product.getPrice());
+        priceThatDate = product.getPrice();
     }
 
     public int getQuantity() {

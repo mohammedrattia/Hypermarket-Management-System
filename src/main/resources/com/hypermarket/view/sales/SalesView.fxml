@@ -81,26 +81,6 @@
                            </VBox>
                                     <Label fx:id="menuMakeOrder" styleClass="menu-text" text="Make Order" HBox.hgrow="ALWAYS" />
                                 </HBox>
-                                <HBox fx:id="menuReturnedOrdersItem" alignment="CENTER_RIGHT" layoutX="20.0" layoutY="121.0" prefHeight="50.0" spacing="12" styleClass="menu-item">
-                                    <children>
-                              <VBox alignment="CENTER" styleClass="menu-icon-box">
-                                 <children>
-                                              <FontIcon fx:id="ReturnedOrdersIcon" iconLiteral="fas-box-open" iconSize="18" styleClass="submenu-icon" />
-                                 </children>
-                              </VBox>
-                                        <Label fx:id="menuReturnedOrders" styleClass="menu-text" text="Returned Orders" HBox.hgrow="ALWAYS" />
-                                    </children>
-                                </HBox>
-                                <HBox fx:id="menuReturnOrderItem" alignment="CENTER_RIGHT" layoutX="20.0" layoutY="172.0" prefHeight="50.0" spacing="12" styleClass="menu-item">
-                                    <children>
-                              <VBox styleClass="menu-icon-box">
-                                 <children>
-                                              <FontIcon fx:id="ReturnOrderIcon" iconLiteral="fas-exchange-alt" iconSize="18" styleClass="submenu-icon" />
-                                 </children>
-                              </VBox>
-                                        <Label fx:id="menuReturnOrder" styleClass="menu-text" text="Return Order" HBox.hgrow="ALWAYS" />
-                                    </children>
-                                </HBox>
 
                             </children>
                         </VBox>

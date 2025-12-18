@@ -1,8 +1,6 @@
 package com.hypermarket.entities;
 
 import java.time.LocalDate;
-import java.util.Date;
-
 import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 import com.hypermarket.service.ListManipulation;
@@ -52,9 +50,9 @@ public class Batch implements Parsable {
         return batchID + FileManager.DELIMETER +
                 product.getProductID() + FileManager.DELIMETER +
                 quantity + FileManager.DELIMETER +
-                deliveryDate.format(FileManager.dateFormat) +
+                deliveryDate.format(FileManager.localDateFormat) +
                 FileManager.DELIMETER +
-                expiryDate.format(FileManager.dateFormat);
+                expiryDate.format(FileManager.localDateFormat);
     }
 
     public void parseString(String line) {
@@ -63,8 +61,8 @@ public class Batch implements Parsable {
             batchID = Integer.valueOf(values[0]);
             product = ListManipulation.searchObjectWithID(DataStore.getDataStore().getProducts(), values[1]);
             quantity = Integer.valueOf(values[2]);
-            deliveryDate = LocalDate.parse(values[3], FileManager.dateFormat);
-            expiryDate = LocalDate.parse(values[4], FileManager.dateFormat);
+            deliveryDate = LocalDate.parse(values[3], FileManager.localDateFormat);
+            expiryDate = LocalDate.parse(values[4], FileManager.localDateFormat);
         } catch (IllegalArgumentException e) {
             System.err.println("Error Entering Data: " + e.getMessage());
         } catch (Exception e) {

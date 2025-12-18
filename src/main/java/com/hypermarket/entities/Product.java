@@ -74,12 +74,36 @@ public class Product implements Parsable {
         return price;
     }
 
+    public double getDiscountedPrice() {
+        if (this.offer == null) {
+            return this.price;
+        }
+
+        double discountAmount = this.price * (this.offer.getDiscount() / 100.0);
+        double discountedPrice = this.price - discountAmount;
+
+        return Math.max(0.0, discountedPrice);
+    }
+
     public Offer getOffer() {
         return offer;
     }
 
-    public void setOffer(Offer offer) {
-        this.offer = offer;
+    public Offer getActiveOffer() {
+        if (offer != null && offer.getManualStatus() == Offer.Status.ACTIVE) {
+            return offer;
+        }
+        return null;
+    }
+
+    public void setOffer(Offer newOffer) {
+        if ((newOffer != null && newOffer.getManualStatus() == Offer.Status.ACTIVE) &&
+                (this.offer != null && this.offer.getManualStatus() == Offer.Status.ACTIVE)) {
+
+            this.offer.setManualStatus(Offer.Status.PENDING);
+        }
+        this.offer = newOffer;
+
     }
 
     public String getSize() {

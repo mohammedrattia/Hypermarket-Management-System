@@ -11,6 +11,9 @@ module com.hypermarket {
     requires layout;
     requires io;
     requires html2pdf;
+    requires org.apache.pdfbox;
+    requires org.apache.fontbox;
+    requires javafx.swing;
 
     opens com.hypermarket.modules.components to javafx.fxml;
     opens com.hypermarket.modules.sales to javafx.fxml;

@@ -1,7 +1,5 @@
 package com.hypermarket.entities;
 
-import java.io.File;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -38,8 +36,9 @@ public class Order implements Parsable {
 
     @Override
     public String toString() {
-        return orderID + FileManager.DELIMETER + seller.getID() + FileManager.DELIMETER
-                + dateTime.format(FileManager.dateTimeFormat) + FileManager.DELIMETER + totalQuantity
+        int sellerID = (seller != null) ? seller.getID() : 0;
+        return orderID + FileManager.DELIMETER + sellerID + FileManager.DELIMETER
+                + dateTime.format(FileManager.localDateTimeFormat) + FileManager.DELIMETER + totalQuantity
                 + FileManager.DELIMETER + totalPrice;
     }
 
@@ -48,8 +47,12 @@ public class Order implements Parsable {
         // Look at the following examples and make the parseString Function
         try {
             orderID = Integer.parseInt(values[0]);
-            seller = (Sales) ListManipulation.searchObjectWithID(DataStore.getDataStore().getUsers(), values[1]);
-            dateTime = LocalDateTime.parse(values[2], FileManager.dateTimeFormat);
+            User user = ListManipulation.searchObjectWithID(DataStore.getDataStore().getUsers(), values[1]);
+            if (user instanceof Sales)
+                seller = (Sales) user;
+            else
+                seller = null;
+            dateTime = LocalDateTime.parse(values[2], FileManager.localDateTimeFormat);
             totalQuantity = Integer.parseInt(values[3]);
             totalPrice = Double.parseDouble(values[4]);
         } catch (IllegalArgumentException e) {

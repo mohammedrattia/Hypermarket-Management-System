@@ -35,7 +35,7 @@ public class Report {
             this.activeOffers = Integer.parseInt(values[3]);
             this.expiredOffers = Integer.parseInt(values[4]);
             this.maxDiscount = Double.parseDouble(values[5]);
-            this.creationDate = FileManager.dateTimeFormat1.parse(values[6]);
+            this.creationDate = FileManager.dateTimeFormat.parse(values[6]);
             this.content = (values.length > 7) ? values[7] : "";
         } catch (Exception e) {
             System.err.println("Error parsing Report: " + e.getMessage());
@@ -93,7 +93,7 @@ public class Report {
                 activeOffers + FileManager.DELIMETER +
                 expiredOffers + FileManager.DELIMETER +
                 maxDiscount + FileManager.DELIMETER +
-                FileManager.dateTimeFormat1.format(creationDate) + FileManager.DELIMETER +
+                FileManager.dateTimeFormat.format(creationDate) + FileManager.DELIMETER +
                 content;
     }
 }

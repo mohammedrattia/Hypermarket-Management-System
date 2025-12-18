@@ -14,10 +14,9 @@ public class Return implements Parsable {
     private Product product;
     private LocalDateTime returnDate;
     private int quantityReturned;
-    private boolean isDamaged;
     private double refundAmount;
 
-    public Return(OrderItem orderItem, int quantityReturned, boolean isDamaged) {
+    public Return(OrderItem orderItem, int quantityReturned) {
         ObservableList<Return> returnsList = DataStore.getDataStore().getReturns();
         if (returnsList.isEmpty()) {
             this.returnID = 1;
@@ -28,7 +27,6 @@ public class Return implements Parsable {
         this.orderItem = orderItem;
         this.product = orderItem.getProduct();
         this.quantityReturned = quantityReturned;
-        this.isDamaged = isDamaged;
         this.returnDate = LocalDateTime.now();
         this.refundAmount = quantityReturned * orderItem.getPriceThatDate();
         returnsList.add(this);
@@ -42,9 +40,8 @@ public class Return implements Parsable {
     public String toString() {
         return returnID + FileManager.DELIMETER +
                 orderItem.getOrderItemID() + FileManager.DELIMETER +
-                returnDate.format(FileManager.dateTimeFormat) + FileManager.DELIMETER +
+                returnDate.format(FileManager.localDateTimeFormat) + FileManager.DELIMETER +
                 quantityReturned + FileManager.DELIMETER +
-                isDamaged + FileManager.DELIMETER +
                 refundAmount;
     }
 
@@ -56,10 +53,9 @@ public class Return implements Parsable {
             this.orderItem = (OrderItem) ListManipulation.searchObjectWithID(
                     DataStore.getDataStore().getOrderItems(), values[1]);
             this.product = orderItem.getProduct();
-            this.returnDate = LocalDateTime.parse(values[2], FileManager.dateTimeFormat);
+            this.returnDate = LocalDateTime.parse(values[2], FileManager.localDateTimeFormat);
             this.quantityReturned = Integer.parseInt(values[3]);
-            this.isDamaged = Boolean.parseBoolean(values[4]);
-            this.refundAmount = Double.parseDouble(values[5]);
+            this.refundAmount = Double.parseDouble(values[4]);
 
         } catch (Exception e) {
             System.err.println("Error parsing data: " + e.getMessage());
@@ -86,16 +82,8 @@ public class Return implements Parsable {
         return quantityReturned;
     }
 
-    public boolean isDamaged() {
-        return isDamaged;
-    }
-
     public double getRefundAmount() {
         return refundAmount;
-    }
-
-    public void setDamaged(boolean isDamaged) {
-        this.isDamaged = isDamaged;
     }
 
     public void setQuantityReturned(int quantityReturned) {
