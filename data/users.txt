@@ -1,7 +1,7 @@
 1;Anass;Hassanein;user_001.png;ADMIN;01001234567;anass@system.com;123456;6.9E7
 2;Malek;Abido;user_002.png;ADMIN;01001001001;abido@system.com;123456;1.0E7
 3;Ahmed;Elsharkawy;user_003.png;INVENTORY;01234567890;mada@admin.com;666666;1.0E7
-4;Abdallah;Ramadan;user_004.png;MARKETING;01099887766;body@gmail.com;123456;1.0E7
+4;Abdallah;Ramadan;user_004.png;ADMIN;01099887766;body@gmail.com;123456;1.0E7
 5;Hana;AbdelHamid;user_005.png;ADMIN;01028041233;hanav@system.com;123456;6.9E7
 6;Mohammed;Ragab;user_006.png;ADMIN;01223344556;Ragab@sales.com;123456;1.0E7
 7;Ahmed;Khairi;user_007.png;INVENTORY;01155667788;layla.h@stock.com;stockpass;41000.0

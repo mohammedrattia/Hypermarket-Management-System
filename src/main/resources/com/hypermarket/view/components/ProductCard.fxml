@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -13,13 +12,7 @@
    <children>
       <StackPane id="image-container" prefHeight="176.0" prefWidth="182.0" styleClass="image-container">
          <children>
-             <ImageView fx:id="productImage"
-                   fitWidth="127.0"
-                   fitHeight="159.0"
-                   preserveRatio="true"
-                   smooth="true"
-                   pickOnBounds="true"
-                   styleClass="product-image"/>
+             <ImageView fx:id="productImage" fitHeight="159.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" smooth="true" styleClass="product-image" />
          </children>
       </StackPane>
       <Separator orientation="VERTICAL" prefHeight="152.0" prefWidth="11.0" />
@@ -40,6 +33,7 @@
             <Separator prefWidth="200.0" />
             <Label id="productQuantityCard" fx:id="productQuantityCard" prefHeight="26.0" prefWidth="348.0" styleClass="product-quantity-card" text="Quantity: 100" />
             <Label id="productPriceCard" fx:id="productPriceCard" prefHeight="32.0" prefWidth="348.0" styleClass="product-price-card" text="Price: 15 $" />
+            <Label fx:id="CategoryLabel" text="Category: " />
          </children>
       </VBox>
    </children>

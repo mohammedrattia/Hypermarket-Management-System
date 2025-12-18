@@ -150,7 +150,6 @@ public class Product implements Parsable {
                 description + FileManager.DELIMETER +
                 quantity + FileManager.DELIMETER +
                 price + FileManager.DELIMETER +
-                (offer != null ? offer.toString() : "null") + FileManager.DELIMETER +
                 size + FileManager.DELIMETER +
                 threshold + FileManager.DELIMETER +
                 imageName;
@@ -166,10 +165,10 @@ public class Product implements Parsable {
             description = values[3];
             quantity = (int) Double.parseDouble(values[4]);
             price = Double.parseDouble(values[5]);
-            size = values[7];
-            threshold = (int) Double.parseDouble(values[8]);
+            size = values[6];
+            threshold = Integer.parseInt(values[7]);
 
-            imageName = values.length > 9 ? values[9] : "image_" + productID;
+            imageName = values[8];
 
             // safety
             if (imageName == null || imageName.equalsIgnoreCase("null")) {

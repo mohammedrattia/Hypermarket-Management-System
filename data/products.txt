@@ -1,22 +1,22 @@
-101;Fresh Apple;Fruit;Organic Fuji Apples;14;2.5;2;offer 2;20.0;2025-12-18;2025-12-24;101;offer 2;20;2025-12-18
-102;Orange Juice;Beverages;No-Pulp Fresh Squeezed;48;4.99;null;1L;15;image_102
-103;Full Cream Milk;Dairy;Homogenized Whole Milk;30;3.25;null;2L;10;image_103
-104;Cheddar Cheese;Dairy;Sharp Aged White Cheddar;24;6.5;null;500G;8;image_104
-105;Toast Bread;Bakery;Whole Wheat Sliced Bread;27;2.1;null;600G;12;image_105
-106;Frozen Chicken;Frozen;Whole Grade A Chicken;14;9.99;null;1.2KG;5;image_106
-107;Basmati Rice;Grains;Extra Long Grain Premium;20;12.5;null;offer 4;90;2025-12-04
-108;Italian Pasta;Grains;Artisan Penne Rigate;80;1.8;null;500G;20;image_108
-109;Red Eggs;Dairy;Grade A Large Brown Eggs;12;4.5;null;12PK;6;image_109
-110;Tomato;Produce;Red Vine-Ripened Tomatoes;60;3.2;null;1KG;15;image_110
-111;Potato Chips;Snacks;Classic Salted Crisps;73;1.5;null;150G;20;image_111
-112;Chocolate Bar;Snacks;70% Dark Cocoa Bar;150;2.99;null;100G;25;image_112
-113;Soda Can;Beverages;Classic Cola Sparkling;199;0.99;null;330ML;50;image_113
-114;Yogurt;Dairy;High Protein Greek Yogurt;45;1.25;null;170G;10;image_114
-115;Tuna Can;Canned Goods;Solid White Albacore;60;2.75;null;185G;15;image_115
-116;Cherry Tomato;Produce;Sweet Red Cherry Tomatoes;34;3.5;null;250G;10;image_116
-117;Cat;Pets;Domestic Shorthair (Adoption);1;150.0;null;5KG;1;image_117
-118;Heavy Pallet;Logistics;Industrial Cargo Pallet;5;45.0;null;100KG;2;image_118
-119;Safety Gear;Industrial;Industrial Protection Kit;500;85.0;null;0KG;10;image_119
-120;Office Desk;Furniture;Ergonomic Workstation;20;220.0;null;25KG;5;image_120
-121;Hollow Block;Construction;Standard Concrete Block;1000;1.2;null;15KG;100;image_121
-122;Standard Tool;Hardware;Multi-Purpose Hand Tool;40;19.99;null;1.5KG;10;image_122
+101;Fresh Apple;Fruit;Organic Fuji Apples;14;2.5;null;0;image_101
+102;Orange Juice;Beverages;No-Pulp Fresh Squeezed;48;4.99;null;0;image_102
+103;Full Cream Milk;Dairy;Homogenized Whole Milk;30;3.25;null;0;image_103
+104;Cheddar Cheese;Dairy;Sharp Aged White Cheddar;24;6.5;null;0;image_104
+105;Toast Bread;Bakery;Whole Wheat Sliced Bread;27;2.1;null;0;image_105
+106;Frozen Chicken;Frozen;Whole Grade A Chicken;14;9.99;null;0;image_106
+107;Basmati Rice;Grains;Extra Long Grain Premium;20;12.5;null;0;image_107
+108;Italian Pasta;Grains;Artisan Penne Rigate;80;1.8;null;0;image_108
+109;Red Eggs;Dairy;Grade A Large Brown Eggs;12;4.5;null;0;image_109
+110;Tomato;Produce;Red Vine-Ripened Tomatoes;60;3.2;null;0;image_110
+111;Potato Chips;Snacks;Classic Salted Crisps;73;1.5;null;0;image_111
+112;Chocolate Bar;Snacks;70% Dark Cocoa Bar;150;2.99;null;0;image_112
+113;Soda Can;Beverages;Classic Cola Sparkling;199;0.99;null;0;image_113
+114;Yogurt;Dairy;High Protein Greek Yogurt;45;1.25;null;0;image_114
+115;Tuna Can;Canned Goods;Solid White Albacore;60;2.75;null;0;image_115
+116;Cherry Tomato;Produce;Sweet Red Cherry Tomatoes;34;3.5;null;0;image_116
+117;Cat;Pets;Domestic Shorthair (Adoption);1;150.0;null;0;image_117
+118;Heavy Pallet;Logistics;Industrial Cargo Pallet;5;45.0;null;0;image_118
+119;Safety Gear;Industrial;Industrial Protection Kit;500;85.0;null;0;image_119
+120;Office Desk;Furniture;Ergonomic Workstation;20;220.0;null;0;image_120
+121;Hollow Block;Construction;Standard Concrete Block;1000;1.2;null;0;image_121
+122;Standard Tool;Hardware;Multi-Purpose Hand Tool;40;19.99;null;0;image_122
