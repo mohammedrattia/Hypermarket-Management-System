@@ -4,7 +4,6 @@ import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.Offer;
 import com.hypermarket.entities.Product;
-import com.hypermarket.entities.Sales;
 import com.hypermarket.entities.User;
 import com.hypermarket.modules.components.KpiCardController;
 import com.hypermarket.modules.components.TableViewController;

@@ -195,7 +195,7 @@ public class SalesDashboard {
         table.setStyle(
                 "-fx-border-width: 0px; -fx-background-insets: 0; -fx-padding: 0; -fx-background-color: transparent;");
 
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
 
         table.setSelectionModel(null);
     }

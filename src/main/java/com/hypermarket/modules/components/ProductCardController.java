@@ -29,12 +29,6 @@ public class ProductCardController {
     @FXML
     private Label CategoryLabel;
 
-    private Runnable onDeleteAction;
-
-    public void setOnDeleteAction(Runnable action) {
-        this.onDeleteAction = action;
-    }
-
     public void setData(Product product) {
         productNameCard.setText(product.getName());
         productIDCard.setText("ID: " + product.getProductID());

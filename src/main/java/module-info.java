@@ -1,4 +1,4 @@
-module com.hypermarket {
+@SuppressWarnings("module") module com.hypermarket {
     requires transitive javafx.fxml;
     requires transitive javafx.controls;
     requires transitive javafx.graphics;
