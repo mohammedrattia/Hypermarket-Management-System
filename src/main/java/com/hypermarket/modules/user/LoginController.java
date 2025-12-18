@@ -1,6 +1,5 @@
 package com.hypermarket.modules.user;
 
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -81,6 +80,7 @@ public class LoginController implements Initializable {
             Authenticator.authenticate(emailField.getText(), passField.getText());
         } catch (Exception e) {
             makeAlert(e.getMessage());
+            return;
         }
         if (onLoginSuccess != null) {
             onLoginSuccess.run();

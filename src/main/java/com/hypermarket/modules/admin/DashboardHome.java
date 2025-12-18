@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.List;
 
 import com.hypermarket.data.DataStore;
+import com.hypermarket.entities.Role;
 import com.hypermarket.entities.User;
 import com.hypermarket.modules.components.EmployeeCardController;
 import com.hypermarket.modules.components.KpiCardController;
 import com.hypermarket.modules.components.PieChartController;
 import com.hypermarket.service.Session;
 
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -71,12 +71,14 @@ public class DashboardHome {
         DataStore db = DataStore.getDataStore();
         List<User> users = db.getUsers();
 
-        int userCount = users.size();
+        long salesCount = users.stream().filter(user -> user.getRole() == Role.SALES).count();
+        long inventoryCount = users.stream().filter(user -> user.getRole() == Role.INVENTORY).count();
+        long marketingCount = users.stream().filter(user -> user.getRole() == Role.MARKETING).count();
 
         kpiContainer.getChildren().addAll(
-                loadKpiCard("Active Users", String.valueOf(userCount), "2", true),
-                loadKpiCard("Total Sales", "120,000", "2", true),
-                loadKpiCard("Low Stock", "10 Items", "5%", false));
+                loadKpiCard("Sales Agents", String.valueOf(salesCount), "Active Staff", true),
+                loadKpiCard("Inventory Managers", String.valueOf(inventoryCount), "Warehouse Team", true),
+                loadKpiCard("Marketing Team", String.valueOf(marketingCount), "Campaign Team", true));
     }
 
     private void refreshList() {

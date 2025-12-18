@@ -6,8 +6,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import com.hypermarket.entities.*;
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
