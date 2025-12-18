@@ -56,7 +56,7 @@ public class ListReturns implements Initializable {
         }
 
         DataStore db = DataStore.getDataStore();
-        
+
         Product product = selectedReturn.getProduct();
         int qtyToReturn = selectedReturn.getQuantityReturned();
 
@@ -69,13 +69,14 @@ public class ListReturns implements Initializable {
             Batch targetBatch = productBatches.get(0);
             targetBatch.setQuantity(targetBatch.getQuantity() + qtyToReturn);
         } else {
-            System.err.println("Warning: No active batches found for product " + product.getName() + ". Stock added to product total only.");
+            System.err.println("Warning: No active batches found for product " + product.getName()
+                    + ". Stock added to product total only.");
         }
 
         product.setQuantity(product.getQuantity() + qtyToReturn);
 
         db.getReturns().remove(selectedReturn);
-        
+
         returnsTable.clearSelection();
         selectedReturn = null;
         showAlert("Success", "Item re-added to stock (Nearest Expiry Batch updated).");
@@ -158,6 +159,7 @@ public class ListReturns implements Initializable {
     }
 
     public void clearTableSelection() {
-        if(returnsTable != null) returnsTable.clearSelection();
+        if (returnsTable != null)
+            returnsTable.clearSelection();
     }
 }

@@ -31,7 +31,6 @@ import javafx.scene.shape.Circle;
 import org.kordamp.ikonli.javafx.FontIcon;
 import javafx.geometry.Side;
 
-
 public class InventoryViewController extends ViewController implements Initializable {
 
     @FXML
@@ -223,7 +222,8 @@ public class InventoryViewController extends ViewController implements Initializ
 
     private void showReturnedOrders() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/hypermarket/view/inventory/ListReturns.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/hypermarket/view/inventory/ListReturns.fxml"));
             Parent listReturnsUI = loader.load();
             ListReturns listReturnsController = loader.getController();
 

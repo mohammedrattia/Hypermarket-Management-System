@@ -21,18 +21,20 @@
 }
 
 .field-label {
-    -fx-text-fill: #666666;
-    -fx-font-weight: bold;
+  -fx-text-fill: #666666;
+  -fx-font-weight: bold;
 }
 
-.text-field, .text-area {
-    -fx-background-radius: 8;
-    -fx-border-radius: 8;
-    -fx-border-color: #e0e0e0;
+.text-field,
+.text-area {
+  -fx-background-radius: 8;
+  -fx-border-radius: 8;
+  -fx-border-color: #e0e0e0;
 }
 
-.text-field:focused, .text-area:focused {
-    -fx-border-color: #00aaff;
+.text-field:focused,
+.text-area:focused {
+  -fx-border-color: #00aaff;
 }
 
 /* Green Gradient Button Style (from ListOrders.css) */
@@ -84,25 +86,25 @@
 }
 
 .btn-success-small:pressed {
-    -fx-translate-y: 1;
+  -fx-translate-y: 1;
 }
 
 
 .btn-secondary {
-    -fx-background-color: #f0f0f0;
-    -fx-text-fill: #333333;
-    -fx-font-weight: bold;
-    -fx-background-radius: 12;
-    -fx-padding: 10 20 10 20;
-    -fx-cursor: hand;
-    -fx-min-width: 100px;
-    -fx-min-height: 45px;
-    -fx-font-size: 15px;
+  -fx-background-color: #f0f0f0;
+  -fx-text-fill: #333333;
+  -fx-font-weight: bold;
+  -fx-background-radius: 12;
+  -fx-padding: 10 20 10 20;
+  -fx-cursor: hand;
+  -fx-min-width: 100px;
+  -fx-min-height: 45px;
+  -fx-font-size: 15px;
 }
 
 .btn-secondary:hover {
 
-    -fx-background-color: #e0e0e0;
+  -fx-background-color: #e0e0e0;
 
 }
 
@@ -155,11 +157,11 @@
 }
 
 .btn-warning-small:pressed {
-    -fx-translate-y: 1;
+  -fx-translate-y: 1;
 }
 
 /* Icon Color Utility */
 .icon-light {
-    -fx-icon-color: white;
-    -fx-fill: white;
+  -fx-icon-color: white;
+  -fx-fill: white;
 }

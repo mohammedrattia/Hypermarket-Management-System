@@ -1,12 +1,11 @@
-
-.list-area{
-    -fx-padding: 8 10;
-    -fx-spacing: 15;
+.list-area {
+  -fx-padding: 8 10;
+  -fx-spacing: 15;
 }
 
-.options-bar{
-    -fx-padding: 8 32;
-    -fx-spacing: 20;
+.options-bar {
+  -fx-padding: 8 32;
+  -fx-spacing: 20;
 }
 
 
@@ -26,58 +25,46 @@
 }
 
 .new-order-btn {
-  -fx-background-color: linear-gradient(
-    to bottom right,
-    #10b981 0%,
-    #059669 100%
-  );
+  -fx-background-color: linear-gradient(to bottom right,
+      #10b981 0%,
+      #059669 100%);
   -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.3), 10, 0, 0, 4);
 }
 
 .new-order-btn:hover {
-  -fx-background-color: linear-gradient(
-    to bottom right,
-    #059669 0%,
-    #047857 100%
-  );
+  -fx-background-color: linear-gradient(to bottom right,
+      #059669 0%,
+      #047857 100%);
   -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.6), 10, 0, 0, 4);
   -fx-font-weight: bold;
 }
 
 .remove-btn {
-  -fx-background-color: linear-gradient(
-    to bottom right,
-    #ef4444 0%,
-    #dc2626 100%
-  );
+  -fx-background-color: linear-gradient(to bottom right,
+      #ef4444 0%,
+      #dc2626 100%);
   -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.3), 10, 0, 0, 4);
   -fx-margin: 10 0 0 0;
 }
 
 .remove-btn:hover {
-  -fx-background-color: linear-gradient(
-    to bottom right,
-    #dc2626 0%,
-    #b91c1c 100%
-  );
+  -fx-background-color: linear-gradient(to bottom right,
+      #dc2626 0%,
+      #b91c1c 100%);
   -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.5), 15, 0, 0, 6);
 }
 
 .receipt-btn {
-  -fx-background-color: linear-gradient(
-    to bottom right,
-    #ffae22 0%,
-    #f18e1e 100%
-  );
+  -fx-background-color: linear-gradient(to bottom right,
+      #ffae22 0%,
+      #f18e1e 100%);
   -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.3), 10, 0, 0, 4);
 }
 
 .receipt-btn:hover {
-  -fx-background-color: linear-gradient(
-    to bottom right,
-    #f2a624 0%,
-    #ea891a 100%
-  );
+  -fx-background-color: linear-gradient(to bottom right,
+      #f2a624 0%,
+      #ea891a 100%);
   -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.5), 15, 0, 0, 6);
 }
 

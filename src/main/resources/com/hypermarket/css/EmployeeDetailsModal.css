@@ -8,12 +8,15 @@
 .modal-name {
   -fx-text-fill: black;
 }
+
 .modal-role {
   -fx-text-fill: #666666;
 }
+
 .modal-id {
   -fx-text-fill: #999999;
 }
+
 .section-title {
   -fx-text-fill: #00aaff;
 }
@@ -31,19 +34,16 @@
 }
 
 .btn-update {
-  -fx-background-color: linear-gradient(
-    to bottom right,
-    #ffae22 0%,
-    #f18e1e 100%
-  );
+  -fx-background-color: linear-gradient(to bottom right,
+      #ffae22 0%,
+      #f18e1e 100%);
   -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.3), 10, 0, 0, 4);
 }
+
 .btn-update:hover {
-  -fx-background-color: linear-gradient(
-    to bottom right,
-    #f2a624 0%,
-    #ea891a 100%
-  );
+  -fx-background-color: linear-gradient(to bottom right,
+      #f2a624 0%,
+      #ea891a 100%);
   -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.5), 15, 0, 0, 6);
 }
 
@@ -62,20 +62,16 @@
 }
 
 .btn-delete {
-  -fx-background-color: linear-gradient(
-    to bottom right,
-    #ef4444 0%,
-    #dc2626 100%
-  );
+  -fx-background-color: linear-gradient(to bottom right,
+      #ef4444 0%,
+      #dc2626 100%);
   -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.3), 10, 0, 0, 4);
 }
 
 .btn-delete:hover {
-  -fx-background-color: linear-gradient(
-    to bottom right,
-    #dc2626 0%,
-    #b91c1c 100%
-  );
+  -fx-background-color: linear-gradient(to bottom right,
+      #dc2626 0%,
+      #b91c1c 100%);
   -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.5), 15, 0, 0, 6);
 }
 

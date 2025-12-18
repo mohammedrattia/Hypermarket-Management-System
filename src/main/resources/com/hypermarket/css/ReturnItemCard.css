@@ -53,7 +53,8 @@
 
 .max-btn {
     -fx-background-color: transparent;
-    -fx-text-fill: #10b981; /* Green Theme Color */
+    -fx-text-fill: #10b981;
+    /* Green Theme Color */
     -fx-font-size: 10px;
     -fx-font-weight: bold;
     -fx-cursor: hand;
@@ -64,7 +65,8 @@
 }
 
 .max-btn:hover {
-    -fx-background-color: #ecfdf5; /* Very Light Green on hover */
+    -fx-background-color: #ecfdf5;
+    /* Very Light Green on hover */
 }
 
 .max-btn:pressed {
