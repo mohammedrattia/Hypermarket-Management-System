@@ -12,14 +12,18 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox prefWidth="500.0" spacing="20.0" styleClass="modal-container" stylesheets="@../../css/EmployeeDetailsModal.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.components.EmployeeDetailsModalController">
+<VBox prefWidth="500.0" spacing="20.0" styleClass="modal-container"
+   stylesheets="@../../css/EmployeeDetailsModal.css" xmlns="http://javafx.com/javafx/25"
+   xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="com.hypermarket.modules.components.EmployeeDetailsModalController">
    <padding>
       <Insets bottom="25.0" left="30.0" right="30.0" top="25.0" />
    </padding>
    <children>
       <HBox alignment="CENTER_LEFT" spacing="20.0">
          <children>
-            <ImageView fx:id="popupImage" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="popupImage" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true"
+               preserveRatio="true">
                <image>
                   <Image url="@../../images/userBlack.png" />
                </image>
@@ -27,71 +31,97 @@
             <VBox alignment="CENTER_LEFT">
                <children>
                   <Label fx:id="modalNameLabel" styleClass="modal-name" text="Hana Mohamed">
-                     <font><Font name="System Bold" size="22.0" /></font>
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
                   </Label>
                   <Label fx:id="modalRoleLabel" styleClass="modal-role" text="ADMIN">
-                     <font><Font size="16.0" /></font>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
                   </Label>
                   <Label fx:id="modalIdLabel" styleClass="modal-id" text="ID: #101">
-                     <font><Font size="13.0" /></font>
-                     <VBox.margin><Insets top="5.0" /></VBox.margin>
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
                   </Label>
                </children>
             </VBox>
          </children>
       </HBox>
-      
+
       <Separator />
-      
+
       <VBox spacing="15.0">
          <children>
             <Label styleClass="section-title" text="Contact Information">
-               <font><Font name="System Bold" size="14.0" /></font>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
             </Label>
             <HBox spacing="15.0">
-                <HBox alignment="CENTER_LEFT" spacing="8.0" HBox.hgrow="ALWAYS">
-                   <FontIcon iconLiteral="fas-envelope" iconSize="16" styleClass="icon-secondary" />
-                   <Label fx:id="modalEmailLabel" text="email@example.com" />
-                </HBox>
-                <HBox alignment="CENTER_LEFT" spacing="8.0" HBox.hgrow="ALWAYS">
-                   <FontIcon iconLiteral="fas-phone" iconSize="16" styleClass="icon-secondary" />
-                   <Label fx:id="modalPhoneLabel" text="01000000000" />
-                </HBox>
+               <HBox alignment="CENTER_LEFT" spacing="8.0" HBox.hgrow="ALWAYS">
+                  <FontIcon iconLiteral="fas-envelope" iconSize="16" styleClass="icon-secondary" />
+                  <Label fx:id="modalEmailLabel" text="email@example.com" />
+               </HBox>
+               <HBox alignment="CENTER_LEFT" spacing="8.0" HBox.hgrow="ALWAYS">
+                  <FontIcon iconLiteral="fas-phone" iconSize="16" styleClass="icon-secondary" />
+                  <Label fx:id="modalPhoneLabel" text="01000000000" />
+               </HBox>
             </HBox>
 
             <Separator />
 
             <Label styleClass="section-title" text="Financial Details">
-               <font><Font name="System Bold" size="14.0" /></font>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
             </Label>
-             <HBox alignment="CENTER_LEFT" spacing="8.0">
-                <FontIcon iconLiteral="fas-dollar-sign" iconSize="18" styleClass="icon-success" />
-                <Label fx:id="modalSalaryLabel" text="\$75,000.00">
-                   <font><Font size="18.0" /></font>
-                </Label>
-             </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="8.0">
+               <FontIcon iconLiteral="fas-dollar-sign" iconSize="18" styleClass="icon-success" />
+               <Label fx:id="modalSalaryLabel" text="\$75,000.00">
+                  <font>
+                     <Font size="18.0" />
+                  </font>
+               </Label>
+            </HBox>
          </children>
-         <padding><Insets left="10.0" /></padding>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
       </VBox>
-      
+
       <Region prefWidth="438.0" VBox.vgrow="ALWAYS" />
-      
+
       <HBox spacing="15.0">
          <children>
             <Region prefHeight="0.0" prefWidth="156.0" />
-            <Button mnemonicParsing="false" onAction="#handleUpdate" styleClass="btn-update" text="Update">
+            <Button mnemonicParsing="false" onAction="#handleUpdate" styleClass="btn-update"
+               text="Update">
                <graphic>
                   <FontIcon iconLiteral="fas-edit" styleClass="icon-light" />
                </graphic>
-               <padding><Insets bottom="10.0" left="15.0" right="15.0" top="10.0" /></padding>
-               <font><Font name="System Bold" size="13.0" /></font>
+               <padding>
+                  <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleDelete" styleClass="btn-delete" text="Delete">
+            <Button mnemonicParsing="false" onAction="#handleDelete" styleClass="btn-delete"
+               text="Delete">
                <graphic>
                   <FontIcon iconLiteral="fas-trash" styleClass="icon-light" />
                </graphic>
-               <padding><Insets bottom="10.0" left="15.0" right="15.0" top="10.0" /></padding>
-                <font><Font name="System Bold" size="13.0" /></font>
+               <padding>
+                  <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
             </Button>
          </children>
       </HBox>
