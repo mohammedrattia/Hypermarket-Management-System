@@ -3,6 +3,8 @@ package com.hypermarket.modules.components;
 import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.Offer;
+import com.hypermarket.entities.Product;
+import com.hypermarket.entities.Sales;
 import com.hypermarket.entities.User;
 import com.hypermarket.modules.user.UpdateInfoController;
 import com.hypermarket.service.Session;
@@ -119,6 +121,9 @@ public class MarketingViewController extends ViewController implements Initializ
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/com/hypermarket/view/components/TableView.fxml"));
             loader.setController(tableController);
+            tableController.setColumnFormatter("product", obj -> {
+                return (obj != null) ? ((Product) obj).getName() : "Unknown";
+            });
             Parent tableNode = loader.load();
             tableContainer.getChildren().clear();
             tableContainer.getChildren().add(tableNode);
