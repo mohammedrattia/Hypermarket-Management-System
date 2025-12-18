@@ -59,6 +59,12 @@
     -fx-text-fill: #636e72;
 }
 
+.original-price {
+    -fx-text-fill: #b2bec3;
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+}
+
 .exp-date-product {
     -fx-font-size: 12px;
     -fx-text-fill: #e17055;
