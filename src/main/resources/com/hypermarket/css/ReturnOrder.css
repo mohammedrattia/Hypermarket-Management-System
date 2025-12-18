@@ -1,4 +1,3 @@
-
 .header-title {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
@@ -12,7 +11,8 @@
 }
 
 .totals-section {
-    -fx-background-color: #f8fafc; /* Light grey footer background */
+    -fx-background-color: #f8fafc;
+    /* Light grey footer background */
     -fx-border-color: #e2e8f0;
     -fx-border-width: 1 0 0 0;
 }
@@ -33,6 +33,7 @@
     -fx-border-radius: 8;
     -fx-text-fill: #10b981;
 }
+
 .green-outline-btn:hover {
     -fx-background-color: #ecfdf5;
 }
@@ -40,6 +41,7 @@
 .grey-btn {
     -fx-background-color: #94a3b8;
 }
+
 .grey-btn:hover {
     -fx-background-color: #64748b;
 }
@@ -55,6 +57,7 @@
     -fx-cursor: hand;
     -fx-min-width: 175px;
 }
+
 .confirm-btn:hover {
     -fx-min-width: 175px;
     -fx-background-color: linear-gradient(to bottom right, #059669 0%, #047857 100%);
@@ -69,25 +72,28 @@
     -fx-background-radius: 12;
     -fx-padding: 10 12;
     -fx-cursor: hand;
-    -fx-min-width: 125px; /* Slightly smaller than confirm */
+    -fx-min-width: 125px;
+    /* Slightly smaller than confirm */
 }
+
 .cancel-btn:hover {
-    -fx-min-width: 125px; /* Slightly smaller than confirm */
+    -fx-min-width: 125px;
+    /* Slightly smaller than confirm */
     -fx-background-color: linear-gradient(to bottom right, #dc2626 0%, #b91c1c 100%);
     -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.5), 15, 0, 0, 6);
 }
 
 
 .detail-icon {
-    -fx-icon-color: #10b981; 
+    -fx-icon-color: #10b981;
     -fx-icon-size: 16;
 }
 
 .order-detail-label {
-    -fx-text-fill: #475569;      
+    -fx-text-fill: #475569;
     -fx-font-weight: bold;
     -fx-font-size: 12px;
-    -fx-min-width: 100px;          
+    -fx-min-width: 100px;
 }
 
 .order-detail-value {
@@ -108,10 +114,12 @@
     -fx-text-fill: #b91c1c;
     -fx-font-weight: bold;
 }
+
 .damaged-checkbox .box {
     -fx-background-color: white;
     -fx-border-color: #b91c1c;
 }
+
 .damaged-checkbox:selected .mark {
     -fx-background-color: #b91c1c;
 }
@@ -127,10 +135,12 @@
     -fx-background-color: white;
     -fx-padding: 10;
 }
+
 .items-list-section .list-cell {
     -fx-padding: 5 0;
     -fx-background-color: transparent;
 }
+
 .items-list-section .list-cell:empty {
     -fx-background-color: transparent;
 }

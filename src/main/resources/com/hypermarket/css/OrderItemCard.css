@@ -1,9 +1,9 @@
 .order-item-card {
-    /*-fx-background-color: white;*/ 
-    -fx-padding: 5 8;         
+    /*-fx-background-color: white;*/
+    -fx-padding: 5 8;
     -fx-border-color: #e2e8f0;
-    -fx-border-width: 0 0 1 0; 
-    -fx-cursor: hand;          
+    -fx-border-width: 0 0 1 0;
+    -fx-cursor: hand;
 }
 
 .order-item-card:hover {
@@ -16,20 +16,20 @@
 }
 
 .item-name {
-    -fx-text-fill: #1e293b; 
-    -fx-font-weight: 800;      
+    -fx-text-fill: #1e293b;
+    -fx-font-weight: 800;
     -fx-font-size: 14px;
 }
 
 .item-details-text {
-    -fx-text-fill: #64748b; 
+    -fx-text-fill: #64748b;
     /* -fx-font-weight: bold;        */
-    -fx-font-size: 11px;         
+    -fx-font-size: 11px;
 }
 
 .item-total-price {
     -fx-text-fill: #1e293b;
-    -fx-font-weight: 700;       
+    -fx-font-weight: 700;
     -fx-font-size: 14px;
     -fx-alignment: CENTER_RIGHT;
 }

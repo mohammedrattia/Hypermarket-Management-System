@@ -1,29 +1,30 @@
 .product-card {
-	-fx-background-color: #10b981, #ffffff;
-	-fx-background-insets: 0, 0 0 4 0;
-	-fx-background-radius: 12, 10;
-	-fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.12), 14, 0, 0, 3);
-	-fx-padding: 6 0 10 0;
+    -fx-background-color: #10b981, #ffffff;
+    -fx-background-insets: 0, 0 0 4 0;
+    -fx-background-radius: 12, 10;
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.12), 14, 0, 0, 3);
+    -fx-padding: 6 0 10 0;
 }
 
 .product-card:hover {
     -fx-cursor: hand;
     -fx-translate-y: -5;
     -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.25), 20, 0, 0, 8);
-    -fx-background-color: #059669, #ffffff; /* Slightly darker top border on hover */
+    -fx-background-color: #059669, #ffffff;
+    /* Slightly darker top border on hover */
 }
 
 .product-image {
-	-fx-background-image: url("tomato.jpg");
+    -fx-background-image: url("tomato.jpg");
     -fx-background-size: cover;
     -fx-background-position: center;
-	-fx-background-radius: 12 12 0 0;
+    -fx-background-radius: 12 12 0 0;
     -fx-background-insets: 0;
     -fx-border-color: black;
 }
 
 .image-container {
-	-fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.12), 14, 0, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.12), 14, 0, 0, 3);
 }
 
 .product-information {

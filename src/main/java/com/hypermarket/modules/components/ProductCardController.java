@@ -38,21 +38,21 @@ public class ProductCardController {
     public void setData(Product product) {
         productNameCard.setText(product.getName());
         productIDCard.setText("ID: " + product.getProductID());
-        
+
         // Price Logic
         if (product.getOffer() != null) {
             // Show original price with strikethrough
             originalPriceCard.setText("Original Price: " + product.getPrice() + " $");
             originalPriceCard.setVisible(true);
             originalPriceCard.setManaged(true);
-            
+
             // Show discounted price
             productPriceCard.setText("Now: " + String.format("%.2f", product.getDiscountedPrice()) + " $");
         } else {
             // Hide original price label
             originalPriceCard.setVisible(false);
             originalPriceCard.setManaged(false);
-            
+
             // Show normal price
             productPriceCard.setText("Price: " + product.getPrice() + " $");
         }
