@@ -104,7 +104,7 @@ public class Offer implements Parsable {
     @Override
     public String toString() {
         SimpleDateFormat sdf = FileManager.dateFormat;
-        int productId = product.getProductID();
+        int productId = (this.product != null) ? Integer.valueOf(this.product.getProductID()) : 0;
         return offerID + FileManager.DELIMETER +
                 offerName + FileManager.DELIMETER +
                 discount + FileManager.DELIMETER +
