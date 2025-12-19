@@ -1,5 +1,6 @@
 package com.hypermarket.modules.components;
 
+import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.Product;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -58,7 +59,7 @@ public class ProductCardController {
         productImage.setSmooth(true);
 
         String imgName = product.getImageName();
-        File dir = new File(System.getProperty("user.dir") + "/data/ProductImages");
+        File dir = new File(FileManager.PRODUCT_IMAGE_PATH);
 
         File imageFile = new File(dir, imgName + ".png");
         if (!imageFile.exists())
