@@ -22,7 +22,7 @@ jobs:
         java-version: '25'
         distribution: 'temurin'
 
-    # 1. Build The Files
+    # --- BUILD STEPS ---
     - name: Build Windows Installer
       run: scripts\build_windows_installer.bat
 
@@ -32,18 +32,32 @@ jobs:
     - name: Build Universal JAR
       run: scripts\build_windows_jar.bat
 
-    # 2. ZIP the Portable Folder (Crucial Step!)
-    # We turn the folder "Hypermarket System App" into "Hypermarket-Portable-Win.zip"
     - name: Zip Windows Portable
       run: Compress-Archive -Path "releases\Hypermarket System App" -DestinationPath "releases\Hypermarket-Portable-Win.zip"
 
-    # 3. Upload Results
-    - name: Upload Windows Artifacts
+    # --- UPLOAD SEPARATE ARTIFACTS (3 Files) ---
+    
+    # 1. JAR
+    - name: Upload Universal JAR
       uses: actions/upload-artifact@v4
       with:
-        name: Windows-Builds
-        path: releases/
-        
+        name: Universal-JAR
+        path: releases/HypermarketSystemApp.jar
+
+    # 2. EXE
+    - name: Upload Windows Installer
+      uses: actions/upload-artifact@v4
+      with:
+        name: Windows-Installer
+        path: "releases/Hypermarket System App.exe"
+
+    # 3. Windows Portable ZIP
+    - name: Upload Windows Portable
+      uses: actions/upload-artifact@v4
+      with:
+        name: Windows-Portable
+        path: releases/Hypermarket-Portable-Win.zip
+
   # ==================================================
   # JOB 2: Build Linux Versions
   # ==================================================
@@ -65,7 +79,7 @@ jobs:
     - name: Grant Permission
       run: chmod +x scripts/*.sh mvnw
 
-    # 1. Build The Files
+    # --- BUILD STEPS ---
     - name: Build Linux Debian
       run: ./scripts/build_linux_deb.sh
 
@@ -75,17 +89,31 @@ jobs:
     - name: Build Linux Portable
       run: ./scripts/build_linux_portable.sh
 
-    # 2. ZIP the Portable Folder
-    # We turn the folder "hypermarket-system-app" into "Hypermarket-Portable-Linux.tar.gz"
     - name: Zip Linux Portable
       run: tar -czf releases/Hypermarket-Portable-Linux.tar.gz -C releases hypermarket-system-app
 
-    # 3. Upload Results
-    - name: Upload Linux Artifacts
+    # --- UPLOAD SEPARATE ARTIFACTS (3 Files) ---
+
+    # 4. DEB
+    - name: Upload Linux Debian
       uses: actions/upload-artifact@v4
       with:
-        name: Linux-Builds
-        path: releases/
+        name: Linux-Debian
+        path: releases/*.deb
+
+    # 5. RPM
+    - name: Upload Linux RPM
+      uses: actions/upload-artifact@v4
+      with:
+        name: Linux-RPM
+        path: releases/*.rpm
+
+    # 6. Linux Portable TAR
+    - name: Upload Linux Portable
+      uses: actions/upload-artifact@v4
+      with:
+        name: Linux-Portable
+        path: releases/*.tar.gz
 
   # ==================================================
   # JOB 3: Create Release (ONLY if it's a Tag)
@@ -98,26 +126,29 @@ jobs:
       contents: write
       
     steps:
-    - name: Download Windows Builds
+    # We download ALL artifacts to the 'dist' folder
+    # 'merge-multiple: true' removes the folders and dumps all 6 files directly into 'dist'
+    - name: Download All Artifacts
       uses: actions/download-artifact@v4
       with:
-        name: Windows-Builds
-        path: dist/windows
+        path: dist
+        merge-multiple: true 
 
-    - name: Download Linux Builds
-      uses: actions/download-artifact@v4
-      with:
-        name: Linux-Builds
-        path: dist/linux
-
-    # This step takes all files and puts them on the Release Page
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
       with:
-        files: |
-          dist/windows/*.exe
-          dist/windows/*.jar
-          dist/windows/*.zip
-          dist/linux/*.deb
-          dist/linux/*.rpm
-          dist/linux/*.tar.gz
+        name: "Hypermarket System ${{ github.ref_name }}" 
+        
+        body: |
+          ## 🚀 New Release
+          This is the latest version of the Hypermarket Management System.
+          
+          ### ✅ Features
+          - Windows Installer (.exe)
+          - Linux Installer (.deb / .rpm)
+          - Portable versions for both OS
+          
+          ### 📥 Installation
+          Download the file matching your OS from the "Assets" section below.
+        
+        files: dist/*
