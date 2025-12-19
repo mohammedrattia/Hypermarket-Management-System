@@ -246,7 +246,7 @@ public class OffersPageController {
 
             alert.showAndWait().ifPresent(response -> {
                 if (response == yesBtn) {
-                    boolean deleted = currentUser.deleteOffer(o.getOfferID());
+                    boolean deleted = currentUser.deleteOffer(o);
                     if (deleted) {
                         offersContainer.getChildren().remove(card);
                     }
