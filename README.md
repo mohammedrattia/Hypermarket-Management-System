@@ -6,32 +6,59 @@ A desktop application designed to manage hypermarket operations, inventory, and 
 
 Before running the build commands, ensure you have the following installed:
 
-- **Java JDK 21** or higher
-- **Apache Maven**
+- **Java JDK 25** (Ensure `JAVA_HOME` is set correctly).
+- **Apache Maven**.
+- **WiX Toolset v3.11** (Required only for building the Windows Installer `.exe`).
 
 ## 🛠️ Build Instructions
 
-Follow these steps to build the application from source.
+Follow these steps to build the application artifacts from source.
 
-### 1. Build the JAR
+### 1. Compile & Package JAR
 
-Open your terminal in the project root folder and run:
+First, compile the code and create the "Fat JAR" (Universal JAR) that contains all dependencies.
 
 ```bash
 mvn clean package
 ```
 
-### 2. Create the Executable
+_Jar created:_ `target/main-1.0-SNAPSHOT.jar`
 
-This command bundles the application into a standalone folder with its own Java runtime. Run this **after** the build command succeeds:
+---
+
+### 2. Create Native Installers (jpackage)
+
+Once the JAR is built, you can use `jpackage` to create platform-specific installers.
+
+#### 🪟 Windows: Installer (.exe)
+
+_Requires WiX Toolset installed and added to PATH._
 
 **PowerShell**
 
 ```
-jpackage --input target --name Hypermarket-Management-System-App --main-jar main-1.0-SNAPSHOT.jar --main-class com.hypermarket.app.Launcher --type app-image
+jpackage --input target --name Hypermarket-Setup --app-version 1.0 --main-jar main-1.0-SNAPSHOT.jar --main-class com.hypermarket.app.Launcher --type exe --win-dir-chooser --win-menu --win-shortcut --description "Hypermarket Management System" --vendor "Abdallah R. Ali" --icon "src\main\resources\com\hypermarket\images\cart.ico"
 ```
 
-Once finished, you will find a new folder named **`Hypermarket-Management-System-App`** in your project directory. Open it and run the `.exe` file inside.
+#### 🪟 Windows: Portable Folder (No Install)
+
+Creates a standalone folder containing the `.exe` and runtime.
+
+**PowerShell**
+
+```
+jpackage --input target --name Hypermarket-Management-System --app-version 1.0 --main-jar main-1.0-SNAPSHOT.jar --main-class com.hypermarket.app.Launcher --type app-image --description "Hypermarket Management System" --vendor "Abdallah R. Ali" --icon "src\main\resources\com\hypermarket\images\cart.ico"
+```
+
+#### 🐧 Linux: Debian Package (.deb)
+
+_Run this on a Linux machine (Ubuntu/Debian)._
+
+**Bash**
+
+```
+jpackage --input target --name hypermarket-management-system --app-version 1.0 --main-jar main-1.0-SNAPSHOT.jar --main-class com.hypermarket.app.Launcher --type deb --description "Hypermarket Management System" --vendor "Abdallah R. Ali" --linux-menu-group "Office" --linux-shortcut --icon "src/main/resources/com/hypermarket/images/cart.png"
+```
 
 ## 🔑 Default Credentials
 

@@ -10,6 +10,7 @@ import com.hypermarket.modules.user.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,6 +29,14 @@ public class App extends Application {
         @Override
         public void start(Stage stage) throws IOException {
                 DataStore.getDataStore().loadAllData();
+                try {
+                        Image icon = new Image(getClass().getResourceAsStream("/com/hypermarket/images/cart.png"));
+                        stage.getIcons().add(icon);
+                } catch (Exception e) {
+                        System.out.println("Icon not found");
+                }
+
+                stage.setTitle("HyperMarket Management System");
                 loadLoginScene(stage);
         }
 
