@@ -2,7 +2,7 @@
 
 A desktop application designed to manage hypermarket operations, inventory, and staff.
 
-## 📋 Prerequisites
+## Prerequisites
 
 Before running the build commands, ensure you have the following installed:
 
@@ -10,7 +10,7 @@ Before running the build commands, ensure you have the following installed:
 - **Apache Maven**.
 - **WiX Toolset v3.11** (Required only for building the Windows Installer `.exe`).
 
-## 🛠️ Build Instructions
+## Build Instructions
 
 Follow these steps to build the application artifacts from source.
 
@@ -60,7 +60,7 @@ _Run this on a Linux machine (Ubuntu/Debian)._
 jpackage --input target --name hypermarket-management-system --app-version 1.0 --main-jar main-1.0-SNAPSHOT.jar --main-class com.hypermarket.app.Launcher --type deb --description "Hypermarket Management System" --vendor "Abdallah R. Ali" --linux-menu-group "Office" --linux-shortcut --icon "src/main/resources/com/hypermarket/images/cart.png"
 ```
 
-## 🔑 Default Credentials
+## Default Credentials
 
 To access the system for the first time, use the default Administrator account:
 
@@ -70,30 +70,30 @@ To access the system for the first time, use the default Administrator account:
 
 ---
 
-## 🧩 System Modules
+## System Modules
 
 The application is divided into four distinct modules based on user roles, ensuring secure and organized operations:
 
-### 1. 🛡️ Admin Module
+### 1. Admin Module
 
 - **User Management:** Add, update, and remove employees.
 - **System Oversight:** Monitor employees and manage system access.
 - **Security:** Only Admins can create new accounts for other roles.
 
-### 2. 🛒 Sales Module
+### 2. Sales Module
 
 - **Point of Sale (POS):** Create new orders and process transactions.
 - **Receipt Generation:** Automatically generates PDF receipts for customers.
 - **Returns Management:** Handle item returns and calculate refunds based on original purchase price.
 
-### 3. 📦 Inventory Module
+### 3. Inventory Module
 
 - **Stock Management:** Add new products and monitor quantity levels.
 - **Batch Tracking:** Track expiry dates and delivery dates for specific product batches.
 - **Low Stock Alerts:** Dashboard highlights products falling below threshold levels.
 - **Expiry Alerts:** Identifies batches expiring within the next 7 days.
 
-### 4. 📈 Marketing Module
+### 4. Marketing Module
 
 - **Offer Management:** Create and schedule discounts for products.
 - **Reporting:** Generate reports on active offers, expired offers, and discount effectiveness.
