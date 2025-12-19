@@ -32,7 +32,7 @@ jobs:
     # We build the JAR here once. No need to do it again on Linux.
     # Assumes the file is named 'build_jar.bat' as we created earlier.
     - name: Build Universal JAR
-      run: scripts\build_jar.bat
+      run: scripts\build_windows_jar.bat
 
     - name: Upload Windows Artifacts
       uses: actions/upload-artifact@v4
