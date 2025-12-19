@@ -14,10 +14,5 @@
 114;Yogurt;Dairy;High Protein Greek Yogurt;45;1.25;null;0;image_114
 115;Tuna Can;Canned Goods;Solid White Albacore;60;2.75;null;0;image_115
 116;Cherry Tomato;Produce;Sweet Red Cherry Tomatoes;34;3.5;null;0;image_116
-117;Cat;Pets;Domestic Shorthair (Adoption);1;150.0;null;0;image_117
-118;Heavy Pallet;Logistics;Industrial Cargo Pallet;5;45.0;null;0;image_118
-119;Safety Gear;Industrial;Industrial Protection Kit;500;85.0;null;0;image_119
-120;Office Desk;Furniture;Ergonomic Workstation;20;220.0;null;0;image_120
-121;Hollow Block;Construction;Standard Concrete Block;1000;1.2;null;0;image_121
-122;Standard Tool;Hardware;Multi-Purpose Hand Tool;40;19.99;null;0;image_122
-123;عصير قصب;Drinks;Very Good Drink;52;15.0;كوباية كبيرة;100;image_123
+117;Carrots;Produce;Very fresh and yummy carrots;1;2.5;5;2;image_117
+118;Pudding;Snacks;Sahne Geschmack;0;3.3;10;3;image_118
