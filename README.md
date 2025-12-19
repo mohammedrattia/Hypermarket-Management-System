@@ -7,80 +7,78 @@ A desktop application designed to manage hypermarket operations, inventory, and 
 Before running the build commands, ensure you have the following installed:
 
 - **Java JDK 25** (Ensure `JAVA_HOME` is set correctly).
-- **Apache Maven**.
+- **Apache Maven** (Optional if using the included `mvnw` wrapper).
 - **WiX Toolset v3.11** (Required only for building the Windows Installer `.exe`).
 
 ## Build Instructions
 
-Follow these steps to build the application artifacts from source.
+The project includes automated scripts in the `scripts/` directory to handle building, packaging, and cleanup. All final output files will be automatically moved to the `releases/` folder.
 
-### 1. Compile & Package JAR
+### 🪟 Windows Users
 
-First, compile the code and create the "Fat JAR" (Universal JAR) that contains all dependencies.
+Run these scripts by double-clicking them or executing them in Command Prompt/PowerShell.
 
-```bash
-mvn clean package
+**1. Windows Installer (.exe)** Builds the professional installer that sets up the app in `Program Files`, creates shortcuts, and adds it to the Start Menu.
+
+```bat
+scripts\build_windows_installer.bat
 ```
 
-_Jar created:_ `target/main-1.0-SNAPSHOT.jar`
+_Output:_ `releases\Hypermarket System App.exe`
+
+**2. Windows Portable (No Install)** Creates a standalone folder containing the executable and Java runtime. Useful for running from USB drives without installation.
+
+```bat
+scripts\build_windows_portable.bat
+```
+
+_Output:_ `releases\Hypermarket System App\` folder
+
+**3. Universal JAR** Builds the cross-platform JAR file (requires Java to be installed on the target machine).
+
+```bat
+scripts\build_jar.bat
+```
+
+_Output:_ `releases\HypermarketSystemApp.jar`
 
 ---
 
-### 2. Create Native Installers (jpackage)
+### 🐧 Linux Users
 
-Once the JAR is built, you can use `jpackage` to create platform-specific installers.
+Ensure scripts are executable first (`chmod +x scripts/*.sh`).
 
-#### 🪟 Windows: Installer (.exe)
+**1. Debian Package (.deb)** Builds the standard installer package for Ubuntu, Debian, and Mint systems.
 
-_Requires WiX Toolset installed and added to PATH._
-
-**PowerShell**
-
-```
-jpackage --input target --name Hypermarket-Setup --app-version 1.0 --main-jar main-1.0-SNAPSHOT.jar --main-class com.hypermarket.app.Launcher --type exe --win-dir-chooser --win-menu --win-shortcut --description "Hypermarket Management System" --vendor "Abdallah R. Ali" --icon "src\main\resources\com\hypermarket\images\cart.ico"
+```bash
+./scripts/build_linux_deb.sh
 ```
 
-#### 🪟 Windows: Portable Folder (No Install)
+_Output:_ `releases/hypermarket-system-app_1.0_amd64.deb`
 
-Creates a standalone folder containing the `.exe` and runtime.
+**2. Linux Portable (AppImage Folder)** Creates a standalone application directory. Useful for generic Linux distros or creating AUR packages.
 
-**PowerShell**
-
-```
-jpackage --input target --name Hypermarket-Management-System --app-version 1.0 --main-jar main-1.0-SNAPSHOT.jar --main-class com.hypermarket.app.Launcher --type app-image --description "Hypermarket Management System" --vendor "Abdallah R. Ali" --icon "src\main\resources\com\hypermarket\images\cart.ico"
+```bash
+./scripts/build_linux_portable.sh
 ```
 
-#### 🐧 Linux
+_Output:_ `releases/hypermarket-system-app/` folder
 
-##### Debian Package (.deb)
+**3. Universal JAR** Builds the cross-platform JAR file.
 
-Run this on Ubuntu/Debian.
-
-**Bash**
-
-```
-jpackage --input target --name hypermarket-management-system --app-version 1.0 --main-jar main-1.0-SNAPSHOT.jar --main-class com.hypermarket.app.Launcher --type deb --description "Hypermarket Management System" --vendor "Abdallah R. Ali" --linux-menu-group "Office" --linux-shortcut --icon "src/main/resources/com/hypermarket/images/cart.png"
+```bash
+./scripts/build_jar.sh
 ```
 
-##### Protable App Image
-
-Run this on Arch Linux.
-
-Generates a standalone application directory. Useful for creating AUR packages or running portably.
-
-**Bash**
-
-```
-jpackage --input target --name hypermarket-management-system --app-version 1.0 --main-jar main-1.0-SNAPSHOT.jar --main-class com.hypermarket.app.Launcher --type app-image --description "Hypermarket Management System" --vendor "Malek A. Abido" --icon "src/main/resources/com/hypermarket/images/cart.png"
-```
+_Output:_ `releases/HypermarketSystemApp.jar`
 
 ## Default Credentials
 
 To access the system for the first time, use the default Administrator account:
 
-| **Role**  | **Email**      | **Password** |
-| --------------- | -------------------- | ------------------ |
-| **Admin** | `admin@system.com` | `admin`          |
+| **Role**  | **Email**          | **Password** |
+| --------- | ------------------ | ------------ |
+| **Admin** | `admin@system.com` | `admin`      |
 
 ---
 
