@@ -1,0 +1,108 @@
+name: Build and Release
+
+# Trigger:
+# 1. On every push to main (Test Build)
+# 2. When you push a tag starting with 'v' (e.g. v1.0) (Official Release)
+on:
+  push:
+    branches: [ "main" ]
+    tags:
+      - 'v*'
+
+jobs:
+  # ==================================================
+  # JOB 1: Build Windows Versions (Installer + Portable + JAR)
+  # ==================================================
+  build-windows:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up JDK 25
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+
+    # Run the Windows Scripts we made
+    - name: Build Windows Installer
+      run: ./scripts/build_windows_installer.bat
+
+    - name: Build Windows Portable
+      run: ./scripts/build_windows_portable.bat
+
+    - name: Build Universal JAR
+      run: ./scripts/build_jar.bat
+
+    # Upload the results as Artifacts (Zips them automatically)
+    - name: Upload Windows Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: Windows-Builds
+        path: releases/
+        
+  # ==================================================
+  # JOB 2: Build Linux Versions (Deb + Portable)
+  # ==================================================
+  build-linux:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up JDK 25
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        
+    - name: Install Fakeroot (Required for .deb)
+      run: sudo apt-get install -y fakeroot
+
+    - name: Grant Permission to Scripts
+      run: chmod +x scripts/*.sh
+
+    # Run the Linux Scripts we made
+    - name: Build Linux Debian
+      run: ./scripts/build_linux_deb.sh
+
+    - name: Build Linux Portable
+      run: ./scripts/build_linux_portable.sh
+
+    # Upload the results as Artifacts
+    - name: Upload Linux Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: Linux-Builds
+        path: releases/
+
+  # ==================================================
+  # JOB 3: Create Release (ONLY if it's a Tag)
+  # ==================================================
+  release:
+    needs: [build-windows, build-linux]
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+    - name: Download Windows Builds
+      uses: actions/download-artifact@v4
+      with:
+        name: Windows-Builds
+        path: dist/windows
+
+    - name: Download Linux Builds
+      uses: actions/download-artifact@v4
+      with:
+        name: Linux-Builds
+        path: dist/linux
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          dist/windows/*
+          dist/linux/*
