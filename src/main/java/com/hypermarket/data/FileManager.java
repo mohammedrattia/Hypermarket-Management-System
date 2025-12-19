@@ -18,11 +18,25 @@ import javafx.collections.ObservableList;
 public class FileManager {
     private static final String BASEPATH;
     static {
-        File localData = new File("data/");
+        File localData = new File("data");
         if (localData.exists() && localData.isDirectory()) {
-            BASEPATH = "data/";
+            BASEPATH = "data" + File.separator;
         } else {
-            BASEPATH = System.getProperty("user.home") + "/AppData/Local/MyJavaApp/";
+            String userHome = System.getProperty("user.home");
+            String os = System.getProperty("os.name").toLowerCase();
+
+            if (os.contains("win")) {
+                // Windows: C:\Users\Name\AppData\Local\HypermarketSystemData\
+                BASEPATH = userHome + File.separator + "AppData" + File.separator +
+                        "Local" + File.separator + "HypermarketSystemData" + File.separator;
+            } else {
+                // Linux/Mac: /home/name/HypermarketSystemData/
+                BASEPATH = userHome + File.separator + "HypermarketSystemData" + File.separator;
+            }
+        }
+        File directory = new File(BASEPATH);
+        if (!directory.exists()) {
+            directory.mkdirs();
         }
     }
     private static final String FILEEXTENSION = ".txt";
