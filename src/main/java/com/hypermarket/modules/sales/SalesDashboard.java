@@ -183,7 +183,10 @@ public class SalesDashboard {
         TableColumn<Order, Integer> colQty = createQuantityColumn();
         TableColumn<Order, Double> colTotal = createTotalColumn();
 
-        table.getColumns().addAll(colId, colTime, colQty, colTotal);
+        table.getColumns().add(colId);
+        table.getColumns().add(colTime);
+        table.getColumns().add(colQty);
+        table.getColumns().add(colTotal);
 
         return table;
     }

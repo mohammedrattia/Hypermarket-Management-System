@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 public class ProductCardController {
 
@@ -61,19 +63,31 @@ public class ProductCardController {
         String imgName = product.getImageName();
         File dir = new File(FileManager.PRODUCT_IMAGE_PATH);
 
-        File imageFile = new File(dir, imgName + ".png");
+        File imageFile = new File(dir, imgName);
+
+        if (!imageFile.exists())
+            imageFile = new File(dir, imgName + ".png");
         if (!imageFile.exists())
             imageFile = new File(dir, imgName + ".jpg");
         if (!imageFile.exists())
             imageFile = new File(dir, imgName + ".jpeg");
 
         if (imageFile.exists()) {
-            productImage.setImage(new Image(imageFile.toURI().toString()));
-        } else {
-            var stream = getClass().getResourceAsStream("/com/hypermarket/view/images/no_image.png");
-            if (stream != null) {
+            try (InputStream stream = new FileInputStream(imageFile)) {
                 productImage.setImage(new Image(stream));
+            } catch (Exception e) {
+                e.printStackTrace();
+                loadDefaultImage();
             }
+        } else {
+            loadDefaultImage();
+        }
+    }
+
+    private void loadDefaultImage() {
+        var stream = getClass().getResourceAsStream("/com/hypermarket/view/images/no_image.png");
+        if (stream != null) {
+            productImage.setImage(new Image(stream));
         }
     }
 }

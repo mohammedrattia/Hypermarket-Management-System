@@ -1,8 +1,9 @@
 package com.hypermarket.modules.inventory;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -101,30 +102,31 @@ public class ProductDetailsModalController {
         try {
             String imageName = product.getImageName();
             if (imageName != null && !imageName.equals("null") && !imageName.isEmpty()) {
-                File imageFile = new File(FileManager.PRODUCT_IMAGE_PATH + imageName);
+                File dir = new File(FileManager.PRODUCT_IMAGE_PATH);
+                File imageFile = new File(dir, imageName);
 
-                // If specific extension is missing, try finding the file with common extensions
                 if (!imageFile.exists()) {
-                    File pngFile = new File(FileManager.PRODUCT_IMAGE_PATH + imageName + ".png");
-                    File jpgFile = new File(FileManager.PRODUCT_IMAGE_PATH + imageName + ".jpg");
-                    File jpegFile = new File(FileManager.PRODUCT_IMAGE_PATH + imageName + ".jpeg");
+                    File png = new File(dir, imageName + ".png");
+                    File jpg = new File(dir, imageName + ".jpg");
+                    File jpeg = new File(dir, imageName + ".jpeg");
 
-                    if (pngFile.exists()) {
-                        imageFile = pngFile;
-                    } else if (jpgFile.exists()) {
-                        imageFile = jpgFile;
-                    } else if (jpegFile.exists()) {
-                        imageFile = jpegFile;
-                    }
+                    if (png.exists())
+                        imageFile = png;
+                    else if (jpg.exists())
+                        imageFile = jpg;
+                    else if (jpeg.exists())
+                        imageFile = jpeg;
                 }
 
                 if (imageFile.exists()) {
-                    productImage.setImage(new Image(imageFile.toURI().toURL().toString()));
+                    try (InputStream stream = new FileInputStream(imageFile)) {
+                        productImage.setImage(new Image(stream));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            } else {
-                // Load default or leave as is (placeholder in FXML)
             }
-        } catch (MalformedURLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -144,11 +146,12 @@ public class ProductDetailsModalController {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
         File file = fileChooser.showOpenDialog(nameField.getScene().getWindow());
+
         if (file != null) {
             selectedImageFile = file;
-            try {
-                productImage.setImage(new Image(file.toURI().toURL().toString()));
-            } catch (MalformedURLException e) {
+            try (InputStream stream = new FileInputStream(file)) {
+                productImage.setImage(new Image(stream));
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
