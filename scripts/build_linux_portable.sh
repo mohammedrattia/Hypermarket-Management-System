@@ -31,6 +31,7 @@ echo "[2/2] Creating Portable Folder with jpackage..."
 # Note: We use lowercase name to stay safe on Linux
 jpackage --input target \
          --name hypermarket-system-app \
+         --java-options "--enable-native-access=javafx.graphics" \
          --app-version 1.0 \
          --main-jar HypermarketSystemApp.jar \
          --main-class com.hypermarket.app.Launcher \

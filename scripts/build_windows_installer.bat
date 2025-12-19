@@ -34,6 +34,7 @@ echo.
 echo [2/2] Packaging Installer with jpackage...
 jpackage --input target ^
          --name "Hypermarket System App" ^
+         --java-options "--enable-native-access=javafx.graphics" ^
          --app-version 1.0 ^
          --main-jar HypermarketSystemApp.jar ^
          --main-class com.hypermarket.app.Launcher ^

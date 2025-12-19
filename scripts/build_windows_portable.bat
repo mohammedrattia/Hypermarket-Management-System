@@ -35,6 +35,7 @@ echo [2/2] Creating Portable Folder with jpackage...
 REM Note: We removed --win-menu, --win-shortcut, etc. because this is not an installer.
 jpackage --input target ^
          --name "Hypermarket System App" ^
+         --java-options "--enable-native-access=javafx.graphics" ^
          --app-version 1.0 ^
          --main-jar HypermarketSystemApp.jar ^
          --main-class com.hypermarket.app.Launcher ^

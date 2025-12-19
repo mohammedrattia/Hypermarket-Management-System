@@ -34,6 +34,7 @@ echo "[2/2] Packaging Installer with jpackage..."
 # Note: --name MUST be lowercase and no spaces for .deb
 jpackage --input target \
          --name hypermarket-system-app \
+         --java-options "--enable-native-access=javafx.graphics" \
          --app-version 1.0 \
          --main-jar HypermarketSystemApp.jar \
          --main-class com.hypermarket.app.Launcher \
