@@ -52,7 +52,7 @@ jpackage --input target --name Hypermarket-Management-System --app-version 1.0 -
 
 #### 🐧 Linux
 
-###### Debian Package (.deb)
+##### Debian Package (.deb)
 
 Run this on Ubuntu/Debian.
 
@@ -62,7 +62,7 @@ Run this on Ubuntu/Debian.
 jpackage --input target --name hypermarket-management-system --app-version 1.0 --main-jar main-1.0-SNAPSHOT.jar --main-class com.hypermarket.app.Launcher --type deb --description "Hypermarket Management System" --vendor "Abdallah R. Ali" --linux-menu-group "Office" --linux-shortcut --icon "src/main/resources/com/hypermarket/images/cart.png"
 ```
 
-###### Protable App Image
+##### Protable App Image
 
 Run this on Arch Linux.
 
