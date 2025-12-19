@@ -50,9 +50,11 @@ Creates a standalone folder containing the `.exe` and runtime.
 jpackage --input target --name Hypermarket-Management-System --app-version 1.0 --main-jar main-1.0-SNAPSHOT.jar --main-class com.hypermarket.app.Launcher --type app-image --description "Hypermarket Management System" --vendor "Abdallah R. Ali" --icon "src\main\resources\com\hypermarket\images\cart.ico"
 ```
 
-#### 🐧 Linux: Debian Package (.deb)
+#### 🐧 Linux
 
-_Run this on a Linux machine (Ubuntu/Debian)._
+##### Debian Package (.deb)
+
+Run this on Ubuntu/Debian.
 
 **Bash**
 
@@ -60,13 +62,25 @@ _Run this on a Linux machine (Ubuntu/Debian)._
 jpackage --input target --name hypermarket-management-system --app-version 1.0 --main-jar main-1.0-SNAPSHOT.jar --main-class com.hypermarket.app.Launcher --type deb --description "Hypermarket Management System" --vendor "Abdallah R. Ali" --linux-menu-group "Office" --linux-shortcut --icon "src/main/resources/com/hypermarket/images/cart.png"
 ```
 
+##### Protable App Image
+
+Run this on Arch Linux.
+
+Generates a standalone application directory. Useful for creating AUR packages or running portably.
+
+**Bash**
+
+```
+jpackage --input target --name hypermarket-management-system --app-version 1.0 --main-jar main-1.0-SNAPSHOT.jar --main-class com.hypermarket.app.Launcher --type app-image --description "Hypermarket Management System" --vendor "Malek A. Abido" --icon "src/main/resources/com/hypermarket/images/cart.png"
+```
+
 ## Default Credentials
 
 To access the system for the first time, use the default Administrator account:
 
-| **Role**  | **Email**          | **Password** |
-| --------- | ------------------ | ------------ |
-| **Admin** | `admin@system.com` | `admin`      |
+| **Role**  | **Email**      | **Password** |
+| --------------- | -------------------- | ------------------ |
+| **Admin** | `admin@system.com` | `admin`          |
 
 ---
 
