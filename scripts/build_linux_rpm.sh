@@ -5,7 +5,7 @@
 cd "$(dirname "$0")/.." || exit
 
 echo "========================================================"
-echo "     Hypermarket System - Linux Debian (.deb) Builder"
+echo "     Hypermarket System - Linux Rpmian (.rpm) Builder"
 echo "========================================================"
 
 # 2. Build JAR with Maven Wrapper
@@ -27,11 +27,11 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# 3. Create Debian Package
+# 3. Create Rpmian Package
 echo ""
 echo "[2/2] Packaging Installer with jpackage..."
 
-# Note: --name MUST be lowercase and no spaces for .deb
+# Note: --name MUST be lowercase and no spaces for .rpm
 jpackage --input target \
          --name hypermarket-system-app \
          --java-options "--enable-native-access=javafx.graphics" \
@@ -49,7 +49,7 @@ jpackage --input target \
 if [ $? -ne 0 ]; then
     echo ""
     echo "[ERROR] Installer creation failed!"
-    echo "Ensure you have 'fakeroot' and 'dpkg-deb' installed."
+    echo "Ensure you have 'fakeroot' and 'dpkg-rpm' installed."
     exit 1
 fi
 
@@ -58,10 +58,10 @@ echo ""
 echo "[INFO] Moving Installer to releases folder..."
 mkdir -p releases
 
-# Linux .deb files usually have version/arch in name (e.g. hypermarket-system-app_1.0-1_amd64.deb)
-# We move any matching .deb file found in the root
-if ls hypermarket-system-app*.deb 1> /dev/null 2>&1; then
-    mv -f hypermarket-system-app*.deb releases/
+# Linux .rpm files usually have version/arch in name (e.g. hypermarket-system-app_1.0-1_amd64.rpm)
+# We move any matching .rpm file found in the root
+if ls hypermarket-system-app*.rpm 1> /dev/null 2>&1; then
+    mv -f hypermarket-system-app*.rpm releases/
     echo "[INFO] Installer moved successfully."
 else
     echo "[ERROR] Installer file not found!"
