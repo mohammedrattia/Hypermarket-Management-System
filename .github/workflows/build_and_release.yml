@@ -19,21 +19,25 @@ jobs:
     - name: Set up JDK 25
       uses: actions/setup-java@v4
       with:
-        java-version: '25'         # FIX: Changed from 21 to 25 to match your project
+        java-version: '25'
         distribution: 'temurin'
 
-    # FIX: Use backslashes (\) and remove ./ for Windows
+    # 1. Build The Files
     - name: Build Windows Installer
       run: scripts\build_windows_installer.bat
 
     - name: Build Windows Portable
       run: scripts\build_windows_portable.bat
 
-    # We build the JAR here once. No need to do it again on Linux.
-    # Assumes the file is named 'build_jar.bat' as we created earlier.
     - name: Build Universal JAR
       run: scripts\build_windows_jar.bat
 
+    # 2. ZIP the Portable Folder (Crucial Step!)
+    # We turn the folder "Hypermarket System App" into "Hypermarket-Portable-Win.zip"
+    - name: Zip Windows Portable
+      run: Compress-Archive -Path "releases\Hypermarket System App" -DestinationPath "releases\Hypermarket-Portable-Win.zip"
+
+    # 3. Upload Results
     - name: Upload Windows Artifacts
       uses: actions/upload-artifact@v4
       with:
@@ -55,23 +59,28 @@ jobs:
         java-version: '25'
         distribution: 'temurin'
         
-    # FIX: Install tools for BOTH .deb (fakeroot) and .rpm (rpm)
     - name: Install Build Tools
       run: sudo apt-get install -y fakeroot rpm
 
     - name: Grant Permission
       run: chmod +x scripts/*.sh mvnw
 
+    # 1. Build The Files
     - name: Build Linux Debian
       run: ./scripts/build_linux_deb.sh
+
+    - name: Build Linux RPM
+      run: ./scripts/build_linux_rpm.sh
 
     - name: Build Linux Portable
       run: ./scripts/build_linux_portable.sh
 
-    # ✅ UNCOMMENTED and READY
-    - name: Build Linux RPM
-      run: ./scripts/build_linux_rpm.sh
+    # 2. ZIP the Portable Folder
+    # We turn the folder "hypermarket-system-app" into "Hypermarket-Portable-Linux.tar.gz"
+    - name: Zip Linux Portable
+      run: tar -czf releases/Hypermarket-Portable-Linux.tar.gz -C releases hypermarket-system-app
 
+    # 3. Upload Results
     - name: Upload Linux Artifacts
       uses: actions/upload-artifact@v4
       with:
@@ -101,9 +110,14 @@ jobs:
         name: Linux-Builds
         path: dist/linux
 
+    # This step takes all files and puts them on the Release Page
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          dist/windows/*
-          dist/linux/*
+          dist/windows/*.exe
+          dist/windows/*.jar
+          dist/windows/*.zip
+          dist/linux/*.deb
+          dist/linux/*.rpm
+          dist/linux/*.tar.gz
