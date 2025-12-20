@@ -4,6 +4,8 @@
 
 A desktop application designed to manage hypermarket operations, inventory, and staff.
 
+[Download Latest Version](https://github.com/mohammedrattia/Hypermarket-Management-System/releases/latest)
+
 ## Prerequisites
 
 Before running the build commands, ensure you have the following installed:
