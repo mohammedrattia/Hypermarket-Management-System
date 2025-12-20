@@ -1,3 +1,5 @@
+[![Build and Release](https://github.com/mohammedrattia/Hypermarket-Management-System/actions/workflows/build_and_release.yml/badge.svg)](https://github.com/mohammedrattia/Hypermarket-Management-System/actions/workflows/build_and_release.yml)
+
 # Hypermarket-Management-System
 
 A desktop application designed to manage hypermarket operations, inventory, and staff.
