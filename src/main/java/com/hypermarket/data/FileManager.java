@@ -30,8 +30,8 @@ public class FileManager {
                 BASEPATH = userHome + File.separator + "AppData" + File.separator +
                         "Local" + File.separator + "HypermarketSystemData" + File.separator;
             } else {
-                // Linux/Mac: /home/name/HypermarketSystemData/
-                BASEPATH = userHome + File.separator + "HypermarketSystemData" + File.separator;
+                // Linux/Mac: /home/name/.HypermarketSystemData/
+                BASEPATH = userHome + File.separator + ".HypermarketSystemData" + File.separator;
             }
         }
         File directory = new File(BASEPATH);
