@@ -1,24 +1,101 @@
 [![Build and Release](https://github.com/mohammedrattia/Hypermarket-Management-System/actions/workflows/build_and_release.yml/badge.svg)](https://github.com/mohammedrattia/Hypermarket-Management-System/actions/workflows/build_and_release.yml)
 
-# Hypermarket-Management-System
-
-A desktop application designed to manage hypermarket operations, inventory, and staff.
-
 [Download Latest Version](https://github.com/mohammedrattia/Hypermarket-Management-System/releases/latest)
 
-## Prerequisites
+# 🛒 Hypermarket Management System
 
-Before running the build commands, ensure you have the following installed:
+A full-featured desktop application designed to streamline retail operations. Built with **Java** and **JavaFX**, this system manages the entire flow of a hypermarket from the warehouse to the checkout counter.
 
-- **Java JDK 25** (Ensure `JAVA_HOME` is set correctly).
-- **Apache Maven** (Optional if using the included `mvnw` wrapper).
-- **WiX Toolset v3.11** (Required only for building the Windows Installer `.exe`).
+---
 
-## Build Instructions
+## Table of Contents
+* [About the Project](#-about-the-project)
+* [System Modules](#-system-modules)
+* [Technologies Used](#-technologies-used)
+* [Installation & Usage](#-installation--usage)
+    * [Prerequisites](#prerequisites)
+    * [For Developers (Source Code)](#for-developers)
+    * [Building Executable (Windows/Linux)](#building-executables)
 
+---
+
+## About the Project
+
+The **Hypermarket Management System** is an MVC-architected application that simulates real-world retail management. It solves the complexity of tracking inventory batches, managing employee roles, and processing sales transactions.
+
+It uses a custom **File I/O DataStore** to persist data, making the application portable and lightweight. (v1)
+
+---
+
+## 🚀 System Modules
+
+### Admin Module
+* **Employee Management:** Add, update, and delete employees with role-based access (Admin, Inventory, Sales, Marketing).
+* **Dashboard Analytics:** View real-time KPIs, active user counts, and visualized data via Pie Charts.
+* **Security:** Session-based authentication and secure password handling.
+
+### Inventory Module
+* **Product Management:** Create and edit products with images, categories, and descriptions.
+* **Batch Tracking:** Track specific batches for expiration dates and delivery schedules.
+* **Low Stock Alerts:** Automatic visual indicators for products falling below threshold levels.
+* **Advanced Search:** Filter products by ID, Name, Category, or Price using reflection-based dynamic filtering.
+
+### Sales Module
+* **Point of Sale (POS):** Add items to a cart, calculate totals, and process transactions.
+* **Receipt Generation:** Automatically generates PDF receipts for every order.
+* **Order History:** View recent orders and daily revenue stats.
+* **Returns Management:** Process product returns and update inventory automatically.
+
+### Marketing Module
+* **Offers & Promos:** Manage discounts on specific products.
+* **Reports:** Generate sales and inventory reports.
+
+---
+
+## Technologies Used
+
+* **Language:** [Java 25](https://www.oracle.com/java/technologies/downloads/#java25)
+* **UI Framework:** [JavaFX](https://openjfx.io/)
+* **Build Tool:** [Maven](https://maven.apache.org/)
+* **Styling:** CSS (Custom stylesheets for every view)
+* **Persistence:** Custom File I/O (Serialization & Text Parsing)
+* **Libraries:**
+    * `iText`
+    * `JavaFX Controls`
+    * `Ikonli`
+
+---
+
+## 📥 Installation & Usage
+
+### Prerequisites
+1.  **Java JDK 25** (Ensure `JAVA_HOME` is set correctly).
+2.  **Apache Maven** (Optional if using the included `mvnw` wrapper).
+3.  **WiX Toolset v3.11** (Required only for building the Windows Installer `.exe`).
+
+
+### For Developers
+If you want to run the code directly from your IDE (VS Code, IntelliJ, Eclipse):
+
+1.  **Clone the repository**
+    ```bash
+    git clone [https://github.com/mohammedrattia/Hypermarket-Management-System.git](https://github.com/mohammedrattia/Hypermarket-Management-System.git)
+    cd Hypermarket-Management-System
+    ```
+
+2.  **Run with Maven**
+    ```bash
+    # Linux / Mac
+    ./mvnw javafx:run
+
+    # Windows
+    mvnw javafx:run
+    ```
+
+### Building Executables
 The project includes automated scripts in the `scripts/` directory to handle building, packaging, and cleanup. All final output files will be automatically moved to the `releases/` folder.
 
-### 🪟 Windows Users
+#### 🪟 Windows
 
 Run these scripts by double-clicking them or executing them in Command Prompt/PowerShell.
 
@@ -48,7 +125,7 @@ _Output:_ `releases\HypermarketSystemApp.jar`
 
 ---
 
-### 🐧 Linux Users
+#### 🐧 Linux
 
 Ensure scripts are executable first (`chmod +x scripts/*.sh`).
 
@@ -83,36 +160,6 @@ To access the system for the first time, use the default Administrator account:
 | **Role**  | **Email**          | **Password** |
 | --------- | ------------------ | ------------ |
 | **Admin** | `admin@system.com` | `admin`      |
-
----
-
-## System Modules
-
-The application is divided into four distinct modules based on user roles, ensuring secure and organized operations:
-
-### 1. Admin Module
-
-- **User Management:** Add, update, and remove employees.
-- **System Oversight:** Monitor employees and manage system access.
-- **Security:** Only Admins can create new accounts for other roles.
-
-### 2. Sales Module
-
-- **Point of Sale (POS):** Create new orders and process transactions.
-- **Receipt Generation:** Automatically generates PDF receipts for customers.
-- **Returns Management:** Handle item returns and calculate refunds based on original purchase price.
-
-### 3. Inventory Module
-
-- **Stock Management:** Add new products and monitor quantity levels.
-- **Batch Tracking:** Track expiry dates and delivery dates for specific product batches.
-- **Low Stock Alerts:** Dashboard highlights products falling below threshold levels.
-- **Expiry Alerts:** Identifies batches expiring within the next 7 days.
-
-### 4. Marketing Module
-
-- **Offer Management:** Create and schedule discounts for products.
-- **Reporting:** Generate reports on active offers, expired offers, and discount effectiveness.
 
 ---
 
