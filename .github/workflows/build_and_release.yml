@@ -32,31 +32,39 @@ jobs:
     - name: Build Universal JAR
       run: scripts\build_windows_jar.bat
 
-    - name: Zip Windows Portable
-      run: Compress-Archive -Path "releases\Hypermarket System App" -DestinationPath "releases\Hypermarket-Portable-Win.zip"
-
-    # --- UPLOAD SEPARATE ARTIFACTS (3 Files) ---
+    # --- RENAME & ZIP STEPS (The Magic Step) ---
     
-    # 1. JAR
+    # 1. Rename EXE: "Hypermarket System App.exe" -> "Hypermarket System App Windows.exe"
+    - name: Rename Windows Installer
+      run: Move-Item -Path "releases\Hypermarket System App.exe" -Destination "releases\Hypermarket-System-App-Windows.exe"
+
+    # 2. Rename JAR: "HypermarketSystemApp.jar" -> "Hypermarket System App Universal.jar"
+    - name: Rename Universal JAR
+      run: Move-Item -Path "releases\HypermarketSystemApp.jar" -Destination "releases\Hypermarket-System-App-Universal.jar"
+
+    # 3. Zip Portable: Create "Hypermarket System Portable Windows.zip" directly
+    - name: Zip Windows Portable
+      run: Compress-Archive -Path "releases\Hypermarket System App" -DestinationPath "releases\Hypermarket-System-Portable-Windows.zip"
+
+    # --- UPLOAD SEPARATE ARTIFACTS ---
+    
     - name: Upload Universal JAR
       uses: actions/upload-artifact@v4
       with:
         name: Universal-JAR
-        path: releases/HypermarketSystemApp.jar
+        path: "releases/Hypermarket-System-App-Universal.jar"
 
-    # 2. EXE
     - name: Upload Windows Installer
       uses: actions/upload-artifact@v4
       with:
         name: Windows-Installer
-        path: "releases/Hypermarket System App.exe"
+        path: "releases/Hypermarket-System-App-Windows.exe"
 
-    # 3. Windows Portable ZIP
     - name: Upload Windows Portable
       uses: actions/upload-artifact@v4
       with:
         name: Windows-Portable
-        path: releases/Hypermarket-Portable-Win.zip
+        path: "releases/Hypermarket-System-Portable-Windows.zip"
 
   # ==================================================
   # JOB 2: Build Linux Versions
@@ -89,34 +97,42 @@ jobs:
     - name: Build Linux Portable
       run: ./scripts/build_linux_portable.sh
 
+    # --- RENAME & ZIP STEPS (The Magic Step) ---
+
+    # 1. Rename DEB (e.g. hypermarket_1.0.deb -> Hypermarket System App Linux.deb)
+    - name: Rename Deb to Static
+      run: mv releases/*.deb "releases/Hypermarket-System-App-Linux.deb"
+
+    # 2. Rename RPM (e.g. hypermarket-1.0.rpm -> Hypermarket System App Linux.rpm)
+    - name: Rename RPM to Static
+      run: mv releases/*.rpm "releases/Hypermarket-System-App-Linux.rpm"
+
+    # 3. Zip Portable: Create "Hypermarket System Portable Linux.tar.gz" directly
     - name: Zip Linux Portable
-      run: tar -czf releases/Hypermarket-Portable-Linux.tar.gz -C releases hypermarket-system-app
+      run: tar -czf "releases/Hypermarket-System-Portable-Linux.tar.gz" -C releases hypermarket-system-app
 
-    # --- UPLOAD SEPARATE ARTIFACTS (3 Files) ---
+    # --- UPLOAD SEPARATE ARTIFACTS ---
 
-    # 4. DEB
     - name: Upload Linux Debian
       uses: actions/upload-artifact@v4
       with:
         name: Linux-Debian
-        path: releases/*.deb
+        path: "releases/Hypermarket-System-App-Linux.deb"
 
-    # 5. RPM
     - name: Upload Linux RPM
       uses: actions/upload-artifact@v4
       with:
         name: Linux-RPM
-        path: releases/*.rpm
+        path: "releases/Hypermarket-System-App-Linux.rpm"
 
-    # 6. Linux Portable TAR
     - name: Upload Linux Portable
       uses: actions/upload-artifact@v4
       with:
         name: Linux-Portable
-        path: releases/*.tar.gz
+        path: "releases/Hypermarket-System-Portable-Linux.tar.gz"
 
   # ==================================================
-  # JOB 3: Create Release (ONLY if it's a Tag)
+  # JOB 3: Create Release
   # ==================================================
   release:
     needs: [build-windows, build-linux]
@@ -126,8 +142,6 @@ jobs:
       contents: write
       
     steps:
-    # We download ALL artifacts to the 'dist' folder
-    # 'merge-multiple: true' removes the folders and dumps all 6 files directly into 'dist'
     - name: Download All Artifacts
       uses: actions/download-artifact@v4
       with:
@@ -138,17 +152,9 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         name: "Hypermarket System ${{ github.ref_name }}" 
-        
         body: |
           ## 🚀 New Release
           This is the latest version of the Hypermarket Management System.
-          
-          ### ✅ Features
-          - Windows Installer (.exe)
-          - Linux Installer (.deb / .rpm)
-          - Portable versions for both OS
-          
-          ### 📥 Installation
-          Download the file matching your OS from the "Assets" section below.
-        
+          ### 📥 Download
+          See the assets section below or use the direct links in the README.
         files: dist/*
