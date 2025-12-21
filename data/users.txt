@@ -11,6 +11,3 @@
 11;Ahmed;Alaa;user_011.png;MARKETING;01129012900;ahmed@marketing.com;ahmed;60000.0
 12;Kamel;Rahman;user_012.png;MARKETING;01101011001;kamel@system.com;74108520;100000.0
 13;Jack;Sparrow;user_013.png;ADMIN;12345496;jack@gmail.com;jack;99999.0
-13;William;Kanaba;user_013.png;ADMIN;12345496;jack@gmail.com;jack;99999.0
-13;Ana;Wilson;user_013.png;ADMIN;12345496;jack@gmail.com;jack;99999.0
-13;Ish;Jackson;user_013.png;ADMIN;12345496;jack@gmail.com;jack;99999.0
