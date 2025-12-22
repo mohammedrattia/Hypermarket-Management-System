@@ -1,6 +1,9 @@
 package com.hypermarket.entities;
 
+import java.io.File;
+
 import com.hypermarket.data.DataStore;
+import com.hypermarket.data.FileManager;
 
 import javafx.collections.ObservableList;
 
@@ -67,11 +70,35 @@ public class Admin extends User {
 
     public void deleteUser(int id) {
         ObservableList<User> users = DataStore.getDataStore().getUsers();
-        boolean removed = users.removeIf(user -> user.getID() == id);
+        User userToDelete = null;
 
-        if (removed) {
-            DataStore.getDataStore().saveAllData();
-            System.out.println("User deleted");
+        for (User user : users) {
+            if (user.getID() == id) {
+                userToDelete = user;
+                break;
+            }
+        }
+        if (userToDelete != null) {
+            deleteUserPhoto(userToDelete.getImage());
+
+            users.remove(userToDelete);
+        } else {
+            System.out.println("User not found.");
+        }
+    }
+
+    private void deleteUserPhoto(String imageName) {
+        try {
+            File file = new File(FileManager.USER_IMAGE_PATH + imageName);
+            if (file.exists()) {
+                if (file.delete()) {
+                    System.out.println("Image file deleted: " + imageName);
+                } else {
+                    System.err.println("Failed to delete image file: " + imageName);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error deleting photo: " + e.getMessage());
         }
     }
 }
