@@ -7,6 +7,7 @@ import com.hypermarket.entities.User;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -109,8 +110,11 @@ public class AddEmployeeController implements Initializable {
 
         dataStore.getUsers().add(newUser);
 
-        System.out
-                .println("New employee added and data saved to file: " + newUser.getFName() + " " + newUser.getLName());
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Operation Successful");
+        alert.setHeaderText(null);
+        alert.setContentText("Employee " + newUser.getFName() + " " + newUser.getLName() + " added successfully.");
+        alert.showAndWait();
 
         clearForm();
     }
