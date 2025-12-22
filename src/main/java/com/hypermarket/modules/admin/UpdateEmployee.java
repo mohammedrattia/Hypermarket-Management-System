@@ -129,7 +129,6 @@ public class UpdateEmployee implements Initializable {
         user.setRole(Role.valueOf(roleComboBox.getValue().toUpperCase()));
         user.setSalary(Double.parseDouble(salaryField.getText()));
 
-        // Only update password if user entered a new one
         if (!newPassField.getText().trim().isEmpty()) {
             user.setPassword(newPassField.getText());
         }
