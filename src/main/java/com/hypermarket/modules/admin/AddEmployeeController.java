@@ -113,7 +113,7 @@ public class AddEmployeeController implements Initializable {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Operation Successful");
         alert.setHeaderText(null);
-        alert.setContentText("Employee " + newUser.getFName() + " " + newUser.getLName() + " added successfully.");
+        alert.setContentText("Employee " + newUser.getFullName() + " added successfully.");
         alert.showAndWait();
 
         clearForm();
