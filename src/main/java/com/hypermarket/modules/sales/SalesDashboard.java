@@ -9,7 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -279,7 +278,6 @@ public class SalesDashboard {
             KpiCardController controller = loader.getController();
             controller.setData(title, value, trend, isPositive);
 
-            ((VBox) node).setAlignment(Pos.TOP_CENTER);
             HBox.setHgrow(node, Priority.ALWAYS);
             ((VBox) node).setMaxWidth(Double.MAX_VALUE);
             return node;

@@ -72,7 +72,8 @@ public class AddEmployeeController implements Initializable {
     private void handleImageSelection(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Profile Image");
-        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.png");
+        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files",
+                FileManager.IMAGEEXTENSIONS);
         fileChooser.getExtensionFilters().add(imageFilter);
 
         File file = fileChooser.showOpenDialog(uploadImageBtn.getScene().getWindow());

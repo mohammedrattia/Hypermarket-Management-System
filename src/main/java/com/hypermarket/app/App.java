@@ -72,7 +72,6 @@ public class App extends Application {
                                                         break;
                                         }
                                 }
-
                         } catch (IOException e) {
                                 e.printStackTrace();
                         }

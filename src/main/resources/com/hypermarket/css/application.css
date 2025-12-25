@@ -55,10 +55,15 @@
   -fx-cursor: hand;
 }
 
-.menu-item:hover,
-.active-label {
+.menu-item:hover
+{
   -fx-background-color: rgba(255, 255, 255, 0.15);
   -fx-scale-x: 1.05;
+  -fx-scale-y: 1.05;
+}
+
+.active-label{
+    -fx-scale-x: 1.05;
   -fx-scale-y: 1.05;
 }
 
@@ -201,12 +206,10 @@
 .menu-text {
   -fx-font-size: 16px;
   -fx-max-width: 150px;
-
 }
 
 .menu-icon-box {
   -fx-alignment: center;
   -fx-min-width: 30px;
   -fx-max-width: 30px;
-
 }

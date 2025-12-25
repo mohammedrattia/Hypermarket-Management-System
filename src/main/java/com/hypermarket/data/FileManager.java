@@ -11,6 +11,8 @@ import java.io.PrintWriter;
 import java.nio.file.*;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,6 +41,8 @@ public class FileManager {
             directory.mkdirs();
         }
     }
+
+    public static final ArrayList<String> IMAGEEXTENSIONS = new ArrayList<>(List.of("*.png", "*.jpg", "*.jpeg"));
     private static final String FILEEXTENSION = ".txt";
     public static final String PRODUCT_IMAGE_PATH = BASEPATH + "ProductImages/";
     public static final String USER_IMAGE_PATH = BASEPATH + "ProfileImages/";

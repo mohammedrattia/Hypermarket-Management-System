@@ -1,8 +1,9 @@
+.main-modal-container .viewport{
+  -fx-background-color: white;
+}
+
 .modal-container {
   -fx-background-color: white;
-  -fx-border-color: #e0e0e0;
-  -fx-border-width: 1;
-  -fx-background-radius: 12;
 }
 
 .modal-name {

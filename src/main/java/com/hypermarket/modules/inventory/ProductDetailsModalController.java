@@ -144,7 +144,7 @@ public class ProductDetailsModalController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Product Image");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
+                new FileChooser.ExtensionFilter("Image Files", FileManager.IMAGEEXTENSIONS));
         File file = fileChooser.showOpenDialog(nameField.getScene().getWindow());
 
         if (file != null) {

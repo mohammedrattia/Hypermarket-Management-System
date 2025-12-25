@@ -55,6 +55,7 @@ public class ListReturns implements Initializable {
             return;
         }
 
+        showAlert("Success", "Item re-added to stock (Nearest Expiry Batch updated).");
         DataStore db = DataStore.getDataStore();
 
         Product product = selectedReturn.getProduct();
@@ -79,7 +80,6 @@ public class ListReturns implements Initializable {
 
         returnsTable.clearSelection();
         selectedReturn = null;
-        showAlert("Success", "Item re-added to stock (Nearest Expiry Batch updated).");
     }
 
     @FXML
@@ -89,11 +89,11 @@ public class ListReturns implements Initializable {
             return;
         }
 
+        showAlert("Deleted", "Returned order discarded as damaged/waste.");
         DataStore.getDataStore().getReturns().remove(selectedReturn);
 
         returnsTable.clearSelection();
         selectedReturn = null;
-        showAlert("Deleted", "Returned order discarded as damaged/waste.");
     }
 
     private void showAlert(String title, String content) {

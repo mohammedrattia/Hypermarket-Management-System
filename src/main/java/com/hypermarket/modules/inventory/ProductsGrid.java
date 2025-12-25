@@ -39,7 +39,7 @@ public class ProductsGrid {
 
     private ScrollPane scrollPane;
     private VBox allScene;
-    private TilePane grid;
+    private TilePane tilePane;
 
     private HBox toolBar;
     private TextField searchField;
@@ -62,16 +62,17 @@ public class ProductsGrid {
 
         setProductList();
 
-        grid = new TilePane();
-        grid.setHgap(20);
-        grid.setVgap(20);
-        grid.setPadding(new Insets(30, 10, 30, 10));
-        grid.setAlignment(Pos.TOP_CENTER);
+        tilePane = new TilePane();
+        tilePane.setPrefHeight(800);
+        tilePane.setHgap(20);
+        tilePane.setVgap(20);
+        tilePane.setPadding(new Insets(30, 10, 30, 10));
+        tilePane.setAlignment(Pos.TOP_CENTER);
 
         scrollPane = new ScrollPane();
         scrollPane.setFitToWidth(true);
         scrollPane.setStyle("-fx-background-color: transparent;");
-        scrollPane.setContent(grid);
+        scrollPane.setContent(tilePane);
 
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -155,12 +156,12 @@ public class ProductsGrid {
     }
 
     private void refreshGrid() {
-        grid.getChildren().clear();
+        tilePane.getChildren().clear();
 
         for (Product product : sortedData) {
             Parent card = loadProductCard(product);
             if (card != null) {
-                grid.getChildren().add(card);
+                tilePane.getChildren().add(card);
             }
         }
     }

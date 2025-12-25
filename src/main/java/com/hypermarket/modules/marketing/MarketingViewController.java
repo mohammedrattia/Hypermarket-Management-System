@@ -16,7 +16,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -104,19 +103,18 @@ public class MarketingViewController extends ViewController implements Initializ
 
         DataStore db = DataStore.getDataStore();
 
-        // KPIs
         kpiContainer.getChildren().addAll(
-                loadKpiCard("Total Offers", String.valueOf(db.getOffers().size()), "5%", true),
+                loadKpiCard("Total Offers", String.valueOf(db.getOffers().size()), "", true),
                 loadKpiCard("Active Offers",
                         String.valueOf(
                                 db.getOffers().stream().filter(o -> o.getManualStatus() == Offer.Status.ACTIVE)
                                         .count()),
-                        "2%", true),
+                        "", true),
                 loadKpiCard("Expired Offers",
                         String.valueOf(
                                 db.getOffers().stream().filter(o -> o.getManualStatus() == Offer.Status.EXPIRED)
                                         .count()),
-                        "1%", false));
+                        "", false));
 
         // TableView of Offers
         ObservableList<Offer> offers = FXCollections.observableArrayList(db.getOffers());
@@ -127,6 +125,9 @@ public class MarketingViewController extends ViewController implements Initializ
             loader.setController(tableController);
             tableController.setColumnFormatter("product", obj -> {
                 return (obj != null) ? ((Product) obj).getName() : "Unknown";
+            });
+            tableController.setColumnFormatter("discount", obj -> {
+                return String.format("%3.0f%%", obj);
             });
             Parent tableNode = loader.load();
             tableContainer.getChildren().clear();
@@ -143,7 +144,6 @@ public class MarketingViewController extends ViewController implements Initializ
             Parent node = loader.load();
             KpiCardController controller = loader.getController();
             controller.setData(title, value, trend, isPositive);
-            ((VBox) node).setAlignment(Pos.TOP_CENTER);
             HBox.setHgrow(node, Priority.ALWAYS);
             ((VBox) node).setMaxWidth(Double.MAX_VALUE);
             return node;

@@ -14,7 +14,6 @@ import com.hypermarket.service.Session;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.ScrollPane;
@@ -102,7 +101,6 @@ public class DashboardHome {
 
             KpiCardController controller = loader.getController();
             controller.setData(title, value, trend, isPositive);
-            ((VBox) node).setAlignment(Pos.TOP_CENTER);
             HBox.setHgrow(node, Priority.ALWAYS);
             ((VBox) node).setMaxWidth(Double.MAX_VALUE);
 
