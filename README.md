@@ -1,4 +1,4 @@
-[![Build and Release](https://github.com/mohammedrattia/Hypermarket-Management-System/actions/workflows/build_and_release.yml/badge.svg)](https://github.com/mohammedrattia/Hypermarket-Management-System/actions/workflows/test_and_build.yml)
+[![Test and Build](https://github.com/mohammedrattia/Hypermarket-Management-System/actions/workflows/test_and_build.yml/badge.svg)](https://github.com/mohammedrattia/Hypermarket-Management-System/actions/workflows/test_and_build.yml)
 [![GitHub Release](https://img.shields.io/github/v/release/mohammedrattia/Hypermarket-Management-System)](https://github.com/mohammedrattia/Hypermarket-Management-System/releases/latest)
 
 # 🛒 Hypermarket Management System
