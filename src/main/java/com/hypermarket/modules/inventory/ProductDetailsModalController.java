@@ -183,7 +183,6 @@ public class ProductDetailsModalController {
         grid.add(new Label("Expiry Date:"), 0, 2);
         grid.add(expiryDate, 1, 2);
 
-        // Add styling to dialog
         try {
             dialog.getDialogPane().getScene().getStylesheets()
                     .add(getClass().getResource("/com/hypermarket/css/ProductDetailsModal.css").toExternalForm());
@@ -195,10 +194,8 @@ public class ProductDetailsModalController {
                 cancelButton.getStyleClass().add("btn-secondary");
             }
 
-            // Set initial disabled state
             addButton.setDisable(true);
 
-            // Re-assign addButton for listener use
             final Node finalAddButton = addButton;
             quantity.textProperty().addListener((observable, oldValue, newValue) -> {
                 finalAddButton.setDisable(newValue.trim().isEmpty());
@@ -206,7 +203,6 @@ public class ProductDetailsModalController {
         } catch (Exception e) {
             System.err.println("Could not load CSS for dialog");
             e.printStackTrace();
-            // Fallback if CSS fails
             Node addButton = dialog.getDialogPane().lookupButton(addButtonType);
             addButton.setDisable(true);
             quantity.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -223,10 +219,8 @@ public class ProductDetailsModalController {
                     LocalDate del = deliveryDate.getValue();
                     LocalDate exp = expiryDate.getValue();
 
-                    // Generate ID
                     int newId = generateBatchId();
 
-                    // batchID;productID;quantity;deliveryDate;expiryDate
                     String record = newId + FileManager.DELIMETER +
                             product.getProductID() + FileManager.DELIMETER +
                             qty + FileManager.DELIMETER +
@@ -246,7 +240,7 @@ public class ProductDetailsModalController {
 
         result.ifPresent(batch -> {
             DataStore.getDataStore().getBatches().add(batch);
-            product.setQuantity(product.getQuantity() + batch.getQuantity()); // Update product quantity
+            product.setQuantity(product.getQuantity() + batch.getQuantity());
             DataStore.getDataStore().saveAllData();
             loadBatches();
             quantityField.setText(String.valueOf(product.getQuantity()));
@@ -321,20 +315,63 @@ public class ProductDetailsModalController {
                         .filter(b -> b.getProduct().getProductID() == product.getProductID()).count()
                 +
                 ") will also be removed.");
+        alert.showAndWait();
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Cascade delete batches
-            DataStore.getDataStore().getBatches()
-                    .removeIf(b -> b.getProduct().getProductID() == product.getProductID());
+        try {
+            if (productImage.getImage() != null) {
+                productImage.setImage(null);
+            }
+            System.gc();
 
-            // Delete product
-            DataStore.getDataStore().getProducts().remove(product);
+            File imageFile = resolveImageFile(product.getImageName());
 
-            DataStore.getDataStore().saveAllData();
+            if (imageFile != null && imageFile.exists()) {
+                boolean deleted = imageFile.delete();
+                if (!deleted) {
+                    System.err.println("Failed to delete image file (System Lock?): " + imageFile.getAbsolutePath());
 
-            closeModal();
+                    imageFile.deleteOnExit();
+                } else {
+                    System.out.println("Image deleted successfully.");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error attempting to delete image file.");
+            e.printStackTrace();
         }
+
+        DataStore.getDataStore().getBatches()
+                .removeIf(b -> b.getProduct().getProductID() == product.getProductID());
+
+        DataStore.getDataStore().getProducts().remove(product);
+
+        DataStore.getDataStore().saveAllData();
+
+        closeModal();
+    }
+
+    private File resolveImageFile(String imageName) {
+        if (imageName == null || imageName.equals("null") || imageName.isEmpty()) {
+            return null;
+        }
+
+        File dir = new File(FileManager.PRODUCT_IMAGE_PATH);
+        File imageFile = new File(dir, imageName);
+
+        if (!imageFile.exists()) {
+            File png = new File(dir, imageName + ".png");
+            File jpg = new File(dir, imageName + ".jpg");
+            File jpeg = new File(dir, imageName + ".jpeg");
+
+            if (png.exists())
+                return png;
+            if (jpg.exists())
+                return jpg;
+            if (jpeg.exists())
+                return jpeg;
+        }
+
+        return imageFile;
     }
 
     @FXML
