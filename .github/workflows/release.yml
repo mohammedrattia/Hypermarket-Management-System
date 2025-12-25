@@ -7,9 +7,10 @@ on:
 
 jobs:
     # ==================================================
-    # JOB 2: Run Tests
+    # JOB 1: Run Tests
     # ==================================================
     test:
+        name: Unit Tests
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -24,7 +25,7 @@ jobs:
               run: ./mvnw test
 
     # ==================================================
-    # JOB 2: Build Windows
+    # JOB 2: Build Windows Versions + Universal JAR
     # ==================================================
     build-windows:
         needs: test
@@ -53,7 +54,7 @@ jobs:
                   path: releases/*
 
     # ==================================================
-    # JOB 3: Build Linux
+    # JOB 3: Build Linux Versions
     # ==================================================
     build-linux:
         needs: test
