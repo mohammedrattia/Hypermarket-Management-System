@@ -126,6 +126,14 @@ public class AddProductController {
             }
             Product newProduct = new Product(newID, name, category, description, 0, price, size, threshold);
             inventorySystem.addProduct(newProduct);
+
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Operation Successful");
+            alert.setHeaderText(null);
+            alert.setContentText("Product " + newProduct.getName()
+                    + " added successfully.");
+            alert.showAndWait();
+
             clearAllFields();
         } catch (Exception e) {
             e.printStackTrace();
