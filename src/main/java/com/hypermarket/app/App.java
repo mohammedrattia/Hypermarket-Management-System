@@ -9,6 +9,7 @@ import com.hypermarket.modules.user.LoginController;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -23,8 +24,6 @@ import com.hypermarket.service.Session;
  * JavaFX App
  */
 public class App extends Application {
-
-    private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -50,7 +49,7 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(
                 App.class.getResource("/com/hypermarket/view/user/Login.fxml"));
 
-        scene = new Scene(fxmlLoader.load());
+        Parent newScene = fxmlLoader.load();
 
         LoginController controller = fxmlLoader.getController();
         controller.setOnLoginSuccess(() -> {
@@ -76,16 +75,14 @@ public class App extends Application {
                 e.printStackTrace();
             }
         });
-
-        stage.setScene(scene);
-        stage.show();
+        switchScene(stage, newScene);
     }
 
     private static void loadAdminScene(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(
                 App.class.getResource("/com/hypermarket/view/admin/AdminView.fxml"));
 
-        scene = new Scene(fxmlLoader.load());
+        Parent newScene = fxmlLoader.load();
         AdminViewController controller = fxmlLoader.getController();
         controller.setOnLogout(() -> {
             Authenticator.logout();
@@ -95,16 +92,14 @@ public class App extends Application {
                 e.printStackTrace();
             }
         });
-
-        stage.setScene(scene);
-        stage.show();
+        switchScene(stage, newScene);
     }
 
     private static void loadSalesScene(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(
                 App.class.getResource("/com/hypermarket/view/sales/SalesView.fxml"));
 
-        scene = new Scene(fxmlLoader.load());
+        Parent newScene = fxmlLoader.load();
         SalesViewController controller = fxmlLoader.getController();
         controller.setOnLogout(() -> {
             Authenticator.logout();
@@ -114,16 +109,14 @@ public class App extends Application {
                 e.printStackTrace();
             }
         });
-
-        stage.setScene(scene);
-        stage.show();
+        switchScene(stage, newScene);
     }
 
     private static void loadInventoryScene(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(
                 App.class.getResource("/com/hypermarket/view/inventory/InventoryView.fxml"));
 
-        scene = new Scene(fxmlLoader.load());
+        Parent newScene = fxmlLoader.load();
         InventoryViewController controller = fxmlLoader.getController();
         controller.setOnLogout(() -> {
             Authenticator.logout();
@@ -133,15 +126,13 @@ public class App extends Application {
                 e.printStackTrace();
             }
         });
-
-        stage.setScene(scene);
-        stage.show();
+        switchScene(stage, newScene);
     }
 
     private static void loadMarketingScene(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(
                 App.class.getResource("/com/hypermarket/view/marketing/MarketingView.fxml"));
-        scene = new Scene(fxmlLoader.load());
+        Parent newScene = fxmlLoader.load();
         MarketingViewController controller = fxmlLoader.getController();
         controller.setOnLogout(() -> {
             Authenticator.logout();
@@ -151,9 +142,19 @@ public class App extends Application {
                 e.printStackTrace();
             }
         });
+        switchScene(stage, newScene);
+    }
 
-        stage.setScene(scene);
-        stage.show();
+    private static void switchScene(Stage stage, Parent newScene) {
+        Scene currentScene = stage.getScene();
+        if (currentScene == null) {
+            currentScene = new Scene(newScene);
+            stage.setMaximized(true);
+            stage.setScene(currentScene);
+            stage.show();
+        } else {
+            currentScene.setRoot(newScene);
+        }
     }
 
     public static void main(String[] args) {
