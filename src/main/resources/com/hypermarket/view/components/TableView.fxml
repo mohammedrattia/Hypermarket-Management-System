@@ -12,38 +12,33 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="listContainer" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-   minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="776.0"
-   styleClass="list-container" stylesheets="@../../css/TableView.css"
-   xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<VBox id="listContainer" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="776.0" styleClass="list-container" stylesheets="@../../css/TableView.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox id="toolbar" prefHeight="46.0" prefWidth="776.0" styleClass="toolbar">
          <children>
             <Label prefHeight="27.0" prefWidth="60.0" text="Filter:" />
-            <ChoiceBox fx:id="filterButton" maxWidth="1.7976931348623157E308" prefHeight="29.0"
-               prefWidth="66.0" styleClass="button" />
+            <ChoiceBox fx:id="filterButton" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="118.0" styleClass="button" />
             <Region prefHeight="31.0" prefWidth="30.0" styleClass="separation-region" />
-            <ChoiceBox fx:id="filterChoice" maxWidth="1.7976931348623157E308" prefWidth="150.0"
-               styleClass="button" />
+            <ChoiceBox fx:id="filterChoice" maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="button" />
             <Region prefHeight="31.0" prefWidth="30.0" styleClass="separation-region" />
-            <TextField fx:id="searchField" prefHeight="31.0" prefWidth="416.0"
-               promptText="Search..." HBox.hgrow="ALWAYS" />
+            <TextField fx:id="searchField" prefHeight="31.0" prefWidth="416.0" promptText="Search..." HBox.hgrow="ALWAYS" />
             <Region prefHeight="31.0" prefWidth="30.0" styleClass="separation-region" />
-            <MenuButton id="columnsMenuButton" fx:id="columnsCheckMenu" mnemonicParsing="false"
-               prefHeight="29.0" prefWidth="108.0" text="Columns">
+            <MenuButton id="columnsMenuButton" fx:id="columnsCheckMenu" mnemonicParsing="false" prefHeight="27.0" prefWidth="136.0" text="Columns">
                <styleClass>
                   <String fx:value="columns-menu-button" />
                   <String fx:value="button" />
                </styleClass>
                <items>
                   <CheckMenuItem fx:id="allItems" mnemonicParsing="false" text="Select All" />
+                  <CheckMenuItem mnemonicParsing="false" text="Select All" />
+                  <CheckMenuItem mnemonicParsing="false" text="Select All" />
+                  <CheckMenuItem mnemonicParsing="false" text="Select All" />
+                  <CheckMenuItem mnemonicParsing="false" text="Select All" />
                </items>
             </MenuButton>
          </children>
       </HBox>
-      <TableView id="tableView" fx:id="tableView" maxHeight="1.7976931348623157E308"
-         maxWidth="1.7976931348623157E308" prefWidth="750.0" styleClass="table-view"
-         VBox.vgrow="ALWAYS">
+      <TableView id="tableView" fx:id="tableView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="750.0" styleClass="table-view" VBox.vgrow="ALWAYS">
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
