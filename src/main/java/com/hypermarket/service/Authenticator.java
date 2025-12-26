@@ -11,7 +11,7 @@ public class Authenticator {
                 return;
             }
         }
-        throw new Exception("User Not Found.");
+        throw new Exception("Invalid Credentials!!");
     }
 
     public static void logout() {
