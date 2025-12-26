@@ -12,134 +12,134 @@
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <HBox fx:id="mainContainer" prefHeight="640.0" prefWidth="1030.0" styleClass="main-container"
-   xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
-   fx:controller="com.hypermarket.modules.sales.MakeOrder">
-   <stylesheets>
-      <URL value="@../../css/MakeOrder.css" />
-   </stylesheets>
-   <children>
-      <VBox fx:id="sideBarPanel" prefHeight="640.0" prefWidth="400.0" style="-fx-border-width: 1;"
-         styleClass="sidebar-panel">
-         <children>
-            <HBox fx:id="topBarButtons" alignment="CENTER" prefHeight="60.0" styleClass="topbar">
-               <children>
-                  <Button fx:id="addUpdateButton" mnemonicParsing="false"
-                     styleClass="add-update-btn" text="Add/Update">
-                  </Button>
-                  <Button fx:id="removeButton" mnemonicParsing="false" styleClass="remove-btn"
-                     text="Remove">
-                  </Button>
-                  <Button fx:id="clearButton" mnemonicParsing="false" styleClass="clear-btn"
-                     text="Clear">
-                  </Button>
-               </children>
+  xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="com.hypermarket.modules.sales.MakeOrder">
+  <stylesheets>
+    <URL value="@../../css/MakeOrder.css" />
+  </stylesheets>
+  <children>
+    <VBox fx:id="sideBarPanel" prefHeight="640.0" prefWidth="400.0" style="-fx-border-width: 1;"
+      styleClass="sidebar-panel">
+      <children>
+        <HBox fx:id="topBarButtons" alignment="CENTER" prefHeight="60.0" styleClass="topbar">
+          <children>
+            <Button fx:id="addUpdateButton" mnemonicParsing="false"
+              styleClass="add-update-btn" text="Add/Update">
+            </Button>
+            <Button fx:id="removeButton" mnemonicParsing="false" styleClass="remove-btn"
+              text="Remove">
+            </Button>
+            <Button fx:id="clearButton" mnemonicParsing="false" styleClass="clear-btn"
+              text="Clear">
+            </Button>
+          </children>
+        </HBox>
+        <ListView fx:id="itemsListSection" prefHeight="200.0" prefWidth="200.0"
+          style="-fx-border-width: 1;" styleClass="items-list-section" VBox.vgrow="ALWAYS" />
+        <VBox fx:id="totalsSection" prefHeight="140.0" prefWidth="400.0"
+          styleClass="totals-section">
+          <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0"
+              styleClass="order-detail-box">
+              <children>
+                <FontIcon iconLiteral="fas-barcode" iconSize="14" styleClass="detail-icon"
+                  wrappingWidth="12.67498779296875" />
+                <Label styleClass="order-detail-label" text="Order ID :" />
+                <Label fx:id="orderDetailID" styleClass="order-detail-value" text="1002" />
+              </children>
             </HBox>
-            <ListView fx:id="itemsListSection" prefHeight="200.0" prefWidth="200.0"
-               style="-fx-border-width: 1;" styleClass="items-list-section" VBox.vgrow="ALWAYS" />
-            <VBox fx:id="totalsSection" prefHeight="140.0" prefWidth="400.0"
-               styleClass="totals-section">
-               <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0"
-                     styleClass="order-detail-box">
-                     <children>
-                        <FontIcon iconLiteral="fas-barcode" iconSize="14" styleClass="detail-icon"
-                           wrappingWidth="12.67498779296875" />
-                        <Label styleClass="order-detail-label" text="Order ID :" />
-                        <Label fx:id="orderDetailID" styleClass="order-detail-value" text="1002" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0"
-                     styleClass="order-detail-box">
-                     <children>
-                        <FontIcon iconLiteral="fas-dollar-sign" iconSize="14"
-                           styleClass="detail-icon" wrappingWidth="12.67498779296875" />
-                        <Label styleClass="order-detail-label" text="Total Amount :" />
-                        <Label fx:id="orderDetailAmount"
-                           styleClass="order-detail-value, total-amount-value" text="\$ 1,200.00" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0"
-                     styleClass="order-detail-box">
-                     <children>
-                        <FontIcon iconLiteral="fas-hashtag" iconSize="14" styleClass="detail-icon"
-                           wrappingWidth="12.67498779296875" />
-                        <Label styleClass="order-detail-label" text="Total Quantity :" />
-                        <Label fx:id="orderDetailQuantity" styleClass="order-detail-value" text="3" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0"
-                     styleClass="order-detail-box">
-                     <children>
-                        <FontIcon iconLiteral="fas-calendar-alt" iconSize="14"
-                           styleClass="detail-icon" wrappingWidth="12.67498779296875" />
-                        <Label styleClass="order-detail-label" text="Date :" />
-                        <DatePicker fx:id="orderDetailDate" styleClass="order-detail-value" />
-
-                     </children>
-                  </HBox>
-
-               </children>
-            </VBox>
-            <VBox fx:id="orderActionsSection" alignment="TOP_CENTER" prefHeight="130.0"
-               prefWidth="400.0" styleClass="order-actions-section">
-               <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0" styleClass="order-buttons-container">
-                     <children>
-                        <Button fx:id="viewReceiptButton" mnemonicParsing="false"
-                           styleClass="receipt-btn" text="View Receipt">
-                        </Button>
-                        <Region />
-                        <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="cancel-btn"
-                           text="Cancel">
-                        </Button>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" styleClass="order-buttons-container">
-                     <children>
-                        <Button fx:id="purchaseButton" mnemonicParsing="false"
-                           styleClass="confirm-btn" text="Purchase">
-                        </Button>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </children>
-      </VBox>
-      <VBox prefHeight="640.0" prefWidth="630.0" HBox.hgrow="ALWAYS">
-         <children>
-            <HBox fx:id="topBarItemInfo" alignment="CENTER_LEFT" prefHeight="60.0"
-               styleClass="topbar">
-               <children>
-                  <HBox alignment="CENTER_LEFT" spacing="5.0">
-                     <children>
-                        <Label minWidth="16.0" styleClass="input-label" text="ID" />
-                        <TextField fx:id="itemProductID" minWidth="65.0" prefWidth="130.0"
-                           promptText="Enter Product ID" styleClass="input-field"
-                           HBox.hgrow="ALWAYS" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" spacing="5.0" HBox.hgrow="ALWAYS">
-                     <children>
-
-                        <Label minWidth="44.0" styleClass="input-label" text="Name" />
-                        <TextField fx:id="itemProductName" minWidth="90.0" prefWidth="180.0"
-                           promptText="Enter Product Name" styleClass="input-field"
-                           HBox.hgrow="ALWAYS" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" spacing="5.0">
-                     <children>
-
-                        <Label minWidth="64.0" styleClass="input-label" text="Quantity" />
-                        <TextField fx:id="itemProductQuantity" minWidth="55.0" prefWidth="110.0"
-                           promptText="Enter Quantity" styleClass="input-field" HBox.hgrow="ALWAYS" />
-                     </children>
-                  </HBox>
-               </children>
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0"
+              styleClass="order-detail-box">
+              <children>
+                <FontIcon iconLiteral="fas-dollar-sign" iconSize="14"
+                  styleClass="detail-icon" wrappingWidth="12.67498779296875" />
+                <Label styleClass="order-detail-label" text="Total Amount :" />
+                <Label fx:id="orderDetailAmount"
+                  styleClass="order-detail-value, total-amount-value" text="\$ 1,200.00" />
+              </children>
             </HBox>
-            <VBox fx:id="itemProductsList" prefHeight="200.0" prefWidth="100.0"
-               styleClass="item-products-List" VBox.vgrow="ALWAYS" />
-         </children>
-      </VBox>
-   </children>
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0"
+              styleClass="order-detail-box">
+              <children>
+                <FontIcon iconLiteral="fas-hashtag" iconSize="14" styleClass="detail-icon"
+                  wrappingWidth="12.67498779296875" />
+                <Label styleClass="order-detail-label" text="Total Quantity :" />
+                <Label fx:id="orderDetailQuantity" styleClass="order-detail-value" text="3" />
+              </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0"
+              styleClass="order-detail-box">
+              <children>
+                <FontIcon iconLiteral="fas-calendar-alt" iconSize="14"
+                  styleClass="detail-icon" wrappingWidth="12.67498779296875" />
+                <Label styleClass="order-detail-label" text="Date :" />
+                <DatePicker fx:id="orderDetailDate" styleClass="order-detail-value" />
+
+              </children>
+            </HBox>
+
+          </children>
+        </VBox>
+        <VBox fx:id="orderActionsSection" alignment="TOP_CENTER" prefHeight="130.0"
+          prefWidth="400.0" styleClass="order-actions-section">
+          <children>
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="order-buttons-container">
+              <children>
+                <Button fx:id="viewReceiptButton" mnemonicParsing="false"
+                  styleClass="receipt-btn" text="View Receipt">
+                </Button>
+                <Region />
+                <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="cancel-btn"
+                  text="Cancel">
+                </Button>
+              </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" styleClass="order-buttons-container">
+              <children>
+                <Button fx:id="purchaseButton" mnemonicParsing="false"
+                  styleClass="confirm-btn" text="Purchase">
+                </Button>
+              </children>
+            </HBox>
+          </children>
+        </VBox>
+      </children>
+    </VBox>
+    <VBox prefHeight="640.0" prefWidth="630.0" HBox.hgrow="ALWAYS">
+      <children>
+        <HBox fx:id="topBarItemInfo" alignment="CENTER_LEFT" prefHeight="60.0"
+          styleClass="topbar">
+          <children>
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+              <children>
+                <Label minWidth="16.0" styleClass="input-label" text="ID" />
+                <TextField fx:id="itemProductID" minWidth="65.0" prefWidth="130.0"
+                  promptText="Enter Product ID" styleClass="input-field"
+                  HBox.hgrow="ALWAYS" />
+              </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="5.0" HBox.hgrow="ALWAYS">
+              <children>
+
+                <Label minWidth="44.0" styleClass="input-label" text="Name" />
+                <TextField fx:id="itemProductName" minWidth="90.0" prefWidth="180.0"
+                  promptText="Enter Product Name" styleClass="input-field"
+                  HBox.hgrow="ALWAYS" />
+              </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+              <children>
+
+                <Label minWidth="64.0" styleClass="input-label" text="Quantity" />
+                <TextField fx:id="itemProductQuantity" minWidth="55.0" prefWidth="110.0"
+                  promptText="Enter Quantity" styleClass="input-field" HBox.hgrow="ALWAYS" />
+              </children>
+            </HBox>
+          </children>
+        </HBox>
+        <VBox fx:id="itemProductsList" prefHeight="200.0" prefWidth="100.0"
+          styleClass="item-products-List" VBox.vgrow="ALWAYS" />
+      </children>
+    </VBox>
+  </children>
 </HBox>

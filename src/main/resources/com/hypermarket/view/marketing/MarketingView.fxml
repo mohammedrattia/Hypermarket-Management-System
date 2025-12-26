@@ -118,7 +118,7 @@
 
           <Region HBox.hgrow="ALWAYS" />
 
-          <HBox alignment="CENTER" styleClass="user-profile">
+          <HBox fx:id="userImageContainer" alignment="CENTER" styleClass="user-profile">
             <children>
               <ImageView fx:id="userImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
                 preserveRatio="true">

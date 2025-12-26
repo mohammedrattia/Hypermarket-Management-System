@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -10,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
@@ -90,7 +88,7 @@
                 styleClass="menu-icon" />
               <Label fx:id="menuUpdateUserInfo" styleClass="menu-text" text="Update User Info" />
             </HBox>
-            <HBox alignment="CENTER_LEFT" spacing="12" styleClass="menu-item">
+            <HBox fx:id="menuLogoutItem" alignment="CENTER_LEFT" spacing="12" styleClass="menu-item">
               <FontIcon fx:id="logoutIcon" iconLiteral="fas-sign-out-alt" iconSize="18"
                 styleClass="menu-icon" />
               <Label fx:id="menuLogout" styleClass="menu-text" text="Logout" />
@@ -119,7 +117,7 @@
           </Label>
           <Region HBox.hgrow="ALWAYS" />
 
-          <HBox alignment="CENTER" styleClass="user-profile">
+          <HBox fx:id="userImageContainer" alignment="CENTER" styleClass="user-profile">
             <children>
               <ImageView fx:id="userImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
                 preserveRatio="true">

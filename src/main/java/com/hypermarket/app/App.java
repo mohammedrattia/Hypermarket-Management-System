@@ -24,140 +24,140 @@ import com.hypermarket.service.Session;
  */
 public class App extends Application {
 
-        private static Scene scene;
+    private static Scene scene;
 
-        @Override
-        public void start(Stage stage) throws IOException {
-                DataStore.getDataStore().loadAllData();
-                try {
-                        Image icon = new Image(getClass().getResourceAsStream("/com/hypermarket/images/cart.png"));
-                        stage.getIcons().add(icon);
-                } catch (Exception e) {
-                        System.out.println("Icon not found");
+    @Override
+    public void start(Stage stage) throws IOException {
+        DataStore.getDataStore().loadAllData();
+        try {
+            Image icon = new Image(getClass().getResourceAsStream("/com/hypermarket/images/cart.png"));
+            stage.getIcons().add(icon);
+        } catch (Exception e) {
+            System.out.println("Icon not found");
+        }
+
+        stage.setTitle("HyperMarket Management System");
+        loadLoginScene(stage);
+    }
+
+    @Override
+    public void stop() throws Exception {
+        DataStore.getDataStore().saveAllData();
+        super.stop();
+    }
+
+    private static void loadLoginScene(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                App.class.getResource("/com/hypermarket/view/user/Login.fxml"));
+
+        scene = new Scene(fxmlLoader.load());
+
+        LoginController controller = fxmlLoader.getController();
+        controller.setOnLoginSuccess(() -> {
+            User currentUser = Session.getInstance().getUser();
+            try {
+                if (currentUser != null) {
+                    switch (currentUser.getRole()) {
+                        case Role.ADMIN:
+                            loadAdminScene(stage);
+                            break;
+                        case Role.SALES:
+                            loadSalesScene(stage);
+                            break;
+                        case Role.INVENTORY:
+                            loadInventoryScene(stage);
+                            break;
+                        case Role.MARKETING:
+                            loadMarketingScene(stage);
+                            break;
+                    }
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
-                stage.setTitle("HyperMarket Management System");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private static void loadAdminScene(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                App.class.getResource("/com/hypermarket/view/admin/AdminView.fxml"));
+
+        scene = new Scene(fxmlLoader.load());
+        AdminViewController controller = fxmlLoader.getController();
+        controller.setOnLogout(() -> {
+            Authenticator.logout();
+            try {
                 loadLoginScene(stage);
-        }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
-        @Override
-        public void stop() throws Exception {
-                DataStore.getDataStore().saveAllData();
-                super.stop();
-        }
+        stage.setScene(scene);
+        stage.show();
+    }
 
-        private static void loadLoginScene(Stage stage) throws IOException {
-                FXMLLoader fxmlLoader = new FXMLLoader(
-                                App.class.getResource("/com/hypermarket/view/user/Login.fxml"));
+    private static void loadSalesScene(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                App.class.getResource("/com/hypermarket/view/sales/SalesView.fxml"));
 
-                scene = new Scene(fxmlLoader.load());
+        scene = new Scene(fxmlLoader.load());
+        SalesViewController controller = fxmlLoader.getController();
+        controller.setOnLogout(() -> {
+            Authenticator.logout();
+            try {
+                loadLoginScene(stage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
-                LoginController controller = fxmlLoader.getController();
-                controller.setOnLoginSuccess(() -> {
-                        User currentUser = Session.getInstance().getUser();
-                        try {
-                                if (currentUser != null) {
-                                        switch (currentUser.getRole()) {
-                                                case Role.ADMIN:
-                                                        loadAdminScene(stage);
-                                                        break;
-                                                case Role.SALES:
-                                                        loadSalesScene(stage);
-                                                        break;
-                                                case Role.INVENTORY:
-                                                        loadInventoryScene(stage);
-                                                        break;
-                                                case Role.MARKETING:
-                                                        loadMarketingScene(stage);
-                                                        break;
-                                        }
-                                }
-                        } catch (IOException e) {
-                                e.printStackTrace();
-                        }
-                });
+        stage.setScene(scene);
+        stage.show();
+    }
 
-                stage.setScene(scene);
-                stage.show();
-        }
+    private static void loadInventoryScene(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                App.class.getResource("/com/hypermarket/view/inventory/InventoryView.fxml"));
 
-        private static void loadAdminScene(Stage stage) throws IOException {
-                FXMLLoader fxmlLoader = new FXMLLoader(
-                                App.class.getResource("/com/hypermarket/view/admin/AdminView.fxml"));
+        scene = new Scene(fxmlLoader.load());
+        InventoryViewController controller = fxmlLoader.getController();
+        controller.setOnLogout(() -> {
+            Authenticator.logout();
+            try {
+                loadLoginScene(stage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
-                scene = new Scene(fxmlLoader.load());
-                AdminViewController controller = fxmlLoader.getController();
-                controller.setOnLogout(() -> {
-                        Authenticator.logout();
-                        try {
-                                loadLoginScene(stage);
-                        } catch (IOException e) {
-                                e.printStackTrace();
-                        }
-                });
+        stage.setScene(scene);
+        stage.show();
+    }
 
-                stage.setScene(scene);
-                stage.show();
-        }
+    private static void loadMarketingScene(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                App.class.getResource("/com/hypermarket/view/marketing/MarketingView.fxml"));
+        scene = new Scene(fxmlLoader.load());
+        MarketingViewController controller = fxmlLoader.getController();
+        controller.setOnLogout(() -> {
+            Authenticator.logout();
+            try {
+                loadLoginScene(stage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
-        private static void loadSalesScene(Stage stage) throws IOException {
-                FXMLLoader fxmlLoader = new FXMLLoader(
-                                App.class.getResource("/com/hypermarket/view/sales/SalesView.fxml"));
+        stage.setScene(scene);
+        stage.show();
+    }
 
-                scene = new Scene(fxmlLoader.load());
-                SalesViewController controller = fxmlLoader.getController();
-                controller.setOnLogout(() -> {
-                        Authenticator.logout();
-                        try {
-                                loadLoginScene(stage);
-                        } catch (IOException e) {
-                                e.printStackTrace();
-                        }
-                });
-
-                stage.setScene(scene);
-                stage.show();
-        }
-
-        private static void loadInventoryScene(Stage stage) throws IOException {
-                FXMLLoader fxmlLoader = new FXMLLoader(
-                                App.class.getResource("/com/hypermarket/view/inventory/InventoryView.fxml"));
-
-                scene = new Scene(fxmlLoader.load());
-                InventoryViewController controller = fxmlLoader.getController();
-                controller.setOnLogout(() -> {
-                        Authenticator.logout();
-                        try {
-                                loadLoginScene(stage);
-                        } catch (IOException e) {
-                                e.printStackTrace();
-                        }
-                });
-
-                stage.setScene(scene);
-                stage.show();
-        }
-
-        private static void loadMarketingScene(Stage stage) throws IOException {
-                FXMLLoader fxmlLoader = new FXMLLoader(
-                                App.class.getResource("/com/hypermarket/view/marketing/MarketingView.fxml"));
-                scene = new Scene(fxmlLoader.load());
-                MarketingViewController controller = fxmlLoader.getController();
-                controller.setOnLogout(() -> {
-                        Authenticator.logout();
-                        try {
-                                loadLoginScene(stage);
-                        } catch (IOException e) {
-                                e.printStackTrace();
-                        }
-                });
-
-                stage.setScene(scene);
-                stage.show();
-        }
-
-        public static void main(String[] args) {
-                launch();
-        }
+    public static void main(String[] args) {
+        launch();
+    }
 
 }

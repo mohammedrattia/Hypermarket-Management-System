@@ -58,6 +58,12 @@ public class AdminViewController extends ViewController implements Initializable
     private HBox menuUpdateUserInfoItem;
 
     @FXML
+    private HBox menuLogoutItem;
+
+    @FXML
+    private HBox userImageContainer;
+
+    @FXML
     private ImageView userImage;
 
     private DashboardHome dashboardHome;
@@ -88,7 +94,11 @@ public class AdminViewController extends ViewController implements Initializable
             showUpdateUserInfo();
         });
 
-        menuLogout.setOnMouseClicked(event -> {
+        userImageContainer.setOnMouseClicked(event -> {
+            showUpdateUserInfo();
+        });
+
+        menuLogoutItem.setOnMouseClicked(event -> {
             onLogout.run();
         });
     }

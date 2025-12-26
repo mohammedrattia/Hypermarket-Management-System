@@ -65,6 +65,9 @@ public class SalesViewController extends ViewController implements Initializable
     private HBox menuLogoutItem;
 
     @FXML
+    private HBox userImageContainer;
+
+    @FXML
     private ImageView userImage;
 
     private SalesDashboard salesDashboard;
@@ -96,18 +99,11 @@ public class SalesViewController extends ViewController implements Initializable
 
     protected void setUpNavigation() {
         menuDashboardItem.setOnMouseClicked(event -> showDashboard());
-
         menuOrdersItem.setOnMouseClicked(event -> showListOrders());
-
         menuMakeOrderItem.setOnMouseClicked(event -> showMakeOrder());
-
-        menuUpdateUserInfo.setOnMouseClicked(event -> {
-            showUpdateUserInfo();
-        });
-
-        menuLogout.setOnMouseClicked(event -> {
-            onLogout.run();
-        });
+        menuUpdateUserInfo.setOnMouseClicked(event -> showUpdateUserInfo());
+        userImageContainer.setOnMouseClicked(event -> showUpdateUserInfo());
+        menuLogoutItem.setOnMouseClicked(event -> onLogout.run());
     }
 
     protected void showDashboard() {

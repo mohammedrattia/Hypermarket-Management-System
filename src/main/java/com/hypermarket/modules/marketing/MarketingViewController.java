@@ -39,37 +39,51 @@ public class MarketingViewController extends ViewController implements Initializ
 
     @FXML
     private AnchorPane contentArea;
+
     @FXML
     private Label pageTitle;
+
     @FXML
     private ImageView userImage;
 
     @FXML
     private VBox dashboardContainer;
+
     @FXML
     private HBox kpiContainer;
+
     @FXML
     private VBox dashboardContent;
+
     @FXML
     private AnchorPane tableContainer;
 
     @FXML
     private Label menuDashboard;
+
     @FXML
     private Label menuReports;
+
     @FXML
     private Label menuOffers;
+
     @FXML
     private Label menuUpdateUserInfo;
 
     @FXML
     private HBox menuDashboardItem;
+
     @FXML
     private HBox menuReportsItem;
+
     @FXML
     private HBox menuOffersItem;
+
     @FXML
     private HBox menuLogoutItem;
+
+    @FXML
+    private HBox userImageContainer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -83,6 +97,7 @@ public class MarketingViewController extends ViewController implements Initializ
         menuReportsItem.setOnMouseClicked(e -> showReports());
         menuOffersItem.setOnMouseClicked(e -> showOffers());
         menuUpdateUserInfo.setOnMouseClicked(e -> showUpdateUserInfo());
+        userImageContainer.setOnMouseClicked(e -> showUpdateUserInfo());
         menuLogoutItem.setOnMouseClicked(e -> onLogout.run());
     }
 

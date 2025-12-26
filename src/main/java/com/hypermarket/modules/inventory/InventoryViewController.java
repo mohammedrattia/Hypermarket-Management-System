@@ -67,10 +67,13 @@ public class InventoryViewController extends ViewController implements Initializ
     private HBox menuReturnedOrdersItem;
 
     @FXML
+    private HBox menuUpdateUserInfoItem;
+
+    @FXML
     private HBox menuLogoutItem;
 
     @FXML
-    private HBox menuUpdateUserInfoItem;
+    private HBox userImageContainer;
 
     @FXML
     private ImageView userProfileImage;
@@ -136,6 +139,10 @@ public class InventoryViewController extends ViewController implements Initializ
         });
 
         menuUpdateUserInfoItem.setOnMouseClicked(event -> {
+            showUpdateUserInfo();
+        });
+
+        userImageContainer.setOnMouseClicked(event -> {
             showUpdateUserInfo();
         });
 
