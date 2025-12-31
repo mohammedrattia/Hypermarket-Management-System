@@ -20,9 +20,6 @@ import com.hypermarket.data.*;
 import com.hypermarket.service.Authenticator;
 import com.hypermarket.service.Session;
 
-/**
- * JavaFX App
- */
 public class App extends Application {
 
     @Override
