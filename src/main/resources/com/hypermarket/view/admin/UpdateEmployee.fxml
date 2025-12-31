@@ -15,7 +15,6 @@
    stylesheets="@../../css/UpdateForm.css" xmlns="http://javafx.com/javafx/25"
    xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.admin.UpdateEmployee">
 
-   <!-- First Name -->
    <HBox id="mainForm" fx:id="fnameBox" prefHeight="277.0" prefWidth="961.0" styleClass="main-Form">
       <VBox prefHeight="322.0" prefWidth="339.0">
          <children>
@@ -89,7 +88,6 @@
    <HBox id="saveButtonBox" styleClass="save-box">
       <children>
 
-         <!-- Save Button -->
          <Button fx:id="saveBtn" onAction="#handleSave" prefHeight="33.0" prefWidth="176.0"
             styleClass="save-Btn" text="Save">
 
