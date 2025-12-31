@@ -8,6 +8,8 @@ import javafx.scene.control.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.kordamp.ikonli.javafx.FontIcon;
+
 import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.User;
 import com.hypermarket.service.*;
@@ -28,9 +30,36 @@ public class LoginController implements Initializable {
 
     @FXML
     private TextField emailField;
+    @FXML
+    private TextField passTextField;
+    @FXML
+    private FontIcon passToggleIcon;
 
     @FXML
     private PasswordField passField;
+
+    @FXML
+    void togglePasswordVisibility() {
+        if (passField.isVisible()) {
+            passTextField.setText(passField.getText());
+            passField.setVisible(false);
+            passField.setManaged(false);
+
+            passTextField.setVisible(true);
+            passTextField.setManaged(true);
+
+            passToggleIcon.setIconLiteral("fas-eye-slash");
+        } else {
+            passField.setText(passTextField.getText());
+            passTextField.setVisible(false);
+            passTextField.setManaged(false);
+
+            passField.setVisible(true);
+            passField.setManaged(true);
+
+            passToggleIcon.setIconLiteral("fas-eye");
+        }
+    }
 
     private Runnable onLoginSuccess;
 
@@ -42,6 +71,7 @@ public class LoginController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         loginButton.setDefaultButton(true);
         testCredential();
+        passTextField.textProperty().bindBidirectional(passField.textProperty());
     }
 
     public void testCredential() {
