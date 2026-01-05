@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,6 +14,8 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.User;
 import com.hypermarket.service.*;
+import com.hypermarket.service.Toast;
+import com.hypermarket.service.Toast.NotificationType;
 
 public class LoginController implements Initializable {
 
@@ -41,7 +44,6 @@ public class LoginController implements Initializable {
     @FXML
     void togglePasswordVisibility() {
         if (passField.isVisible()) {
-            passTextField.setText(passField.getText());
             passField.setVisible(false);
             passField.setManaged(false);
 
@@ -50,7 +52,6 @@ public class LoginController implements Initializable {
 
             passToggleIcon.setIconLiteral("fas-eye-slash");
         } else {
-            passField.setText(passTextField.getText());
             passTextField.setVisible(false);
             passTextField.setManaged(false);
 
@@ -77,15 +78,19 @@ public class LoginController implements Initializable {
     public void testCredential() {
         testAdminButton.setOnMouseClicked(event -> {
             testButton(testAdminButton);
+            Toast.showNotification("This is Admin User Credentials");
         });
         testInventoryButton.setOnMouseClicked(event -> {
             testButton(testInventoryButton);
+            Toast.showAlert("This is Inventory User Credentials", AlertType.WARNING);
         });
         testMarketingButton.setOnMouseClicked(event -> {
             testButton(testMarketingButton);
+            Toast.showAlert("This is Marketing User Credentials", AlertType.ERROR);
         });
         testSalesButton.setOnMouseClicked(event -> {
             testButton(testSalesButton);
+            Toast.showAlert("Are you sure?", AlertType.CONFIRMATION);
         });
     }
 

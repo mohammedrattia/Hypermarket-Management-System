@@ -14,6 +14,7 @@
     requires org.apache.pdfbox;
     requires org.apache.fontbox;
     requires javafx.swing;
+    requires org.controlsfx.controls;
 
     opens com.hypermarket.modules.components to javafx.fxml;
     opens com.hypermarket.modules.sales to javafx.fxml;

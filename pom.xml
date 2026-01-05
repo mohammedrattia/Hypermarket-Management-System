@@ -95,6 +95,13 @@
             <version>5.10.0</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- ControlFX for Notifications -->
+        <dependency>
+            <groupId>org.controlsfx</groupId>
+            <artifactId>controlsfx</artifactId>
+            <version>11.2.1</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>HypermarketSystemApp</finalName>
