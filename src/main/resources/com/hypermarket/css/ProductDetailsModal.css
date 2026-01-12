@@ -19,6 +19,7 @@
 .section-title {
   -fx-text-fill: #10b981;
   -fx-font-weight: bold;
+  -fx-font-size: 16px;
 }
 
 .field-label {
@@ -36,6 +37,62 @@
 .text-field:focused,
 .text-area:focused {
   -fx-border-color: #00aaff;
+}
+
+.date-picker > .text-field{
+    -fx-background-radius: 8 0 0 8;
+    -fx-border-radius: 8 0 0 8;
+    -fx-font-size: 14px;
+}
+
+.date-picker{
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+
+.date-picker > .arrow-button{
+  -fx-border-radius: 0 8 8 0;
+  -fx-background-radius: 0 8 8 0;
+}
+
+.date-picker-popup > .month-year-pane > .spinner > .button {
+    -fx-background-color: #66bb6a;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-padding: 6 12 8 12;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 2, 0, 0, 3);
+}
+
+.date-picker-popup > .month-year-pane > .spinner > .button:hover {
+    -fx-background-color: #81c784;
+}
+
+.date-picker-popup > .month-year-pane > .spinner > .button > .left-arrow,
+.date-picker-popup > .month-year-pane > .spinner > .button > .right-arrow {
+    -fx-background-color: white;
+    -fx-text-fill: white;
+}
+
+.date-picker-popup > .month-year-pane > .spinner {
+    -fx-spacing: 5; 
+    -fx-padding: 0 5 0 5;
+}
+
+.product-image {
+    -fx-background-image: url("tomato.jpg");
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-radius: 12 12 0 0;
+    -fx-background-insets: 0;
+    -fx-border-color: black;
+}
+
+.image-container {
+    -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.12), 14, 0, 0, 3);
+    -fx-min-width: 60; 
+    -fx-min-height: 80;
+    -fx-max-width: 60;
+    -fx-max-height: 80;
 }
 
 /* Green Gradient Button Style (from ListOrders.css) */

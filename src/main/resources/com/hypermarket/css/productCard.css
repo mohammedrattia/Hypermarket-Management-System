@@ -11,7 +11,6 @@
     -fx-translate-y: -5;
     -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.25), 20, 0, 0, 8);
     -fx-background-color: #059669, #ffffff;
-    /* Slightly darker top border on hover */
 }
 
 .product-image {
@@ -25,6 +24,10 @@
 
 .image-container {
     -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.12), 14, 0, 0, 3);
+    -fx-min-width: 125; 
+    -fx-min-height: 150;
+    -fx-max-width: 125;
+    -fx-max-height: 150;
 }
 
 .product-information {
@@ -34,7 +37,7 @@
 
 .product-name-card {
     -fx-font-family: "Segoe UI", "Roboto", "Arial", sans-serif;
-    -fx-font-size: 13px;
+    -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-text-fill: #2d3436;
 }
@@ -49,12 +52,12 @@
 
 .product-price-card {
     -fx-font-family: "Segoe UI", sans-serif;
-    -fx-font-size: 18px;
+    -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-text-fill: #10b981;
 }
 
-.product-quantity-card {
+.product-quantity-card, .product-category-card {
     -fx-font-size: 14px;
     -fx-font-weight: normal;
     -fx-text-fill: #636e72;
@@ -64,10 +67,4 @@
     -fx-text-fill: #b2bec3;
     -fx-font-size: 14px;
     -fx-font-weight: normal;
-}
-
-.exp-date-product {
-    -fx-font-size: 12px;
-    -fx-text-fill: #e17055;
-    -fx-padding: 5 0 0 0;
 }

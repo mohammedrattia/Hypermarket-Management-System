@@ -3,10 +3,15 @@ package com.hypermarket.modules.components;
 import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.Product;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -34,19 +39,29 @@ public class ProductCardController {
 
     public void setData(Product product) {
         productNameCard.setText(product.getName());
-        productIDCard.setText("ID: " + product.getProductID());
+        productIDCard.setText("#" + product.getProductID());
+        productNameCard.setWrapText(true);
+        productNameCard.setMaxHeight(40);
 
+        if (product.getName().length() > 30) {
+            Tooltip productNameTooltip = new Tooltip(product.getName());
+            productNameTooltip.setShowDelay(Duration.millis(300));
+            Tooltip.install(productNameCard, productNameTooltip);
+        }
+
+        String formattedProductPrice = String.format("%.2f", product.getPrice());
+        String formattedDiscountedProductPrice = String.format("%.2f", product.getDiscountedPrice());
         if (product.getOffer() != null) {
-            originalPriceCard.setText("Original Price: " + product.getPrice() + " $");
+            originalPriceCard.setText("Price Before: " + formattedProductPrice + " $");
             originalPriceCard.setVisible(true);
             originalPriceCard.setManaged(true);
 
-            productPriceCard.setText("Now: " + String.format("%.2f", product.getDiscountedPrice()) + " $");
+            productPriceCard.setText("Now: " + formattedDiscountedProductPrice + " $");
         } else {
             originalPriceCard.setVisible(false);
             originalPriceCard.setManaged(false);
 
-            productPriceCard.setText("Price: " + product.getPrice() + " $");
+            productPriceCard.setText("Price: " + formattedProductPrice + " $");
         }
 
         productQuantityCard.setText("Quantity: " + product.getQuantity());

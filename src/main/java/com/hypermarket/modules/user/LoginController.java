@@ -15,7 +15,6 @@ import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.User;
 import com.hypermarket.service.*;
 import com.hypermarket.service.Toast;
-import com.hypermarket.service.Toast.NotificationType;
 
 public class LoginController implements Initializable {
 

@@ -1,5 +1,4 @@
 .topbar {
-  -fx-background-color: #f1f5f9;
   -fx-padding: 8 10 8 10;
   -fx-spacing: 15;
 }
@@ -20,7 +19,11 @@
 .order-detail-box {
   /* -fx-spacing: 10; */
 }
+.cart-label-box{
+  -fx-padding: 2 0 2 8;
+}
 
+.cart-label,
 .order-detail-label {
   -fx-text-fill: #222222;
   -fx-font-weight: bold;
