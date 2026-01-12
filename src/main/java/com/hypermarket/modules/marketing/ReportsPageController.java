@@ -87,7 +87,7 @@ public class ReportsPageController {
         header.setSpacing(10);
         header.setAlignment(Pos.CENTER_LEFT);
 
-        Label badgeLabel = new Label("MARKETING");
+        Label badgeLabel = new Label("REPORT");
         badgeLabel.getStyleClass().add("report-id-badge");
 
         String dateText = r.getReportTitle().replace("Custom Marketing Report - ", "");
