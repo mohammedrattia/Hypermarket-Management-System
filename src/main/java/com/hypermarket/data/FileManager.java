@@ -59,7 +59,8 @@ public class FileManager {
                 BufferedWriter fileBW = new BufferedWriter(fileFW);
                 PrintWriter filePW = new PrintWriter(fileBW);) {
             for (Object object : data) {
-                filePW.println(object.toString());
+                String safeString = object.toString().replace("\n", "\\n");
+                filePW.println(safeString);
             }
         } catch (FileNotFoundException e) {
             System.out.println("File Not Found!!");

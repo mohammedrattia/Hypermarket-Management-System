@@ -64,7 +64,7 @@ public class DataStore {
         loadData("orderItems", orderItems, (record) -> new OrderItem(record));
         loadData("returns", returns, (record) -> new Return(record));
         loadData("offers", offers, (record) -> new Offer(record));
-        loadData("reports", reports, (record) -> new Report(record));
+        loadData("reports", reports, (record) -> new Report(record.replace("\\n", "\n")));
         if (users.isEmpty()) {
             String firstAdminInfo = "1;admin;admin;user_001.png;ADMIN;01234567890;admin@system.com;admin;0.0";
             Admin firstAdmin = new Admin(firstAdminInfo);
