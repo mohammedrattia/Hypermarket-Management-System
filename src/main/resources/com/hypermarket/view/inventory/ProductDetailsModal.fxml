@@ -21,7 +21,11 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="715.0" prefWidth="720.0" style="-fx-background-color: white;" styleClass="main-modal-container" stylesheets="@../../css/ProductDetailsModal.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.inventory.ProductDetailsModalController">
+<ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="715.0" prefWidth="720.0"
+   style="-fx-background-color: white;" styleClass="main-modal-container"
+   stylesheets="@../../css/ProductDetailsModal.css" xmlns="http://javafx.com/javafx/25"
+   xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="com.hypermarket.modules.inventory.ProductDetailsModalController">
    <content>
       <VBox spacing="10.0" styleClass="modal-container">
          <padding>
@@ -34,14 +38,16 @@
                   <VBox alignment="CENTER" spacing="5.0">
                      <StackPane styleClass="image-container">
                         <children>
-                           <ImageView fx:id="productImage" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" styleClass="product-image">
+                           <ImageView fx:id="productImage" fitHeight="80.0" fitWidth="80.0"
+                              pickOnBounds="true" preserveRatio="true" styleClass="product-image">
                               <image>
                                  <Image url="@../../images/fresh-tomatoes.png" />
                               </image>
                            </ImageView>
                         </children>
                      </StackPane>
-                     <Button onAction="#handleUploadImage" styleClass="btn-warning-small" text="Change Image" />
+                     <Button onAction="#handleUploadImage" styleClass="btn-warning-small"
+                        text="Change Image" />
                   </VBox>
                   <VBox alignment="CENTER_LEFT">
                      <children>
@@ -104,7 +110,8 @@
             <HBox alignment="CENTER_LEFT" spacing="15.0">
                <VBox HBox.hgrow="ALWAYS">
                   <Label styleClass="field-label" text="Total Quantity (Read-only)" />
-                  <TextField fx:id="quantityField" editable="false" style="-fx-background-color: #f5f5f5;" />
+                  <TextField fx:id="quantityField" editable="false"
+                     style="-fx-background-color: #f5f5f5;" />
                </VBox>
             </HBox>
 
@@ -125,7 +132,8 @@
                      </graphic>
                   </Button>
                </HBox>
-               <TableView fx:id="batchesTable" prefHeight="200.0" styleClass="table-view" stylesheets="@../../css/TableView.css">
+               <TableView fx:id="batchesTable" prefHeight="200.0" styleClass="table-view"
+                  stylesheets="@../../css/TableView.css">
                   <columns>
                      <TableColumn fx:id="batchIdCol" prefWidth="80.0" text="ID" />
                      <TableColumn fx:id="batchQtyCol" prefWidth="100.0" text="Quantity" />
@@ -140,7 +148,6 @@
 
             <Separator />
 
-            <!-- Actions -->
             <HBox alignment="CENTER_RIGHT" spacing="15.0">
                <Button onAction="#handleDelete" styleClass="btn-danger" text="Delete Product">
                   <graphic>

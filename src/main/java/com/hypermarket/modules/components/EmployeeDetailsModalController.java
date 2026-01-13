@@ -5,17 +5,20 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.Optional;
 
 import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.Admin;
 import com.hypermarket.entities.User;
 import com.hypermarket.modules.admin.UpdateEmployee;
 import com.hypermarket.service.Session;
+import com.hypermarket.service.Toast;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.AccessibleAttribute.ToggleState;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -105,25 +108,19 @@ public class EmployeeDetailsModalController {
 
     @FXML
     private void handleDelete() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Delete Confirmation");
-        alert.setHeaderText("Delete Employee: " + currentUser.getFullName() + "?");
-        alert.setContentText("Are you sure? This action cannot be undone");
+        String confirmDeleteMsg = "Are you sure you want to delete " + currentUser.getFullName() + "?";
 
-        alert.showAndWait().ifPresent(res -> {
-            if (res == ButtonType.OK) {
+        Optional<ButtonType> deleteDecision = Toast.showToast(confirmDeleteMsg, Toast.NotificationType.CONFIRMATION);
+        if (deleteDecision.get() == ButtonType.YES) {
+            ((Admin) Session.getInstance().getUser()).deleteUser(currentUser.getID());
 
-                ((Admin) Session.getInstance().getUser()).deleteUser(currentUser.getID());
-
-                System.out.println("User " + currentUser.getID() + " deleted");
-
-                if (onDeleteCallBack != null) {
-                    onDeleteCallBack.run();
-                }
-
-                closeModal();
+            if (onDeleteCallBack != null) {
+                onDeleteCallBack.run();
             }
-        });
+            closeModal();
+            String deleteSuccessMsg = "Employee " + currentUser.getFullName() + " deleted successfully.";
+            Toast.showToast(deleteSuccessMsg, Toast.NotificationType.INFORMATION);
+        }
     }
 
     private void closeModal() {

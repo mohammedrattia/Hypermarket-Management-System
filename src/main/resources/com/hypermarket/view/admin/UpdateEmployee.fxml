@@ -10,6 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <VBox id="mainBox" fx:id="mainBox" prefHeight="420.0" prefWidth="961.0" styleClass="main-box"
    stylesheets="@../../css/UpdateForm.css" xmlns="http://javafx.com/javafx/25"
@@ -78,10 +81,42 @@
                promptText="Enter last name" />
             <TextField fx:id="phoneField" promptText="Enter phone number" />
             <TextField fx:id="emailField" promptText="Enter Email" />
-            <PasswordField fx:id="newPassField" minHeight="18.0" prefHeight="18.0" prefWidth="237.0"
-               promptText="Enter a strong password" />
-            <PasswordField fx:id="confirmPassField" prefHeight="27.0" prefWidth="358.0"
-               promptText="Confirm the password" />
+            <StackPane alignment="CENTER_RIGHT">
+               <children>
+                  <TextField fx:id="passTextField" managed="false"
+                     promptText="" minHeight="18.0" prefHeight="18.0" prefWidth="237.0"
+                     styleClass="password-input" visible="false" />
+
+                  <PasswordField fx:id="passField" promptText="" minHeight="18.0" prefHeight="18.0"
+                     prefWidth="237.0"
+                     styleClass="password-input" />
+
+                  <FontIcon fx:id="passToggleIcon" iconLiteral="fas-eye" iconSize="18"
+                     onMouseClicked="#togglePasswordVisibility" styleClass="eye-icon">
+                     <StackPane.margin>
+                        <Insets right="15.0" />
+                     </StackPane.margin>
+                  </FontIcon>
+               </children>
+            </StackPane>
+            <StackPane alignment="CENTER_RIGHT">
+               <children>
+                  <TextField fx:id="confirmPassTextField" managed="false"
+                     promptText="" prefHeight="27.0" prefWidth="358.0"
+                     styleClass="password-input" visible="false" />
+
+                  <PasswordField fx:id="confirmPassField" promptText=""
+                     prefHeight="27.0" prefWidth="358.0"
+                     styleClass="password-input" />
+
+                  <FontIcon fx:id="confirmPassToggleIcon" iconLiteral="fas-eye" iconSize="18"
+                     onMouseClicked="#toggleConfirmPasswordVisibility" styleClass="eye-icon">
+                     <StackPane.margin>
+                        <Insets right="15.0" />
+                     </StackPane.margin>
+                  </FontIcon>
+               </children>
+            </StackPane>
          </children>
       </VBox>
    </HBox>

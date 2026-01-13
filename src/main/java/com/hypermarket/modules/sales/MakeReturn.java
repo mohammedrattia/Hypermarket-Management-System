@@ -8,6 +8,7 @@ import com.hypermarket.entities.Order;
 import com.hypermarket.entities.OrderItem;
 import com.hypermarket.entities.Sales;
 import com.hypermarket.service.Session;
+import com.hypermarket.service.Toast;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -68,6 +69,8 @@ public class MakeReturn implements Initializable {
         orderDetailQuantity.setText(String.valueOf(order.getTotalQuantity()));
         if (order.getDateTime() != null) {
             orderDetailDate.setValue(order.getDateTime().toLocalDate());
+            orderDetailDate.setMouseTransparent(true);
+            orderDetailDate.setFocusTraversable(false);
         }
 
         System.out.println("Start Loading Cards");
@@ -148,8 +151,13 @@ public class MakeReturn implements Initializable {
         }
 
         if (hasReturns) {
-            System.out.println("Returns processed successfully.");
             closeWindow();
+            String returnsMadeSuccessMsg = "Returns processed successfully.";
+            Toast.showToast(returnsMadeSuccessMsg, Toast.NotificationType.INFORMATION);
+        } else {
+            String noReturnsWarningMsg = "No selected items to return.";
+            Toast.showToast(noReturnsWarningMsg, Toast.NotificationType.WARNING);
+
         }
     }
 

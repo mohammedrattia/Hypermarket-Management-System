@@ -133,3 +133,12 @@
 .combo-box .list-cell:hover {
   -fx-background-color: #10b981;
 }
+
+.eye-icon {
+  -fx-cursor: hand;
+  -fx-icon-color: #999999;
+}
+
+.eye-icon:hover {
+  -fx-icon-color: #10b981;
+}

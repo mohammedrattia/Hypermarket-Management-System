@@ -10,74 +10,109 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <VBox prefHeight="637.0" prefWidth="1096.0" styleClass="main-box"
-    stylesheets="@../../css/AddEmployee.css" xmlns="http://javafx.com/javafx/25"
-    xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="com.hypermarket.modules.admin.AddEmployeeController">
+  stylesheets="@../../css/AddEmployee.css" xmlns="http://javafx.com/javafx/25"
+  xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="com.hypermarket.modules.admin.AddEmployeeController">
 
-    <children>
-        <HBox prefHeight="557.0" prefWidth="1096.0" styleClass="main-Form">
-            <children>
-                <VBox>
-                    <children>
-                        <VBox prefHeight="117.0" prefWidth="300.0" styleClass="Image-Box">
-                            <children>
-                                <ImageView fx:id="userImage" fitHeight="108.0" fitWidth="122.0"
-                                    preserveRatio="true" styleClass="profile-preview">
-                                    <image>
-                                        <Image url="@../../images/userBlack.png" />
-                                    </image>
-                                </ImageView>
-                                <Button fx:id="uploadImageBtn" onAction="#handleImageSelection"
-                                    prefHeight="31.0" prefWidth="105.0" styleClass="change-img"
-                                    text="Select Image" />
-                            </children>
-                        </VBox>
-                        <HBox>
-                            <children>
+  <children>
+    <HBox prefHeight="557.0" prefWidth="1096.0" styleClass="main-Form">
+      <children>
+        <VBox>
+          <children>
+            <VBox prefHeight="117.0" prefWidth="300.0" styleClass="Image-Box">
+              <children>
+                <ImageView fx:id="userImage" fitHeight="108.0" fitWidth="122.0"
+                  preserveRatio="true" styleClass="profile-preview">
+                  <image>
+                    <Image url="@../../images/userBlack.png" />
+                  </image>
+                </ImageView>
+                <Button fx:id="uploadImageBtn" onAction="#handleImageSelection"
+                  prefHeight="31.0" prefWidth="105.0" styleClass="change-img"
+                  text="Select Image" />
+              </children>
+            </VBox>
+            <HBox>
+              <children>
 
-                                <VBox prefHeight="354.0" prefWidth="132.0" styleClass="labels-box">
-                                    <children>
-                                        <Label text="First Name:" />
-                                        <Label text="Last Name:" />
-                                        <Label text="Phone:" />
-                                        <Label text="Email:" />
-                                        <Label text="Password:" />
-                                        <Label text="Confirm Password:" />
-                                        <Label text="Salary:" />
-                                        <Label text="Role:" />
-                                    </children>
-                                </VBox>
-
-                                <VBox prefHeight="455.0" prefWidth="300.0" styleClass="fields-box">
-                                    <children>
-                                        <TextField fx:id="fnameField" minHeight="21.0"
-                                            prefHeight="21.0" />
-                                        <TextField fx:id="lnameField" />
-                                        <TextField fx:id="phoneField" />
-                                        <TextField fx:id="emailField" />
-                                        <PasswordField fx:id="passwordField" />
-                                        <PasswordField fx:id="confirmPassField" />
-                                        <TextField fx:id="salaryField" />
-                                        <ComboBox fx:id="roleComboBox" prefWidth="150.0"
-                                            promptText="Select Role" styleClass="box-Style" />
-                                    </children>
-                                </VBox>
-                            </children>
-                        </HBox>
-                    </children>
+                <VBox prefHeight="354.0" prefWidth="132.0" styleClass="labels-box">
+                  <children>
+                    <Label text="First Name:" />
+                    <Label text="Last Name:" />
+                    <Label text="Phone:" />
+                    <Label text="Email:" />
+                    <Label text="Password:" />
+                    <Label text="Confirm Password:" />
+                    <Label text="Salary:" />
+                    <Label text="Role:" />
+                  </children>
                 </VBox>
 
-            </children>
-        </HBox>
-        <Region maxWidth="9.0" minWidth="9.0" prefHeight="9.0" prefWidth="900.0" />
+                <VBox prefHeight="455.0" prefWidth="300.0" styleClass="fields-box">
+                  <children>
+                    <TextField fx:id="fnameField" minHeight="21.0"
+                      prefHeight="21.0" />
+                    <TextField fx:id="lnameField" />
+                    <TextField fx:id="phoneField" />
+                    <TextField fx:id="emailField" />
+                    <StackPane alignment="CENTER_RIGHT">
+                      <children>
+                        <TextField fx:id="passTextField" managed="false"
+                          promptText=""
+                          styleClass="password-input" visible="false" />
 
-        <HBox styleClass="save-box">
-            <children>
-                <Button fx:id="saveBtn" onAction="#handleSave" styleClass="save-Btn" text="Save" />
-            </children>
-        </HBox>
+                        <PasswordField fx:id="passField" promptText=""
+                          styleClass="password-input" />
 
-    </children>
+                        <FontIcon fx:id="passToggleIcon" iconLiteral="fas-eye" iconSize="18"
+                          onMouseClicked="#togglePasswordVisibility" styleClass="eye-icon">
+                          <StackPane.margin>
+                            <Insets right="15.0" />
+                          </StackPane.margin>
+                        </FontIcon>
+                      </children>
+                    </StackPane>
+                    <StackPane alignment="CENTER_RIGHT">
+                      <children>
+                        <TextField fx:id="confirmPassTextField" managed="false"
+                          promptText=""
+                          styleClass="password-input" visible="false" />
+
+                        <PasswordField fx:id="confirmPassField" promptText=""
+                          styleClass="password-input" />
+
+                        <FontIcon fx:id="confirmPassToggleIcon" iconLiteral="fas-eye" iconSize="18"
+                          onMouseClicked="#toggleConfirmPasswordVisibility" styleClass="eye-icon">
+                          <StackPane.margin>
+                            <Insets right="15.0" />
+                          </StackPane.margin>
+                        </FontIcon>
+                      </children>
+                    </StackPane>
+                    <TextField fx:id="salaryField" />
+                    <ComboBox fx:id="roleComboBox" prefWidth="150.0"
+                      promptText="Select Role" styleClass="box-Style" />
+                  </children>
+                </VBox>
+              </children>
+            </HBox>
+          </children>
+        </VBox>
+
+      </children>
+    </HBox>
+    <Region maxWidth="9.0" minWidth="9.0" prefHeight="9.0" prefWidth="900.0" />
+
+    <HBox styleClass="save-box">
+      <children>
+        <Button fx:id="saveBtn" onAction="#handleSave" styleClass="save-Btn" text="Save" />
+      </children>
+    </HBox>
+
+  </children>
 </VBox>

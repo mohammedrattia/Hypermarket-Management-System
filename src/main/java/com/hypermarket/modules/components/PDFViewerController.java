@@ -9,6 +9,8 @@ import java.nio.file.StandardCopyOption;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
 
+import com.hypermarket.service.Toast;
+
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
@@ -22,6 +24,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.Window;
 
 public class PDFViewerController {
 
@@ -79,7 +83,8 @@ public class PDFViewerController {
         if (dest != null) {
             try {
                 Files.copy(currentPdfFile.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                System.out.println("File saved to: " + dest.getAbsolutePath());
+                String saveReceiptSuccessMsg = "File saved to: " + dest.getAbsolutePath();
+                Toast.showToast(saveReceiptSuccessMsg, Toast.NotificationType.INFORMATION);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -104,6 +109,7 @@ public class PDFViewerController {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Receipt Preview");
             stage.setScene(new Scene(root));
+            stage.getIcons().addAll(new Image(Toast.class.getResource(Toast.blankIconPath).toExternalForm()));
             stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();

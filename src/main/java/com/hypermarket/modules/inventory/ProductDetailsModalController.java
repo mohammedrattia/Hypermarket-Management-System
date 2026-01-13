@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,7 @@ import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.Batch;
 import com.hypermarket.entities.Product;
+import com.hypermarket.service.Toast;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +23,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
@@ -35,6 +38,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.Window;
 
 public class ProductDetailsModalController {
 
@@ -160,8 +165,11 @@ public class ProductDetailsModalController {
     @FXML
     private void handleAddBatch(ActionEvent event) {
         Dialog<Batch> dialog = new Dialog<>();
-        dialog.setTitle("Add New Batch");
-        dialog.setHeaderText("Enter batch details");
+        dialog.setTitle("Enter new batch details");
+        Window dialogScene = dialog.getDialogPane().getScene().getWindow();
+        Stage dialogStage = (Stage) dialogScene;
+        dialogStage.initStyle(StageStyle.UNIFIED);
+        dialogStage.getIcons().addAll(new Image(Toast.class.getResource(Toast.blankIconPath).toExternalForm()));
 
         ButtonType addButtonType = new ButtonType("Add", javafx.scene.control.ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(addButtonType, ButtonType.CANCEL);
@@ -212,6 +220,13 @@ public class ProductDetailsModalController {
 
         dialog.getDialogPane().setContent(grid);
 
+        Button addButton = (Button) dialog.getDialogPane().lookupButton(addButtonType);
+
+        addButton.addEventFilter(ActionEvent.ACTION, e -> {
+            if (!validateInput(quantity, deliveryDate, expiryDate)) {
+                e.consume();
+            }
+        });
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == addButtonType) {
                 try {
@@ -244,7 +259,54 @@ public class ProductDetailsModalController {
             DataStore.getDataStore().saveAllData();
             loadBatches();
             quantityField.setText(String.valueOf(product.getQuantity()));
+            String addBatchSuccessMsg = "New batch for product " + product.getName() + " added successfully.";
+            Toast.showToast(addBatchSuccessMsg, Toast.NotificationType.INFORMATION);
         });
+    }
+
+    private boolean validateInput(TextField quantity, DatePicker deliveryDate, DatePicker expiryDate) {
+        String errorMessage = "";
+        if (quantity.getText().isEmpty() || deliveryDate.getValue() == null || expiryDate.getValue() == null) {
+            errorMessage = "Please fill in all required fields.";
+        } else if (!quantity.getText().matches("^\\d{1,}$")) {
+            errorMessage = "Invalid quantity entered.";
+        } else if (Integer.parseInt(quantity.getText()) <= 0) {
+            errorMessage = "Quantity must be greater than 0.";
+        } else if (!expiryDate.getValue().isAfter(deliveryDate.getValue())) {
+            errorMessage = "Expiry date cannot be before delivery date.";
+        } else if (!expiryDate.getValue().isAfter(LocalDate.now())) {
+            errorMessage = "Expiry date cannot be before today.";
+        }
+        if (!errorMessage.isEmpty()) {
+            Toast.showToast(errorMessage, Toast.NotificationType.ERROR);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateInput() {
+        String errorMessage = "";
+        if (nameField.getText().isEmpty() || categoryField.getText().isEmpty()
+                || priceField.getText().isEmpty() || thresholdField.getText().isEmpty()) {
+            errorMessage = "Please fill in all required fields.";
+        } else if (!nameField.getText().matches("^\\D{1,}$")) {
+            errorMessage = "Invalid product name.";
+        } else if (!categoryField.getText().matches("^\\D{1,}$")) {
+            errorMessage = "Invalid category name.";
+        } else if (!priceField.getText().matches("^\\d+(\\.\\d{1,})?$")) {
+            errorMessage = "Invalid price entered.";
+        } else if (!thresholdField.getText().matches("^\\d{1,}$")) {
+            errorMessage = "Invalid threshold entered.";
+        } else if (Double.parseDouble(priceField.getText()) <= 0) {
+            errorMessage = "Price must be greater than 0.";
+        } else if (Integer.parseInt(thresholdField.getText()) < 0) {
+            errorMessage = "Threshold must be greater than or equal to 0.";
+        }
+        if (!errorMessage.isEmpty()) {
+            Toast.showToast(errorMessage, Toast.NotificationType.ERROR);
+            return false;
+        }
+        return true;
     }
 
     private int generateBatchId() {
@@ -260,6 +322,9 @@ public class ProductDetailsModalController {
     @FXML
     private void handleUpdate(ActionEvent event) {
         try {
+            if (!validateInput()) {
+                return;
+            }
             product.setName(nameField.getText());
             product.setCategory(categoryField.getText());
             product.setPrice(Double.parseDouble(priceField.getText()));
@@ -282,72 +347,52 @@ public class ProductDetailsModalController {
 
             DataStore.getDataStore().saveAllData();
 
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Success");
-            alert.setHeaderText(null);
-            alert.setContentText("Product updated successfully!");
-            alert.showAndWait();
-
+            String updateProductSuccessMsg = "Product updated successfully!";
+            Toast.showToast(updateProductSuccessMsg, Toast.NotificationType.INFORMATION);
             closeModal();
-
-        } catch (NumberFormatException e) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Invalid Input");
-            alert.setContentText("Please check your number fields.");
-            alert.showAndWait();
         } catch (IOException e) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Image Upload Failed");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+            String uploadImageErrorMsg = "Image Upload Failed";
+            Toast.showToast(uploadImageErrorMsg, Toast.NotificationType.ERROR);
         }
     }
 
     @FXML
     private void handleDelete(ActionEvent event) {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Delete Product");
-        alert.setHeaderText("Delete " + product.getName() + "?");
-        alert.setContentText("Are you sure you want to delete this product? All associated batches (" +
-                DataStore.getDataStore().getBatches().stream()
-                        .filter(b -> b.getProduct().getProductID() == product.getProductID()).count()
-                +
-                ") will also be removed.");
-        alert.showAndWait();
-
-        try {
-            if (productImage.getImage() != null) {
-                productImage.setImage(null);
-            }
-            System.gc();
-
-            File imageFile = resolveImageFile(product.getImageName());
-
-            if (imageFile != null && imageFile.exists()) {
-                boolean deleted = imageFile.delete();
-                if (!deleted) {
-                    System.err.println("Failed to delete image file (System Lock?): " + imageFile.getAbsolutePath());
-
-                    imageFile.deleteOnExit();
-                } else {
-                    System.out.println("Image deleted successfully.");
+        String confirmDeleteMsg = "Are you sure you want to delete " + product.getName() + "?";
+        Optional<ButtonType> deleteDecision = Toast.showToast(confirmDeleteMsg, Toast.NotificationType.CONFIRMATION);
+        if (deleteDecision.get() == ButtonType.YES) {
+            try {
+                if (productImage.getImage() != null) {
+                    productImage.setImage(null);
                 }
+                System.gc();
+
+                File imageFile = resolveImageFile(product.getImageName());
+
+                if (imageFile != null && imageFile.exists()) {
+                    boolean deleted = imageFile.delete();
+                    if (!deleted) {
+                        System.err
+                                .println("Failed to delete image file (System Lock?): " + imageFile.getAbsolutePath());
+
+                        imageFile.deleteOnExit();
+                    } else {
+                        System.out.println("Image deleted successfully.");
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Error attempting to delete image file.");
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            System.out.println("Error attempting to delete image file.");
-            e.printStackTrace();
+
+            DataStore.getDataStore().getBatches()
+                    .removeIf(b -> b.getProduct().getProductID() == product.getProductID());
+            DataStore.getDataStore().getProducts().remove(product);
+            DataStore.getDataStore().saveAllData();
+            closeModal();
+            String deleteSuccessMsg = "Product " + product.getName() + " deleted successfully.";
+            Toast.showToast(deleteSuccessMsg, Toast.NotificationType.INFORMATION);
         }
-
-        DataStore.getDataStore().getBatches()
-                .removeIf(b -> b.getProduct().getProductID() == product.getProductID());
-
-        DataStore.getDataStore().getProducts().remove(product);
-
-        DataStore.getDataStore().saveAllData();
-
-        closeModal();
     }
 
     private File resolveImageFile(String imageName) {

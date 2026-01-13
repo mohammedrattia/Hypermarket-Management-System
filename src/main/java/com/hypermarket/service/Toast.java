@@ -1,6 +1,7 @@
 package com.hypermarket.service;
 
 import java.util.Optional;
+import java.util.zip.Inflater;
 
 import org.controlsfx.control.Notifications;
 
@@ -11,7 +12,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
@@ -19,14 +22,26 @@ import javafx.util.Duration;
 
 public class Toast {
 
-    private static String blankIconPath = "/com/hypermarket/images/blank-image.png";
+    public enum NotificationType {
+        INFORMATION,
+        ERROR,
+        WARNING,
+        CONFIRMATION
+    }
+
+    public static String blankIconPath = "/com/hypermarket/images/blank-image.png";
     private static String infoMessageIconPath = "/com/hypermarket/images/info-message-icon.png";
     private static String warningMessageIconPath = "/com/hypermarket/images/warning-message-icon.png";
     private static String errorMessageIconPath = "/com/hypermarket/images/error-message-icon.png";
     private static String confirmMessageIconPath = "/com/hypermarket/images/confirm-message-icon.png";
 
     public static Optional<ButtonType> showToast(String message, NotificationType type) {
-        // TODO
+        if (type == NotificationType.INFORMATION) {
+            showNotification(message);
+        } else {
+            AlertType alertType = AlertType.valueOf(type.toString());
+            return showAlert(message, alertType);
+        }
         return null;
     }
 
@@ -44,8 +59,9 @@ public class Toast {
 
     public static Optional<ButtonType> showAlert(String message, AlertType type) {
         Alert notification = new Alert(type);
+        String prefix = "\n";
         notification.setHeaderText(null);
-        notification.setContentText(message);
+        notification.setContentText(prefix + message);
         notification.setTitle(null);
         notification.setGraphic(null);
         ImageView messageIcon;
@@ -60,7 +76,7 @@ public class Toast {
                 break;
             case CONFIRMATION:
                 messageIcon = new ImageView(
-                        new Image(Toast.class.getResource(confirmMessageIconPath).toExternalForm()));
+                        new Image(Toast.class.getResource(warningMessageIconPath).toExternalForm()));
                 notification.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
                 // notification.setContentText(null);
                 break;
@@ -69,21 +85,13 @@ public class Toast {
                 break;
         }
         Window alertScene = notification.getDialogPane().getScene().getWindow();
-        // alertScene.setOnCloseRequest(event -> {
-        // event.consume(); // Prevents closing via the X button
-        // });
-
         Stage alertStage = (Stage) alertScene;
         alertStage.initStyle(StageStyle.UNIFIED);
         alertStage.getIcons().addAll(new Image(Toast.class.getResource(blankIconPath).toExternalForm()));
-        notification.setGraphic(messageIcon);
+        Region messageIconSpacing = new Region();
+        messageIconSpacing.setMinHeight(10);
+        VBox messageIconContainer = new VBox(messageIconSpacing, messageIcon);
+        notification.setGraphic(messageIconContainer);
         return notification.showAndWait();
-    }
-
-    public enum NotificationType {
-        INFORMATION,
-        ERROR,
-        CONFIRMATION,
-        WARNING
     }
 }

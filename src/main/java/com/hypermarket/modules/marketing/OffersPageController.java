@@ -1,5 +1,6 @@
 package com.hypermarket.modules.marketing;
 
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList; // Import needed for list copy
 import java.util.Collections; // Import needed for reversing
@@ -14,6 +15,7 @@ import com.hypermarket.entities.Offer;
 import com.hypermarket.entities.Product;
 import com.hypermarket.entities.Offer.Status;
 import com.hypermarket.service.Session;
+import com.hypermarket.service.Toast;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -195,13 +197,10 @@ public class OffersPageController {
         deleteBtn.getStyleClass().add("delete-icon-btn");
 
         deleteBtn.setOnAction(e -> {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Delete Offer");
-            alert.setHeaderText("Delete this offer?");
-            alert.setContentText("This cannot be undone.");
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
+            String confirmDeleteMsg = "Are you sure you want to delete this offer?";
+            Optional<ButtonType> deleteDecision = Toast.showToast(confirmDeleteMsg,
+                    Toast.NotificationType.CONFIRMATION);
+            if (deleteDecision.isPresent() && deleteDecision.get() == ButtonType.YES) {
                 boolean deleted = currentUser.deleteOffer(o);
                 if (deleted) {
                     offersContainer.getChildren().remove(card);
@@ -209,6 +208,8 @@ public class OffersPageController {
                         o.getProduct().setOffer(null);
                     }
                     DataStore.getDataStore().saveAllData();
+                    String deleteSuccessMsg = "Offer deleted successfully.";
+                    Toast.showToast(deleteSuccessMsg, Toast.NotificationType.INFORMATION);
                 }
             }
         });
@@ -227,35 +228,22 @@ public class OffersPageController {
             return;
         selectedProduct = null;
 
+        if (!validateInput()) {
+            return;
+        }
+
         try {
             String name = offerNameField.getText().trim();
             String discountStr = discountField.getText().trim();
-
-            if (name.isEmpty() || discountStr.isEmpty() || startDatePicker.getValue() == null
-                    || endDatePicker.getValue() == null) {
-                showAlert(Alert.AlertType.WARNING, "Missing Fields", "Required", "Please fill all fields.");
-                return;
-            }
 
             double discount = Double.parseDouble(discountStr);
             Date start = Date.from(startDatePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
             Date end = Date.from(endDatePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-            if (end.before(start)) {
-                showAlert(Alert.AlertType.WARNING, "Invalid Date", "Date Error", "End date must be after start date.");
-                return;
-            }
-
             if (productCombo.getValue() != null) {
                 String pName = productCombo.getValue();
                 selectedProduct = DataStore.getDataStore().getProducts().stream()
                         .filter(p -> p.getName().equals(pName)).findFirst().orElse(null);
-            }
-
-            if (selectedProduct == null) {
-                showAlert(Alert.AlertType.ERROR, "Product Required", "No Product Selected",
-                        "You must select a valid product from the list.");
-                return;
             }
 
             Status status = Status.ACTIVE;
@@ -277,12 +265,38 @@ public class OffersPageController {
             endDatePicker.setValue(null);
             productCombo.setValue(null);
 
-            showAlert(Alert.AlertType.INFORMATION, "Success", "Offer Created",
-                    "The offer has been added successfully.");
+            String addOfferSuccessMsg = "New Offer added successfully.";
+            Toast.showToast(addOfferSuccessMsg, Toast.NotificationType.INFORMATION);
 
         } catch (NumberFormatException ex) {
-            showAlert(Alert.AlertType.ERROR, "Error", "Invalid Input", "Please enter a valid number for Discount.");
+            ex.printStackTrace();
         }
+    }
+
+    private boolean validateInput() {
+        String errorMessage = "";
+        if (offerNameField.getText().isEmpty() || discountField.getText().isEmpty()
+                || startDatePicker.getValue() == null
+                || endDatePicker.getValue() == null) {
+            errorMessage = "Please fill in all required fields.";
+        } else if (!offerNameField.getText().matches("^.*\\S.*$")) {
+            errorMessage = "Invalid name.";
+        } else if (!discountField.getText().matches("^\\d+(\\.\\d{1,})?$")) {
+            errorMessage = "Invalid discount entered.";
+        } else if (Double.parseDouble(discountField.getText()) <= 0) {
+            errorMessage = "discount must be greater than 0.";
+        } else if (!startDatePicker.getValue().isAfter(LocalDate.now())) {
+            errorMessage = "Offer start date cannot be before today.";
+        } else if (!endDatePicker.getValue().isAfter(startDatePicker.getValue())) {
+            errorMessage = "Offer end date cannot be before start date.";
+        } else if (productCombo.getValue() == null) {
+            errorMessage = "You must select a product from the list.";
+        }
+        if (!errorMessage.isEmpty()) {
+            Toast.showToast(errorMessage, Toast.NotificationType.ERROR);
+            return false;
+        }
+        return true;
     }
 
     private int getStatusOrder(Offer.Status status) {

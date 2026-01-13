@@ -14,7 +14,6 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.User;
 import com.hypermarket.service.*;
-import com.hypermarket.service.Toast;
 
 public class LoginController implements Initializable {
 
@@ -49,6 +48,9 @@ public class LoginController implements Initializable {
             passTextField.setVisible(true);
             passTextField.setManaged(true);
 
+            passTextField.requestFocus();
+            passTextField.selectEnd();
+
             passToggleIcon.setIconLiteral("fas-eye-slash");
         } else {
             passTextField.setVisible(false);
@@ -56,6 +58,9 @@ public class LoginController implements Initializable {
 
             passField.setVisible(true);
             passField.setManaged(true);
+
+            passTextField.requestFocus();
+            passTextField.selectEnd();
 
             passToggleIcon.setIconLiteral("fas-eye");
         }
@@ -77,19 +82,15 @@ public class LoginController implements Initializable {
     public void testCredential() {
         testAdminButton.setOnMouseClicked(event -> {
             testButton(testAdminButton);
-            Toast.showNotification("This is Admin User Credentials");
         });
         testInventoryButton.setOnMouseClicked(event -> {
             testButton(testInventoryButton);
-            Toast.showAlert("This is Inventory User Credentials", AlertType.WARNING);
         });
         testMarketingButton.setOnMouseClicked(event -> {
             testButton(testMarketingButton);
-            Toast.showAlert("This is Marketing User Credentials", AlertType.ERROR);
         });
         testSalesButton.setOnMouseClicked(event -> {
             testButton(testSalesButton);
-            Toast.showAlert("Are you sure?", AlertType.CONFIRMATION);
         });
     }
 
@@ -113,7 +114,7 @@ public class LoginController implements Initializable {
         try {
             Authenticator.authenticate(emailField.getText(), passField.getText());
         } catch (Exception e) {
-            makeAlert(e.getMessage());
+            Toast.showToast(e.getMessage(), Toast.NotificationType.ERROR);
             return;
         }
         if (onLoginSuccess != null) {
@@ -125,19 +126,10 @@ public class LoginController implements Initializable {
 
         if (passField.getText().isEmpty() ||
                 emailField.getText().isEmpty()) {
-            makeAlert("- Please fill in all required fields.\n");
+            Toast.showToast("Please fill in all required fields.", Toast.NotificationType.ERROR);
             return false;
         }
 
         return true;
-    }
-
-    private void makeAlert(String alertText) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Validation Error");
-        alert.setHeaderText("Validation Error");
-        alert.setContentText(alertText.toString());
-
-        alert.showAndWait();
     }
 }

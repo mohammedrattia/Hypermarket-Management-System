@@ -45,7 +45,8 @@
 
         <Separator styleClass="sidebar-separator" />
 
-        <ScrollPane fitToWidth="true" fitToHeight="true" focusTraversable="false" styleClass="menu-scroll"
+        <ScrollPane fitToWidth="true" fitToHeight="true" focusTraversable="false"
+          styleClass="menu-scroll"
           VBox.vgrow="ALWAYS">
           <content>
             <VBox prefWidth="250.0" styleClass="menu-container">
@@ -129,7 +130,8 @@
             </children>
           </HBox>
         </HBox>
-        <ScrollPane fitToWidth="true"  fitToHeight="true" focusTraversable="false" styleClass="menu-scroll"
+        <ScrollPane fitToWidth="true" fitToHeight="true" focusTraversable="false"
+          styleClass="menu-scroll"
           layoutY="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
           <content>

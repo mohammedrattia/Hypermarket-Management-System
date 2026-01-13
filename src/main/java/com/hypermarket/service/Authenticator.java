@@ -11,7 +11,7 @@ public class Authenticator {
                 return;
             }
         }
-        throw new Exception("Invalid Credentials!!");
+        throw new Exception("Invalid Credentials!");
     }
 
     public static void logout() {

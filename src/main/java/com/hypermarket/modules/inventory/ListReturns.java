@@ -14,6 +14,7 @@ import com.hypermarket.entities.OrderItem;
 import com.hypermarket.entities.Product;
 import com.hypermarket.entities.Return;
 import com.hypermarket.modules.components.TableViewController;
+import com.hypermarket.service.Toast;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -51,11 +53,12 @@ public class ListReturns implements Initializable {
     @FXML
     private void handleReAddToStock() {
         if (selectedReturn == null) {
-            showAlert("Selection Error", "Please select a returned order first.");
+            String selectReturnedOrderWarningMsg = "Please select a returned order first.";
+            Toast.showToast(selectReturnedOrderWarningMsg, Toast.NotificationType.WARNING);
             return;
         }
-
-        showAlert("Success", "Item re-added to stock (Nearest Expiry Batch updated).");
+        String reAddReturnedOrderSuccessMsg = "Item re-added to stock (Nearest Expiry Batch updated).";
+        Toast.showToast(reAddReturnedOrderSuccessMsg, Toast.NotificationType.INFORMATION);
         DataStore db = DataStore.getDataStore();
 
         Product product = selectedReturn.getProduct();
@@ -85,23 +88,17 @@ public class ListReturns implements Initializable {
     @FXML
     private void handleDeleteDamaged() {
         if (selectedReturn == null) {
-            showAlert("Selection Error", "Please select a returned order first.");
+            String selectReturnedOrderWarningMsg = "Please select a returned order first.";
+            Toast.showToast(selectReturnedOrderWarningMsg, Toast.NotificationType.WARNING);
             return;
         }
+        String deleteReturnedOrderSuccessMsg = "Returned order discarded as damaged/waste.";
+        Toast.showToast(deleteReturnedOrderSuccessMsg, Toast.NotificationType.INFORMATION);
 
-        showAlert("Deleted", "Returned order discarded as damaged/waste.");
         DataStore.getDataStore().getReturns().remove(selectedReturn);
 
         returnsTable.clearSelection();
         selectedReturn = null;
-    }
-
-    private void showAlert(String title, String content) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
     }
 
     private void loadReturnsTable() {

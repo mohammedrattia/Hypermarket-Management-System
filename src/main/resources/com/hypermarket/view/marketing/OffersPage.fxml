@@ -10,48 +10,53 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="20" style="-fx-padding: 20;" 
-      stylesheets="@../../css/MarketingDashboard.css"
-      xmlns="http://javafx.com/javafx/25" 
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.hypermarket.modules.marketing.OffersPageController">
+<VBox spacing="20" style="-fx-padding: 20;"
+    stylesheets="@../../css/MarketingDashboard.css"
+    xmlns="http://javafx.com/javafx/25"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.hypermarket.modules.marketing.OffersPageController">
 
     <VBox spacing="15" styleClass="input-panel">
-        
-        <Label text="CREATE NEW OFFER" styleClass="offer-detail-label" style="-fx-font-size: 12px;"/>
+
+        <Label text="CREATE NEW OFFER" styleClass="offer-detail-label" style="-fx-font-size: 12px;" />
 
         <HBox spacing="15" alignment="CENTER_LEFT">
-            <TextField fx:id="offerNameField" promptText="Offer Title (e.g. Summer Sale)" HBox.hgrow="ALWAYS" styleClass="report-input-area" />
-            <TextField fx:id="discountField" promptText="Discount %" prefWidth="120" styleClass="report-input-area" />
+            <TextField fx:id="offerNameField" promptText="Offer Title" HBox.hgrow="ALWAYS"
+                styleClass="report-input-area" />
+            <TextField fx:id="discountField" promptText="Discount %" prefWidth="120"
+                styleClass="report-input-area" />
         </HBox>
 
         <HBox spacing="15" alignment="CENTER_LEFT">
-            <ComboBox fx:id="productCombo" promptText="Select Product" prefWidth="250" styleClass="combo-box" />
-            
-            <DatePicker fx:id="startDatePicker" promptText="Start Date" prefWidth="180" styleClass="date-picker"/>
-            <Label text="to" style="-fx-text-fill: #bdbdbd;"/>
-            <DatePicker fx:id="endDatePicker" promptText="End Date" prefWidth="180" styleClass="date-picker"/>
+            <ComboBox fx:id="productCombo" promptText="Select Product" prefWidth="250"
+                styleClass="combo-box" />
+
+            <DatePicker fx:id="startDatePicker" promptText="Start Date" prefWidth="180"
+                styleClass="date-picker" />
+            <Label text="to" style="-fx-text-fill: #bdbdbd;" />
+            <DatePicker fx:id="endDatePicker" promptText="End Date" prefWidth="180"
+                styleClass="date-picker" />
         </HBox>
 
         <AnchorPane>
-            <Button fx:id="addOfferBtn" 
-                    text="Create Offer" 
-                    styleClass="confirm-btn" 
-                    AnchorPane.rightAnchor="0.0" />
+            <Button fx:id="addOfferBtn"
+                text="Create Offer"
+                styleClass="confirm-btn"
+                AnchorPane.rightAnchor="0.0" />
         </AnchorPane>
     </VBox>
 
     <VBox spacing="10" VBox.vgrow="ALWAYS">
-        <Label text="ACTIVE CAMPAIGNS" styleClass="offer-detail-label" style="-fx-padding: 0 0 0 5;"/>
-        
-        <ScrollPane fx:id="offersScroll" 
-                    fitToWidth="true" 
-                    fitToHeight="true" 
-                    styleClass="transparent-scroll-pane" 
-                    VBox.vgrow="ALWAYS">
-            
+        <Label text="ACTIVE CAMPAIGNS" styleClass="offer-detail-label" style="-fx-padding: 0 0 0 5;" />
+
+        <ScrollPane fx:id="offersScroll"
+            fitToWidth="true"
+            fitToHeight="true"
+            styleClass="transparent-scroll-pane"
+            VBox.vgrow="ALWAYS">
+
             <VBox fx:id="offersContainer" spacing="12" style="-fx-padding: 5;" />
-            
+
         </ScrollPane>
     </VBox>
 

@@ -4,6 +4,7 @@ import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.Marketing;
 import com.hypermarket.entities.Report;
 import com.hypermarket.service.Session;
+import com.hypermarket.service.Toast;
 
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -59,8 +60,8 @@ public class ReportsPageController {
         String content = inputReportArea.getText().trim();
 
         if (content == null || content.isEmpty()) {
-            showAlert(Alert.AlertType.WARNING, "Empty Report", "Report Content Missing",
-                    "You didn't write anything in the report!");
+            String submitEmptyReportWarningMsg = "Report Content Missing!";
+            Toast.showToast(submitEmptyReportWarningMsg, Toast.NotificationType.WARNING);
             return;
         }
 
@@ -75,7 +76,8 @@ public class ReportsPageController {
         reportsContainer.getChildren().add(0, createReportCard(r));
 
         inputReportArea.clear();
-        showAlert(Alert.AlertType.INFORMATION, "Report Added", "Success", "The report has been posted successfully!");
+        String addReportSuccessMsg = "New Report added successfully.";
+        Toast.showToast(addReportSuccessMsg, Toast.NotificationType.INFORMATION);
     }
 
     private VBox createReportCard(Report r) {
@@ -135,16 +137,15 @@ public class ReportsPageController {
         deleteBtn.getStyleClass().add("delete-icon-btn");
 
         deleteBtn.setOnAction(e -> {
-            Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.setTitle("Delete Report");
-            alert.setHeaderText("Delete this report?");
-            alert.setContentText("Are you sure you want to delete this report?");
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
+            String confirmDeleteMsg = "Are you sure you want to delete this report?";
+            Optional<ButtonType> deleteDecision = Toast.showToast(confirmDeleteMsg,
+                    Toast.NotificationType.CONFIRMATION);
+            if (deleteDecision.isPresent() && deleteDecision.get() == ButtonType.YES) {
                 reportsContainer.getChildren().remove(card);
                 DataStore.getDataStore().getReports().remove(r);
                 DataStore.getDataStore().saveAllData();
+                String deleteSuccessMsg = "Report deleted successfully.";
+                Toast.showToast(deleteSuccessMsg, Toast.NotificationType.INFORMATION);
             }
         });
 
@@ -163,13 +164,5 @@ public class ReportsPageController {
         card.getChildren().addAll(header, textScroll, bottomBar);
 
         return card;
-    }
-
-    private void showAlert(Alert.AlertType type, String title, String header, String content) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
     }
 }

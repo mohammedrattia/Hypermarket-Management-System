@@ -5,7 +5,16 @@
 }
 
 .BtnsHbox {
-    -fx-background-color: rgba(247, 247, 247, 0.432);
+    -fx-min-height: 110;
+    -fx-max-height: 110;
+}
+
+.image-field,
+.image-container{
+    -fx-min-width: 350;
+    -fx-max-width: 350;
+    -fx-min-height: 350;
+    -fx-max-height: 350;
 }
 
 .input-field {
