@@ -200,8 +200,8 @@ public class UpdateEmployee implements Initializable {
             }
         }
 
-        new Alert(Alert.AlertType.INFORMATION, "User info updated successfully!").showAndWait();
-
+        String updateUserInfoSuccessMsg = "User info updated successfully!";
+        Toast.showToast(updateUserInfoSuccessMsg, Toast.NotificationType.INFORMATION);
         if (onUpdateCallback != null) {
             onUpdateCallback.run();
         }
