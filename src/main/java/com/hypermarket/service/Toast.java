@@ -1,7 +1,6 @@
 package com.hypermarket.service;
 
 import java.util.Optional;
-import java.util.zip.Inflater;
 
 import org.controlsfx.control.Notifications;
 
@@ -33,7 +32,6 @@ public class Toast {
     private static String infoMessageIconPath = "/com/hypermarket/images/info-message-icon.png";
     private static String warningMessageIconPath = "/com/hypermarket/images/warning-message-icon.png";
     private static String errorMessageIconPath = "/com/hypermarket/images/error-message-icon.png";
-    private static String confirmMessageIconPath = "/com/hypermarket/images/confirm-message-icon.png";
 
     public static Optional<ButtonType> showToast(String message, NotificationType type) {
         if (type == NotificationType.INFORMATION) {
@@ -78,7 +76,6 @@ public class Toast {
                 messageIcon = new ImageView(
                         new Image(Toast.class.getResource(warningMessageIconPath).toExternalForm()));
                 notification.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
-                // notification.setContentText(null);
                 break;
             default:
                 messageIcon = null;

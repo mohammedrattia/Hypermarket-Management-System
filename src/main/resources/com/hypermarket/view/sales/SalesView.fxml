@@ -34,7 +34,7 @@
                 <Image url="@../../images/cart.png" />
               </image>
             </ImageView>
-            <Label styleClass="logo" text="HyperMarket">
+            <Label styleClass="logo" text=" OmniMart">
               <font>
                 <Font name="System Bold" size="22.0" />
               </font>
