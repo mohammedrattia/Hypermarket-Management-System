@@ -21,9 +21,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 

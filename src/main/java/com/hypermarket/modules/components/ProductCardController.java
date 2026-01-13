@@ -3,13 +3,11 @@ package com.hypermarket.modules.components;
 import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.Product;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 import java.io.File;
