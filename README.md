@@ -213,8 +213,87 @@ _Output:_ `releases\Hypermarket-System-App-Universal.jar`
 
 ---
 
-## 📸 Screenshots
+### 📸 Project Gallery
 
-### Login Screen
+Here is a visual tour of the application modules. Click on a section to expand the screenshots.
 
-![Login Screen](screenshots/login.png)
+<details>
+<summary><strong>Admin Module</strong> (Click to expand)</summary>
+<br>
+<table>
+  <tr>
+    <td><img src="screenshots/02admin.png" alt="Admin Dashboard" width="300"/></td>
+    <td><img src="screenshots/03admin.png" alt="User Management" width="300"/></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/04admin.png" alt="Settings" width="300"/></td>
+    <td><img src="screenshots/05admin.png" alt="Logs" width="300"/></td>
+  </tr>
+    <tr>
+    <td><img src="screenshots/06admin.png" alt="Reports" width="300"/></td>
+  </tr>
+</table>
+</details>
+
+<details>
+<summary><strong>Inventory Module</strong> (Click to expand)</summary>
+<br>
+<table>
+  <tr>
+    <td><img src="screenshots/08inventory.png" alt="Stock List" width="300"/></td>
+    <td><img src="screenshots/09inventory.png" alt="Add Item" width="300"/></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/10inventory.png" alt="Edit Item" width="300"/></td>
+    <td><img src="screenshots/11inventory.png" alt="Low Stock Alert" width="300"/></td>
+  </tr>
+   <tr>
+    <td><img src="screenshots/12inventory.png" alt="Categories" width="300"/></td>
+  </tr>
+</table>
+</details>
+
+<details>
+<summary><strong>Sales Module</strong> (Click to expand)</summary>
+<br>
+<table>
+  <tr>
+    <td><img src="screenshots/16sales.png" alt="POS Screen" width="300"/></td>
+    <td><img src="screenshots/17sales.png" alt="Transaction History" width="300"/></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/18sales.png" alt="Invoice" width="300"/></td>
+    <td><img src="screenshots/19sales.png" alt="Customer Data" width="300"/></td>
+  </tr>
+   <tr>
+    <td><img src="screenshots/20sales.png" alt="Returns" width="300"/></td>
+  </tr>
+</table>
+</details>
+
+<details>
+<summary><strong>Marketing Module</strong> (Click to expand)</summary>
+<br>
+<table>
+  <tr>
+    <td><img src="screenshots/13marketing.png" alt="Campaigns" width="250"/></td>
+    <td><img src="screenshots/14marketing.png" alt="Analytics" width="250"/></td>
+    <td><img src="screenshots/15marketing.png" alt="Discounts" width="250"/></td>
+  </tr>
+</table>
+</details>
+
+<details>
+<summary><strong>Authentication & Profile</strong> (Click to expand)</summary>
+<br>
+<table>
+  <tr>
+    <th>Login Page</th>
+    <th>Update Profile</th>
+  </tr>
+  <tr>
+    <td><img src="screenshots/01login.png" alt="Login Page" width="300"/></td>
+    <td><img src="screenshots/07user.png" alt="Update Profile" width="300"/></td>
+  </tr>
+</table>
+</details>

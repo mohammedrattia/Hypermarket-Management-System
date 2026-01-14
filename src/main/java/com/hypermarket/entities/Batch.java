@@ -63,6 +63,7 @@ public class Batch implements Parsable {
             quantity = Integer.valueOf(values[2]);
             deliveryDate = LocalDate.parse(values[3], FileManager.localDateFormat);
             expiryDate = LocalDate.parse(values[4], FileManager.localDateFormat);
+            product.increaseQuantity(quantity);
         } catch (IllegalArgumentException e) {
             System.err.println("Error Entering Data: " + e.getMessage());
         } catch (Exception e) {

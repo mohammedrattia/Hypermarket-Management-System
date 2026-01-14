@@ -14,7 +14,7 @@ public class Product implements Parsable {
     private String name;
     private String category;
     private String description;
-    private int quantity;
+    private int quantity = 0;
     private double price;
     private Offer offer;
     private String size;
@@ -68,6 +68,10 @@ public class Product implements Parsable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public void increaseQuantity(int newQuantity) {
+        this.quantity += newQuantity;
     }
 
     public double getPrice() {
@@ -148,7 +152,6 @@ public class Product implements Parsable {
                 name + FileManager.DELIMETER +
                 category + FileManager.DELIMETER +
                 description + FileManager.DELIMETER +
-                quantity + FileManager.DELIMETER +
                 price + FileManager.DELIMETER +
                 size + FileManager.DELIMETER +
                 threshold + FileManager.DELIMETER +
@@ -163,14 +166,12 @@ public class Product implements Parsable {
             name = values[1];
             category = values[2];
             description = values[3];
-            quantity = (int) Double.parseDouble(values[4]);
-            price = Double.parseDouble(values[5]);
-            size = values[6];
-            threshold = Integer.parseInt(values[7]);
+            price = Double.parseDouble(values[4]);
+            size = values[5];
+            threshold = Integer.parseInt(values[6]);
 
-            imageName = values[8];
+            imageName = values[7];
 
-            // safety
             if (imageName == null || imageName.equalsIgnoreCase("null")) {
                 imageName = "image_" + productID;
             }

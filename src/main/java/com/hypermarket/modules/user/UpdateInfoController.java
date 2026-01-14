@@ -130,8 +130,8 @@ public class UpdateInfoController implements Initializable {
             passField.setVisible(true);
             passField.setManaged(true);
 
-            passTextField.requestFocus();
-            passTextField.selectEnd();
+            passField.requestFocus();
+            passField.selectEnd();
 
             passToggleIcon.setIconLiteral("fas-eye");
         }
@@ -146,8 +146,8 @@ public class UpdateInfoController implements Initializable {
             confirmPassTextField.setVisible(true);
             confirmPassTextField.setManaged(true);
 
-            passTextField.requestFocus();
-            passTextField.selectEnd();
+            confirmPassTextField.requestFocus();
+            confirmPassTextField.selectEnd();
 
             confirmPassToggleIcon.setIconLiteral("fas-eye-slash");
         } else {
@@ -157,8 +157,8 @@ public class UpdateInfoController implements Initializable {
             confirmPassField.setVisible(true);
             confirmPassField.setManaged(true);
 
-            passTextField.requestFocus();
-            passTextField.selectEnd();
+            confirmPassField.requestFocus();
+            confirmPassField.selectEnd();
 
             confirmPassToggleIcon.setIconLiteral("fas-eye");
         }

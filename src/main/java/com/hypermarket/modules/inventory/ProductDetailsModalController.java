@@ -252,7 +252,6 @@ public class ProductDetailsModalController {
 
         result.ifPresent(batch -> {
             DataStore.getDataStore().getBatches().add(batch);
-            product.setQuantity(product.getQuantity() + batch.getQuantity());
             DataStore.getDataStore().saveAllData();
             loadBatches();
             quantityField.setText(String.valueOf(product.getQuantity()));
@@ -344,9 +343,9 @@ public class ProductDetailsModalController {
 
             DataStore.getDataStore().saveAllData();
 
+            closeModal();
             String updateProductSuccessMsg = "Product updated successfully!";
             Toast.showToast(updateProductSuccessMsg, Toast.NotificationType.INFORMATION);
-            closeModal();
         } catch (IOException e) {
             String uploadImageErrorMsg = "Image Upload Failed";
             Toast.showToast(uploadImageErrorMsg, Toast.NotificationType.ERROR);

@@ -66,9 +66,12 @@ public class ReportsPageController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formattedDate = LocalDateTime.now().format(formatter);
 
+        int size = DataStore.getDataStore().getReports().size();
+        int newID = (size == 0) ? 1 : DataStore.getDataStore().getReports().get(size - 1).getReportID() + 1;
+
         Report r = currentUser.saveCustomReport(
-                0,
-                "Custom Marketing Report - " + formattedDate,
+                newID,
+                formattedDate,
                 content);
 
         reportsContainer.getChildren().add(0, createReportCard(r));

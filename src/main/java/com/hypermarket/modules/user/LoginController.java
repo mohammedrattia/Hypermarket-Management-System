@@ -58,8 +58,8 @@ public class LoginController implements Initializable {
             passField.setVisible(true);
             passField.setManaged(true);
 
-            passTextField.requestFocus();
-            passTextField.selectEnd();
+            passField.requestFocus();
+            passField.selectEnd();
 
             passToggleIcon.setIconLiteral("fas-eye");
         }

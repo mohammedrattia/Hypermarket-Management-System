@@ -1,3 +1,20 @@
-1;offer 1;30.0;2025-12-18;2025-12-19;101
-2;offer 2;20.0;2025-12-18;2025-12-24;101
-3;amazing offer;20.0;2025-12-20;2025-12-31;109
+1;Fresh Apple Discount;10.0;2025-12-01;2025-12-05;101
+2;Orange Juice Special;15.0;2025-12-05;2025-12-10;102
+3;Full Cream Milk Promo;20.0;2025-12-10;2025-12-15;103
+4;Cheddar Cheese Deal;5.0;2025-12-15;2025-12-20;104
+5;Toast Bread Sale;25.0;2025-12-20;2025-12-25;105
+6;Frozen Chicken Bundle;30.0;2025-12-26;2025-12-30;106
+7;Basmati Rice Offer;40.0;2025-12-28;2026-01-02;107
+8;New Year;50.0;2026-01-01;2026-01-03;108
+9;Red Eggs Discount;12.0;2026-01-03;2026-01-05;109
+10;Tomato Price Drop;20.0;2026-01-05;2026-01-07;110
+11;Potato Chips Party Pack;15.0;2026-01-07;2026-01-09;111
+12;Chocolate Bar Sweet Deal;10.0;2026-01-08;2026-01-10;112
+13;White Friday;18.0;2026-01-09;2026-01-11;113
+14;Yogurt Protein Boost;22.0;2026-01-10;2026-01-12;114
+15;Tuna Can Bulk Buy;10.0;2026-01-11;2026-01-13;115
+16;Cherry Tomato Fresh Deal;15.0;2026-01-10;2026-01-20;116
+17;Yummy Carrots Promo;25.0;2026-01-12;2026-01-19;117
+18;Pudding Sahne Special;30.0;2026-01-13;2026-01-25;118
+19;Fresh Apple Daily Deal;20.0;2026-01-14;2026-01-16;101
+20;Eid el Adha;10.0;2026-01-14;2026-01-21;102

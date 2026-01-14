@@ -16,7 +16,6 @@ import com.hypermarket.data.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
@@ -141,8 +140,8 @@ public class UpdateEmployee implements Initializable {
             passField.setVisible(true);
             passField.setManaged(true);
 
-            passTextField.requestFocus();
-            passTextField.selectEnd();
+            passField.requestFocus();
+            passField.selectEnd();
 
             passToggleIcon.setIconLiteral("fas-eye");
         }
@@ -157,8 +156,8 @@ public class UpdateEmployee implements Initializable {
             confirmPassTextField.setVisible(true);
             confirmPassTextField.setManaged(true);
 
-            passTextField.requestFocus();
-            passTextField.selectEnd();
+            confirmPassTextField.requestFocus();
+            confirmPassTextField.selectEnd();
 
             confirmPassToggleIcon.setIconLiteral("fas-eye-slash");
         } else {
@@ -168,8 +167,8 @@ public class UpdateEmployee implements Initializable {
             confirmPassField.setVisible(true);
             confirmPassField.setManaged(true);
 
-            passTextField.requestFocus();
-            passTextField.selectEnd();
+            confirmPassField.requestFocus();
+            confirmPassField.selectEnd();
 
             confirmPassToggleIcon.setIconLiteral("fas-eye");
         }
@@ -200,14 +199,15 @@ public class UpdateEmployee implements Initializable {
             }
         }
 
-        String updateUserInfoSuccessMsg = "User info updated successfully!";
-        Toast.showToast(updateUserInfoSuccessMsg, Toast.NotificationType.INFORMATION);
         if (onUpdateCallback != null) {
             onUpdateCallback.run();
         }
 
         Stage stage = (Stage) saveBtn.getScene().getWindow();
         stage.close();
+
+        String updateUserInfoSuccessMsg = "User info updated successfully!";
+        Toast.showToast(updateUserInfoSuccessMsg, Toast.NotificationType.INFORMATION);
     }
 
     private boolean validateInput() {

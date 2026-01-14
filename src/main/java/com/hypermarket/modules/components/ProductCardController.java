@@ -13,6 +13,7 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Date;
 
 public class ProductCardController {
 
@@ -49,7 +50,7 @@ public class ProductCardController {
 
         String formattedProductPrice = String.format("%.2f", product.getPrice());
         String formattedDiscountedProductPrice = String.format("%.2f", product.getDiscountedPrice());
-        if (product.getOffer() != null) {
+        if (product.getOffer() != null && product.getOffer().getEndDate().after(new Date())) {
             originalPriceCard.setText("Price Before: " + formattedProductPrice + " $");
             originalPriceCard.setVisible(true);
             originalPriceCard.setManaged(true);
