@@ -14,9 +14,11 @@ A full-featured desktop application designed to streamline retail operations. Bu
 ## Table of Contents
 
 - [About the Project](#-about-the-project)
-- [Download & Install](#-download--install)
+- [System Architecture](#️-system-architecture)
+- [Download &amp; Install](#-download--install)
   - [Default Credentials](#-default-credentials)
 - [System Modules](#-system-modules)
+- [Project Gallery](#-project-gallery)
 - [Technologies Used](#️-technologies-used)
 - [For Developers](#-for-developers)
   - [Prerequisites](#prerequisites)
@@ -30,6 +32,15 @@ A full-featured desktop application designed to streamline retail operations. Bu
 The **Hypermarket Management System** is an MVC-architected application that simulates real-world retail management. It solves the complexity of tracking inventory batches, managing employee roles, and processing sales transactions.
 
 It uses a custom **File I/O DataStore** to persist data, making the application portable and lightweight.
+
+---
+
+## 🏗️ System Architecture
+
+To ensure scalability and maintainability, the project follows a strict object-oriented design.
+
+- **[Use Case Diagram (PDF)](docs/diagrams/use-case-diagram.pdf)**
+- **[Class Diagram (PDF)](docs/diagrams/class-diagram.pdf)**
 
 ---
 
@@ -85,6 +96,135 @@ To access the system for the first time, use the default Administrator account:
 
 ---
 
+## 📸 Project Gallery
+
+Here is a visual tour of the application modules. Click on a section to expand the screenshots.
+
+<details>
+<summary><strong>Admin Module</strong> (Click to expand)</summary>
+<br>
+<table>
+  <tr>
+    <th>Admin Dashboard</th>
+    <th>View Employees</th>
+  </tr>
+  <tr>
+    <td><img src="screenshots/02admin.png" alt="Admin Dashboard" width="300"/></td>
+    <td><img src="screenshots/03admin.png" alt="View Employees" width="300"/></td>
+  </tr>
+  <tr>
+    <th>Employee Details</th>
+    <th>Update Employee</th>
+  </tr>
+  <tr>
+    <td><img src="screenshots/04admin.png" alt="Employee Details" width="300"/></td>
+    <td><img src="screenshots/05admin.png" alt="Update Employee" width="300"/></td>
+  </tr>
+  <tr>
+    <th>Add Employee</th>
+  </tr>
+  <tr>
+    <td><img src="screenshots/06admin.png" alt="Add Employee" width="300"/></td>
+  </tr>
+</table>
+</details>
+
+<details>
+<summary><strong>Inventory Module</strong> (Click to expand)</summary>
+<br>
+<table>
+  <tr>
+    <th>Inventory Dashboard</th>
+    <th>View Products</th>
+  </tr>
+  <tr>
+    <td><img src="screenshots/08inventory.png" alt="Inventory Dashboard" width="300"/></td>
+    <td><img src="screenshots/09inventory.png" alt="View Products" width="300"/></td>
+  </tr>
+  <tr>
+    <th>Product Details</th>
+    <th>Add Product</th>
+  </tr>
+  <tr>
+    <td><img src="screenshots/10inventory.png" alt="Product Details" width="300"/></td>
+    <td><img src="screenshots/11inventory.png" alt="Add Product" width="300"/></td>
+  </tr>
+  <tr>
+    <th>Returned Orders List</th>
+  </tr>
+   <tr>
+    <td><img src="screenshots/12inventory.png" alt="Returned Orders List" width="300"/></td>
+  </tr>
+</table>
+</details>
+
+<details>
+<summary><strong>Sales Module</strong> (Click to expand)</summary>
+<br>
+<table>
+  <tr>
+    <th>Sales Dashboard</th>
+    <th>View Orders</th>
+  </tr>
+  <tr>
+    <td><img src="screenshots/16sales.png" alt="Sales Dashboard" width="300"/></td>
+    <td><img src="screenshots/17sales.png" alt="View Orders" width="300"/></td>
+  </tr>
+  <tr>
+    <th>Return Order Items</th>
+    <th>Order Receipt</th>
+  </tr>
+  <tr>
+    <td><img src="screenshots/18sales.png" alt="Return Order Items" width="300"/></td>
+    <td><img src="screenshots/19sales.png" alt="Order Receipt" width="300"/></td>
+  </tr>
+  <tr>
+    <th>Make Order</th>
+  </tr>
+   <tr>
+    <td><img src="screenshots/20sales.png" alt="Make Order" width="300"/></td>
+  </tr>
+</table>
+</details>
+
+<details>
+<summary><strong>Marketing Module</strong> (Click to expand)</summary>
+<br>
+<table>
+  <tr>
+    <th>Marketing Dashboard</th>
+    <th>Reports</th>
+  </tr>
+  <tr>
+    <td><img src="screenshots/13marketing.png" alt="Marketing Dashboard" width="300"/></td>
+    <td><img src="screenshots/14marketing.png" alt="Reports" width="300"/></td>
+  </tr>
+  <tr>
+    <th>Offers</th>
+  </tr>
+  <tr>
+    <td><img src="screenshots/15marketing.png" alt="Offers" width="300"/></td>
+  </tr>
+</table>
+</details>
+
+<details>
+<summary><strong>Authentication & Profile</strong> (Click to expand)</summary>
+<br>
+<table>
+  <tr>
+    <th>Login Page</th>
+    <th>Update Profile</th>
+  </tr>
+  <tr>
+    <td><img src="screenshots/01login.png" alt="Login Page" width="300"/></td>
+    <td><img src="screenshots/07user.png" alt="Update Profile" width="300"/></td>
+  </tr>
+</table>
+</details>
+
+---
+
 ## 🛠️ Technologies Used
 
 - **Language:** [Java 25](https://www.oracle.com/java/technologies/downloads/#java25)
@@ -102,6 +242,7 @@ To access the system for the first time, use the default Administrator account:
 ## 👨‍💻 For Developers
 
 If you want to run or build the source code yourself directly from your IDE (VS Code, IntelliJ, Eclipse, Netbeans).
+This project includes a Maven wrapper. You can run the project without having Maven installed on your machine using ./mvnw or mvnw.cmd
 
 ### Prerequisites
 
@@ -170,9 +311,7 @@ Ensure scripts are executable first (`chmod +x scripts/*.sh`).
 **1. Debian Package (.deb)**
 Builds the standard installer package for Ubuntu, Debian, and Mint systems.
 
-**Bash**
-
-```
+```bash
 ./scripts/build_linux_deb.sh
 ```
 
@@ -181,9 +320,7 @@ _Output:_ `releases/Hypermarket-System-App-Linux.deb`
 **2. RedHat Package (.rpm)**
 Builds the installer package for Fedora, RedHat, and CentOS systems.
 
-**Bash**
-
-```
+```bash
 ./scripts/build_linux_rpm.sh
 ```
 
@@ -192,9 +329,7 @@ _Output:_ `releases/Hypermarket-System-App-Linux.rpm`
 **3. Linux Portable (AppImage Folder)**
 Creates a standalone application directory (zipped). Useful for generic Linux distros or creating AUR packages.
 
-**Bash**
-
-```
+```bash
 ./scripts/build_linux_portable.sh
 ```
 
@@ -203,97 +338,8 @@ _Output:_ `releases/Hypermarket-System-Portable-Linux.tar.gz`
 **4. Universal JAR**
 Builds the cross-platform JAR file.
 
-**Bash**
-
-```
+```bash
 ./scripts/build_linux_jar.sh
 ```
 
 _Output:_ `releases\Hypermarket-System-App-Universal.jar`
-
----
-
-### 📸 Project Gallery
-
-Here is a visual tour of the application modules. Click on a section to expand the screenshots.
-
-<details>
-<summary><strong>Admin Module</strong> (Click to expand)</summary>
-<br>
-<table>
-  <tr>
-    <td><img src="screenshots/02admin.png" alt="Admin Dashboard" width="300"/></td>
-    <td><img src="screenshots/03admin.png" alt="User Management" width="300"/></td>
-  </tr>
-  <tr>
-    <td><img src="screenshots/04admin.png" alt="Settings" width="300"/></td>
-    <td><img src="screenshots/05admin.png" alt="Logs" width="300"/></td>
-  </tr>
-    <tr>
-    <td><img src="screenshots/06admin.png" alt="Reports" width="300"/></td>
-  </tr>
-</table>
-</details>
-
-<details>
-<summary><strong>Inventory Module</strong> (Click to expand)</summary>
-<br>
-<table>
-  <tr>
-    <td><img src="screenshots/08inventory.png" alt="Stock List" width="300"/></td>
-    <td><img src="screenshots/09inventory.png" alt="Add Item" width="300"/></td>
-  </tr>
-  <tr>
-    <td><img src="screenshots/10inventory.png" alt="Edit Item" width="300"/></td>
-    <td><img src="screenshots/11inventory.png" alt="Low Stock Alert" width="300"/></td>
-  </tr>
-   <tr>
-    <td><img src="screenshots/12inventory.png" alt="Categories" width="300"/></td>
-  </tr>
-</table>
-</details>
-
-<details>
-<summary><strong>Sales Module</strong> (Click to expand)</summary>
-<br>
-<table>
-  <tr>
-    <td><img src="screenshots/16sales.png" alt="POS Screen" width="300"/></td>
-    <td><img src="screenshots/17sales.png" alt="Transaction History" width="300"/></td>
-  </tr>
-  <tr>
-    <td><img src="screenshots/18sales.png" alt="Invoice" width="300"/></td>
-    <td><img src="screenshots/19sales.png" alt="Customer Data" width="300"/></td>
-  </tr>
-   <tr>
-    <td><img src="screenshots/20sales.png" alt="Returns" width="300"/></td>
-  </tr>
-</table>
-</details>
-
-<details>
-<summary><strong>Marketing Module</strong> (Click to expand)</summary>
-<br>
-<table>
-  <tr>
-    <td><img src="screenshots/13marketing.png" alt="Campaigns" width="250"/></td>
-    <td><img src="screenshots/14marketing.png" alt="Analytics" width="250"/></td>
-    <td><img src="screenshots/15marketing.png" alt="Discounts" width="250"/></td>
-  </tr>
-</table>
-</details>
-
-<details>
-<summary><strong>Authentication & Profile</strong> (Click to expand)</summary>
-<br>
-<table>
-  <tr>
-    <th>Login Page</th>
-    <th>Update Profile</th>
-  </tr>
-  <tr>
-    <td><img src="screenshots/01login.png" alt="Login Page" width="300"/></td>
-    <td><img src="screenshots/07user.png" alt="Update Profile" width="300"/></td>
-  </tr>
-</table>
-</details>
