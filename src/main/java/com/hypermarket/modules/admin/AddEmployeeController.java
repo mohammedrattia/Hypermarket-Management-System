@@ -3,6 +3,7 @@ package com.hypermarket.modules.admin;
 import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.User;
+import com.hypermarket.service.Toast;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +17,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import org.kordamp.ikonli.javafx.FontIcon;
 
 public class AddEmployeeController implements Initializable {
 
@@ -32,9 +35,17 @@ public class AddEmployeeController implements Initializable {
     @FXML
     private TextField emailField;
     @FXML
-    private PasswordField passwordField;
+    private PasswordField passField;
+    @FXML
+    private TextField passTextField;
+    @FXML
+    private FontIcon passToggleIcon;
     @FXML
     private PasswordField confirmPassField;
+    @FXML
+    private TextField confirmPassTextField;
+    @FXML
+    private FontIcon confirmPassToggleIcon;
     @FXML
     private TextField salaryField;
     @FXML
@@ -65,13 +76,70 @@ public class AddEmployeeController implements Initializable {
 
         userImage.setImage(defaultUserImage);
         selectedImageFile = defaultImageFile;
+        passTextField.textProperty().bindBidirectional(passField.textProperty());
+        confirmPassTextField.textProperty().bindBidirectional(confirmPassField.textProperty());
+    }
+
+    @FXML
+    void togglePasswordVisibility() {
+        if (passField.isVisible()) {
+            passField.setVisible(false);
+            passField.setManaged(false);
+
+            passTextField.setVisible(true);
+            passTextField.setManaged(true);
+
+            passTextField.requestFocus();
+            passTextField.selectEnd();
+
+            passToggleIcon.setIconLiteral("fas-eye-slash");
+        } else {
+            passTextField.setVisible(false);
+            passTextField.setManaged(false);
+
+            passField.setVisible(true);
+            passField.setManaged(true);
+
+            passField.requestFocus();
+            passField.selectEnd();
+
+            passToggleIcon.setIconLiteral("fas-eye");
+        }
+    }
+
+    @FXML
+    void toggleConfirmPasswordVisibility() {
+        if (confirmPassField.isVisible()) {
+            confirmPassField.setVisible(false);
+            confirmPassField.setManaged(false);
+
+            confirmPassTextField.setVisible(true);
+            confirmPassTextField.setManaged(true);
+
+            confirmPassTextField.requestFocus();
+            confirmPassTextField.selectEnd();
+
+            confirmPassToggleIcon.setIconLiteral("fas-eye-slash");
+        } else {
+            confirmPassTextField.setVisible(false);
+            confirmPassTextField.setManaged(false);
+
+            confirmPassField.setVisible(true);
+            confirmPassField.setManaged(true);
+
+            confirmPassField.requestFocus();
+            confirmPassField.selectEnd();
+
+            confirmPassToggleIcon.setIconLiteral("fas-eye");
+        }
     }
 
     @FXML
     private void handleImageSelection(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Profile Image");
-        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.png");
+        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files",
+                FileManager.IMAGEEXTENSIONS);
         fileChooser.getExtensionFilters().add(imageFilter);
 
         File file = fileChooser.showOpenDialog(uploadImageBtn.getScene().getWindow());
@@ -90,7 +158,7 @@ public class AddEmployeeController implements Initializable {
         }
 
         try {
-            File userImageFile = new File(FileManager.IMAGE_PATH + imageName);
+            File userImageFile = new File(FileManager.USER_IMAGE_PATH + imageName);
             FileManager.copyImage(selectedImageFile, userImageFile);
         } catch (IOException e) {
             e.printStackTrace();
@@ -104,14 +172,12 @@ public class AddEmployeeController implements Initializable {
                 imageName,
                 phoneField.getText().trim(),
                 emailField.getText().trim(),
-                passwordField.getText(),
+                passField.getText(),
                 Double.valueOf(salaryField.getText()));
 
         dataStore.getUsers().add(newUser);
-
-        System.out
-                .println("New employee added and data saved to file: " + newUser.getFName() + " " + newUser.getLName());
-
+        String addEmployeeSuccessMsg = "Employee " + newUser.getFullName() + " added successfully.";
+        Toast.showToast(addEmployeeSuccessMsg, Toast.NotificationType.INFORMATION);
         clearForm();
     }
 
@@ -123,49 +189,32 @@ public class AddEmployeeController implements Initializable {
     }
 
     private boolean validateInput() {
-        StringBuilder alertText = new StringBuilder();
-
-        if (fnameField.getText().trim().isEmpty() ||
-                lnameField.getText().trim().isEmpty() ||
-                emailField.getText().trim().isEmpty() ||
-                passwordField.getText().isEmpty() ||
-                confirmPassField.getText().isEmpty()) {
-            alertText.append("- Please fill in all required fields.\n");
+        String errorMessage = "";
+        if (fnameField.getText().isEmpty() || lnameField.getText().isEmpty() || phoneField.getText().isEmpty()
+                || emailField.getText().isEmpty() || salaryField.getText().isEmpty()
+                || passField.getText().isEmpty()
+                || confirmPassField.getText().isEmpty()) {
+            errorMessage = "Please fill in all required fields.";
+        } else if (!fnameField.getText().matches("^\\D{1,}$") || !lnameField.getText().matches("^\\D{1,}$")) {
+            errorMessage = "Invalid name.";
+        } else if (!phoneField.getText().matches("^\\d{7,15}$")) {
+            errorMessage = "Invalid phone number.";
+        } else if (!emailField.getText().matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")) {
+            errorMessage = "Invalid Email.";
+        } else if (!salaryField.getText().matches("^\\d{5,7}$")) {
+            errorMessage = "Invalid salary entered.";
+        } else if (!passField.getText().matches("^[^\\s]{8,}$")) {
+            errorMessage = "Password must be at least 8 characters long.";
+        } else if (!passField.getText().equals(confirmPassField.getText())) {
+            errorMessage = "Passwords must match!";
+        } else if (roleComboBox.getValue() == null) {
+            errorMessage = "No Role chosen.";
         }
-
-        if (!passwordField.getText().equals(confirmPassField.getText())) {
-            alertText.append("- Passwords do not match.\n");
-        }
-
-        if (roleComboBox.getValue() == null) {
-            alertText.append("- Please select a Role.\n");
-        }
-
-        if (selectedImageFile == null) {
-            alertText.append("- Please select an image.\n");
-        }
-
-        try {
-            Double.parseDouble(salaryField.getText().trim());
-        } catch (NumberFormatException e) {
-            alertText.append("- Please enter a valid salary.");
-        }
-
-        if (!alertText.isEmpty()) {
-            makeAlert(alertText);
+        if (!errorMessage.isEmpty()) {
+            Toast.showToast(errorMessage, Toast.NotificationType.ERROR);
             return false;
         }
-
         return true;
-    }
-
-    private void makeAlert(StringBuilder alertText) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Validation Error");
-        alert.setHeaderText("Validation Error");
-        alert.setContentText(alertText.toString());
-
-        alert.showAndWait();
     }
 
     private void clearForm() {
@@ -174,12 +223,11 @@ public class AddEmployeeController implements Initializable {
         phoneField.clear();
         emailField.clear();
         salaryField.clear();
-        passwordField.clear();
+        passField.clear();
         confirmPassField.clear();
         roleComboBox.getSelectionModel().clearSelection();
         userImage.setImage(defaultUserImage);
         selectedImageFile = null;
-
     }
 
 }

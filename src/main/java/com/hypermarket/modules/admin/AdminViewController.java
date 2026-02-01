@@ -58,6 +58,12 @@ public class AdminViewController extends ViewController implements Initializable
     private HBox menuUpdateUserInfoItem;
 
     @FXML
+    private HBox menuLogoutItem;
+
+    @FXML
+    private HBox userImageContainer;
+
+    @FXML
     private ImageView userImage;
 
     private DashboardHome dashboardHome;
@@ -88,7 +94,11 @@ public class AdminViewController extends ViewController implements Initializable
             showUpdateUserInfo();
         });
 
-        menuLogout.setOnMouseClicked(event -> {
+        userImageContainer.setOnMouseClicked(event -> {
+            showUpdateUserInfo();
+        });
+
+        menuLogoutItem.setOnMouseClicked(event -> {
             onLogout.run();
         });
     }
@@ -133,7 +143,7 @@ public class AdminViewController extends ViewController implements Initializable
     private void refereshImage() {
         User currentUser = Session.getInstance().getUser();
         try {
-            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            File imageFile = new File(FileManager.USER_IMAGE_PATH + currentUser.getImage());
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toURL().toString());
                 userImage.setImage(image);

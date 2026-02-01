@@ -10,13 +10,16 @@
 
 <VBox fx:id="mainContainer" alignment="TOP_CENTER" prefHeight="640.0" prefWidth="1030.0"
     styleClass="main-container" xmlns="http://javafx.com/javafx/25"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.inventory.ListReturns">
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.hypermarket.modules.inventory.ListReturns">
     <children>
         <HBox alignment="CENTER_LEFT" spacing="15.0">
             <children>
-                <Button text="Delete Damaged Order" onAction="#handleDeleteDamaged" styleClass="remove-btn"/>
+                <Button text="Delete Damaged Order" onAction="#handleDeleteDamaged"
+                    styleClass="remove-btn" />
                 <Region HBox.hgrow="ALWAYS" />
-                <Button text="Re-add to Stock" onAction="#handleReAddToStock" styleClass="new-order-btn"/>
+                <Button text="Re-add to Stock" onAction="#handleReAddToStock"
+                    styleClass="new-order-btn" />
             </children>
             <padding>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

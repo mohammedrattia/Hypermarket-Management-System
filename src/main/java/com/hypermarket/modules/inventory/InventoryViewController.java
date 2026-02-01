@@ -67,10 +67,13 @@ public class InventoryViewController extends ViewController implements Initializ
     private HBox menuReturnedOrdersItem;
 
     @FXML
+    private HBox menuUpdateUserInfoItem;
+
+    @FXML
     private HBox menuLogoutItem;
 
     @FXML
-    private HBox menuUpdateUserInfoItem;
+    private HBox userImageContainer;
 
     @FXML
     private ImageView userProfileImage;
@@ -90,7 +93,7 @@ public class InventoryViewController extends ViewController implements Initializ
         updateTitleAndActiveTab(menuDashboard);
 
         try {
-            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            File imageFile = new File(FileManager.USER_IMAGE_PATH + currentUser.getImage());
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toURL().toString());
                 userProfileImage.setImage(image);
@@ -136,6 +139,10 @@ public class InventoryViewController extends ViewController implements Initializ
         });
 
         menuUpdateUserInfoItem.setOnMouseClicked(event -> {
+            showUpdateUserInfo();
+        });
+
+        userImageContainer.setOnMouseClicked(event -> {
             showUpdateUserInfo();
         });
 
@@ -186,7 +193,7 @@ public class InventoryViewController extends ViewController implements Initializ
     private void refereshImage() {
         User currentUser = Session.getInstance().getUser();
         try {
-            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            File imageFile = new File(FileManager.USER_IMAGE_PATH + currentUser.getImage());
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toURL().toString());
                 userProfileImage.setImage(image);

@@ -1,8 +1,9 @@
 package com.hypermarket.modules.inventory;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -11,6 +12,7 @@ import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.Batch;
 import com.hypermarket.entities.Product;
+import com.hypermarket.service.Toast;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,8 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
@@ -34,6 +35,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.Window;
 
 public class ProductDetailsModalController {
 
@@ -101,30 +104,31 @@ public class ProductDetailsModalController {
         try {
             String imageName = product.getImageName();
             if (imageName != null && !imageName.equals("null") && !imageName.isEmpty()) {
-                File imageFile = new File("data/ProductImages/" + imageName);
+                File dir = new File(FileManager.PRODUCT_IMAGE_PATH);
+                File imageFile = new File(dir, imageName);
 
-                // If specific extension is missing, try finding the file with common extensions
                 if (!imageFile.exists()) {
-                    File pngFile = new File("data/ProductImages/" + imageName + ".png");
-                    File jpgFile = new File("data/ProductImages/" + imageName + ".jpg");
-                    File jpegFile = new File("data/ProductImages/" + imageName + ".jpeg");
+                    File png = new File(dir, imageName + ".png");
+                    File jpg = new File(dir, imageName + ".jpg");
+                    File jpeg = new File(dir, imageName + ".jpeg");
 
-                    if (pngFile.exists()) {
-                        imageFile = pngFile;
-                    } else if (jpgFile.exists()) {
-                        imageFile = jpgFile;
-                    } else if (jpegFile.exists()) {
-                        imageFile = jpegFile;
-                    }
+                    if (png.exists())
+                        imageFile = png;
+                    else if (jpg.exists())
+                        imageFile = jpg;
+                    else if (jpeg.exists())
+                        imageFile = jpeg;
                 }
 
                 if (imageFile.exists()) {
-                    productImage.setImage(new Image(imageFile.toURI().toURL().toString()));
+                    try (InputStream stream = new FileInputStream(imageFile)) {
+                        productImage.setImage(new Image(stream));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            } else {
-                // Load default or leave as is (placeholder in FXML)
             }
-        } catch (MalformedURLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -142,13 +146,14 @@ public class ProductDetailsModalController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Product Image");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
+                new FileChooser.ExtensionFilter("Image Files", FileManager.IMAGEEXTENSIONS));
         File file = fileChooser.showOpenDialog(nameField.getScene().getWindow());
+
         if (file != null) {
             selectedImageFile = file;
-            try {
-                productImage.setImage(new Image(file.toURI().toURL().toString()));
-            } catch (MalformedURLException e) {
+            try (InputStream stream = new FileInputStream(file)) {
+                productImage.setImage(new Image(stream));
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -157,8 +162,11 @@ public class ProductDetailsModalController {
     @FXML
     private void handleAddBatch(ActionEvent event) {
         Dialog<Batch> dialog = new Dialog<>();
-        dialog.setTitle("Add New Batch");
-        dialog.setHeaderText("Enter batch details");
+        dialog.setTitle("Enter new batch details");
+        Window dialogScene = dialog.getDialogPane().getScene().getWindow();
+        Stage dialogStage = (Stage) dialogScene;
+        dialogStage.initStyle(StageStyle.UNIFIED);
+        dialogStage.getIcons().addAll(new Image(Toast.class.getResource(Toast.blankIconPath).toExternalForm()));
 
         ButtonType addButtonType = new ButtonType("Add", javafx.scene.control.ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().addAll(addButtonType, ButtonType.CANCEL);
@@ -180,7 +188,6 @@ public class ProductDetailsModalController {
         grid.add(new Label("Expiry Date:"), 0, 2);
         grid.add(expiryDate, 1, 2);
 
-        // Add styling to dialog
         try {
             dialog.getDialogPane().getScene().getStylesheets()
                     .add(getClass().getResource("/com/hypermarket/css/ProductDetailsModal.css").toExternalForm());
@@ -192,10 +199,8 @@ public class ProductDetailsModalController {
                 cancelButton.getStyleClass().add("btn-secondary");
             }
 
-            // Set initial disabled state
             addButton.setDisable(true);
 
-            // Re-assign addButton for listener use
             final Node finalAddButton = addButton;
             quantity.textProperty().addListener((observable, oldValue, newValue) -> {
                 finalAddButton.setDisable(newValue.trim().isEmpty());
@@ -203,7 +208,6 @@ public class ProductDetailsModalController {
         } catch (Exception e) {
             System.err.println("Could not load CSS for dialog");
             e.printStackTrace();
-            // Fallback if CSS fails
             Node addButton = dialog.getDialogPane().lookupButton(addButtonType);
             addButton.setDisable(true);
             quantity.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -213,6 +217,13 @@ public class ProductDetailsModalController {
 
         dialog.getDialogPane().setContent(grid);
 
+        Button addButton = (Button) dialog.getDialogPane().lookupButton(addButtonType);
+
+        addButton.addEventFilter(ActionEvent.ACTION, e -> {
+            if (!validateInput(quantity, deliveryDate, expiryDate)) {
+                e.consume();
+            }
+        });
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == addButtonType) {
                 try {
@@ -220,10 +231,8 @@ public class ProductDetailsModalController {
                     LocalDate del = deliveryDate.getValue();
                     LocalDate exp = expiryDate.getValue();
 
-                    // Generate ID
                     int newId = generateBatchId();
 
-                    // batchID;productID;quantity;deliveryDate;expiryDate
                     String record = newId + FileManager.DELIMETER +
                             product.getProductID() + FileManager.DELIMETER +
                             qty + FileManager.DELIMETER +
@@ -243,11 +252,57 @@ public class ProductDetailsModalController {
 
         result.ifPresent(batch -> {
             DataStore.getDataStore().getBatches().add(batch);
-            product.setQuantity(product.getQuantity() + batch.getQuantity()); // Update product quantity
             DataStore.getDataStore().saveAllData();
             loadBatches();
             quantityField.setText(String.valueOf(product.getQuantity()));
+            String addBatchSuccessMsg = "New batch for product " + product.getName() + " added successfully.";
+            Toast.showToast(addBatchSuccessMsg, Toast.NotificationType.INFORMATION);
         });
+    }
+
+    private boolean validateInput(TextField quantity, DatePicker deliveryDate, DatePicker expiryDate) {
+        String errorMessage = "";
+        if (quantity.getText().isEmpty() || deliveryDate.getValue() == null || expiryDate.getValue() == null) {
+            errorMessage = "Please fill in all required fields.";
+        } else if (!quantity.getText().matches("^\\d{1,}$")) {
+            errorMessage = "Invalid quantity entered.";
+        } else if (Integer.parseInt(quantity.getText()) <= 0) {
+            errorMessage = "Quantity must be greater than 0.";
+        } else if (!expiryDate.getValue().isAfter(deliveryDate.getValue())) {
+            errorMessage = "Expiry date cannot be before delivery date.";
+        } else if (!expiryDate.getValue().isAfter(LocalDate.now())) {
+            errorMessage = "Expiry date cannot be before today.";
+        }
+        if (!errorMessage.isEmpty()) {
+            Toast.showToast(errorMessage, Toast.NotificationType.ERROR);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validateInput() {
+        String errorMessage = "";
+        if (nameField.getText().isEmpty() || categoryField.getText().isEmpty()
+                || priceField.getText().isEmpty() || thresholdField.getText().isEmpty()) {
+            errorMessage = "Please fill in all required fields.";
+        } else if (!nameField.getText().matches("^\\D{1,}$")) {
+            errorMessage = "Invalid product name.";
+        } else if (!categoryField.getText().matches("^\\D{1,}$")) {
+            errorMessage = "Invalid category name.";
+        } else if (!priceField.getText().matches("^\\d+(\\.\\d{1,})?$")) {
+            errorMessage = "Invalid price entered.";
+        } else if (!thresholdField.getText().matches("^\\d{1,}$")) {
+            errorMessage = "Invalid threshold entered.";
+        } else if (Double.parseDouble(priceField.getText()) <= 0) {
+            errorMessage = "Price must be greater than 0.";
+        } else if (Integer.parseInt(thresholdField.getText()) < 0) {
+            errorMessage = "Threshold must be greater than or equal to 0.";
+        }
+        if (!errorMessage.isEmpty()) {
+            Toast.showToast(errorMessage, Toast.NotificationType.ERROR);
+            return false;
+        }
+        return true;
     }
 
     private int generateBatchId() {
@@ -263,6 +318,9 @@ public class ProductDetailsModalController {
     @FXML
     private void handleUpdate(ActionEvent event) {
         try {
+            if (!validateInput()) {
+                return;
+            }
             product.setName(nameField.getText());
             product.setCategory(categoryField.getText());
             product.setPrice(Double.parseDouble(priceField.getText()));
@@ -273,7 +331,7 @@ public class ProductDetailsModalController {
             if (selectedImageFile != null) {
                 String ext = getFileExtension(selectedImageFile);
                 String newImageName = "image_" + product.getProductID() + ext;
-                File destDir = new File("data/ProductImages/");
+                File destDir = new File(FileManager.PRODUCT_IMAGE_PATH);
                 if (!destDir.exists())
                     destDir.mkdirs();
 
@@ -285,53 +343,76 @@ public class ProductDetailsModalController {
 
             DataStore.getDataStore().saveAllData();
 
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Success");
-            alert.setHeaderText(null);
-            alert.setContentText("Product updated successfully!");
-            alert.showAndWait();
-
             closeModal();
-
-        } catch (NumberFormatException e) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Invalid Input");
-            alert.setContentText("Please check your number fields.");
-            alert.showAndWait();
+            String updateProductSuccessMsg = "Product updated successfully!";
+            Toast.showToast(updateProductSuccessMsg, Toast.NotificationType.INFORMATION);
         } catch (IOException e) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Image Upload Failed");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
+            String uploadImageErrorMsg = "Image Upload Failed";
+            Toast.showToast(uploadImageErrorMsg, Toast.NotificationType.ERROR);
         }
     }
 
     @FXML
     private void handleDelete(ActionEvent event) {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Delete Product");
-        alert.setHeaderText("Delete " + product.getName() + "?");
-        alert.setContentText("Are you sure you want to delete this product? All associated batches (" +
-                DataStore.getDataStore().getBatches().stream()
-                        .filter(b -> b.getProduct().getProductID() == product.getProductID()).count()
-                +
-                ") will also be removed.");
+        String confirmDeleteMsg = "Are you sure you want to delete " + product.getName() + "?";
+        Optional<ButtonType> deleteDecision = Toast.showToast(confirmDeleteMsg, Toast.NotificationType.CONFIRMATION);
+        if (deleteDecision.get() == ButtonType.YES) {
+            try {
+                if (productImage.getImage() != null) {
+                    productImage.setImage(null);
+                }
+                System.gc();
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Cascade delete batches
+                File imageFile = resolveImageFile(product.getImageName());
+
+                if (imageFile != null && imageFile.exists()) {
+                    boolean deleted = imageFile.delete();
+                    if (!deleted) {
+                        System.err
+                                .println("Failed to delete image file (System Lock?): " + imageFile.getAbsolutePath());
+
+                        imageFile.deleteOnExit();
+                    } else {
+                        System.out.println("Image deleted successfully.");
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Error attempting to delete image file.");
+                e.printStackTrace();
+            }
+
             DataStore.getDataStore().getBatches()
                     .removeIf(b -> b.getProduct().getProductID() == product.getProductID());
-
-            // Delete product
             DataStore.getDataStore().getProducts().remove(product);
-
             DataStore.getDataStore().saveAllData();
-
             closeModal();
+            String deleteSuccessMsg = "Product " + product.getName() + " deleted successfully.";
+            Toast.showToast(deleteSuccessMsg, Toast.NotificationType.INFORMATION);
         }
+    }
+
+    private File resolveImageFile(String imageName) {
+        if (imageName == null || imageName.equals("null") || imageName.isEmpty()) {
+            return null;
+        }
+
+        File dir = new File(FileManager.PRODUCT_IMAGE_PATH);
+        File imageFile = new File(dir, imageName);
+
+        if (!imageFile.exists()) {
+            File png = new File(dir, imageName + ".png");
+            File jpg = new File(dir, imageName + ".jpg");
+            File jpeg = new File(dir, imageName + ".jpeg");
+
+            if (png.exists())
+                return png;
+            if (jpg.exists())
+                return jpg;
+            if (jpeg.exists())
+                return jpeg;
+        }
+
+        return imageFile;
     }
 
     @FXML

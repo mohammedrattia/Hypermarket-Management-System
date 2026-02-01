@@ -10,37 +10,46 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox id="mainBox" fx:id="mainBox" prefHeight="420.0" prefWidth="961.0" styleClass="main-box" stylesheets="@../../css/UpdateForm.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.admin.UpdateEmployee">
-      
-               <!-- First Name -->
-      <HBox id="mainForm" fx:id="fnameBox" prefHeight="277.0" prefWidth="961.0" styleClass="main-Form">
+<VBox id="mainBox" fx:id="mainBox" prefHeight="420.0" prefWidth="961.0" styleClass="main-box"
+   stylesheets="@../../css/UpdateForm.css" xmlns="http://javafx.com/javafx/25"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.admin.UpdateEmployee">
+
+   <HBox id="mainForm" fx:id="fnameBox" prefHeight="277.0" prefWidth="961.0" styleClass="main-Form">
       <VBox prefHeight="322.0" prefWidth="339.0">
          <children>
             <VBox id="ImageBox" prefHeight="186.0" prefWidth="339.0" styleClass="Image-Box">
                <children>
-                  <ImageView id="userPicture" fx:id="userImage" fitHeight="118.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="userPicture" fx:id="userImage" fitHeight="118.0" fitWidth="196.0"
+                     pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/userBlack.png" />
                      </image>
                   </ImageView>
                   <HBox id="changeImageButton" styleClass="change-button">
                      <children>
-                        <Button fx:id="uploadImageBtn" mnemonicParsing="false" onAction="#handleImageSelection" prefHeight="33.0" prefWidth="120.0" styleClass="change-img" text="Change Image" />
+                        <Button fx:id="uploadImageBtn" mnemonicParsing="false"
+                           onAction="#handleImageSelection" prefHeight="33.0" prefWidth="120.0"
+                           styleClass="change-img" text="Change Image" />
                      </children>
                   </HBox>
                </children>
             </VBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <VBox id="readOnlyLabels" prefHeight="157.0" prefWidth="66.0" styleClass="labels-box">
+                  <VBox id="readOnlyLabels" prefHeight="157.0" prefWidth="66.0"
+                     styleClass="labels-box">
                      <children>
                         <Label text="ID:" />
                         <Label text="Role:" />
                         <Label text="Salary:" />
                      </children>
                   </VBox>
-                  <VBox id="readOnlyFieldsBox" prefHeight="150.0" prefWidth="217.0" styleClass="fields-box">
+                  <VBox id="readOnlyFieldsBox" prefHeight="150.0" prefWidth="217.0"
+                     styleClass="fields-box">
                      <children>
                         <TextField fx:id="idField" editable="false" />
                         <ComboBox fx:id="roleComboBox" prefHeight="33.0" prefWidth="120.0" />
@@ -52,35 +61,73 @@
          </children>
       </VBox>
       <Region prefHeight="332.0" prefWidth="93.0" />
-      <VBox id="labelsBox" alignment="BOTTOM_LEFT" prefHeight="358.0" prefWidth="132.0" styleClass="labels-box">
+      <VBox id="labelsBox" alignment="BOTTOM_LEFT" prefHeight="358.0" prefWidth="132.0"
+         styleClass="labels-box">
          <children>
-                <Label text="First Name:" />
-                <Label text="Last Name:" />
-                <Label text="Phone:" />
-                <Label text="Email:" />
-                <Label text="New password:" />
+            <Label text="First Name:" />
+            <Label text="Last Name:" />
+            <Label text="Phone:" />
+            <Label text="Email:" />
+            <Label text="New password:" />
             <Label prefHeight="18.0" prefWidth="168.0" text="Confirm password:" />
          </children>
       </VBox>
-      <VBox id="fieldsBox" alignment="BOTTOM_LEFT" prefHeight="312.0" prefWidth="237.0" styleClass="fields-box">
+      <VBox id="fieldsBox" alignment="BOTTOM_LEFT" prefHeight="312.0" prefWidth="237.0"
+         styleClass="fields-box">
          <children>
-                <TextField fx:id="fnameField" prefHeight="0.0" prefWidth="237.0" promptText="Enter first name" />
-                <TextField fx:id="lnameField" prefHeight="27.0" prefWidth="151.0" promptText="Enter last name" />
-                <TextField fx:id="phoneField" promptText="Enter phone number" />
-                <TextField fx:id="emailField" promptText="Enter Email" />
-                <PasswordField fx:id="newPassField" minHeight="18.0" prefHeight="18.0" prefWidth="237.0" promptText="Enter a strong password" />
-            <PasswordField fx:id="confirmPassField" prefHeight="27.0" prefWidth="358.0" promptText="Confirm the password" />
+            <TextField fx:id="fnameField" prefHeight="0.0" prefWidth="237.0"
+               promptText="Enter first name" />
+            <TextField fx:id="lnameField" prefHeight="27.0" prefWidth="151.0"
+               promptText="Enter last name" />
+            <TextField fx:id="phoneField" promptText="Enter phone number" />
+            <TextField fx:id="emailField" promptText="Enter Email" />
+            <StackPane alignment="CENTER_RIGHT">
+               <children>
+                  <TextField fx:id="passTextField" managed="false"
+                     promptText="" minHeight="18.0" prefHeight="18.0" prefWidth="237.0"
+                     styleClass="password-input" visible="false" />
+
+                  <PasswordField fx:id="passField" promptText="" minHeight="18.0" prefHeight="18.0"
+                     prefWidth="237.0"
+                     styleClass="password-input" />
+
+                  <FontIcon fx:id="passToggleIcon" iconLiteral="fas-eye" iconSize="18"
+                     onMouseClicked="#togglePasswordVisibility" styleClass="eye-icon">
+                     <StackPane.margin>
+                        <Insets right="15.0" />
+                     </StackPane.margin>
+                  </FontIcon>
+               </children>
+            </StackPane>
+            <StackPane alignment="CENTER_RIGHT">
+               <children>
+                  <TextField fx:id="confirmPassTextField" managed="false"
+                     promptText="" prefHeight="27.0" prefWidth="358.0"
+                     styleClass="password-input" visible="false" />
+
+                  <PasswordField fx:id="confirmPassField" promptText=""
+                     prefHeight="27.0" prefWidth="358.0"
+                     styleClass="password-input" />
+
+                  <FontIcon fx:id="confirmPassToggleIcon" iconLiteral="fas-eye" iconSize="18"
+                     onMouseClicked="#toggleConfirmPasswordVisibility" styleClass="eye-icon">
+                     <StackPane.margin>
+                        <Insets right="15.0" />
+                     </StackPane.margin>
+                  </FontIcon>
+               </children>
+            </StackPane>
          </children>
       </VBox>
-      </HBox>
+   </HBox>
    <HBox id="saveButtonBox" styleClass="save-box">
       <children>
-      
-               <!-- Save Button -->
-            <Button fx:id="saveBtn" onAction="#handleSave" prefHeight="33.0" prefWidth="176.0" styleClass="save-Btn" text="Save">
-           
-            </Button>
+
+         <Button fx:id="saveBtn" onAction="#handleSave" prefHeight="33.0" prefWidth="176.0"
+            styleClass="save-Btn" text="Save">
+
+         </Button>
       </children>
    </HBox>
 
-  </VBox>
+</VBox>

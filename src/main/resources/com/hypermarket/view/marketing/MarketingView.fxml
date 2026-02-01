@@ -35,7 +35,7 @@
                 <Image url="@../../images/cart.png" />
               </image>
             </ImageView>
-            <Label styleClass="logo" text=" HyperMarket">
+            <Label styleClass="logo" text=" OmniMart">
               <font>
                 <Font name="System Bold" size="22.0" />
               </font>
@@ -45,7 +45,8 @@
 
         <Separator styleClass="sidebar-separator" />
 
-        <ScrollPane fitToWidth="true" focusTraversable="false" styleClass="menu-scroll"
+        <ScrollPane fitToWidth="true" fitToHeight="true" focusTraversable="false"
+          styleClass="menu-scroll"
           VBox.vgrow="ALWAYS">
           <content>
             <VBox prefWidth="250.0" styleClass="menu-container">
@@ -118,7 +119,7 @@
 
           <Region HBox.hgrow="ALWAYS" />
 
-          <HBox alignment="CENTER" styleClass="user-profile">
+          <HBox fx:id="userImageContainer" alignment="CENTER" styleClass="user-profile">
             <children>
               <ImageView fx:id="userImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true"
                 preserveRatio="true">
@@ -129,7 +130,8 @@
             </children>
           </HBox>
         </HBox>
-        <ScrollPane fitToWidth="true" focusTraversable="false" styleClass="menu-scroll"
+        <ScrollPane fitToWidth="true" fitToHeight="true" focusTraversable="false"
+          styleClass="menu-scroll"
           layoutY="80.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
           <content>

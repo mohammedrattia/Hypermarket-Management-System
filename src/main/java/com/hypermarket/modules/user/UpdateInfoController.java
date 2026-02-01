@@ -5,8 +5,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.kordamp.ikonli.javafx.FontIcon;
+
 import com.hypermarket.entities.User;
 import com.hypermarket.service.Session;
+import com.hypermarket.service.Toast;
 import com.hypermarket.data.*;
 
 import javafx.event.ActionEvent;
@@ -40,10 +43,17 @@ public class UpdateInfoController implements Initializable {
     private TextField phoneField;
 
     @FXML
-    private PasswordField newPassField;
-
+    private PasswordField passField;
+    @FXML
+    private TextField passTextField;
+    @FXML
+    private FontIcon passToggleIcon;
     @FXML
     private PasswordField confirmPassField;
+    @FXML
+    private TextField confirmPassTextField;
+    @FXML
+    private FontIcon confirmPassToggleIcon;
 
     @FXML
     private TextField idField;
@@ -69,7 +79,7 @@ public class UpdateInfoController implements Initializable {
         currentUser = Session.getInstance().getUser();
 
         if (currentUser != null) {
-            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            File imageFile = new File(FileManager.USER_IMAGE_PATH + currentUser.getImage());
             idField.setText(String.valueOf(currentUser.getID()));
             fnameField.setText(currentUser.getFName());
             lnameField.setText(currentUser.getLName());
@@ -79,7 +89,7 @@ public class UpdateInfoController implements Initializable {
             roleField.setText(currentUser.getRole().toString());
             salaryField.setText(String.valueOf(currentUser.getSalary()));
             confirmPassField.setText(currentUser.getPassword());
-            newPassField.setText(currentUser.getPassword());
+            passField.setText(currentUser.getPassword());
         }
 
         userImage.setFitWidth(150);
@@ -92,7 +102,8 @@ public class UpdateInfoController implements Initializable {
         clip.setRadius(75);
 
         userImage.setClip(clip);
-
+        passTextField.textProperty().bindBidirectional(passField.textProperty());
+        confirmPassTextField.textProperty().bindBidirectional(confirmPassField.textProperty());
     }
 
     public void setOnUpdateImage(Runnable onUpdateImage) {
@@ -100,13 +111,70 @@ public class UpdateInfoController implements Initializable {
     }
 
     @FXML
+    void togglePasswordVisibility() {
+        if (passField.isVisible()) {
+            passField.setVisible(false);
+            passField.setManaged(false);
+
+            passTextField.setVisible(true);
+            passTextField.setManaged(true);
+
+            passTextField.requestFocus();
+            passTextField.selectEnd();
+
+            passToggleIcon.setIconLiteral("fas-eye-slash");
+        } else {
+            passTextField.setVisible(false);
+            passTextField.setManaged(false);
+
+            passField.setVisible(true);
+            passField.setManaged(true);
+
+            passField.requestFocus();
+            passField.selectEnd();
+
+            passToggleIcon.setIconLiteral("fas-eye");
+        }
+    }
+
+    @FXML
+    void toggleConfirmPasswordVisibility() {
+        if (confirmPassField.isVisible()) {
+            confirmPassField.setVisible(false);
+            confirmPassField.setManaged(false);
+
+            confirmPassTextField.setVisible(true);
+            confirmPassTextField.setManaged(true);
+
+            confirmPassTextField.requestFocus();
+            confirmPassTextField.selectEnd();
+
+            confirmPassToggleIcon.setIconLiteral("fas-eye-slash");
+        } else {
+            confirmPassTextField.setVisible(false);
+            confirmPassTextField.setManaged(false);
+
+            confirmPassField.setVisible(true);
+            confirmPassField.setManaged(true);
+
+            confirmPassField.requestFocus();
+            confirmPassField.selectEnd();
+
+            confirmPassToggleIcon.setIconLiteral("fas-eye");
+        }
+    }
+
+    @FXML
     private void handleSave(ActionEvent event) {
+        if (!validateInput()) {
+            return;
+        }
         if (currentUser == null) {
             System.out.println("Error: No user loaded!");
             return;
         }
 
-        if (!newPassField.getText().equals(confirmPassField.getText())) {
+        if (!passField.getText().equals(confirmPassField.getText())) {
             new Alert(Alert.AlertType.ERROR, "Passwords must match!").showAndWait();
             return;
         }
@@ -116,15 +184,13 @@ public class UpdateInfoController implements Initializable {
         currentUser.setPhone(phoneField.getText());
         currentUser.setEmail(emailField.getText());
 
-        // Only update password if user entered a new one
-        if (!newPassField.getText().trim().isEmpty()) {
-            currentUser.setPassword(newPassField.getText());
+        if (!passField.getText().trim().isEmpty()) {
+            currentUser.setPassword(passField.getText());
         }
 
-        // Save selected image
         if (selectedImageFile != null) {
             try {
-                File userImageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+                File userImageFile = new File(FileManager.USER_IMAGE_PATH + currentUser.getImage());
                 FileManager.copyImage(selectedImageFile, userImageFile);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -133,7 +199,32 @@ public class UpdateInfoController implements Initializable {
         onUpdateImage.run();
 
         DataStore.getDataStore().saveAllData();
-        new Alert(Alert.AlertType.INFORMATION, "User info updated successfully!").showAndWait();
+        String updateUserInfoSuccessMsg = "User info updated successfully!";
+        Toast.showToast(updateUserInfoSuccessMsg, Toast.NotificationType.INFORMATION);
+    }
+
+    private boolean validateInput() {
+        String errorMessage = "";
+        if (fnameField.getText().isEmpty() || lnameField.getText().isEmpty() || phoneField.getText().isEmpty()
+                || emailField.getText().isEmpty() || salaryField.getText().isEmpty() || passField.getText().isEmpty()
+                || confirmPassField.getText().isEmpty()) {
+            errorMessage = "Please fill in all required fields.";
+        } else if (!fnameField.getText().matches("^\\D{1,}$") || !lnameField.getText().matches("^\\D{1,}$")) {
+            errorMessage = "Invalid name.";
+        } else if (!phoneField.getText().matches("^\\d{7,15}$")) {
+            errorMessage = "Invalid phone number.";
+        } else if (!emailField.getText().matches("^[\\w.-]+@[\\w.-]+\\.[a-z]{2,}$")) {
+            errorMessage = "Invalid Email.";
+        } else if (!passField.getText().matches("^[^\\s]{8,}$")) {
+            errorMessage = "Password must be at least 8 characters long.";
+        } else if (!passField.getText().equals(confirmPassField.getText())) {
+            errorMessage = "Passwords must match!";
+        }
+        if (!errorMessage.isEmpty()) {
+            Toast.showToast(errorMessage, Toast.NotificationType.ERROR);
+            return false;
+        }
+        return true;
     }
 
     public javafx.scene.Parent getView() {

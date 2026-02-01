@@ -3,5 +3,5 @@
 .project
 .settings/
 .vscode/
-ClassesNotes.md
-/src/main/java/com/hypermarket/boody/
+dependency-reduced-pom.xml
+releases

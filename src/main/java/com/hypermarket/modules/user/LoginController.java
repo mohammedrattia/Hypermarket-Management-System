@@ -8,6 +8,8 @@ import javafx.scene.control.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.kordamp.ikonli.javafx.FontIcon;
+
 import com.hypermarket.data.DataStore;
 import com.hypermarket.entities.User;
 import com.hypermarket.service.*;
@@ -28,9 +30,40 @@ public class LoginController implements Initializable {
 
     @FXML
     private TextField emailField;
+    @FXML
+    private TextField passTextField;
+    @FXML
+    private FontIcon passToggleIcon;
 
     @FXML
     private PasswordField passField;
+
+    @FXML
+    void togglePasswordVisibility() {
+        if (passField.isVisible()) {
+            passField.setVisible(false);
+            passField.setManaged(false);
+
+            passTextField.setVisible(true);
+            passTextField.setManaged(true);
+
+            passTextField.requestFocus();
+            passTextField.selectEnd();
+
+            passToggleIcon.setIconLiteral("fas-eye-slash");
+        } else {
+            passTextField.setVisible(false);
+            passTextField.setManaged(false);
+
+            passField.setVisible(true);
+            passField.setManaged(true);
+
+            passField.requestFocus();
+            passField.selectEnd();
+
+            passToggleIcon.setIconLiteral("fas-eye");
+        }
+    }
 
     private Runnable onLoginSuccess;
 
@@ -42,6 +75,7 @@ public class LoginController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         loginButton.setDefaultButton(true);
         testCredential();
+        passTextField.textProperty().bindBidirectional(passField.textProperty());
     }
 
     public void testCredential() {
@@ -79,7 +113,7 @@ public class LoginController implements Initializable {
         try {
             Authenticator.authenticate(emailField.getText(), passField.getText());
         } catch (Exception e) {
-            makeAlert(e.getMessage());
+            Toast.showToast(e.getMessage(), Toast.NotificationType.ERROR);
             return;
         }
         if (onLoginSuccess != null) {
@@ -91,19 +125,10 @@ public class LoginController implements Initializable {
 
         if (passField.getText().isEmpty() ||
                 emailField.getText().isEmpty()) {
-            makeAlert("- Please fill in all required fields.\n");
+            Toast.showToast("Please fill in all required fields.", Toast.NotificationType.ERROR);
             return false;
         }
 
         return true;
-    }
-
-    private void makeAlert(String alertText) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Validation Error");
-        alert.setHeaderText("Validation Error");
-        alert.setContentText(alertText.toString());
-
-        alert.showAndWait();
     }
 }

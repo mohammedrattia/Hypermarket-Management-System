@@ -15,7 +15,6 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
@@ -59,7 +58,7 @@ public class InventoryDashboard {
         scrollPane.setPrefWidth(400);
         scrollPane.setStyle("-fx-background-color: transparent;");
 
-        Parent pieChartNode = loadPieChartComponent();
+        pieChartNode = loadPieChartComponent();
         HBox.setHgrow(pieChartNode, Priority.ALWAYS);
 
         bottomContainer.getChildren().addAll(pieChartNode, scrollPane);
@@ -87,9 +86,9 @@ public class InventoryDashboard {
         long lowStockCount = products.stream().filter(p -> p.getQuantity() <= p.getThreshold()).count();
 
         kpiContainer.getChildren().addAll(
-                loadKpiCard("Porducts", String.valueOf(productCount), "-", true),
-                loadKpiCard("Categories", String.valueOf(categoryCount), "-", true),
-                loadKpiCard("Low Stock", lowStockCount + " Items", "-", false));
+                loadKpiCard("Products", String.valueOf(productCount), "", true),
+                loadKpiCard("Categories", String.valueOf(categoryCount), "", true),
+                loadKpiCard("Low Stock", lowStockCount + " Items", "", false));
     }
 
     private void refreshList() {
@@ -111,7 +110,6 @@ public class InventoryDashboard {
 
             KpiCardController controller = loader.getController();
             controller.setData(title, value, trend, isPositive);
-            ((VBox) node).setAlignment(Pos.TOP_CENTER);
             HBox.setHgrow(node, Priority.ALWAYS);
             ((VBox) node).setMaxWidth(Double.MAX_VALUE);
 
@@ -144,7 +142,6 @@ public class InventoryDashboard {
 
             ProductCardController controller = loader.getController();
             controller.setData(product);
-            controller.setOnDeleteAction(onDelete);
             node.setOnMouseClicked(event -> {
                 if (Session.getInstance().getUser().getRole().toString() == "INVENTORY") {
                     openProductDetailsModal(product);

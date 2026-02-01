@@ -4,7 +4,6 @@ import com.hypermarket.data.DataStore;
 import com.hypermarket.data.FileManager;
 import com.hypermarket.entities.Offer;
 import com.hypermarket.entities.Product;
-import com.hypermarket.entities.Sales;
 import com.hypermarket.entities.User;
 import com.hypermarket.modules.components.KpiCardController;
 import com.hypermarket.modules.components.TableViewController;
@@ -23,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
@@ -39,37 +39,51 @@ public class MarketingViewController extends ViewController implements Initializ
 
     @FXML
     private AnchorPane contentArea;
+
     @FXML
     private Label pageTitle;
+
     @FXML
     private ImageView userImage;
 
     @FXML
     private VBox dashboardContainer;
+
     @FXML
     private HBox kpiContainer;
+
     @FXML
     private VBox dashboardContent;
+
     @FXML
     private AnchorPane tableContainer;
 
     @FXML
     private Label menuDashboard;
+
     @FXML
     private Label menuReports;
+
     @FXML
     private Label menuOffers;
+
     @FXML
     private Label menuUpdateUserInfo;
 
     @FXML
     private HBox menuDashboardItem;
+
     @FXML
     private HBox menuReportsItem;
+
     @FXML
     private HBox menuOffersItem;
+
     @FXML
     private HBox menuLogoutItem;
+
+    @FXML
+    private HBox userImageContainer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -83,6 +97,7 @@ public class MarketingViewController extends ViewController implements Initializ
         menuReportsItem.setOnMouseClicked(e -> showReports());
         menuOffersItem.setOnMouseClicked(e -> showOffers());
         menuUpdateUserInfo.setOnMouseClicked(e -> showUpdateUserInfo());
+        userImageContainer.setOnMouseClicked(e -> showUpdateUserInfo());
         menuLogoutItem.setOnMouseClicked(e -> onLogout.run());
     }
 
@@ -103,19 +118,18 @@ public class MarketingViewController extends ViewController implements Initializ
 
         DataStore db = DataStore.getDataStore();
 
-        // KPIs
         kpiContainer.getChildren().addAll(
-                loadKpiCard("Total Offers", String.valueOf(db.getOffers().size()), "5%", true),
+                loadKpiCard("Total Offers", String.valueOf(db.getOffers().size()), "", true),
                 loadKpiCard("Active Offers",
                         String.valueOf(
                                 db.getOffers().stream().filter(o -> o.getManualStatus() == Offer.Status.ACTIVE)
                                         .count()),
-                        "2%", true),
+                        "", true),
                 loadKpiCard("Expired Offers",
                         String.valueOf(
                                 db.getOffers().stream().filter(o -> o.getManualStatus() == Offer.Status.EXPIRED)
                                         .count()),
-                        "1%", false));
+                        "", false));
 
         // TableView of Offers
         ObservableList<Offer> offers = FXCollections.observableArrayList(db.getOffers());
@@ -126,6 +140,9 @@ public class MarketingViewController extends ViewController implements Initializ
             loader.setController(tableController);
             tableController.setColumnFormatter("product", obj -> {
                 return (obj != null) ? ((Product) obj).getName() : "Unknown";
+            });
+            tableController.setColumnFormatter("discount", obj -> {
+                return String.format("%3.0f%%", obj);
             });
             Parent tableNode = loader.load();
             tableContainer.getChildren().clear();
@@ -142,6 +159,8 @@ public class MarketingViewController extends ViewController implements Initializ
             Parent node = loader.load();
             KpiCardController controller = loader.getController();
             controller.setData(title, value, trend, isPositive);
+            HBox.setHgrow(node, Priority.ALWAYS);
+            ((VBox) node).setMaxWidth(Double.MAX_VALUE);
             return node;
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -201,7 +220,7 @@ public class MarketingViewController extends ViewController implements Initializ
     private void refereshImage() {
         User currentUser = Session.getInstance().getUser();
         try {
-            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            File imageFile = new File(FileManager.USER_IMAGE_PATH + currentUser.getImage());
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toURL().toString());
                 userImage.setImage(image);

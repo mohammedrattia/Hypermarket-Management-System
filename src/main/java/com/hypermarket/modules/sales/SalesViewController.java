@@ -65,6 +65,9 @@ public class SalesViewController extends ViewController implements Initializable
     private HBox menuLogoutItem;
 
     @FXML
+    private HBox userImageContainer;
+
+    @FXML
     private ImageView userImage;
 
     private SalesDashboard salesDashboard;
@@ -76,7 +79,7 @@ public class SalesViewController extends ViewController implements Initializable
         setUpNavigation();
         updateTitleAndActiveTab(menuDashboard);
         try {
-            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            File imageFile = new File(FileManager.USER_IMAGE_PATH + currentUser.getImage());
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toURL().toString());
                 userImage.setImage(image);
@@ -96,18 +99,11 @@ public class SalesViewController extends ViewController implements Initializable
 
     protected void setUpNavigation() {
         menuDashboardItem.setOnMouseClicked(event -> showDashboard());
-
         menuOrdersItem.setOnMouseClicked(event -> showListOrders());
-
         menuMakeOrderItem.setOnMouseClicked(event -> showMakeOrder());
-
-        menuUpdateUserInfo.setOnMouseClicked(event -> {
-            showUpdateUserInfo();
-        });
-
-        menuLogout.setOnMouseClicked(event -> {
-            onLogout.run();
-        });
+        menuUpdateUserInfo.setOnMouseClicked(event -> showUpdateUserInfo());
+        userImageContainer.setOnMouseClicked(event -> showUpdateUserInfo());
+        menuLogoutItem.setOnMouseClicked(event -> onLogout.run());
     }
 
     protected void showDashboard() {
@@ -185,7 +181,7 @@ public class SalesViewController extends ViewController implements Initializable
     private void refereshImage() {
         User currentUser = Session.getInstance().getUser();
         try {
-            File imageFile = new File(FileManager.IMAGE_PATH + currentUser.getImage());
+            File imageFile = new File(FileManager.USER_IMAGE_PATH + currentUser.getImage());
             if (imageFile.exists()) {
                 Image image = new Image(imageFile.toURI().toURL().toString());
                 userImage.setImage(image);

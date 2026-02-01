@@ -1,11 +1,8 @@
 package com.hypermarket.modules.components;
 
 import com.hypermarket.entities.*;
-// import javafx.beans.Observable;
-// import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-// import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class ProductPageController {
@@ -32,7 +29,10 @@ public class ProductPageController {
         productNameLabel.setText(product.getName());
         categoryLabel.setText("Category : " + product.getCategory());
         priceLabel.setText("Price : $" + product.getPrice());
-        priceLabel.setText("Offer : $" + product.getOffer());
+        if (product.getOffer() != null)
+            offerLabel.setText("Offer : $" + product.getOffer());
+        else
+            offerLabel.setText("");
         quantityLabel.setText("Quantity : " + product.getQuantity());
         sizeLabel.setText("Size : " + product.getSize());
         // durationLabel.setText("Duration : " + product.getDuration());

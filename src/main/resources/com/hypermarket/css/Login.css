@@ -59,16 +59,20 @@
 }
 
 .button {
-  -fx-background-color: linear-gradient(to bottom right,
-      #10b981 0%,
-      #059669 100%);
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #10b981 0%,
+    #059669 100%
+  );
   -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.3), 10, 0, 0, 4);
 }
 
 .button:hover {
-  -fx-background-color: linear-gradient(to bottom right,
-      #059669 0%,
-      #047857 100%);
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #059669 0%,
+    #047857 100%
+  );
   -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.6), 10, 0, 0, 4);
   -fx-font-weight: bold;
 }
@@ -97,16 +101,20 @@
 }
 
 .test-credentials-btn {
-  -fx-background-color: linear-gradient(to bottom right,
-      #10b981 0%,
-      #059669 100%);
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #10b981 0%,
+    #059669 100%
+  );
   -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.3), 10, 0, 0, 4);
 }
 
 .test-credentials-btn:hover {
-  -fx-background-color: linear-gradient(to bottom right,
-      #059669 0%,
-      #047857 100%);
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #059669 0%,
+    #047857 100%
+  );
   -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.6), 10, 0, 0, 4);
   -fx-font-weight: bold;
 }
@@ -124,4 +132,17 @@
 .test-credentials-box {
   -fx-alignment: center;
   -fx-spacing: 6;
+}
+
+.password-input {
+  -fx-padding: 12 45 12 20;
+}
+
+.eye-icon {
+  -fx-cursor: hand;
+  -fx-icon-color: #999999;
+}
+
+.eye-icon:hover {
+  -fx-icon-color: #10b981;
 }

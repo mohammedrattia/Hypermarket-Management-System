@@ -27,7 +27,7 @@
          <children>
             <FontIcon fx:id="trendIcon" iconLiteral="fas-arrow-up" iconSize="12"
                styleClass="kpi-trend-icon-positive" />
-            <Label fx:id="trendLabel" text="12.5%" styleClass="kpi-trend-positive"/>
+            <Label fx:id="trendLabel" text="12.5%" styleClass="kpi-trend-positive" />
          </children>
       </HBox>
    </children>

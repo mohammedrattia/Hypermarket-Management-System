@@ -50,13 +50,17 @@ public class Marketing extends User {
         return false;
     }
 
-    public boolean deleteOffer(int offerID) {
-        for (Offer offer : dataStore.getOffers()) {
-            if (offer.getOfferID() == offerID) {
-                dataStore.getOffers().remove(offer);
-                dataStore.saveAllData();
-                return true;
-            }
+    public boolean deleteOffer(Offer offer) {
+        if (offer == null) {
+            return false;
+        }
+        Product linkedProduct = offer.getProduct();
+        if (linkedProduct != null) {
+            linkedProduct.setOffer(null);
+        }
+        if (dataStore.getOffers().remove(offer)) {
+            dataStore.saveAllData();
+            return true;
         }
         return false;
     }

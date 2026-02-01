@@ -46,21 +46,17 @@ public class EmployeeGrid {
     private SortedList<User> sortedData;
 
     public Parent getView() {
-        // init the employee list
         setEmployeeList();
 
-        // set columns constraints
         ColumnConstraints colConst = new ColumnConstraints();
         colConst.setPercentWidth(33.33);
 
-        // make the grid of Employees
         grid = new GridPane();
         grid.setHgap(20);
         grid.setVgap(20);
         grid.setPadding(new Insets(30));
         grid.getColumnConstraints().addAll(colConst, colConst, colConst);
 
-        // put the grid into scroll pane
         scrollPane = new ScrollPane();
         scrollPane.setFitToWidth(true);
         scrollPane.setStyle("-fx-background-color: transparent;");

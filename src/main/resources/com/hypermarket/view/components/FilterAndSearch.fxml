@@ -6,7 +6,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 
-<HBox id="toolbar" prefHeight="46.0" prefWidth="776.0" styleClass="toolbar" stylesheets="@../../css/TableView.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="toolbar" prefHeight="46.0" prefWidth="776.0" styleClass="toolbar"
+   stylesheets="@../../css/TableView.css" xmlns="http://javafx.com/javafx/25"
+   xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label prefHeight="27.0" prefWidth="60.0" text="Filter:" />
       <ChoiceBox fx:id="filterButton" prefHeight="29.0" prefWidth="101.0" styleClass="button" />

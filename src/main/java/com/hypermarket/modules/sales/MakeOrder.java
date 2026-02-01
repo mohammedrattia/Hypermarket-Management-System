@@ -12,6 +12,7 @@ import com.hypermarket.entities.Sales;
 import com.hypermarket.modules.inventory.ProductsGrid;
 import com.hypermarket.service.ListManipulation;
 import com.hypermarket.service.Session;
+import com.hypermarket.service.Toast;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -110,33 +111,57 @@ public class MakeOrder implements Initializable {
         });
         purchaseButton.setOnMouseClicked(event -> handlePurchase());
         cancelButton.setOnMouseClicked(event -> handleCancelOrder());
-        viewReceiptButton.setOnMouseClicked(event -> currentOrder.printReceipt());
+        viewReceiptButton.setOnMouseClicked(event -> handleViewReceipt());
         addUpdateButton.setOnMouseClicked(event -> addUpdateItem());
         clearButton.setOnMouseClicked(event -> clearItems());
         removeButton.setOnMouseClicked(event -> removeItem());
     }
 
     private void handlePurchase() {
+        if (currentOrder.getItems().isEmpty()) {
+            String emptyCartErrorMsg = "There are no items in the cart!";
+            Toast.showToast(emptyCartErrorMsg, Toast.NotificationType.WARNING);
+            return;
+        }
         try {
-            System.out.println("Purchased");
             currentOrder.purchase();
             startNewOrder();
-            System.out.println("Everything Cleared");
+            String createOrderSuccessMsg = "Order #" + currentOrder.getOrderID() + " created successfully.";
+            Toast.showToast(createOrderSuccessMsg, Toast.NotificationType.INFORMATION);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     private void handleCancelOrder() {
+        if (currentOrder.getItems().isEmpty()) {
+            String emptyCartErrorMsg = "There are no items in the cart!";
+            Toast.showToast(emptyCartErrorMsg, Toast.NotificationType.WARNING);
+            return;
+        }
+        String cancelOrderSuccessMsg = "Order cancelled successfully.";
+        Toast.showToast(cancelOrderSuccessMsg, Toast.NotificationType.INFORMATION);
         startNewOrder();
     }
 
     private void startNewOrder() {
         currentOrder = ((Sales) Session.getInstance().getUser()).MakeOrder();
-        clearItems();
         clearInputFields();
+        currentOrder.getItems().clear();
+        currentOrder.calculateTotalPrice();
+        currentOrder.calculateTotalQuantity();
         bindOrderDetails();
         bindOrderItems();
+    }
+
+    private void handleViewReceipt() {
+        if (currentOrder.getItems().isEmpty()) {
+            String emptyCartErrorMsg = "There are no items in the cart!";
+            Toast.showToast(emptyCartErrorMsg, Toast.NotificationType.WARNING);
+            return;
+        }
+        currentOrder.printReceipt();
     }
 
     private void loadOrder() {
@@ -149,6 +174,9 @@ public class MakeOrder implements Initializable {
     }
 
     private void addUpdateItem() {
+        if (!validateInput()) {
+            return;
+        }
         int productQuantity = Integer.parseInt(itemProductQuantity.getText());
         int productID = Integer.parseInt(itemProductID.getText());
 
@@ -157,39 +185,73 @@ public class MakeOrder implements Initializable {
             chosenProduct = ListManipulation.searchObjectWithID(DataStore.getDataStore().getProducts(),
                     String.valueOf(productID));
         } catch (Exception e) {
-            System.out.println("Product not found");
-            return;
         }
-        // if (chosenProduct == null) {
-        // System.out.println("Product not found");
-        // }
-
-        if (productQuantity <= 0) {
-            System.out.println("Quantity must be > 0");
+        if (chosenProduct == null) {
+            String productNotFoundErrorMsg = "There is no product with such ID.";
+            Toast.showToast(productNotFoundErrorMsg, Toast.NotificationType.ERROR);
             return;
         }
         if (productQuantity > chosenProduct.getQuantity()) {
-            System.out.println("Not enough stock (Max: " + chosenProduct.getQuantity() + ")");
+            String lowStockErrorMsg = "Not enough stock (Max: " + chosenProduct.getQuantity() + ")";
+            Toast.showToast(lowStockErrorMsg, Toast.NotificationType.ERROR);
+            System.out.println();
             return;
         }
         OrderItem existingItem = findItemByProduct(chosenProduct);
 
+        String addUpdateItemSuccessMsg = "";
         if (existingItem != null) {
             existingItem.setQuantity(productQuantity);
+            addUpdateItemSuccessMsg = "Item updated successfully.";
         } else {
             currentOrder.addItem(chosenProduct, productQuantity);
+            addUpdateItemSuccessMsg = "New item added successfully.";
         }
+        Toast.showToast(addUpdateItemSuccessMsg, Toast.NotificationType.INFORMATION);
         clearInputFields();
     }
 
     private void clearItems() {
+        if (currentOrder.getItems().isEmpty()) {
+            String emptyCartErrorMsg = "There are no items in the cart!";
+            Toast.showToast(emptyCartErrorMsg, Toast.NotificationType.WARNING);
+            return;
+        }
+        clearInputFields();
         currentOrder.getItems().clear();
         currentOrder.calculateTotalPrice();
         currentOrder.calculateTotalQuantity();
+        String clearCartSuccessMsg = "Cart cleared successfully.";
+        Toast.showToast(clearCartSuccessMsg, Toast.NotificationType.INFORMATION);
     }
 
     private void removeItem() {
+        if (selectedOrderItem == null) {
+            String removeItemErrorMsg = "No item selected from the cart.";
+            Toast.showToast(removeItemErrorMsg, Toast.NotificationType.WARNING);
+            return;
+        }
         currentOrder.getItems().remove(selectedOrderItem);
+        String removeSuccessMsg = "Item " + selectedOrderItem.getProduct().getName() + " removed successfully.";
+        Toast.showToast(removeSuccessMsg, Toast.NotificationType.INFORMATION);
+    }
+
+    private boolean validateInput() {
+        String errorMessage = "";
+        if (itemProductID.getText().isEmpty() || itemProductQuantity.getText().isEmpty()) {
+            errorMessage = "Make sure Product ID and Quantity fields are filled.";
+        } else if (!itemProductID.getText().matches("^.*\\S.*$")) {
+            errorMessage = "Invalid product ID.";
+        } else if (!itemProductQuantity.getText().matches("^\\d{1,}$")) {
+            errorMessage = "Invalid Product Quantity entered.";
+        } else if (Integer.parseInt(itemProductQuantity.getText()) <= 0) {
+            errorMessage = "Product Quantity must be greater than 0.";
+        }
+        if (!errorMessage.isEmpty()) {
+            Toast.showToast(errorMessage, Toast.NotificationType.ERROR);
+            return false;
+        }
+        return true;
     }
 
     private void clearInputFields() {

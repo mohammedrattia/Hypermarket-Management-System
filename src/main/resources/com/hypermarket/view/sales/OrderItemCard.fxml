@@ -6,26 +6,26 @@
 <?import javafx.scene.layout.VBox?>
 
 <HBox fx:id="orderItemCard" alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0"
-   styleClass="order-item-card" xmlns="http://javafx.com/javafx/25"
-   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.sales.OrderItemCard">
-   <stylesheets>
-      <URL value="@../../css/OrderItemCard.css" />
-   </stylesheets>
-   <children>
-      <VBox alignment="CENTER_LEFT" spacing="3.0" HBox.hgrow="ALWAYS">
-         <children>
-            <Label fx:id="itemName" styleClass="item-name" text="Large Cabinet" />
-            <HBox spacing="2.0">
-               <children>
-                  <Label fx:id="itemQuantity" styleClass="item-details-text" text="6.00" />
-                  <Label styleClass="item-details-text" text="Units x $" />
-                  <Label fx:id="itemUnitPrice" styleClass="item-details-text" text="200.00" />
-                  <Label styleClass="item-details-text" text=" / Units" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-      <Label fx:id="itemTotalPrice" alignment="CENTER_RIGHT" styleClass="item-total-price"
-         text="\$ 1,200.00" />
-   </children>
+  styleClass="order-item-card" xmlns="http://javafx.com/javafx/25"
+  xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.sales.OrderItemCard">
+  <stylesheets>
+    <URL value="@../../css/OrderItemCard.css" />
+  </stylesheets>
+  <children>
+    <VBox alignment="CENTER_LEFT" spacing="3.0" HBox.hgrow="ALWAYS">
+      <children>
+        <Label fx:id="itemName" styleClass="item-name" text="Large Cabinet" />
+        <HBox spacing="2.0">
+          <children>
+            <Label fx:id="itemQuantity" styleClass="item-details-text" text="6.00" />
+            <Label styleClass="item-details-text" text="Units x $" />
+            <Label fx:id="itemUnitPrice" styleClass="item-details-text" text="200.00" />
+            <Label styleClass="item-details-text" text=" / Units" />
+          </children>
+        </HBox>
+      </children>
+    </VBox>
+    <Label fx:id="itemTotalPrice" alignment="CENTER_RIGHT" styleClass="item-total-price"
+      text="\$ 1,200.00" />
+  </children>
 </HBox>

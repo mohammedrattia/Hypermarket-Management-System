@@ -39,7 +39,7 @@
   -fx-focus-color: transparent;
 }
 
-.menu-scroll>.viewport {
+.menu-scroll > .viewport {
   -fx-background-color: transparent;
 }
 
@@ -55,9 +55,19 @@
   -fx-cursor: hand;
 }
 
-.menu-item:hover,
-.active-label {
+.user-profile:hover {
+  -fx-scale-x: 1.1;
+  -fx-scale-y: 1.1;
+  -fx-cursor: hand;
+}
+
+.menu-item:hover {
   -fx-background-color: rgba(255, 255, 255, 0.15);
+  -fx-scale-x: 1.05;
+  -fx-scale-y: 1.05;
+}
+
+.active-label {
   -fx-scale-x: 1.05;
   -fx-scale-y: 1.05;
 }
@@ -139,45 +149,57 @@
 }
 
 .confirm-btn {
-  -fx-background-color: linear-gradient(to bottom right,
-      #10b981 0%,
-      #059669 100%);
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #10b981 0%,
+    #059669 100%
+  );
   -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.3), 10, 0, 0, 4);
 }
 
 .confirm-btn:hover {
-  -fx-background-color: linear-gradient(to bottom right,
-      #059669 0%,
-      #047857 100%);
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #059669 0%,
+    #047857 100%
+  );
   -fx-effect: dropshadow(gaussian, rgba(16, 185, 129, 0.6), 10, 0, 0, 4);
   -fx-font-weight: bold;
 }
 
 .cancel-btn {
-  -fx-background-color: linear-gradient(to bottom right,
-      #ef4444 0%,
-      #dc2626 100%);
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #ef4444 0%,
+    #dc2626 100%
+  );
   -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.3), 10, 0, 0, 4);
 }
 
 .cancel-btn:hover {
-  -fx-background-color: linear-gradient(to bottom right,
-      #dc2626 0%,
-      #b91c1c 100%);
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #dc2626 0%,
+    #b91c1c 100%
+  );
   -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.5), 15, 0, 0, 6);
 }
 
 .edit-btn {
-  -fx-background-color: linear-gradient(to bottom right,
-      #ffae22 0%,
-      #f18e1e 100%);
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #ffae22 0%,
+    #f18e1e 100%
+  );
   -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.3), 10, 0, 0, 4);
 }
 
 .edit-btn:hover {
-  -fx-background-color: linear-gradient(to bottom right,
-      #f2a624 0%,
-      #ea891a 100%);
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #f2a624 0%,
+    #ea891a 100%
+  );
   -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.5), 15, 0, 0, 6);
 }
 
@@ -201,12 +223,10 @@
 .menu-text {
   -fx-font-size: 16px;
   -fx-max-width: 150px;
-
 }
 
 .menu-icon-box {
   -fx-alignment: center;
   -fx-min-width: 30px;
   -fx-max-width: 30px;
-
 }

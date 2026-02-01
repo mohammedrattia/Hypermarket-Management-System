@@ -8,33 +8,50 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox id="productCard" fx:id="productCard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="172.0" prefWidth="380.0" styleClass="product-card" stylesheets="@../../css/productCard.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hypermarket.modules.components.ProductCardController">
+<HBox id="productCard" fx:id="productCard" maxHeight="-Infinity" maxWidth="-Infinity"
+   minHeight="-Infinity" minWidth="-Infinity" prefHeight="172.0" prefWidth="380.0"
+   styleClass="product-card" stylesheets="@../../css/productCard.css"
+   xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="com.hypermarket.modules.components.ProductCardController">
    <children>
-      <StackPane id="image-container" prefHeight="176.0" prefWidth="182.0" styleClass="image-container">
+      <StackPane id="image-container" prefHeight="176.0" prefWidth="182.0"
+         styleClass="image-container">
          <children>
-             <ImageView fx:id="productImage" fitHeight="159.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" smooth="true" styleClass="product-image" />
+            <ImageView fx:id="productImage" fitHeight="150.0" fitWidth="125.0" pickOnBounds="true"
+               preserveRatio="true" smooth="true" styleClass="product-image" />
          </children>
       </StackPane>
       <Separator orientation="VERTICAL" prefHeight="152.0" prefWidth="11.0" />
-      <VBox id="productInformation" prefHeight="162.0" prefWidth="336.0" styleClass="product-information" HBox.hgrow="ALWAYS">
+      <VBox id="productInformation" prefHeight="162.0" prefWidth="336.0"
+         styleClass="product-information" HBox.hgrow="ALWAYS">
          <children>
-            <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="13.0" prefWidth="500.0">
+            <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308"
+               maxWidth="1.7976931348623157E308" prefHeight="13.0" prefWidth="500.0">
                <children>
-                  <Label id="productNameCard" fx:id="productNameCard" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="296.0" styleClass="product-name-card" text="Name: Juice" HBox.hgrow="ALWAYS">
+                  <Label id="productNameCard" fx:id="productNameCard"
+                     maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                     prefHeight="38.0" prefWidth="296.0" styleClass="product-name-card"
+                     text="Name: Juice" HBox.hgrow="ALWAYS">
                      <font>
                         <Font size="6.0" />
-                     </font></Label>
-                  <Label id="productIDCard" fx:id="productIDCard" prefHeight="38.0" prefWidth="234.0" styleClass="product-id-card" text="ID:100">
+                     </font>
+                  </Label>
+                  <Label id="productIDCard" fx:id="productIDCard" prefHeight="38.0"
+                     prefWidth="234.0" styleClass="product-id-card" text="#100">
                      <font>
                         <Font size="19.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                </children>
             </HBox>
             <Separator prefWidth="200.0" />
-            <Label id="productQuantityCard" fx:id="productQuantityCard" prefHeight="26.0" prefWidth="348.0" styleClass="product-quantity-card" text="Quantity: 100" />
-            <Label fx:id="originalPriceCard" styleClass="original-price" text="Original: 20 $" visible="false" managed="false" />
-            <Label id="productPriceCard" fx:id="productPriceCard" prefHeight="32.0" prefWidth="348.0" styleClass="product-price-card" text="Price: 15 $" />
-            <Label fx:id="CategoryLabel" text="Category: " />
+            <Label id="productQuantityCard" fx:id="productQuantityCard" prefHeight="26.0"
+               prefWidth="348.0" styleClass="product-quantity-card" text="Quantity: 100" />
+            <Label fx:id="originalPriceCard" managed="false" styleClass="original-price"
+               text="Original: 20 $" visible="false" />
+            <Label id="productPriceCard" fx:id="productPriceCard" prefHeight="32.0"
+               prefWidth="348.0" styleClass="product-price-card" text="Price: 15 $" />
+            <Label fx:id="CategoryLabel" styleClass="product-category-card" text="Category: " />
          </children>
       </VBox>
    </children>
